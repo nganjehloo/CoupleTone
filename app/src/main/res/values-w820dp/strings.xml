@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="my_locations">My Locations</string>
+    <string name="map_button">map screen</string>
+    <string name="location_name_prompt">Name</string>
+</resources>
