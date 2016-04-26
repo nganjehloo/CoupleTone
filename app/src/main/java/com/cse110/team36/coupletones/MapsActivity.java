@@ -1,10 +1,16 @@
 package com.cse110.team36.coupletones;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.SystemClock;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.BounceInterpolator;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -33,6 +39,33 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+            }});
+
+
+        Button myLocButton = (Button) findViewById(R.id.myLocButton);
+
+        myLocButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+            }});
+
+
+        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+            }});
     }
 
 
@@ -76,25 +109,18 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
      *****/
     public void onMapLongClick(LatLng point) {
 
-//        mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
-        dropPinEffect(mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude))));
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // Marker object, drops where long click has occured
+        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
+        // Special dropping effect
+        dropPinEffect(marker);
+        // Add circle around marker to display the 1/10th of a mile radius
+        addMarkerCircle(marker);
+
         /* Open dialog box for saving location
          *          Added by WigginWannabe 26 Apr 2016
          */
         LocationDialog locationDialog = new LocationDialog(point);
         locationDialog.show(getFragmentManager(), "set location");
-
-        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
-//        mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
-        dropPinEffect(marker);
-
-
-        addMarkerCircle(marker);
 
     }
 
