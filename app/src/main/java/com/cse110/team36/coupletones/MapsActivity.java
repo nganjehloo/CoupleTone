@@ -1,5 +1,6 @@
 package com.cse110.team36.coupletones;
 
+import android.app.FragmentManager;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -12,6 +13,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.sql.Time;
+import java.util.Timer;
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener, OnMapReadyCallback {
 
@@ -68,8 +72,20 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
      *****/
     public void onMapLongClick(LatLng point) {
 
+
+
 //        mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
         dropPinEffect(mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude))));
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        /* Open dialog box for saving location
+         *          Added by WigginWannabe 26 Apr 2016
+         */
+        LocationDialog locationDialog = new LocationDialog(point);
+        locationDialog.show(getFragmentManager(), "set location");
     }
 
 

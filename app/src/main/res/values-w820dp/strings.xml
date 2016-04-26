@@ -3,4 +3,5 @@
     <string name="my_locations">My Locations</string>
     <string name="map_button">map screen</string>
     <string name="location_name_prompt">Name</string>
+    <string name="new_loc_name">Name this location</string>
 </resources>

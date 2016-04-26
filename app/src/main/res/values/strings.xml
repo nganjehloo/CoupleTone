@@ -6,6 +6,8 @@
     <string name="location_name_prompt">Name</string>
     <string name="set_name">Set</string>
     <string name="cancel">Cancel</string>
+    <string name="new_loc_name">Name favorite location</string>
+    <string name="name_field">yum yum factory</string>
 
 
 </resources>
