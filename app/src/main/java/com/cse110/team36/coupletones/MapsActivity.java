@@ -11,8 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.SystemClock;
 import android.os.Vibrator;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -68,10 +67,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     /* Create new location with the coordinates and name */
     @Override
     public void onDialogPositiveClick(String name, LatLng loc) {
-        // User touched the dialog's positive button
+        /* NOTE (Aimed toward locations team)
+         * This implementation is temporary - I was testing that the information gets here
+         * Use this method to save the new location
+         */
         FaveLocation newLoc = new FaveLocation(name, loc);
         Toast.makeText(getBaseContext(),
-                "" + String.valueOf(loc.latitude) + ", " + String.valueOf(loc.longitude),
+                "" + name + "\n" + String.valueOf(loc.latitude) + ", " + String.valueOf(loc.longitude),
                 Toast.LENGTH_SHORT).show();
     }
 
