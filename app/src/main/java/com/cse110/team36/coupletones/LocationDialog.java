@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 
 
 /**
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class LocationDialog extends DialogFragment {
     private LatLng coords;
+    private Marker marker;
 
     public interface LocationDialogListener {
         void onDialogPositiveClick(String name, LatLng loc);
@@ -29,6 +31,10 @@ public class LocationDialog extends DialogFragment {
     }
 
     LocationDialogListener listener;
+
+    public void setMarker(Marker marker) {
+        this.marker = marker;
+    }
 
     @Override
     public void onAttach(Activity activity) {
