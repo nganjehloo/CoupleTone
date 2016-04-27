@@ -1,17 +1,27 @@
 package com.cse110.team36.coupletones;
 
+import android.Manifest;
+import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,12 +36,29 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.sql.Time;
 import java.util.Timer;
 
-public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener, OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
+                                                                OnMapReadyCallback,
+                                                                LocationDialog.LocationDialogListener {
 
     private GoogleMap mMap;
     final float ONE_TENTH_MILE = 160.934f;  // ONE TENTH OF A MILE (in meters) ***** ADDED BY MrSwirlyEyes 4/26
 
 
+
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following methods
+    // defined by the LocationDialogFragment.LocationDialogListener interface
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        // User touched the dialog's positive button
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        // User touched the dialog's negative button
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +68,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-//        mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
-//        mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
 
         ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
 
@@ -86,6 +110,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
+
         mMap.setOnMapLongClickListener(this);   // LISTENER FOR THE LONG-CLICK SO MARKER DROPS ON HELD LOCATION
 
 
@@ -97,13 +123,85 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         //FROM HERE
         LatLng ucsd = new LatLng(32.8801, -117.2340);       // GPS COORDS OF UCSD
         mMap.addMarker(new MarkerOptions().position(ucsd).title("Marker in UCSD")); // MARKER OPTIONS with TITLE and POSITION @ GPS COORDS OF UCSD
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(ucsd));   // MOVES CAMERA TO FOCUS UCSD IN THE MIDDLE
+
+        mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
+        mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
 
         float zoomLevel = 15; // Sets default zoom level (instead of seeing world, zooms to UCSD) [This goes up to 21]
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ucsd, zoomLevel));    // MOVES CAMERA THEN ZOOMS TO SET ZOOM LEVEL
 
-//        mMap.getUiSettings().setZoomControlsEnabled(true);  // ??? Sets zoom controls to work!?!
-        //TO HERE
+
+
+
+        //GPS
+        final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        String locationProvider = LocationManager.GPS_PROVIDER;
+
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    100);
+            Log.d("test1", "ins");
+            return;
+        } else if(mMap != null) {
+            Log.d("test2", "outs");
+            mMap.setMyLocationEnabled(true);
+        }
+//        final Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("updated path"));
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+
+                // Create a criteria object to retrieve provider
+                Criteria criteria = new Criteria();
+
+                // Get the name of the best provider
+                String provider = locationManager.getBestProvider(criteria, true);
+                Location myLocation = null;
+                try {
+                    if (mMap != null)
+                        myLocation = locationManager.getLastKnownLocation(provider);
+                } catch (SecurityException e) {
+                    Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
+                }
+                // Get latitude of the current location
+//                double latitude = myLocation.getLatitude();
+
+                // Get longitude of the current location
+//                double longitude = myLocation.getLongitude();
+
+                // Create a LatLng object for the current location
+//                LatLng gpsPos = new LatLng(latitude, longitude);
+
+//                marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+//                mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
+            }
+
+//            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+//            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+//            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+
+//        locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
+
     }
 
     /***** DROPPING OF MAP MARKER ON MAP LONG-CLICK
@@ -112,7 +210,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
      *
      *****/
     public void onMapLongClick(LatLng point) {
-
         // Marker object, drops where long click has occured
         Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
         // Special dropping effect
@@ -123,9 +220,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         /* Open dialog box for saving location
          *          Added by WigginWannabe 26 Apr 2016
          */
-        LocationDialog locationDialog = new LocationDialog(point);
+        LocationDialog locationDialog = new LocationDialog();
+        locationDialog.setArguments(new Bundle());
         locationDialog.show(getFragmentManager(), "set location");
 
+        // Stazia: I am not finished implementing it yet, but I expected that locations team will have
+        // the new name available to them around here, for creating a new location
     }
 
 
@@ -196,11 +296,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         // Circle object with particular options, adds it to map around marker determined by position
         mMap.addCircle(/*CircleOptions markerRadius = */new CircleOptions()
 //                      .center(favLocMarker)       // The marker to create the circle around (or at its center) based on LatLng (coordinates)
-                  .center(marker.getPosition())
-                    .radius(ONE_TENTH_MILE)     // Creates circle of radius ONE_TENTH_MILE (takes in meter value)
-                    .fillColor(0x88AABBCC)      // Circle fill colour is 88 (partially transparent) with AABBCC (color code), default is black 0xFF000000
-                    .strokeWidth(0.0f)         // Width of the stroke (circle outline), default is 10
-                    .strokeColor(0x00000000)   // Circle outline is transparent (the first 2 00's --> transparency)
+                .center(marker.getPosition())
+                .radius(ONE_TENTH_MILE)     // Creates circle of radius ONE_TENTH_MILE (takes in meter value)
+                .fillColor(0x88AABBCC)      // Circle fill colour is 88 (partially transparent) with AABBCC (color code), default is black 0xFF000000
+                .strokeWidth(0.0f)         // Width of the stroke (circle outline), default is 10
+                .strokeColor(0x00000000)   // Circle outline is transparent (the first 2 00's --> transparency)
         );
     }
 
