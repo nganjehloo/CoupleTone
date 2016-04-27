@@ -1,5 +1,6 @@
 package com.cse110.team36.coupletones;
 
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
@@ -20,10 +21,27 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.sql.Time;
 import java.util.Timer;
 
-public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener, OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
+                                                                OnMapReadyCallback,
+                                                                LocationDialog.LocationDialogListener {
 
     private GoogleMap mMap;
     final float ONE_TENTH_MILE = 160.934f;  // ONE TENTH OF A MILE (in meters) ***** ADDED BY MrSwirlyEyes 4/26
+
+    // The dialog fragment receives a reference to this Activity through the
+    // Fragment.onAttach() callback, which it uses to call the following methods
+    // defined by the LocationDialogFragment.LocationDialogListener interface
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+        // User touched the dialog's positive button
+
+    }
+
+    @Override
+    public void onDialogNegativeClick(DialogFragment dialog) {
+        // User touched the dialog's negative button
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,22 +96,20 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
 //        mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
         dropPinEffect(mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude))));
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
         /* Open dialog box for saving location
          *          Added by WigginWannabe 26 Apr 2016
          */
-        LocationDialog locationDialog = new LocationDialog(point);
+        LocationDialog locationDialog = new LocationDialog();
+        locationDialog.setArguments(new Bundle());
         locationDialog.show(getFragmentManager(), "set location");
+
+        // Stazia: I am not finished implementing it yet, but I expected that locations team will have
+        // the new name available to them around here, for creating a new location
 
         Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
 //        mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
         dropPinEffect(marker);
-
-
         addMarkerCircle(marker);
 
     }
@@ -166,11 +182,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         // Circle object with particular options, adds it to map around marker determined by position
         mMap.addCircle(/*CircleOptions markerRadius = */new CircleOptions()
 //                      .center(favLocMarker)       // The marker to create the circle around (or at its center) based on LatLng (coordinates)
-                  .center(marker.getPosition())
-                    .radius(ONE_TENTH_MILE)     // Creates circle of radius ONE_TENTH_MILE (takes in meter value)
-                    .fillColor(0x88AABBCC)      // Circle fill colour is 88 (partially transparent) with AABBCC (color code), default is black 0xFF000000
-                    .strokeWidth(0.0f)         // Width of the stroke (circle outline), default is 10
-                    .strokeColor(0x00000000)   // Circle outline is transparent (the first 2 00's --> transparency)
+                .center(marker.getPosition())
+                .radius(ONE_TENTH_MILE)     // Creates circle of radius ONE_TENTH_MILE (takes in meter value)
+                .fillColor(0x88AABBCC)      // Circle fill colour is 88 (partially transparent) with AABBCC (color code), default is black 0xFF000000
+                .strokeWidth(0.0f)         // Width of the stroke (circle outline), default is 10
+                .strokeColor(0x00000000)   // Circle outline is transparent (the first 2 00's --> transparency)
         );
     }
 
