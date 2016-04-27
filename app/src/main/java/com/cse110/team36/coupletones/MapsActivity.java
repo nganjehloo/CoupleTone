@@ -59,10 +59,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     // The dialog fragment receives a reference to this Activity through the
     // Fragment.onAttach() callback, which it uses to call the following methods
     // defined by the LocationDialogFragment.LocationDialogListener interface
+    /* Create new location with the coordinates and name */
     @Override
-    public void onDialogPositiveClick(DialogFragment dialog) {
+    public void onDialogPositiveClick(String name, LatLng loc) {
         // User touched the dialog's positive button
-
+        FaveLocation newLoc = new FaveLocation(name, loc);
+        Toast.makeText(getBaseContext(),
+                "" + String.valueOf(loc.latitude) + ", " + String.valueOf(loc.longitude),
+                Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -272,9 +276,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         /* Open dialog box for saving location
          *          Added by WigginWannabe 26 Apr 2016
          */
-            LocationDialog locationDialog = new LocationDialog();
-            locationDialog.setArguments(new Bundle());
-            locationDialog.show(getFragmentManager(), "set location");
+        double locPoints[] = new double[2];
+        locPoints[0] = point.latitude; locPoints[1] = point.longitude;
+        LocationDialog locationDialog = new LocationDialog();
+        Bundle args = new Bundle();
+        args.putDoubleArray("location", locPoints);
+        locationDialog.setArguments(args);
+        locationDialog.show(getFragmentManager(), "set location");
 
             // Stazia: I am not finished implementing it yet, but I expected that locations team will have
             // the new name available to them around here, for creating a new location

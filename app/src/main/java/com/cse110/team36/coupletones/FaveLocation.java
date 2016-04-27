@@ -9,7 +9,7 @@ public class FaveLocation {
     private LatLng coords;
     private String name;
 
-    FaveLocation(LatLng coords, String name) {
+    FaveLocation(String name, LatLng coords) {
         this.coords = coords;
         this.name = name;
     }

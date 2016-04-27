@@ -9,16 +9,20 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.widget.EditText;
+
+import com.google.android.gms.maps.model.LatLng;
 
 
 /**
  * Dialog to appear when naming or renaming locations
  */
 public class LocationDialog extends DialogFragment {
+    private LatLng coords;
 
     public interface LocationDialogListener {
-        public void onDialogPositiveClick(DialogFragment dialog);
-        public void onDialogNegativeClick(DialogFragment dialog);
+        void onDialogPositiveClick(String name, LatLng loc);
+        void onDialogNegativeClick(DialogFragment dialog);
     }
 
     LocationDialogListener listener;
@@ -45,18 +49,20 @@ public class LocationDialog extends DialogFragment {
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.name_location, null));
+        builder.setView(inflater.inflate(R.layout.name_location,null));
         builder.setPositiveButton(R.string.set_name, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                //FaveLocation newLoc = new FaveLocation();
+                String newName = ((EditText) getView().findViewById(R.id.namefield)).getText().toString();
+                double loc[] = getArguments().getDoubleArray("location");
+                coords = new LatLng(loc[0], loc[1]);
+                listener.onDialogPositiveClick(newName, coords);
             }
-        })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // User cancelled the dialog
-                    }
-                });
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {}
+        });
         // Create the AlertDialog object and return it
         return builder.create();
+
     }
 }
