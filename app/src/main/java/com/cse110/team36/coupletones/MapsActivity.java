@@ -251,7 +251,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         double dist = distance.computeDistanceBetween(new LatLng(gpsLatitude,gpsLongitude),point);
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 
-          String markerCoords = "D= " + dist + "\nt=" + timeStamp;
+          String markerCoords = "";
 //        String markerCoords = "D= " + dist + "\nLat=" + xx + "\nLong=" + yy + "\ngpsLat=" + MapsActivity.gpsLatitude + "\ngpsLong" + MapsActivity.gpsLongitude;
 
         if ( dist > ONE_TENTH_MILE ) {
@@ -269,7 +269,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
              */
 //            Location.distanceBetween( MapsActivity.gpsLatitude, MapsActivity.gpsLongitude,
 //                                        circle.getCenter().latitude, circle.getCenter().longitude, vector);
-            markerCoords = "D=" + dist + "\nt=" + timeStamp + "\nI am INSIDE the ONE_TENTH_MILE";
+            markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nI am OUTSIDE the ONE_TENTH_MILE";
             Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
 
             double locPoints[] = new double[2];
@@ -283,7 +283,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
             } else {
                 // NOT WITHIN ONE TENTH OF MILE
-                markerCoords = "D=" + dist + "\nt=" + timeStamp + "\nI am INSIDE the ONE_TENTH_MILE";
+                markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nI am INSIDE the ONE_TENTH_MILE";
                 Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
             }
     }
