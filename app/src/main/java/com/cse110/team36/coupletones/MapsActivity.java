@@ -205,9 +205,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 // Create a LatLng object for the current location
                 gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
                 String string = "" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()) + "\n";
-                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
-                polylineOptions.add(new LatLng(location.getLatitude(),location.getLongitude()));
-                polyline = mMap.addPolyline(polylineOptions);
+//                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
+//                polylineOptions.add(new LatLng(location.getLatitude(),location.getLongitude()));
+//                polyline = mMap.addPolyline(polylineOptions);
 //                marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
 //                mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
             }
@@ -239,64 +239,25 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
      *
      *****/
     public void onMapLongClick(LatLng point) {
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 100 milliseconds
+        v.vibrate(100);
 
-//        Criteria criteria = new Criteria();
-//        final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-//        String provider = locationManager.getBestProvider(criteria, true);
-//
-//        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            ActivityCompat.requestPermissions(this,
-//                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-//                    100);
-//            Log.d("test1", "ins");
-//            return;
-//        } else if(mMap != null) {
-//            Log.d("test2", "outs");
-//            mMap.setMyLocationEnabled(true);
-//        }
-//        Location myLocation = locationManager.getLastKnownLocation(provider);
-
-//        LatLng tmp = new LatLng((float) gpsPos.latitude, (float) gpsPos.longitude);
-//        float abs_x = Math.abs((float) point.latitude - (float) gpsPos.latitude);
-//        abs_x = abs_x * abs_x;
-//        float abs_y = Math.abs((float) point.longitude - (float) gpsPos.longitude);
-//        abs_y = abs_y * abs_y;
-//        double gps_x = gpsPos.latitude;
-//        float gps_y = (float) gpsPos.longitude
-
-
-        double xx = gpsLatitude - point.latitude;
-        double x_sq = xx * xx;
-        double yy = gpsLongitude - point.longitude;
-        double y_sq = yy * yy;
+//        double xx = gpsLatitude - point.latitude;
+//        double x_sq = xx * xx;
+//        double yy = gpsLongitude - point.longitude;
+//        double y_sq = yy * yy;
 //        double dist = Math.sqrt(x_sq + y_sq);
 
         SphericalUtil distance = new SphericalUtil();
         double dist = distance.computeDistanceBetween(new LatLng(gpsLatitude,gpsLongitude),point);
-
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 
-        polylineOptions.add(point);
-        polyline = mMap.addPolyline(polylineOptions);
+//        polylineOptions.add(point);
+//        polyline = mMap.addPolyline(polylineOptions);
 
-//        String markerCoords = "t = " + timeStamp + "\nx =" + gpsLatitude + "\ny=" + gpsLongitude;
-                String markerCoords = "D= " + dist + "\nLat=" + xx + "\nLong=" + yy + "\ngpsLat=" + MapsActivity.gpsLatitude + "\ngpsLong" + MapsActivity.gpsLongitude;
-//        String markerCoords = "dist=" + dist;
-
-//        Toast.makeText(MapsActivity.this, markerCoords, Toast.LENGTH_LONG).show();
-//        if ( Math.sqrt(abs_x + abs_y) > ONE_TENTH_MILE ) {
-        // Get instance of Vibrator from current Context
-            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-            // Vibrate for 400 milliseconds
-            v.vibrate(100);
+                String markerCoords = "D= " + dist + "\nt=" + timeStamp;
+//        String markerCoords = "D= " + dist + "\nLat=" + xx + "\nLong=" + yy + "\ngpsLat=" + MapsActivity.gpsLatitude + "\ngpsLong" + MapsActivity.gpsLongitude;
 
             if ( dist > ONE_TENTH_MILE ) {
                 // Marker object, drops where long click has occurred
@@ -315,6 +276,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         /* Open dialog box for saving location
          *          Added by WigginWannabe 26 Apr 2016
          */
+                Location.distanceBetween( MapsActivity.gpsLatitude, MapsActivity.gpsLongitude,
+                        circle.getCenter().latitude, circle.getCenter().longitude, gpsPoint);
+//                Toast.makeText(getBaseContext(), String.valueOf(gpsPoint[0]), Toast.LENGTH_LONG).show();
+                markerCoords = "D=" + dist + "\nt=" + timeStamp + "\nI am INSIDE the ONE_TENTH_MILE";
+                Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
 
                 double locPoints[] = new double[2];
                 locPoints[0] = point.latitude; locPoints[1] = point.longitude;
@@ -323,18 +289,16 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 args.putDoubleArray("location", locPoints);
                 locationDialog.setArguments(args);
                 locationDialog.show(getFragmentManager(), "set location");
-//        }
 
-//                Location.distanceBetween(marker.getPosition().latitude, marker.getPosition().longitude,
-
-                Location.distanceBetween( MapsActivity.gpsLatitude, MapsActivity.gpsLongitude,
-                        circle.getCenter().latitude, circle.getCenter().longitude, gpsPoint);
-                Toast.makeText(getBaseContext(), String.valueOf(gpsPoint[0]), Toast.LENGTH_LONG).show();
 //                if( gpsPoint[0] > circle.getRadius()  ){
 //                    Toast.makeText(getBaseContext(), "Outside", Toast.LENGTH_LONG).show();
 //                } else {
 //                    Toast.makeText(getBaseContext(), "Inside", Toast.LENGTH_LONG).show();
 //                }
+            } else {
+                // NOT WITHIN ONE TENTH OF MILE
+                markerCoords = "D=" + dist + "\nt=" + timeStamp + "\nI am INSIDE the ONE_TENTH_MILE";
+                Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
             }
     }
 
@@ -470,6 +434,3 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     }
 
 }
-
-
-
