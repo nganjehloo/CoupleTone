@@ -10,6 +10,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.SystemClock;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,6 +36,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Timer;
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
@@ -43,6 +46,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     private GoogleMap mMap;
     final float ONE_TENTH_MILE = 160.934f;  // ONE TENTH OF A MILE (in meters) ***** ADDED BY MrSwirlyEyes 4/26
 
+    //Temporary until we get DB
+    ArrayList<LatLng> locList = new ArrayList<LatLng>();
+
+    double latitude;
+    double longitude;
+    LatLng gpsPos;
 
 
     // The dialog fragment receives a reference to this Activity through the
@@ -110,8 +119,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-
-
         mMap.setOnMapLongClickListener(this);   // LISTENER FOR THE LONG-CLICK SO MARKER DROPS ON HELD LOCATION
 
 
@@ -172,13 +179,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                     Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
                 }
                 // Get latitude of the current location
-//                double latitude = myLocation.getLatitude();
+                latitude = myLocation.getLatitude();
 
                 // Get longitude of the current location
-//                double longitude = myLocation.getLongitude();
+                longitude = myLocation.getLongitude();
 
                 // Create a LatLng object for the current location
-//                LatLng gpsPos = new LatLng(latitude, longitude);
+                gpsPos = new LatLng(latitude, longitude);
+
 
 //                marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
 //                mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
@@ -210,22 +218,63 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
      *
      *****/
     public void onMapLongClick(LatLng point) {
-        // Marker object, drops where long click has occured
-        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
-        // Special dropping effect
-        dropPinEffect(marker);
-        // Add circle around marker to display the 1/10th of a mile radius
-        addMarkerCircle(marker);
+//        Criteria criteria = new Criteria();
+//        final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+//        String provider = locationManager.getBestProvider(criteria, true);
+//
+//        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            ActivityCompat.requestPermissions(this,
+//                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+//                    100);
+//            Log.d("test1", "ins");
+//            return;
+//        } else if(mMap != null) {
+//            Log.d("test2", "outs");
+//            mMap.setMyLocationEnabled(true);
+//        }
+//        Location myLocation = locationManager.getLastKnownLocation(provider);
+
+//        LatLng tmp = new LatLng((float) gpsPos.latitude, (float) gpsPos.longitude);
+//        float abs_x = Math.abs((float) point.latitude - (float) gpsPos.latitude);
+//        abs_x = abs_x * abs_x;
+//        float abs_y = Math.abs((float) point.longitude - (float) gpsPos.longitude);
+//        abs_y = abs_y * abs_y;
+
+        String coords = "x =" + String.valueOf(point.latitude) + "\ny=" + point.longitude;
+
+        Toast.makeText(MapsActivity.this, coords, Toast.LENGTH_LONG).show();
+//        if ( Math.sqrt(abs_x + abs_y) > ONE_TENTH_MILE ) {
+        // Get instance of Vibrator from current Context
+        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+// Vibrate for 400 milliseconds
+        v.vibrate(100);
+
+
+            // Marker object, drops where long click has occured
+            Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
+            // Special dropping effect
+            dropPinEffect(marker);
+            // Add circle around marker to display the 1/10th of a mile radius
+            addMarkerCircle(marker);
 
         /* Open dialog box for saving location
          *          Added by WigginWannabe 26 Apr 2016
          */
-        LocationDialog locationDialog = new LocationDialog();
-        locationDialog.setArguments(new Bundle());
-        locationDialog.show(getFragmentManager(), "set location");
+            LocationDialog locationDialog = new LocationDialog();
+            locationDialog.setArguments(new Bundle());
+            locationDialog.show(getFragmentManager(), "set location");
 
-        // Stazia: I am not finished implementing it yet, but I expected that locations team will have
-        // the new name available to them around here, for creating a new location
+            // Stazia: I am not finished implementing it yet, but I expected that locations team will have
+            // the new name available to them around here, for creating a new location
+//        }
     }
 
 
@@ -278,24 +327,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             then creates a circle around it to display the 1/10th mile radius
      */
     void addMarkerCircle(Marker marker) {
-        // Determines marker position (lat,long) coordinates
-//        LatLng favLocMarker = marker.getPosition();
-
-        // Circle object with particular options
-//        CircleOptions markerRadius = new CircleOptions()
-//                .center(favLocMarker)       // The marker to create the circle around (or at its center) based on LatLng (coordinates)
-//                .center(marker.getPosition())
-//                .radius(ONE_TENTH_MILE)     // Creates circle of radius ONE_TENTH_MILE (takes in meter value)
-//                .fillColor(0x88AABBCC)      // Circle fill colour is 88 (partially transparent) with AABBCC (color code), default is black 0xFF000000
-//                .strokeWidth(10.0f)         // Width of the stroke (circle outline), default is 10
-//                .strokeColor(0x00000000);   // Circle outline is transparent (the first 2 00's --> transparency)
-
-//        Circle circle = mMap.addCircle(markerRadius);   // In case youwant to act on circle (like set visibility), default is transparent 0x00000000
-//        mMap.addCircle(markerRadius);   // Add's circle radius effect to the map around the dropped marker
-
         // Circle object with particular options, adds it to map around marker determined by position
         mMap.addCircle(/*CircleOptions markerRadius = */new CircleOptions()
-//                      .center(favLocMarker)       // The marker to create the circle around (or at its center) based on LatLng (coordinates)
                 .center(marker.getPosition())
                 .radius(ONE_TENTH_MILE)     // Creates circle of radius ONE_TENTH_MILE (takes in meter value)
                 .fillColor(0x88AABBCC)      // Circle fill colour is 88 (partially transparent) with AABBCC (color code), default is black 0xFF000000
