@@ -9,7 +9,10 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -46,13 +49,14 @@ public class LocationDialog extends DialogFragment {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
+        final View layout = inflater.inflate(R.layout.name_location, null);
 
         // Inflate and set the layout for the dialog
         // Pass null as the parent view because its going in the dialog layout
-        builder.setView(inflater.inflate(R.layout.name_location,null));
-        builder.setPositiveButton(R.string.set_name, new DialogInterface.OnClickListener() {
+        builder.setView(layout);
+        AlertDialog.Builder location = builder.setPositiveButton(R.string.set_name, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                String newName = ((EditText) getView().findViewById(R.id.namefield)).getText().toString();
+                String newName = ((EditText) layout.findViewById(R.id.namefield)).getText().toString();
                 double loc[] = getArguments().getDoubleArray("location");
                 coords = new LatLng(loc[0], loc[1]);
                 listener.onDialogPositiveClick(newName, coords);
