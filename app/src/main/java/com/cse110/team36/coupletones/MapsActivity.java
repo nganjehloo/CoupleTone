@@ -36,6 +36,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Timer;
 
@@ -247,15 +249,17 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //        float abs_y = Math.abs((float) point.longitude - (float) gpsPos.longitude);
 //        abs_y = abs_y * abs_y;
 
-        String coords = "x =" + String.valueOf(point.latitude) + "\ny=" + point.longitude;
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 
-        Toast.makeText(MapsActivity.this, coords, Toast.LENGTH_LONG).show();
+        String markerCoords = "t = " + timeStamp + "\nx =" + String.valueOf(point.latitude) + "\ny=" + point.longitude;
+
+        Toast.makeText(MapsActivity.this, markerCoords, Toast.LENGTH_LONG).show();
 //        if ( Math.sqrt(abs_x + abs_y) > ONE_TENTH_MILE ) {
         // Get instance of Vibrator from current Context
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
-// Vibrate for 400 milliseconds
-        v.vibrate(100);
+            // Vibrate for 400 milliseconds
+            v.vibrate(100);
 
 
             // Marker object, drops where long click has occured
