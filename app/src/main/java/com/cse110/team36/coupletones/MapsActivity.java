@@ -299,7 +299,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             v.vibrate(100);
 
             if ( dist > ONE_TENTH_MILE ) {
-                // Marker object, drops where long click has occured
+                // Marker object, drops where long click has occurred
                 Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
                 // Special dropping effect
                 dropPinEffect(marker);
@@ -316,13 +316,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
          *          Added by WigginWannabe 26 Apr 2016
          */
 
-        double locPoints[] = new double[2];
-        locPoints[0] = point.latitude; locPoints[1] = point.longitude;
-        LocationDialog locationDialog = new LocationDialog();
-        Bundle args = new Bundle();
-        args.putDoubleArray("location", locPoints);
-        locationDialog.setArguments(args);
-        locationDialog.show(getFragmentManager(), "set location");
+                double locPoints[] = new double[2];
+                locPoints[0] = point.latitude; locPoints[1] = point.longitude;
+                LocationDialog locationDialog = new LocationDialog();
+                Bundle args = new Bundle();
+                args.putDoubleArray("location", locPoints);
+                locationDialog.setArguments(args);
+                locationDialog.show(getFragmentManager(), "set location");
 //        }
 
 //                Location.distanceBetween(marker.getPosition().latitude, marker.getPosition().longitude,
