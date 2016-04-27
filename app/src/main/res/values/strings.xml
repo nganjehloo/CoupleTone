@@ -8,6 +8,7 @@
     <string name="cancel">Cancel</string>
     <string name="new_loc_name">Name favorite location</string>
     <string name="name_field">Enter your favorite location</string>
+    <string name="google_app_id">annular-will-129206</string>
 
 
 </resources>

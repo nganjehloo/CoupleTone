@@ -278,6 +278,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             Bundle args = new Bundle();
             args.putDoubleArray("location", locPoints);
             locationDialog.setArguments(args);
+            locationDialog.setMarker(marker);
             locationDialog.show(getFragmentManager(), "set location");
 
             } else {
