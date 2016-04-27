@@ -31,6 +31,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     private GoogleMap mMap;
     final float ONE_TENTH_MILE = 160.934f;  // ONE TENTH OF A MILE (in meters) ***** ADDED BY MrSwirlyEyes 4/26
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+//        mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
+//        mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
 
         ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
 
