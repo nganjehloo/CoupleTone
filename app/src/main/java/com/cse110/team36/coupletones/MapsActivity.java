@@ -56,10 +56,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //    public static double gpsLongitude = -117.2340;
     public static double gpsLatitude = 0;
     public static double gpsLongitude = 0;
-    float gpsPoint[] = new float[2];
+    float vector[] = new float[2];
     LatLng gpsPos;
-    Polyline polyline;
-    PolylineOptions polylineOptions = new PolylineOptions();
 
     // The dialog fragment receives a reference to this Activity through the
     // Fragment.onAttach() callback, which it uses to call the following methods
@@ -253,44 +251,36 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         double dist = distance.computeDistanceBetween(new LatLng(gpsLatitude,gpsLongitude),point);
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 
-//        polylineOptions.add(point);
-//        polyline = mMap.addPolyline(polylineOptions);
-
-                String markerCoords = "D= " + dist + "\nt=" + timeStamp;
+          String markerCoords = "D= " + dist + "\nt=" + timeStamp;
 //        String markerCoords = "D= " + dist + "\nLat=" + xx + "\nLong=" + yy + "\ngpsLat=" + MapsActivity.gpsLatitude + "\ngpsLong" + MapsActivity.gpsLongitude;
 
-            if ( dist > ONE_TENTH_MILE ) {
-                // Marker object, drops where long click has occured
-                Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
-                // Special dropping effect
-                dropPinEffect(marker);
-                // Add circle around marker to display the 1/10th of a mile radius
+        if ( dist > ONE_TENTH_MILE ) {
+            // Marker object, drops where long click has occured
+            Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
+            // Special dropping effect
+            dropPinEffect(marker);
+            // Add circle around marker to display the 1/10th of a mile radius
 //                addMarkerCircle(marker);
 
-                Circle circle = addMarkerCircle(marker);
-        /* Open dialog box for saving location
-         *          Added by WigginWannabe 26 Apr 2016
-         */
-                Location.distanceBetween( MapsActivity.gpsLatitude, MapsActivity.gpsLongitude,
-                        circle.getCenter().latitude, circle.getCenter().longitude, gpsPoint);
-//                Toast.makeText(getBaseContext(), String.valueOf(gpsPoint[0]), Toast.LENGTH_LONG).show();
-                markerCoords = "D=" + dist + "\nt=" + timeStamp + "\nI am INSIDE the ONE_TENTH_MILE";
-                Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
+//            Circle circle = addMarkerCircle(marker);
+            addMarkerCircle(marker);
+            /* Open dialog box for saving location
+             *          Added by WigginWannabe 26 Apr 2016
+             */
+//            Location.distanceBetween( MapsActivity.gpsLatitude, MapsActivity.gpsLongitude,
+//                                        circle.getCenter().latitude, circle.getCenter().longitude, vector);
+            markerCoords = "D=" + dist + "\nt=" + timeStamp + "\nI am INSIDE the ONE_TENTH_MILE";
+            Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
 
-        double locPoints[] = new double[2];
-        locPoints[0] = point.latitude; locPoints[1] = point.longitude;
-        LocationDialog locationDialog = new LocationDialog();
-        Bundle args = new Bundle();
-        args.putDoubleArray("location", locPoints);
-        locationDialog.setArguments(args);
-        locationDialog.show(getFragmentManager(), "set location");
+            double locPoints[] = new double[2];
+            locPoints[0] = point.latitude; locPoints[1] = point.longitude;
+            LocationDialog locationDialog = new LocationDialog();
+            Bundle args = new Bundle();
+            args.putDoubleArray("location", locPoints);
+            locationDialog.setArguments(args);
+            locationDialog.show(getFragmentManager(), "set location");
 
 
-//                if( gpsPoint[0] > circle.getRadius()  ){
-//                    Toast.makeText(getBaseContext(), "Outside", Toast.LENGTH_LONG).show();
-//                } else {
-//                    Toast.makeText(getBaseContext(), "Inside", Toast.LENGTH_LONG).show();
-//                }
             } else {
                 // NOT WITHIN ONE TENTH OF MILE
                 markerCoords = "D=" + dist + "\nt=" + timeStamp + "\nI am INSIDE the ONE_TENTH_MILE";
@@ -358,5 +348,80 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     }
 
 
+    /**
+     * Created by admin on 4/27/16.
+     */
+    public class SphericalUtil {
+
+        private SphericalUtil() {
+        }
+
+        static final double EARTH_RADIUS = 6371009;
+
+        /**
+         * Returns the angle between two LatLngs, in radians. This is the same as the distance
+         * on the unit sphere.
+         */
+        double computeAngleBetween(LatLng from, LatLng to) {
+            return distanceRadians(Math.toRadians(from.latitude), Math.toRadians(from.longitude),
+                    Math.toRadians(to.latitude), Math.toRadians(to.longitude));
+        }
+
+        /**
+         * Returns distance on the unit sphere; the arguments are in radians.
+         */
+        private double distanceRadians(double lat1, double lng1, double lat2, double lng2) {
+            return arcHav(havDistance(lat1, lat2, lng1 - lng2));
+        }
+
+        public double computeDistanceBetween(LatLng from, LatLng to) {
+            return computeAngleBetween(from, to) * EARTH_RADIUS;
+        }
+
+        /**
+         * Wraps the given value into the inclusive-exclusive interval between min and max.
+         *
+         * @param n   The value to wrap.
+         * @param min The minimum.
+         * @param max The maximum.
+         */
+        double wrap(double n, double min, double max) {
+            return (n >= min && n < max) ? n : (mod(n - min, max - min) + min);
+        }
+
+        /**
+         * Returns the non-negative remainder of x / m.
+         *
+         * @param x The operand.
+         * @param m The modulus.
+         */
+        double mod(double x, double m) {
+            return ((x % m) + m) % m;
+        }
+
+        /**
+         * Computes inverse haversine. Has good numerical stability around 0.
+         * arcHav(x) == acos(1 - 2 * x) == 2 * asin(sqrt(x)).
+         * The argument must be in [0, 1], and the result is positive.
+         */
+        double arcHav(double x) {
+            return 2 * Math.asin(Math.sqrt(x));
+        }
+
+        /**
+         * Returns hav() of distance from (lat1, lng1) to (lat2, lng2) on the unit sphere.
+         */
+        double havDistance(double lat1, double lat2, double dLng) {
+            return hav(lat1 - lat2) + hav(dLng) * Math.cos(lat1) * Math.cos(lat2);
+        }
+        /**
+         * Returns haversine(angle-in-radians).
+         * hav(x) == (1 - cos(x)) / 2 == sin(x / 2)^2.
+         */
+        double hav(double x) {
+            double sinHalf = Math.sin(x * 0.5);
+            return sinHalf * sinHalf;
+        }
+    }
 
 }
