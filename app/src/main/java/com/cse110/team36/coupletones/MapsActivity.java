@@ -147,9 +147,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         mMap.setOnMapLongClickListener(this);   // LISTENER FOR THE LONG-CLICK SO MARKER DROPS ON HELD LOCATION
 
-
-
-
         /***** Add a marker at UCSD and move the camera
          *          ADDED BY: MrSwirlyEyes
          *                      4/25
@@ -161,11 +158,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
         mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
-
-//        float zoomLevel = 15; // Sets default zoom level (instead of seeing world, zooms to UCSD) [This goes up to 21]
-//        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(ucsd, zoomLevel));    // MOVES CAMERA THEN ZOOMS TO SET ZOOM LEVEL
-
-
 
 
         //GPS
@@ -216,7 +208,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //                polylineOptions.add(new LatLng(location.getLatitude(),location.getLongitude()));
 //                polyline = mMap.addPolyline(polylineOptions);
 //                marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-//                mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
+//            mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
+            float zoomLevel = 15; // Sets default zoom level (instead of seeing world, zooms to UCSD) [This goes up to 21]
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gpsPos, zoomLevel));    // MOVES CAMERA THEN ZOOMS TO SET ZOOM LEVEL
 
         }
 //        final Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("updated path"));
@@ -243,7 +237,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 // Get longitude of the current location
 //                gpsLongitude = myLocation.getLongitude();
                 MapsActivity.gpsLongitude = location.getLongitude();
-                Toast.makeText(getBaseContext(), "Found You!", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(), "Found You!", Toast.LENGTH_SHORT).show();
                 // Create a LatLng object for the current location
                 gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
                 String string = "" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()) + "\n";
@@ -283,11 +277,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         // Vibrate for 100 milliseconds
         v.vibrate(100);
 
-//        double xx = gpsLatitude - point.latitude;
-//        double x_sq = xx * xx;
-//        double yy = gpsLongitude - point.longitude;
-//        double y_sq = yy * yy;
-//        double dist = Math.sqrt(x_sq + y_sq);
         GpsUtility distance = new GpsUtility();
         double dist = distance.computeDistanceBetween(new LatLng(gpsLatitude, gpsLongitude), point);
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
