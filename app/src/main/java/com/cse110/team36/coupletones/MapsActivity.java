@@ -70,16 +70,28 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
          * Use this method to save the new location
          */
         FaveLocation newLoc = new FaveLocation(name, loc);
+        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(loc.latitude, loc.longitude)));
+        // Special dropping effect
+        dropPinEffect(marker);
+        // Add circle around marker to display the 1/10th of a mile radius
+//                addMarkerCircle(marker);
+
+//            Circle circle = addMarkerCircle(marker);
+        addMarkerCircle(marker);
+            /* Open dialog box for saving location
+             *          Added by WigginWannabe 26 Apr 2016
+             */
+//            Location.distanceBetween( MapsActivity.gpsLatitude, MapsActivity.gpsLongitude,
+//                                        circle.getCenter().latitude, circle.getCenter().longitude, vector);
+
+        marker.setTitle(name);
         Toast.makeText(getBaseContext(),
                 "" + name + "\n" + String.valueOf(loc.latitude) + ", " + String.valueOf(loc.longitude),
                 Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onDialogNegativeClick(DialogFragment dialog) {
-        // User touched the dialog's negative button
-
-    }
+    public void onDialogNegativeClick() {}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -248,29 +260,17 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //        double dist = Math.sqrt(x_sq + y_sq);
 
         SphericalUtil distance = new SphericalUtil();
-        double dist = distance.computeDistanceBetween(new LatLng(gpsLatitude,gpsLongitude),point);
+        double dist = distance.computeDistanceBetween(new LatLng(gpsLatitude, gpsLongitude), point);
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 
-          String markerCoords = "";
+        String markerCoords = "";
+        markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nI am OUTSIDE the ONE_TENTH_MILE";
+        Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
 //        String markerCoords = "D= " + dist + "\nLat=" + xx + "\nLong=" + yy + "\ngpsLat=" + MapsActivity.gpsLatitude + "\ngpsLong" + MapsActivity.gpsLongitude;
 
         if ( dist > ONE_TENTH_MILE ) {
             // Marker object, drops where long click has occured
-            Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(point.latitude, point.longitude)));
-            // Special dropping effect
-            dropPinEffect(marker);
-            // Add circle around marker to display the 1/10th of a mile radius
-//                addMarkerCircle(marker);
 
-//            Circle circle = addMarkerCircle(marker);
-            addMarkerCircle(marker);
-            /* Open dialog box for saving location
-             *          Added by WigginWannabe 26 Apr 2016
-             */
-//            Location.distanceBetween( MapsActivity.gpsLatitude, MapsActivity.gpsLongitude,
-//                                        circle.getCenter().latitude, circle.getCenter().longitude, vector);
-            markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nI am OUTSIDE the ONE_TENTH_MILE";
-            Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
 
             double locPoints[] = new double[2];
             locPoints[0] = point.latitude; locPoints[1] = point.longitude;
@@ -278,7 +278,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             Bundle args = new Bundle();
             args.putDoubleArray("location", locPoints);
             locationDialog.setArguments(args);
-            locationDialog.setMarker(marker);
+            //locationDialog.setMarker(marker);
             locationDialog.show(getFragmentManager(), "set location");
 
             } else {

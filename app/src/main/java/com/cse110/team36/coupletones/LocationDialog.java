@@ -27,7 +27,7 @@ public class LocationDialog extends DialogFragment {
 
     public interface LocationDialogListener {
         void onDialogPositiveClick(String name, LatLng loc);
-        void onDialogNegativeClick(DialogFragment dialog);
+        void onDialogNegativeClick();
     }
 
     LocationDialogListener listener;
@@ -70,7 +70,7 @@ public class LocationDialog extends DialogFragment {
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                //listener.onDialogNegativeClick(newName, coords);
+                listener.onDialogNegativeClick();
             }
         });
         // Create the AlertDialog object and return it
