@@ -41,6 +41,8 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Timer;
+import java.util.logging.Logger;
+
 import com.cse110.team36.coupletones.SphericalUtil;
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
                                                                 OnMapReadyCallback,
@@ -200,6 +202,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 // Get longitude of the current location
 //                gpsLongitude = myLocation.getLongitude();
                 MapsActivity.gpsLongitude = location.getLongitude();
+                Toast.makeText(getBaseContext(), "Found You!", Toast.LENGTH_SHORT).show();
                 // Create a LatLng object for the current location
                 gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
                 String string = "" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()) + "\n";
@@ -227,8 +230,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         };
 
         locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
-
-
     }
 
     /***** DROPPING OF MAP MARKER ON MAP LONG-CLICK
@@ -246,7 +247,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //        double yy = gpsLongitude - point.longitude;
 //        double y_sq = yy * yy;
 //        double dist = Math.sqrt(x_sq + y_sq);
-
         SphericalUtil distance = new SphericalUtil();
         double dist = distance.computeDistanceBetween(new LatLng(gpsLatitude,gpsLongitude),point);
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
