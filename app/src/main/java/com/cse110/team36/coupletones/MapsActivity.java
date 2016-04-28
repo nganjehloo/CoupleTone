@@ -43,7 +43,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.logging.Logger;
 
-import com.cse110.team36.coupletones.SphericalUtil;
+
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
                                                                 OnMapReadyCallback,
                                                                 LocationDialog.LocationDialogListener {
@@ -169,7 +169,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
 
         //GPS
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         String locationProvider = LocationManager.GPS_PROVIDER;
 //        locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
 
@@ -189,6 +189,35 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         } else if(mMap != null) {
             Log.d("test2", "outs");
             mMap.setMyLocationEnabled(true);
+            // Create a criteria object to retrieve provider
+            Criteria criteria = new Criteria();
+
+            // Get the name of the best provider
+            String provider = locationManager.getBestProvider(criteria, true);
+            Location myLocation = null;
+            try {
+                if (mMap != null) {}
+                        myLocation = locationManager.getLastKnownLocation(provider);
+            } catch (SecurityException e) {
+                Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
+            }
+            // Get latitude of the current location
+//                gpsLongitude = myLocation.getLatitude();
+            MapsActivity.gpsLatitude = myLocation.getLatitude();
+
+            // Get longitude of the current location
+//                gpsLongitude = myLocation.getLongitude();
+            MapsActivity.gpsLongitude = myLocation.getLongitude();
+//            Toast.makeText(getBaseContext(), "Found You!", Toast.LENGTH_SHORT).show();
+            // Create a LatLng object for the current location
+            gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
+            String string = "" + String.valueOf(myLocation.getLatitude()) + ", " + String.valueOf(myLocation.getLongitude()) + "\n";
+//                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
+//                polylineOptions.add(new LatLng(location.getLatitude(),location.getLongitude()));
+//                polyline = mMap.addPolyline(polylineOptions);
+//                marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
+//                mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
+
         }
 //        final Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("updated path"));
         LocationListener locationListener = new LocationListener() {
@@ -196,7 +225,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             public void onLocationChanged(Location location) {
 
                 // Create a criteria object to retrieve provider
-                Criteria criteria = new Criteria();
+//                Criteria criteria = new Criteria();
 
                 // Get the name of the best provider
                 //String provider = locationManager.getBestProvider(criteria, true);
@@ -259,19 +288,19 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //        double yy = gpsLongitude - point.longitude;
 //        double y_sq = yy * yy;
 //        double dist = Math.sqrt(x_sq + y_sq);
-        SphericalUtil distance = new SphericalUtil();
+        GpsUtility distance = new GpsUtility();
         double dist = distance.computeDistanceBetween(new LatLng(gpsLatitude, gpsLongitude), point);
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 
         String markerCoords = "";
-        markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nI am OUTSIDE the ONE_TENTH_MILE";
-        Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
+
+//        Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
 //        String markerCoords = "D= " + dist + "\nLat=" + xx + "\nLong=" + yy + "\ngpsLat=" + MapsActivity.gpsLatitude + "\ngpsLong" + MapsActivity.gpsLongitude;
 
         if ( dist > ONE_TENTH_MILE ) {
             // Marker object, drops where long click has occured
 
-
+            markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nI am OUTSIDE the ONE_TENTH_MILE";
             double locPoints[] = new double[2];
             locPoints[0] = point.latitude; locPoints[1] = point.longitude;
             LocationDialog locationDialog = new LocationDialog();
@@ -346,82 +375,4 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 .strokeWidth(0.0f)         // Width of the stroke (circle outline), default is 10
                 .strokeColor(0x00000000));   // Circle outline is transparent (the first 2 00's --> transparency));
     }
-
-
-    /**
-     * Created by admin on 4/27/16.
-     */
-    public class SphericalUtil {
-
-        private SphericalUtil() {
-        }
-
-        static final double EARTH_RADIUS = 6371009;
-
-        /**
-         * Returns the angle between two LatLngs, in radians. This is the same as the distance
-         * on the unit sphere.
-         */
-        double computeAngleBetween(LatLng from, LatLng to) {
-            return distanceRadians(Math.toRadians(from.latitude), Math.toRadians(from.longitude),
-                    Math.toRadians(to.latitude), Math.toRadians(to.longitude));
-        }
-
-        /**
-         * Returns distance on the unit sphere; the arguments are in radians.
-         */
-        private double distanceRadians(double lat1, double lng1, double lat2, double lng2) {
-            return arcHav(havDistance(lat1, lat2, lng1 - lng2));
-        }
-
-        public double computeDistanceBetween(LatLng from, LatLng to) {
-            return computeAngleBetween(from, to) * EARTH_RADIUS;
-        }
-
-        /**
-         * Wraps the given value into the inclusive-exclusive interval between min and max.
-         *
-         * @param n   The value to wrap.
-         * @param min The minimum.
-         * @param max The maximum.
-         */
-        double wrap(double n, double min, double max) {
-            return (n >= min && n < max) ? n : (mod(n - min, max - min) + min);
-        }
-
-        /**
-         * Returns the non-negative remainder of x / m.
-         *
-         * @param x The operand.
-         * @param m The modulus.
-         */
-        double mod(double x, double m) {
-            return ((x % m) + m) % m;
-        }
-
-        /**
-         * Computes inverse haversine. Has good numerical stability around 0.
-         * arcHav(x) == acos(1 - 2 * x) == 2 * asin(sqrt(x)).
-         * The argument must be in [0, 1], and the result is positive.
-         */
-        double arcHav(double x) {
-            return 2 * Math.asin(Math.sqrt(x));
-        }
-
-        /**
-         * Returns hav() of distance from (lat1, lng1) to (lat2, lng2) on the unit sphere.
-         */
-        double havDistance(double lat1, double lat2, double dLng) {
-            return hav(lat1 - lat2) + hav(dLng) * Math.cos(lat1) * Math.cos(lat2);
-        }
-        /**
-         * Returns haversine(angle-in-radians).
-         * hav(x) == (1 - cos(x)) / 2 == sin(x / 2)^2.
-         */
-        double hav(double x) {
-            double sinHalf = Math.sin(x * 0.5);
-            return sinHalf * sinHalf;
-        }
-    }
-
 }

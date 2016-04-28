@@ -5,9 +5,9 @@ import com.google.android.gms.maps.model.LatLng;
 /**
  * Created by admin on 4/27/16.
  */
-public class SphericalUtil {
+public class GpsUtility {
 
-    private SphericalUtil() {
+    GpsUtility() {
     }
 
     static final double EARTH_RADIUS = 6371009;
