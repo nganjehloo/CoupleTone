@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 
 
 /**
@@ -22,13 +23,18 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class LocationDialog extends DialogFragment {
     private LatLng coords;
+    private Marker marker;
 
     public interface LocationDialogListener {
         void onDialogPositiveClick(String name, LatLng loc);
-        void onDialogNegativeClick(DialogFragment dialog);
+        void onDialogNegativeClick();
     }
 
     LocationDialogListener listener;
+
+    public void setMarker(Marker marker) {
+        this.marker = marker;
+    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -63,7 +69,9 @@ public class LocationDialog extends DialogFragment {
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {}
+            public void onClick(DialogInterface dialog, int id) {
+                listener.onDialogNegativeClick();
+            }
         });
         // Create the AlertDialog object and return it
         return builder.create();
