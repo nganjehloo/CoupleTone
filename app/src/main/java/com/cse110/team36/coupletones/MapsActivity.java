@@ -55,8 +55,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     //Temporary until we get DB
     ArrayList<LatLng> locList = new ArrayList<LatLng>();
 
-//    public static double gpsLatitude = 32.8801;
-//    public static double gpsLongitude = -117.2340;
     public static double gpsLatitude = 0;
     public static double gpsLongitude = 0;
     boolean dropMarker = true;
