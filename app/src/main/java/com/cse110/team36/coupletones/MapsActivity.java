@@ -158,7 +158,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
         mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
-
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         //GPS
         final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -180,7 +180,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             return;
         } else if(mMap != null) {
             Log.d("test2", "outs");
-            mMap.setMyLocationEnabled(true);
+//            mMap.setMyLocationEnabled(true);
             // Create a criteria object to retrieve provider
             Criteria criteria = new Criteria();
 
