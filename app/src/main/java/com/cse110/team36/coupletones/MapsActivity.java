@@ -196,25 +196,26 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             } catch (SecurityException e) {
                 Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
             }
-            // Get latitude of the current location
+            try {
+                // Get latitude of the current location
 //                gpsLongitude = myLocation.getLatitude();
-            MapsActivity.gpsLatitude = myLocation.getLatitude();
+                MapsActivity.gpsLatitude = myLocation.getLatitude();
 
-            // Get longitude of the current location
+                // Get longitude of the current location
 //                gpsLongitude = myLocation.getLongitude();
-            MapsActivity.gpsLongitude = myLocation.getLongitude();
+                MapsActivity.gpsLongitude = myLocation.getLongitude();
 //            Toast.makeText(getBaseContext(), "Found You!", Toast.LENGTH_SHORT).show();
-            // Create a LatLng object for the current location
-            gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
-            String string = "" + String.valueOf(myLocation.getLatitude()) + ", " + String.valueOf(myLocation.getLongitude()) + "\n";
+                // Create a LatLng object for the current location
+                gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
+                String string = "" + String.valueOf(myLocation.getLatitude()) + ", " + String.valueOf(myLocation.getLongitude()) + "\n";
 //                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
-//                polylineOptions.add(new LatLng(location.getLatitude(),location.getLongitude()));
-//                polyline = mMap.addPolyline(polylineOptions);
-//                marker.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
-//            mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
-            float zoomLevel = 15; // Sets default zoom level (instead of seeing world, zooms to UCSD) [This goes up to 21]
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gpsPos, zoomLevel));    // MOVES CAMERA THEN ZOOMS TO SET ZOOM LEVEL
 
+//            mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
+                float zoomLevel = 15; // Sets default zoom level (instead of seeing world, zooms to UCSD) [This goes up to 21]
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gpsPos, zoomLevel));    // MOVES CAMERA THEN ZOOMS TO SET ZOOM LEVEL
+            } catch (NullPointerException e) {
+                Log.e("NULL_POINTER_EXCEPTION", "GPS LOCATION NOT FOUND");
+            }
         }
 //        final Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("updated path"));
         LocationListener locationListener = new LocationListener() {
@@ -233,18 +234,22 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 } catch (SecurityException e) {
                     Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
                 }
-                // Get latitude of the current location
-                gpsLongitude = myLocation.getLatitude();
-                MapsActivity.gpsLatitude = location.getLatitude();
+                try {
+                    // Get latitude of the current location
+                    gpsLongitude = myLocation.getLatitude();
+                    MapsActivity.gpsLatitude = location.getLatitude();
 
-                // Get longitude of the current location
-                gpsLongitude = myLocation.getLongitude();
-                MapsActivity.gpsLongitude = location.getLongitude();
+                    // Get longitude of the current location
+                    gpsLongitude = myLocation.getLongitude();
+                    MapsActivity.gpsLongitude = location.getLongitude();
 
-                // Create a LatLng object for the current location
-                gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
+                    // Create a LatLng object for the current location
+                    gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
 //                String string = "" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()) + "\n";
 //                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
+                } catch (NullPointerException e) {
+                    Log.e("NULL_POINTER_EXCEPTION", "GPS LOCATION NOT FOUND");
+                }
             }
 
             @Override
