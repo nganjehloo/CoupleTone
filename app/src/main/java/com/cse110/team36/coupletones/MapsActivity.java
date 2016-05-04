@@ -101,17 +101,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-//        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
-//
-//        mapButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-//            }});
-
-
         Button myLocButton = (Button) findViewById(R.id.myLocButton);
-
         myLocButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,11 +110,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
 
         ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+                //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
             }});
     }
 

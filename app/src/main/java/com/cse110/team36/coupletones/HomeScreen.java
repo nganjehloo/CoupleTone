@@ -9,7 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -30,20 +32,21 @@ public class HomeScreen extends AppCompatActivity {
 //        });
 
         ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
-
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeScreen.this, MapsActivity.class));
             }});
 
-        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
 
+        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeScreen.this, MapsActivity.class));
+                //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
             }});
+
     }
 
     @Override
