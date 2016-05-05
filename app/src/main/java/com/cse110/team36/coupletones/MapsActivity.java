@@ -75,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         if (name.equals("")) {
             savedLocs = "";
             faveLocationManager.emptyLocs();
+            return;
         }
 
         faveLocationManager.addLocation(name, loc);
