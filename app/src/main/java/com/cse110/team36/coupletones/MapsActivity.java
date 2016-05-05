@@ -46,20 +46,21 @@ import java.util.logging.Logger;
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
                                                                 OnMapReadyCallback,
-                                                                LocationDialog.LocationDialogListener {
+                                                                LocationDialog.LocationDialogListener,
+                                                                Constants {
 
     boolean debug = true;
     private GoogleMap mMap;
-    final float ONE_TENTH_MILE = 160.934f;  // ONE TENTH OF A MILE (in meters) ***** ADDED BY MrSwirlyEyes 4/26
-    double dist = 0;
+//    double dist = 0;
     //Temporary until we get DB
-    ArrayList<LatLng> locList = new ArrayList<LatLng>();
+    public ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
+    public MapManager mapManager = new MapManager();
 
     public static double gpsLatitude = 0;
     public static double gpsLongitude = 0;
     boolean dropMarker = true;
 //    float vector[] = new float[2];
-    LatLng gpsPos;
+//    LatLng gpsPos;
 
     // The dialog fragment receives a reference to this Activity through the
     // Fragment.onAttach() callback, which it uses to call the following methods
@@ -71,7 +72,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
          * This implementation is temporary - I was testing that the information gets here
          * Use this method to save the new location
          */
-        FaveLocation newLoc = new FaveLocation(name, loc);
+        addLocation(name, loc);
+
         Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(loc.latitude, loc.longitude)));
         // Special dropping effect
         dropPinEffect(marker);
@@ -87,10 +89,25 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //                                        circle.getCenter().latitude, circle.getCenter().longitude, vector);
 
         marker.setTitle(name);
+    }
+
+    public void addLocation(String name, LatLng loc) {
+        FaveLocation newLoc = new FaveLocation(name, loc);
+        locList.add(newLoc);
         Toast.makeText(getBaseContext(),
-                "" + name + "\n" + String.valueOf(loc.latitude) + ", " + String.valueOf(loc.longitude),
-                Toast.LENGTH_SHORT).show();
-        locList.add(loc);
+                "" + newLoc.getName() + "\n" + String.valueOf(newLoc.getCoords().latitude) + ", " +
+                        String.valueOf(newLoc.getCoords().longitude), Toast.LENGTH_SHORT).show();
+    }
+
+    public boolean removeLocation(String name) {
+        for (int i = 0; i < locList.size(); i++) {
+            FaveLocation faveLocation = locList.get(i);
+            if (faveLocation.getName().equals(name)) {
+                locList.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -109,7 +126,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MapsActivity.this, HomeScreen.class));
-            }});
+            }
+        });
 
 
         ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
@@ -118,7 +136,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             public void onClick(View view) {
                 //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
                 Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
-            }});
+            }
+        });
     }
 
 
@@ -172,89 +191,24 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             Log.d("test2", "outs");
 
             //mMap.setMyLocationEnabled(true);
-            // Create a criteria object to retrieve provider
-            Criteria criteria = new Criteria();
 
-            // Get the name of the best provider
-            String provider = locationManager.getBestProvider(criteria, true);
-            Location myLocation = null;
-            try {
-                if (mMap != null) {}
-                        myLocation = locationManager.getLastKnownLocation(provider);
-            } catch (SecurityException e) {
-                Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
-            }
-            try {
-                // Get latitude of the current location
-//                gpsLongitude = myLocation.getLatitude();
-                MapsActivity.gpsLatitude = myLocation.getLatitude();
-
-                // Get longitude of the current location
-//                gpsLongitude = myLocation.getLongitude();
-                MapsActivity.gpsLongitude = myLocation.getLongitude();
-//            Toast.makeText(getBaseContext(), "Found You!", Toast.LENGTH_SHORT).show();
-                // Create a LatLng object for the current location
-                gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
-                String string = "" + String.valueOf(myLocation.getLatitude()) + ", " + String.valueOf(myLocation.getLongitude()) + "\n";
-//                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
-
-//            mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
-                float zoomLevel = 15; // Sets default zoom level (instead of seeing world, zooms to UCSD) [This goes up to 21]
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gpsPos, zoomLevel));    // MOVES CAMERA THEN ZOOMS TO SET ZOOM LEVEL
-            } catch (NullPointerException e) {
-                Log.e("NULL_POINTER_EXCEPTION", "GPS LOCATION NOT FOUND");
-            }
+            mapManager.updateGPSLatLong(locationManager, mMap);
         }
 //        final Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("updated path"));
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
-                // Create a criteria object to retrieve provider
-                Criteria criteria = new Criteria();
-
-                // Get the name of the best provider
-                String provider = locationManager.getBestProvider(criteria, true);
-                Location myLocation = null;
-                try {
-                    if (mMap != null) {}
-                        myLocation = locationManager.getLastKnownLocation(provider);
-                } catch (SecurityException e) {
-                    Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
-                }
-                try {
-                    // Get latitude of the current location
-                    gpsLongitude = myLocation.getLatitude();
-                    MapsActivity.gpsLatitude = location.getLatitude();
-
-                    // Get longitude of the current location
-                    gpsLongitude = myLocation.getLongitude();
-                    MapsActivity.gpsLongitude = location.getLongitude();
-
-                    // Create a LatLng object for the current location
-                    gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
-//                String string = "" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()) + "\n";
-
-//                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
-                } catch (NullPointerException e) {
-                    Log.e("NULL_POINTER_EXCEPTION", "GPS LOCATION NOT FOUND");
-                }
+                mapManager.updateGPSLatLong(locationManager, mMap);
             }
 
             @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
 
             @Override
-            public void onProviderEnabled(String provider) {
-
-            }
+            public void onProviderEnabled(String provider) {}
 
             @Override
-            public void onProviderDisabled(String provider) {
-
-            }
+            public void onProviderDisabled(String provider) {}
         };
 
         locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
@@ -284,21 +238,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         // If the list already has ANY point (if we already have saved favorite locations
             //TODO: REPLACE WITH DATABASE WHEN TEAM GETS IT
         if (locList.size() > 0) {
-            for (int i = 0; i < locList.size(); i++) {  //Iterate through every element in the saved locList
-                //Initialize our GpsUtility object (not important to know what is going on with it)
-                GpsUtility distance = new GpsUtility();
-                //Computes distance (based on GPS coords, earth sphericalness, etc.) from current point/marker trying to drop
-                    // to ALL OTHER points/marker in the list
-                dist = distance.computeDistanceBetween(new LatLng(locList.get(i).latitude, locList.get(i).longitude), new LatLng(point.latitude, point.longitude));
-
-                // If distance between 2 markers (radius's) are within 2*ONE_TENTH_MILEs
-                    //We do not want to drop a marker, and thus we will abort
-                if (dist <= 2 * ONE_TENTH_MILE) {
-                    //Dont drop that marker
-                    dropMarker = false;
-                    break;
-                }
-            }
+            dropMarker = mapManager.isValidDrop(point, locList);
         }
 
         //Here, we know there was either:
@@ -308,22 +248,15 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
             if (dropMarker) { //Check our boolean to be absolutely sure we can still drop marker
 
-                // Stazia's code
-                double locPoints[] = new double[2];
-                locPoints[0] = point.latitude; locPoints[1] = point.longitude;
-                LocationDialog locationDialog = new LocationDialog();
-                Bundle args = new Bundle();
-                args.putDoubleArray("location", locPoints);
-                locationDialog.setArguments(args);
-                locationDialog.show(getFragmentManager(), "set location");
+                // Stazia's code to show a dialog box for saving a location
+                mapManager.showLocationDialog(point, getFragmentManager());
 
-                if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nYES! DROP THE MARKER" + "\nArraySize=" + locList.size();
+                if (debug) markerCoords = "D=" + mapManager.getDist() + "m\nt=" + timeStamp + "\nYES! DROP THE MARKER" + "\nArraySize=" + locList.size();
             } else {
-                if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nDONT DROP THE MARKER" + "\nArraySize=" + locList.size();
+                if (debug) markerCoords = "D=" + mapManager.getDist() + "m\nt=" + timeStamp + "\nDONT DROP THE MARKER" + "\nArraySize=" + locList.size();
             }
             if (debug) Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
     }
-
 
 
 

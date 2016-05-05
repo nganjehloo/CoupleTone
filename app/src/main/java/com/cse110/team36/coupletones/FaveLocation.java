@@ -9,20 +9,20 @@ public class FaveLocation {
     private LatLng coords;
     private String name;
 
-    FaveLocation(String name, LatLng coords) {
+    public FaveLocation(String name, LatLng coords) {
         this.coords = coords;
         this.name = name;
     }
 
-    LatLng getCoords() {
+    public LatLng getCoords() {
         return coords;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 }

@@ -12,8 +12,6 @@
         android:layout_height="0dp"
         android:layout_weight="9"
         tools:context="com.cse110.team36.coupletones.MapsActivity" />
-        <!---->
-
 
     <include layout="@layout/toolbar" />
 

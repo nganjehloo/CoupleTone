@@ -10,4 +10,9 @@
     <string name="name_field">Enter your favorite location</string>
     <string name="google_app_id">annular-will-129206</string>
 
+    <string name="loc0">loc0</string>
+    <string name="loc1">loc1</string>
+    <string name="loc2">loc2</string>
+    <string name="loc3">loc3</string>
+
 </resources>

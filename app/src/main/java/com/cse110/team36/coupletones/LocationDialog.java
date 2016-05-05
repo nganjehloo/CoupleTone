@@ -23,7 +23,6 @@ import com.google.android.gms.maps.model.Marker;
  */
 public class LocationDialog extends DialogFragment {
     private LatLng coords;
-    private Marker marker;
 
     public interface LocationDialogListener {
         void onDialogPositiveClick(String name, LatLng loc);
@@ -31,8 +30,8 @@ public class LocationDialog extends DialogFragment {
 
     LocationDialogListener listener;
 
-    public void setMarker(Marker marker) {
-        this.marker = marker;
+    public void setCoords(LatLng coords) {
+        this.coords = coords;
     }
 
     @Override
@@ -62,8 +61,6 @@ public class LocationDialog extends DialogFragment {
         AlertDialog.Builder location = builder.setPositiveButton(R.string.set_name, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 String newName = ((EditText) layout.findViewById(R.id.namefield)).getText().toString();
-                double loc[] = getArguments().getDoubleArray("location");
-                coords = new LatLng(loc[0], loc[1]);
                 listener.onDialogPositiveClick(newName, coords);
             }
         });
