@@ -23,6 +23,11 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import android.location.LocationListener;
+
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,6 +41,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -47,16 +54,19 @@ import java.util.logging.Logger;
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
                                                                 OnMapReadyCallback,
                                                                 LocationDialog.LocationDialogListener {
+    String savedLocs = "";
+    LatLng currLoc = new LatLng(0,0);
 
     boolean debug = true;
     private GoogleMap mMap;
     final float ONE_TENTH_MILE = 160.934f;  // ONE TENTH OF A MILE (in meters) ***** ADDED BY MrSwirlyEyes 4/26
     double dist = 0;
     //Temporary until we get DB
-    ArrayList<LatLng> locList = new ArrayList<LatLng>();
+//    ArrayList<LatLng> locList = new ArrayList<LatLng>();
+    ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
 
-    public static double gpsLatitude = 0;
-    public static double gpsLongitude = 0;
+    double gpsLatitude = 0;
+    double gpsLongitude = 0;
     boolean dropMarker = true;
 //    float vector[] = new float[2];
     LatLng gpsPos;
@@ -71,7 +81,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
          * This implementation is temporary - I was testing that the information gets here
          * Use this method to save the new location
          */
+
         FaveLocation newLoc = new FaveLocation(name, loc);
+//        savedLocs += newLoc.getName() + "\n" + newLoc.getCoords().latitude + "\n" + newLoc.getCoords().longitude;
         Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(loc.latitude, loc.longitude)));
         // Special dropping effect
         dropPinEffect(marker);
@@ -87,10 +99,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //                                        circle.getCenter().latitude, circle.getCenter().longitude, vector);
 
         marker.setTitle(name);
-        Toast.makeText(getBaseContext(),
-                "" + name + "\n" + String.valueOf(loc.latitude) + ", " + String.valueOf(loc.longitude),
-                Toast.LENGTH_SHORT).show();
-        locList.add(loc);
+//        Toast.makeText(getBaseContext(),
+//                "" + newLoc.getName() + "\n" + String.valueOf(newLoc.getCoords().latitude) + ", " + String.valueOf(newLoc.getCoords().longitude),
+//                Toast.LENGTH_SHORT).show();
+        locList.add(newLoc);
+        //TODO: DELETE ME!
+        if (name.equals("")) {
+            savedLocs = "";
+        }
     }
 
     @Override
@@ -99,7 +115,22 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        FileInputStream fis = null;
+        try {
+            fis = openFileInput("favorite_locs");
+            int test = 0;
+            while (test != -1) {
+                test = fis.read();
+                if (test != -1)
+                    savedLocs += (char) test;
+            }
+//            } while (test != -1);
+//            savedLocs.substring(1);
+            fis.close();
+        } catch (Exception e) {
+//            if ( fis != null)
+//                fis.close();
+        }
 
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -122,7 +153,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-            }});
+            }
+        });
 
 
         ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
@@ -131,9 +163,40 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-            }});
+            }
+        });
     }
 
+    /* (non-Javadoc)
+* @see android.app.Activity#onStop()
+*/
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("onStop", "On Stop .....");
+        String FILENAME = "favorite_locs";
+
+        for ( int i = 0 ; i < locList.size() ; i++ ) {
+            savedLocs += locList.get(i).getName();
+            savedLocs += "\n";
+            savedLocs += locList.get(i).getCoords().latitude;
+            savedLocs += "\n";
+            savedLocs += locList.get(i).getCoords().longitude;
+            savedLocs += "\n";
+        }
+
+//        String string = "32.8801\n-117.2340";
+//        String string = "Favorite Locations";
+//        LatLng ucsd = new LatLng(32.8801, -117.2340);       // GPS COORDS OF UCSD
+
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            fos.write(savedLocs.getBytes());
+            fos.close();
+        } catch (Exception e) {
+
+        }
+    }
 
     /**
      * Manipulates the map once available.
@@ -164,7 +227,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
 
         //GPS
-        final LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         String locationProvider = LocationManager.GPS_PROVIDER;
 //        locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
 
@@ -183,31 +246,33 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             return;
         } else if(mMap != null) {
             Log.d("test2", "outs");
-//            mMap.setMyLocationEnabled(true);
+            mMap.setMyLocationEnabled(true);
             // Create a criteria object to retrieve provider
             Criteria criteria = new Criteria();
 
             // Get the name of the best provider
             String provider = locationManager.getBestProvider(criteria, true);
-            Location myLocation = null;
+            Location myLocation;
             try {
-                if (mMap != null) {}
-                        myLocation = locationManager.getLastKnownLocation(provider);
+//                if (mMap != null) {
+                    myLocation = locationManager.getLastKnownLocation(provider);
+//                }
             } catch (SecurityException e) {
                 Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
+                return;
             }
             try {
                 // Get latitude of the current location
 //                gpsLongitude = myLocation.getLatitude();
-                MapsActivity.gpsLatitude = myLocation.getLatitude();
+                gpsLatitude = myLocation.getLatitude();
 
                 // Get longitude of the current location
 //                gpsLongitude = myLocation.getLongitude();
-                MapsActivity.gpsLongitude = myLocation.getLongitude();
+                gpsLongitude = myLocation.getLongitude();
 //            Toast.makeText(getBaseContext(), "Found You!", Toast.LENGTH_SHORT).show();
                 // Create a LatLng object for the current location
-                gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
-                String string = "" + String.valueOf(myLocation.getLatitude()) + ", " + String.valueOf(myLocation.getLongitude()) + "\n";
+                gpsPos = new LatLng(gpsLatitude,gpsLongitude);
+//                String string = "" + String.valueOf(myLocation.getLatitude()) + ", " + String.valueOf(myLocation.getLongitude()) + "\n";
 //                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
 
 //            mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
@@ -221,7 +286,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-
+                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
                 // Create a criteria object to retrieve provider
                 Criteria criteria = new Criteria();
 
@@ -229,27 +294,53 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 String provider = locationManager.getBestProvider(criteria, true);
                 Location myLocation = null;
                 try {
-                    if (mMap != null) {}
+//                    if (mMap != null) {}
                         myLocation = locationManager.getLastKnownLocation(provider);
                 } catch (SecurityException e) {
                     Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
+                    return;
                 }
                 try {
                     // Get latitude of the current location
-                    gpsLongitude = myLocation.getLatitude();
-                    MapsActivity.gpsLatitude = location.getLatitude();
+//                    gpsLatitude = myLocation.getLatitude();
+                    gpsLatitude = location.getLatitude();
 
                     // Get longitude of the current location
-                    gpsLongitude = myLocation.getLongitude();
-                    MapsActivity.gpsLongitude = location.getLongitude();
+//                    gpsLongitude = myLocation.getLongitude();
+                    gpsLongitude = location.getLongitude();
 
                     // Create a LatLng object for the current location
-                    gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
+                    gpsPos = new LatLng(gpsLatitude,gpsLongitude);
 //                String string = "" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()) + "\n";
 //                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
+
+
                 } catch (NullPointerException e) {
                     Log.e("NULL_POINTER_EXCEPTION", "GPS LOCATION NOT FOUND");
                 }
+
+                //Initialize our GpsUtility object (not important to know what is going on with it)
+                GpsUtility distance = new GpsUtility();
+                //Computes distance (based on GPS coords, earth sphericalness, etc.) from current point/marker trying to drop
+                // to ALL OTHER points/marker in the list
+                if (locList.size() > 0) {
+//                    currLoc = new LatLng(gpsLatitude, gpsLongitude);
+                    for ( int i = 0 ; i < locList.size() ; i++ ) {
+                        dist = distance.computeDistanceBetween(new LatLng(locList.get(i).getCoords().latitude, locList.get(i).getCoords().longitude), new LatLng(gpsLatitude, gpsLongitude));
+                        if ( dist <= ONE_TENTH_MILE ) {
+                            currLoc = new LatLng(gpsLatitude,gpsLongitude);
+                            String string = "checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
+//                            Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
+                            i = locList.size();
+                            // TODO: notify()
+                        } else {
+                            String string = "NOT checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
+//                            Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show(); //?
+                        }
+                    }
+                }
+
+
             }
 
             @Override
@@ -269,6 +360,23 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         };
 
         locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
+
+//        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+//                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
+//
+//        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+//            @Override
+//            public void onPlaceSelected(Place place) {
+//                // TODO: Get info about the selected place.
+//                Log.i("PLACE ERROR", "Place: " + place.getName());
+//            }
+//
+//            @Override
+//            public void onError(Status status) {
+//                // TODO: Handle the error.
+//                Log.i("STATUS ERROR", "An error occurred: " + status);
+//            }
+//        });
     }
 
     /***** DROPPING OF MAP MARKER ON MAP LONG-CLICK
@@ -300,7 +408,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 GpsUtility distance = new GpsUtility();
                 //Computes distance (based on GPS coords, earth sphericalness, etc.) from current point/marker trying to drop
                     // to ALL OTHER points/marker in the list
-                dist = distance.computeDistanceBetween(new LatLng(locList.get(i).latitude, locList.get(i).longitude), new LatLng(point.latitude, point.longitude));
+                dist = distance.computeDistanceBetween(new LatLng(locList.get(i).getCoords().latitude, locList.get(i).getCoords().longitude), new LatLng(point.latitude, point.longitude));
 
                 // If distance between 2 markers (radius's) are within 2*ONE_TENTH_MILEs
                     //We do not want to drop a marker, and thus we will abort
@@ -332,6 +440,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             } else {
                 if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nDONT DROP THE MARKER" + "\nArraySize=" + locList.size();
             }
+            markerCoords += "\n" + savedLocs;
             if (debug) Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
     }
 
