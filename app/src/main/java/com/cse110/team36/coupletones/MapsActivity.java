@@ -110,9 +110,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     }
 
     @Override
-    public void onDialogNegativeClick() {}
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FileInputStream fis = null;
@@ -138,33 +135,22 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
-
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-            }});
-
-
         Button myLocButton = (Button) findViewById(R.id.myLocButton);
-
         myLocButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-            }
-        });
+                startActivity(new Intent(MapsActivity.this, HomeScreen.class));
+            }});
+
 
 
         ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-            }
-        });
+                //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
+            }});
     }
 
     /* (non-Javadoc)
@@ -247,6 +233,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         } else if(mMap != null) {
             Log.d("test2", "outs");
             mMap.setMyLocationEnabled(true);
+
             // Create a criteria object to retrieve provider
             Criteria criteria = new Criteria();
 
@@ -312,6 +299,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                     // Create a LatLng object for the current location
                     gpsPos = new LatLng(gpsLatitude,gpsLongitude);
 //                String string = "" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()) + "\n";
+
 //                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
 
 
