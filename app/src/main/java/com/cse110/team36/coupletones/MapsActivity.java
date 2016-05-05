@@ -79,6 +79,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         //TODO: DELETE ME!
         if (name.equals("")) {
             savedLocs = "";
+            locList.clear();
         }
     }
 
@@ -137,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         super.onStop();
         Log.i("onStop", "On Stop .....");
         String FILENAME = "favorite_locs";
-
+        savedLocs = "";
         for ( int i = 0 ; i < locList.size() ; i++ ) {
             savedLocs += locList.get(i).getName();
             savedLocs += "\n";
