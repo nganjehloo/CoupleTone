@@ -31,7 +31,7 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
         mapsActivity.faveLocationManager.emptyLocs();
         mapsActivity.onMapLongClick(testPoints[0]);
         assertNotNull(mapsActivity.mapManager.getLocationDialog());
-        mapsActivity.faveLocationManager.addLocation("loc0", testPoints[0], "");
+        mapsActivity.faveLocationManager.addLocation("loc0", testPoints[0]);
 
         assertEquals(mapsActivity.faveLocationManager.locList.get(0).getCoords(), testPoints[0]);
         assertEquals(1, mapsActivity.faveLocationManager.locList.size());
@@ -44,8 +44,8 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
         mapsActivity.onMapLongClick(testPoints[0]);
         mapsActivity.onMapLongClick(testPoints[1]);
 
-        mapsActivity.faveLocationManager.addLocation(Integer.toString(R.string.loc0), testPoints[0], "");
-        mapsActivity.faveLocationManager.addLocation(Integer.toString(R.string.loc1), testPoints[1], "");
+        mapsActivity.faveLocationManager.addLocation(Integer.toString(R.string.loc0), testPoints[0]);
+        mapsActivity.faveLocationManager.addLocation(Integer.toString(R.string.loc1), testPoints[1]);
 
         assertEquals(mapsActivity.faveLocationManager.locList.get(0).getCoords(), testPoints[0]);
         assertEquals(mapsActivity.faveLocationManager.locList.get(1).getCoords(), testPoints[1]);
@@ -60,8 +60,8 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
         mapsActivity.onMapLongClick(testPoints[0]);
         mapsActivity.onMapLongClick(testPoints[2]);
 
-        mapsActivity.faveLocationManager.addLocation("loc0", testPoints[0], "");
-        mapsActivity.faveLocationManager.addLocation("loc1", testPoints[2], "");
+        mapsActivity.faveLocationManager.addLocation("loc0", testPoints[0]);
+        mapsActivity.faveLocationManager.addLocation("loc1", testPoints[2]);
 
         assertEquals(testPoints[0], mapsActivity.faveLocationManager.locList.get(0).getCoords());
         assertEquals(testPoints[2], mapsActivity.faveLocationManager.locList.get(1).getCoords());
@@ -76,8 +76,8 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
         mapsActivity.onMapLongClick(testPoints[0]);
         mapsActivity.onMapLongClick(testPoints[3]);
 
-        mapsActivity.faveLocationManager.addLocation("loc0", testPoints[0], "");
-        mapsActivity.faveLocationManager.addLocation("loc3", testPoints[3], "");
+        mapsActivity.faveLocationManager.addLocation("loc0", testPoints[0]);
+        mapsActivity.faveLocationManager.addLocation("loc3", testPoints[3]);
 
         assertEquals(mapsActivity.faveLocationManager.locList.get(0).getCoords(), testPoints[0]);
         assertEquals(mapsActivity.faveLocationManager.locList.get(1).getCoords(), testPoints[3]);
