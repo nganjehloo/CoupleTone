@@ -38,14 +38,14 @@ public class MapManager implements Constants{
         try {
             // Get latitude of the current location
 //                gpsLongitude = myLocation.getLatitude();
-            MapsActivity.gpsLatitude = myLocation.getLatitude();
-
-            // Get longitude of the current location
-//                gpsLongitude = myLocation.getLongitude();
-            MapsActivity.gpsLongitude = myLocation.getLongitude();
+//            MapsActivity.gpsLatitude = myLocation.getLatitude();
+//
+//            // Get longitude of the current location
+////                gpsLongitude = myLocation.getLongitude();
+//            MapsActivity.gpsLongitude = myLocation.getLongitude();
 //            Toast.makeText(getBaseContext(), "Found You!", Toast.LENGTH_SHORT).show();
             // Create a LatLng object for the current location
-            LatLng gpsPos = new LatLng(MapsActivity.gpsLatitude, MapsActivity.gpsLongitude);
+            LatLng gpsPos = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
             String string = "" + String.valueOf(myLocation.getLatitude()) + ", " + String.valueOf(myLocation.getLongitude()) + "\n";
 //                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
 
@@ -63,7 +63,7 @@ public class MapManager implements Constants{
             GpsUtility distance = new GpsUtility();
             //Computes distance (based on GPS coords, earth sphericalness, etc.) from current point/marker trying to drop
             // to ALL OTHER points/marker in the list
-            dist = distance.computeDistanceBetween(new LatLng(locList.get(i).getCoords().latitude, locList.get(i).getCoords().longitude), new LatLng(point.latitude, point.longitude));
+            dist = distance.computeDistanceBetween(new LatLng(locList.get(i).getLat(), locList.get(i).getLng()), new LatLng(point.latitude, point.longitude));
 
             // If distance between 2 markers (radius's) are within 2*ONE_TENTH_MILEs
             //We do not want to drop a marker, and thus we will abort
