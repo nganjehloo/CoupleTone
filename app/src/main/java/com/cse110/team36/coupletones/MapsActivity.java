@@ -1,8 +1,6 @@
 package com.cse110.team36.coupletones;
 
 import android.Manifest;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -24,31 +22,20 @@ import android.widget.Toast;
 
 import android.location.LocationListener;
 
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
-import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.Projection;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
 
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.logging.Logger;
 
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
@@ -62,7 +49,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     final float ONE_TENTH_MILE = 160.934f;  // ONE TENTH OF A MILE (in meters) ***** ADDED BY MrSwirlyEyes 4/26
     double dist = 0;
     //Temporary until we get DB
-//    ArrayList<LatLng> locList = new ArrayList<LatLng>();
     ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
 
     double gpsLatitude = 0;
@@ -84,21 +70,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         FaveLocation newLoc = new FaveLocation(name, loc);
 //        savedLocs += newLoc.getName() + "\n" + newLoc.getCoords().latitude + "\n" + newLoc.getCoords().longitude;
-        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(loc.latitude, loc.longitude)));
-        // Special dropping effect
-        dropPinEffect(marker);
-        // Add circle around marker to display the 1/10th of a mile radius
-//                addMarkerCircle(marker);
+        dropFavLocMarker(name, loc);
 
-//            Circle circle = addMarkerCircle(marker);
-        addMarkerCircle(marker);
-            /* Open dialog box for saving location
-             *          Added by WigginWannabe 26 Apr 2016
-             */
-//            Location.distanceBetween( MapsActivity.gpsLatitude, MapsActivity.gpsLongitude,
-//                                        circle.getCenter().latitude, circle.getCenter().longitude, vector);
-
-        marker.setTitle(name);
 //        Toast.makeText(getBaseContext(),
 //                "" + newLoc.getName() + "\n" + String.valueOf(newLoc.getCoords().latitude) + ", " + String.valueOf(newLoc.getCoords().longitude),
 //                Toast.LENGTH_SHORT).show();
@@ -129,6 +102,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //                fis.close();
         }
 
+
+
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -140,7 +115,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MapsActivity.this, HomeScreen.class));
-            }});
+            }
+        });
 
 
 
@@ -196,6 +172,16 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //    @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        String savedLocArr[] = savedLocs.split("\n");
+
+        for ( int i = 0 ; i < savedLocArr.length - 1 ; i+=3 )
+            locList.add(new FaveLocation(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));
+
+        for ( int i = 0 ; i < locList.size() ; i++ )
+            dropFavLocMarker(locList.get(i).getName(),locList.get(i).getCoords());
+
+
 
         mMap.setOnMapLongClickListener(this);   // LISTENER FOR THE LONG-CLICK SO MARKER DROPS ON HELD LOCATION
 
@@ -508,5 +494,23 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 100 milliseconds
         v.vibrate(100);
+    }
+
+    void dropFavLocMarker(String name, LatLng loc) {
+        Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(loc.latitude, loc.longitude)));
+        // Special dropping effect
+        dropPinEffect(marker);
+        // Add circle around marker to display the 1/10th of a mile radius
+//                addMarkerCircle(marker);
+
+//            Circle circle = addMarkerCircle(marker);
+        addMarkerCircle(marker);
+            /* Open dialog box for saving location
+             *          Added by WigginWannabe 26 Apr 2016
+             */
+//            Location.distanceBetween( MapsActivity.gpsLatitude, MapsActivity.gpsLongitude,
+//                                        circle.getCenter().latitude, circle.getCenter().longitude, vector);
+
+        marker.setTitle(name);
     }
 }
