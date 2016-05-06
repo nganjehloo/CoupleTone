@@ -241,7 +241,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                     String string = null;
 //                    currLoc = new LatLng(gpsLatitude, gpsLongitude);
                     for ( int i = 0 ; i < locList.size() ; i++ ) {
-                        dist = SphericalUtil.computeDistanceBetween(new LatLng(locList.get(i).getCoords().latitude, locList.get(i).getCoords().longitude), new LatLng(gpsLatitude, gpsLongitude));
+                        dist = SphericalUtil.computeDistanceBetween(locList.get(i).getCoords(), mapManager.getGPSPos());
                         if ( dist <= ONE_TENTH_MILE ) {
                             currFavLoc = new FaveLocation(locList.get(i).getName(), locList.get(i).getCoords() );
                             string = "checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;

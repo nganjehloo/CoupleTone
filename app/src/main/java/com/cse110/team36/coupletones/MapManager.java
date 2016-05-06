@@ -109,4 +109,8 @@ public class MapManager implements Constants {
         locationDialog.setCoords(point);
         locationDialog.show(fragmentManager, "set location");
     }
+
+    public LatLng getGPSPos() {
+        return gpsPos;
+    }
 }
