@@ -6,23 +6,33 @@ import com.google.android.gms.maps.model.LatLng;
  *
  */
 public class FaveLocation {
-    private LatLng coords;
+    private double lat;
+    private double lon;
     private String name;
 
-    FaveLocation(String name, LatLng coords) {
-        this.coords = coords;
+    public FaveLocation(String name, LatLng coords) {
+        this.lat = coords.latitude;
+        this.lon = coords.longitude;
         this.name = name;
     }
 
-    LatLng getCoords() {
-        return coords;
+    public double getLat() {
+        return lat;
     }
 
-    String getName() {
+    public double getLng() {
+        return lon;
+    }
+
+    public LatLng getCoords() {
+        return new LatLng(lat, lon);
+    }
+
+    public String getName() {
         return name;
     }
 
-    void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 }

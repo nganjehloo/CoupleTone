@@ -49,12 +49,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     FaveLocation lastFavLoc = null;
     LatLng lastLoc = null;
     MapManager mapManager;
+    FaveLocationManager faveLocationManager = new FaveLocationManager(getBaseContext());
 
     boolean debug = true;
     private GoogleMap mMap;
     double dist = 0;
 
-    ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
+//    ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
 
     double gpsLatitude = 0;
     double gpsLongitude = 0;
@@ -73,18 +74,17 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
          * Use this method to save the new location
          */
 
-        FaveLocation newLoc = new FaveLocation(name, loc);
+        faveLocationManager.addLocation(name, loc);
 //        savedLocs += newLoc.getName() + "\n" + newLoc.getCoords().latitude + "\n" + newLoc.getCoords().longitude;
         dropFavLocMarker(name, loc);
 
 //        Toast.makeText(getBaseContext(),
 //                "" + newLoc.getName() + "\n" + String.valueOf(newLoc.getCoords().latitude) + ", " + String.valueOf(newLoc.getCoords().longitude),
 //                Toast.LENGTH_SHORT).show();
-        locList.add(newLoc);
         //TODO: DELETE ME!
         if (name.equals("")) {
             savedLocs = "";
-            locList.clear();
+            faveLocationManager.emptyLocs();
         }
     }
 
@@ -144,12 +144,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         Log.i("onStop", "On Stop .....");
         String FILENAME = "favorite_locs";
         savedLocs = "";
-        for ( int i = 0 ; i < locList.size() ; i++ ) {
-            savedLocs += locList.get(i).getName();
+        for ( int i = 0 ; i < faveLocationManager.locList.size() ; i++ ) {
+            savedLocs += faveLocationManager.locList.get(i).getName();
             savedLocs += "\n";
-            savedLocs += locList.get(i).getCoords().latitude;
+            savedLocs += faveLocationManager.locList.get(i).getCoords().latitude;
             savedLocs += "\n";
-            savedLocs += locList.get(i).getCoords().longitude;
+            savedLocs += faveLocationManager.locList.get(i).getCoords().longitude;
             savedLocs += "\n";
         }
 
@@ -182,10 +182,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         String savedLocArr[] = savedLocs.split("\n");
 
         for ( int i = 0 ; i < savedLocArr.length - 1 ; i+=3 )
-            locList.add(new FaveLocation(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));
+            faveLocationManager.locList.add(new FaveLocation(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));
 
-        for ( int i = 0 ; i < locList.size() ; i++ )
-            dropFavLocMarker(locList.get(i).getName(),locList.get(i).getCoords());
+        for ( int i = 0 ; i < faveLocationManager.locList.size() ; i++ )
+            dropFavLocMarker(faveLocationManager.locList.get(i).getName(),faveLocationManager.locList.get(i).getCoords());
 
 
 
@@ -236,7 +236,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             public void onLocationChanged(Location location) {
             mapManager.updateGPSLoc(location);
 
-                if (locList.size() > 0) {
+                ArrayList<FaveLocation> locList = faveLocationManager.getLocList();
+                if (faveLocationManager.locList.size() > 0) {
                     String string = null;
 //                    currLoc = new LatLng(gpsLatitude, gpsLongitude);
                     for ( int i = 0 ; i < locList.size() ; i++ ) {
@@ -334,8 +335,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         // If the list already has ANY point (if we already have saved favorite locations
             //TODO: REPLACE WITH DATABASE WHEN TEAM GETS IT
-        if (locList.size() > 0) {
-            dropMarker = mapManager.checkValidDrop(locList, point);
+        if (faveLocationManager.locList.size() > 0) {
+            dropMarker = mapManager.checkValidDrop(faveLocationManager.locList, point);
         }
 
         //Here, we know there was either:
@@ -348,9 +349,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 // Stazia's code
                 mapManager.showLocationDialog(point, getFragmentManager());
 
-                if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nYES! DROP THE MARKER" + "\nArraySize=" + locList.size();
+                if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nYES! DROP THE MARKER" + "\nArraySize=" + faveLocationManager.locList.size();
             } else {
-                if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nDONT DROP THE MARKER" + "\nArraySize=" + locList.size();
+                if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nDONT DROP THE MARKER" + "\nArraySize=" + faveLocationManager.locList.size();
             }
             markerCoords += "\n" + savedLocs;
             if (debug) Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
