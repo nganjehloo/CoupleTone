@@ -31,6 +31,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.SphericalUtil;
 
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
@@ -42,19 +43,22 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                                                                 OnMapReadyCallback,
                                                                 LocationDialog.LocationDialogListener {
     String savedLocs = "";
-    LatLng currLoc = new LatLng(0,0);
+    LatLng currLoc = null;
+    FaveLocation currFavLoc = null;
+    FaveLocation lastFavLoc = null;
+    LatLng lastLoc = null;
 
     boolean debug = true;
     private GoogleMap mMap;
     final float ONE_TENTH_MILE = 160.934f;  // ONE TENTH OF A MILE (in meters) ***** ADDED BY MrSwirlyEyes 4/26
     double dist = 0;
-    //Temporary until we get DB
+
     ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
 
     double gpsLatitude = 0;
     double gpsLongitude = 0;
     boolean dropMarker = true;
-//    float vector[] = new float[2];
+
     LatLng gpsPos;
 
     // The dialog fragment receives a reference to this Activity through the
@@ -295,22 +299,50 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 }
 
                 //Initialize our GpsUtility object (not important to know what is going on with it)
-                GpsUtility distance = new GpsUtility();
+
                 //Computes distance (based on GPS coords, earth sphericalness, etc.) from current point/marker trying to drop
                 // to ALL OTHER points/marker in the list
+
                 if (locList.size() > 0) {
+                    String string = null;
 //                    currLoc = new LatLng(gpsLatitude, gpsLongitude);
                     for ( int i = 0 ; i < locList.size() ; i++ ) {
-                        dist = distance.computeDistanceBetween(new LatLng(locList.get(i).getCoords().latitude, locList.get(i).getCoords().longitude), new LatLng(gpsLatitude, gpsLongitude));
+                        dist = SphericalUtil.computeDistanceBetween(new LatLng(locList.get(i).getCoords().latitude, locList.get(i).getCoords().longitude), new LatLng(gpsLatitude, gpsLongitude));
                         if ( dist <= ONE_TENTH_MILE ) {
-                            currLoc = new LatLng(gpsLatitude,gpsLongitude);
-                            String string = "checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
-//                            Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
+                            currFavLoc = new FaveLocation(locList.get(i).getName(), locList.get(i).getCoords() );
+                            string = "checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
+                            if ( lastFavLoc == null ) {
+                                lastFavLoc = currFavLoc;
+                            } else if ( currFavLoc.getName().equals(lastFavLoc.getName()) ) {
+                                string = "Still @ Curr Fav Loc!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
+//                                Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
+                                //TODO: NO NEED FOR NOTIFY, I AM WHERE I JUST WAS
+//                                break;
+                            } else {
+                                //TODO: I AM SOMEWHERE NEW! NOTIFY
+                                string = "checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
+                            }
+//                            else if ( !currFavLoc.getName().equals(lastFavLoc.getName())) {
+//                                //TODO: I AM NOT IN THE SAME PLACE, BUT I AM IN A DIFF LOC!
+//                                String string = "Still @ Curr Fav Loc!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
+//                                Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
+//                                break;
+//                            }
+
+
+//                            currLoc = new LatLng(gpsLatitude,gpsLongitude);
+
+
+                            Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
                             i = locList.size();
                             // TODO: notify()
+
+                            lastFavLoc = currFavLoc;
+                            break;
                         } else {
-                            String string = "NOT checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
-//                            Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show(); //?
+                            //TODO:  I AM IN NO FAV LOCATION, NO NOTIFY NEEDED
+                            string = "NOT checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
+                            Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show(); //?
                         }
                     }
                 }
@@ -380,10 +412,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         if (locList.size() > 0) {
             for (int i = 0; i < locList.size(); i++) {  //Iterate through every element in the saved locList
                 //Initialize our GpsUtility object (not important to know what is going on with it)
-                GpsUtility distance = new GpsUtility();
+
                 //Computes distance (based on GPS coords, earth sphericalness, etc.) from current point/marker trying to drop
                     // to ALL OTHER points/marker in the list
-                dist = distance.computeDistanceBetween(new LatLng(locList.get(i).getCoords().latitude, locList.get(i).getCoords().longitude), new LatLng(point.latitude, point.longitude));
+                dist = SphericalUtil.computeDistanceBetween(new LatLng(locList.get(i).getCoords().latitude, locList.get(i).getCoords().longitude), new LatLng(point.latitude, point.longitude));
 
                 // If distance between 2 markers (radius's) are within 2*ONE_TENTH_MILEs
                     //We do not want to drop a marker, and thus we will abort
