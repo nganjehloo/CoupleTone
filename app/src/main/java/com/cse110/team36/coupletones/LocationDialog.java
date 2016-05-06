@@ -29,6 +29,7 @@ public class LocationDialog extends DialogFragment {
      * AND IMPLEMENT A CLASS THAT EXTENDS THIS INTERFACE
      */
     public interface LocationDialogListener {
+        /* implemented in LocationDialog.java */
         void onDialogPositiveClick(String name, LatLng loc);
     }
 
