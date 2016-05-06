@@ -41,16 +41,17 @@ import java.util.ArrayList;
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
                                                                 OnMapReadyCallback,
-                                                                LocationDialog.LocationDialogListener {
+                                                                LocationDialog.LocationDialogListener,
+                                                                Constants {
     String savedLocs = "";
     LatLng currLoc = null;
     FaveLocation currFavLoc = null;
     FaveLocation lastFavLoc = null;
     LatLng lastLoc = null;
+    MapManager mapManager;
 
     boolean debug = true;
     private GoogleMap mMap;
-    final float ONE_TENTH_MILE = 160.934f;  // ONE TENTH OF A MILE (in meters) ***** ADDED BY MrSwirlyEyes 4/26
     double dist = 0;
 
     ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
@@ -205,6 +206,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         //GPS
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        mapManager = new MapManager(locationManager);
         String locationProvider = LocationManager.GPS_PROVIDER;
 //        locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
 
@@ -226,82 +228,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             mMap.setMyLocationEnabled(true);
 
             // Create a criteria object to retrieve provider
-            Criteria criteria = new Criteria();
-
-            // Get the name of the best provider
-            String provider = locationManager.getBestProvider(criteria, true);
-            Location myLocation;
-            try {
-//                if (mMap != null) {
-                    myLocation = locationManager.getLastKnownLocation(provider);
-//                }
-            } catch (SecurityException e) {
-                Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
-                return;
-            }
-            try {
-                // Get latitude of the current location
-//                gpsLongitude = myLocation.getLatitude();
-                gpsLatitude = myLocation.getLatitude();
-
-                // Get longitude of the current location
-//                gpsLongitude = myLocation.getLongitude();
-                gpsLongitude = myLocation.getLongitude();
-//            Toast.makeText(getBaseContext(), "Found You!", Toast.LENGTH_SHORT).show();
-                // Create a LatLng object for the current location
-                gpsPos = new LatLng(gpsLatitude,gpsLongitude);
-//                String string = "" + String.valueOf(myLocation.getLatitude()) + ", " + String.valueOf(myLocation.getLongitude()) + "\n";
-//                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
-
-//            mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
-                float zoomLevel = 15; // Sets default zoom level (instead of seeing world, zooms to UCSD) [This goes up to 21]
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gpsPos, zoomLevel));    // MOVES CAMERA THEN ZOOMS TO SET ZOOM LEVEL
-            } catch (NullPointerException e) {
-                Log.e("NULL_POINTER_EXCEPTION", "GPS LOCATION NOT FOUND");
-            }
+            mapManager.firstLocationSet(mMap);
         }
 //        final Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("updated path"));
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                // Create a criteria object to retrieve provider
-                Criteria criteria = new Criteria();
-
-                // Get the name of the best provider
-                String provider = locationManager.getBestProvider(criteria, true);
-                Location myLocation = null;
-                try {
-//                    if (mMap != null) {}
-                        myLocation = locationManager.getLastKnownLocation(provider);
-                } catch (SecurityException e) {
-                    Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
-                    return;
-                }
-                try {
-                    // Get latitude of the current location
-//                    gpsLatitude = myLocation.getLatitude();
-                    gpsLatitude = location.getLatitude();
-
-                    // Get longitude of the current location
-//                    gpsLongitude = myLocation.getLongitude();
-                    gpsLongitude = location.getLongitude();
-
-                    // Create a LatLng object for the current location
-                    gpsPos = new LatLng(gpsLatitude,gpsLongitude);
-//                String string = "" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()) + "\n";
-
-//                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
-
-
-                } catch (NullPointerException e) {
-                    Log.e("NULL_POINTER_EXCEPTION", "GPS LOCATION NOT FOUND");
-                }
-
-                //Initialize our GpsUtility object (not important to know what is going on with it)
-
-                //Computes distance (based on GPS coords, earth sphericalness, etc.) from current point/marker trying to drop
-                // to ALL OTHER points/marker in the list
+            mapManager.updateGPSLoc(location);
 
                 if (locList.size() > 0) {
                     String string = null;
@@ -346,24 +279,16 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                         }
                     }
                 }
-
-
             }
 
             @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
 
             @Override
-            public void onProviderEnabled(String provider) {
-
-            }
+            public void onProviderEnabled(String provider) {}
 
             @Override
-            public void onProviderDisabled(String provider) {
-
-            }
+            public void onProviderDisabled(String provider) {}
         };
 
         locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
@@ -410,21 +335,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         // If the list already has ANY point (if we already have saved favorite locations
             //TODO: REPLACE WITH DATABASE WHEN TEAM GETS IT
         if (locList.size() > 0) {
-            for (int i = 0; i < locList.size(); i++) {  //Iterate through every element in the saved locList
-                //Initialize our GpsUtility object (not important to know what is going on with it)
-
-                //Computes distance (based on GPS coords, earth sphericalness, etc.) from current point/marker trying to drop
-                    // to ALL OTHER points/marker in the list
-                dist = SphericalUtil.computeDistanceBetween(new LatLng(locList.get(i).getCoords().latitude, locList.get(i).getCoords().longitude), new LatLng(point.latitude, point.longitude));
-
-                // If distance between 2 markers (radius's) are within 2*ONE_TENTH_MILEs
-                    //We do not want to drop a marker, and thus we will abort
-                if (dist <= 2 * ONE_TENTH_MILE) {
-                    //Dont drop that marker
-                    dropMarker = false;
-                    break;
-                }
-            }
+            dropMarker = mapManager.checkValidDrop(locList, point);
         }
 
         //Here, we know there was either:
@@ -435,13 +346,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             if (dropMarker) { //Check our boolean to be absolutely sure we can still drop marker
 
                 // Stazia's code
-                double locPoints[] = new double[2];
-                locPoints[0] = point.latitude; locPoints[1] = point.longitude;
-                LocationDialog locationDialog = new LocationDialog();
-                Bundle args = new Bundle();
-                args.putDoubleArray("location", locPoints);
-                locationDialog.setArguments(args);
-                locationDialog.show(getFragmentManager(), "set location");
+                mapManager.showLocationDialog(point, getFragmentManager());
 
                 if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nYES! DROP THE MARKER" + "\nArraySize=" + locList.size();
             } else {
