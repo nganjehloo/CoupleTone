@@ -37,7 +37,6 @@ import java.io.FileInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
                                                                 OnMapReadyCallback,
                                                                 LocationDialog.LocationDialogListener,
@@ -48,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
     boolean debug = true;
     private GoogleMap mMap;
-//    double dist = 0;
+    //    double dist = 0;
     //Temporary until we get DB
 
     //    ArrayList<LatLng> locList = new ArrayList<LatLng>();
@@ -58,8 +57,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     double gpsLatitude = 0;
     double gpsLongitude = 0;
     boolean dropMarker = true;
-//    float vector[] = new float[2];
-//    LatLng gpsPos;
+    //    float vector[] = new float[2];
+    //    LatLng gpsPos;
 
     // The dialog fragment receives a reference to this Activity through the
     // Fragment.onAttach() callback, which it uses to call the following methods
@@ -79,12 +78,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         }
 
         faveLocationManager.addLocation(name, loc);
-//        savedLocs += newLoc.getName() + "\n" + newLoc.getCoords().latitude + "\n" + newLoc.getCoords().longitude;
+        //        savedLocs += newLoc.getName() + "\n" + newLoc.getCoords().latitude + "\n" + newLoc.getCoords().longitude;
         dropFavLocMarker(name, loc);
 
-//        Toast.makeText(getBaseContext(),
-//                "" + newLoc.getName() + "\n" + String.valueOf(newLoc.getCoords().latitude) + ", " + String.valueOf(newLoc.getCoords().longitude),
-//                Toast.LENGTH_SHORT).show();
+        //        Toast.makeText(getBaseContext(),
+        //                "" + newLoc.getName() + "\n" + String.valueOf(newLoc.getCoords().latitude) + ", " + String.valueOf(newLoc.getCoords().longitude),
+        //                Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -99,15 +98,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 if (test != -1)
                     savedLocs += (char) test;
             }
-//            } while (test != -1);
-//            savedLocs.substring(1);
+    //            } while (test != -1);
+    //            savedLocs.substring(1);
             fis.close();
         } catch (Exception e) {
 //            if ( fis != null)
 //                fis.close();
         }
-
-
 
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -123,8 +120,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             }
         });
 
-
-
         ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,8 +131,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     }
 
     /* (non-Javadoc)
-* @see android.app.Activity#onStop()
-*/
+     * @see android.app.Activity#onStop()
+     */
     @Override
     protected void onStop() {
         super.onStop();
@@ -304,9 +299,16 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 // Stazia's code to show a dialog box for saving a location
                 mapManager.showLocationDialog(point, getFragmentManager());
 
-                if (debug) markerCoords = "D=" + mapManager.getDist() + "m\nt=" + timeStamp + "\nYES! DROP THE MARKER" + "\nArraySize=" + faveLocationManager.locList.size();
-            } else {
-                if (debug) markerCoords = "D=" + mapManager.getDist() + "m\nt=" + timeStamp + "\nDONT DROP THE MARKER" + "\nArraySize=" + faveLocationManager.locList.size();
+                if (debug)
+                    markerCoords = "D=" + mapManager.getDist() + "m\nt=" + timeStamp
+                            + "\nYES! DROP THE MARKER" + "\nArraySize="
+                            + faveLocationManager.locList.size();
+            }
+            else {
+                if (debug)
+                    markerCoords = "D=" + mapManager.getDist() + "m\nt=" + timeStamp
+                            + "\nDONT DROP THE MARKER" + "\nArraySize="
+                            + faveLocationManager.locList.size();
             }
             markerCoords += "\n" + savedLocs;
             if (debug) Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();

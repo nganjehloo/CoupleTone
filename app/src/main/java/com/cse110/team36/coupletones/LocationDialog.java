@@ -24,10 +24,15 @@ import com.google.android.gms.maps.model.Marker;
 public class LocationDialog extends DialogFragment {
     private LatLng coords;
 
+
+    /* ANDREW - MAYBE MOVE THIS INTERFACE TO ITS OWN CLASS FILE
+     * AND IMPLEMENT A CLASS THAT EXTENDS THIS INTERFACE
+     */
     public interface LocationDialogListener {
         void onDialogPositiveClick(String name, LatLng loc);
     }
 
+    /* ANDREW - CHANGE THIS CLASS TYPE TO THE IMPLEMENTED CLASS */
     LocationDialogListener listener;
 
     public void setCoords(LatLng coords) {
