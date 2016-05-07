@@ -104,9 +104,12 @@ public class HomeScreen extends AppCompatActivity {
                 startActivity(new Intent(HomeScreen.this, SOConfig.class));
             }
         });
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> d255204114f8180533d356f5110de1a50142ae5c
     }
 
 

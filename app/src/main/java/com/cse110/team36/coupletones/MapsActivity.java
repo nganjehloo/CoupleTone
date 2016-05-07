@@ -324,7 +324,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     }
 
 
-
+/***************************************************************************************************
+ *
+ *                                      FUNCTIONS
+ *
+ *
+ **************************************************************************************************/
 
 
 
@@ -463,7 +468,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             dropFavLocMarker(faveLocationManager.locList.get(i).getName(),faveLocationManager.locList.get(i).getCoords());
     }
 
+    /**
+     * Creates these button listeners on the Maps GUI to open other Activities:
+     *      + Open HomeScreen [MyLocList]
+     *      + Open SOConfig [SO Page]
+     *
+     */
     void initializeButtons() {
+        //MyLocList (Middle button)
         ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
         myLocButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -472,7 +484,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             }
         });
 
-
+        //SO Page (Right button)
         ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -482,6 +494,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         });
     }
 
+    /**
+     * Sets the googleMap UI Settings for:
+     *      + zoomControl
+     *      + MapToolbar
+     *      + LocationButtonEnable
+     */
     void initializeGMapUISettings() {
         mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
         mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)

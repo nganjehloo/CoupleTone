@@ -33,7 +33,7 @@ import java.io.IOException;
 public class RegistrationIntentService extends IntentService {
 
     private static final String TAG = "COUPLETONES";
-    private static final String[] TOPICS = {"global"};
+    private static final String[] TOPICS = {"addso", "removeso", "location"};
 
     public RegistrationIntentService() {
         super(TAG);
