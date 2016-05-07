@@ -107,9 +107,10 @@ public class MyGCMListenerService extends GcmListenerService {
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 
-    private void addSO(){
+    private void addSO(String append){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences.edit().putBoolean("HAS_SO", true);
+        sharedPreferences.edit().putString("SOREGID", append);
         sendNotification("ADDED SO");
     }
 
@@ -124,11 +125,11 @@ public class MyGCMListenerService extends GcmListenerService {
 
     private void messageType(char type, String append) {
         if (type == 'a') {
-            addSO();
+            addSO(append);
         } else if (type == 'e') {
             removeSO();
         } else if (type == 'l') {
-            sendNotification("SO visited " + append.substring(1));
+            sendNotification("SO visited " + append);
         }else {
             Log.d(TAG, "INVALID MESSAGE RECIEVED");
         }

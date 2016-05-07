@@ -246,10 +246,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                             i = locList.size();
                             // TODO: notify()
 
-
+                            String str = currFavLoc.getName();
                             SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            SOKey = keyPreferences.getString("REGID", null);
-                            message = "ENTER MESSAGE HERE";
+                            SOKey = keyPreferences.getString("SOREGID", null);
+                            message = "l " + str;
                             sendNotificationJob job = new sendNotificationJob();
                             job.execute(null, null);
 
@@ -529,7 +529,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
     }
-
 
 
     public static String getSOKey(){

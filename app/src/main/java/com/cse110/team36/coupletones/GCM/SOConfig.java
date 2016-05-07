@@ -56,6 +56,8 @@ public class SOConfig extends AppCompatActivity {
                 sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString());
                 Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString() , Toast.LENGTH_SHORT).show();
                 //sendNotification
+                String SOKey = sharedPreferences.getString("SOREGID", null);
+                sendNotification.arrivalMsg(SOKey, "a ");
             }});
 
 

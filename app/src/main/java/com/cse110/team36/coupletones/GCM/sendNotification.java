@@ -29,9 +29,9 @@ public class sendNotification extends Activity {
         Log.i("TAG", "KEY !!!!!!" + SOKey);
     }
 
-    public void addSO(String myID)
+    public void addSO(String SOKey, String message)
     {
-
+        createContent(SOKey, message);
     }
 
     public static void createContent(String SOKey, String message) {
