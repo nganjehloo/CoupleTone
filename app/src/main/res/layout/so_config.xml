@@ -24,7 +24,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your BaeCode"
+        android:text="Your Couple Code"
         android:id="@+id/textView2"
         android:textSize="20dp"
         android:textStyle="bold|italic"
@@ -44,7 +44,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Your Bae&apos;s Code"
+        android:text="Their Couple Code"
         android:id="@+id/textView3"
         android:textSize="20dp"
         android:textStyle="bold|italic"

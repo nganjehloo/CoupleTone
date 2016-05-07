@@ -44,7 +44,7 @@
             android:theme="@style/Theme.AppCompat"/>
 a
         <activity android:name=".SOConfig"
-            android:label="Bae Settings"
+            android:label="CoupleTones Settings"
             android:theme="@style/Theme.AppCompat" />
 
         <activity android:name=".SOActivity"
