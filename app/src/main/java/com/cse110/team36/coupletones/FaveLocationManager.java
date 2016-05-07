@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class FaveLocationManager {
     public static ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
-    static Context  context;
+    static Context context;
 
     public FaveLocationManager(Context context) {
         this.context = context;
@@ -37,11 +37,11 @@ public class FaveLocationManager {
         return false;
     }
 
-    public void emptyLocs() {
+    public static void emptyLocs() {
         locList.clear();
     }
 
-    public ArrayList<FaveLocation> getLocList() {
+    public static ArrayList<FaveLocation> getLocList() {
         return locList;
     }
 }
