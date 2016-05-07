@@ -48,8 +48,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     FaveLocation currFavLoc = null;
     FaveLocation lastFavLoc = null;
 
-    MapManager mapManager;
-    FaveLocationManager faveLocationManager = new FaveLocationManager(getBaseContext());
+    public MapManager mapManager;
+    public FaveLocationManager faveLocationManager = new FaveLocationManager(getBaseContext());
 
     boolean debug = true;
     private GoogleMap mMap;
