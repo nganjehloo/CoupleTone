@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.GCM;
 
 /**
  * Created by Nima on 5/6/2016.

@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.GCM;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,9 +7,12 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.cse110.team36.coupletones.HomeScreen;
+import com.cse110.team36.coupletones.MapsActivity;
+import com.cse110.team36.coupletones.R;
 
 /**
  * Created by Nima on 5/7/2016.

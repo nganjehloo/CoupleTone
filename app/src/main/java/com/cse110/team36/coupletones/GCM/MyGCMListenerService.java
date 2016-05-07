@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.GCM;
 
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
@@ -26,6 +26,8 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.cse110.team36.coupletones.MapsActivity;
+import com.cse110.team36.coupletones.R;
 import com.google.android.gms.gcm.GcmListenerService;
 
 public class MyGCMListenerService extends GcmListenerService {
