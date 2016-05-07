@@ -131,7 +131,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         super.onStop();
         Log.i("onStop", "On Stop .....");
 
-
         exportSavedFavLocs();
     }
 
@@ -148,14 +147,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        String savedLocArr[] = savedLocs.split("\n");
-
-        for ( int i = 0 ; i < savedLocArr.length - 1 ; i+=3 )
-            faveLocationManager.locList.add(new FaveLocation(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));
-
-        for ( int i = 0 ; i < faveLocationManager.locList.size() ; i++ )
-            dropFavLocMarker(faveLocationManager.locList.get(i).getName(),faveLocationManager.locList.get(i).getCoords());
-
+        loadAndDropSavedLocs();
 
 
         mMap.setOnMapLongClickListener(this);   // LISTENER FOR THE LONG-CLICK SO MARKER DROPS ON HELD LOCATION
@@ -454,5 +446,15 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         } catch (Exception e) {
             Log.e("File", "File error!");
         }
+    }
+
+    void loadAndDropSavedLocs() {
+        String savedLocArr[] = savedLocs.split("\n");
+
+        for ( int i = 0 ; i < savedLocArr.length - 1 ; i+=3 )
+            faveLocationManager.locList.add(new FaveLocation(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));
+
+        for ( int i = 0 ; i < faveLocationManager.locList.size() ; i++ )
+            dropFavLocMarker(faveLocationManager.locList.get(i).getName(),faveLocationManager.locList.get(i).getCoords());
     }
 }
