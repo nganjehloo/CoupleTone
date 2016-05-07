@@ -6,7 +6,8 @@
         android:orientation="horizontal"
         android:gravity="bottom|center_horizontal"
         android:foregroundGravity="bottom">
-<ImageButton
+
+        <ImageButton
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:id="@+id/mapButton"
@@ -16,8 +17,6 @@
             android:clickable="true"
             android:focusable="true"
             android:maxWidth="30dp"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
             android:layout_weight="1" />
 
         <ImageButton
@@ -26,13 +25,20 @@
             android:id="@+id/myLocButton"
             android:src="@drawable/ic_listview"
             android:background="#ffffff"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
             android:layout_weight="1"
             android:contentDescription="location list" />
 
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/settingsButton"
+            android:src="@drawable/ic_action_name"
+            android:background="#ffffff"
+            android:layout_weight="1"
+            android:contentDescription="add and delete significant other" />
 
-        <!--<Button-->
+
+    <!--<Button-->
             <!--style="?android:attr/buttonStyleSmall"-->
             <!--android:layout_width="0dp"-->
             <!--android:layout_height="fill_parent"-->

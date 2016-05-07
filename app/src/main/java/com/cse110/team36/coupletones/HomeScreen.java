@@ -1,6 +1,7 @@
 package com.cse110.team36.coupletones;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,23 +19,27 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_home_screen);
+        setContentView(R.layout.activity_home_screen);
 
-        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+        final ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+        final ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+
+        mapButton.setBackgroundColor(0xFFFFFF);
+        (findViewById(R.id.myLocButton)).setBackgroundResource(R.color.colorButtonDepressed);
+        settingsButton.setBackgroundColor(0xFFFFFF);
+
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeScreen.this, MapsActivity.class));
             }});
 
-
-//        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-//        settingsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-//                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
-//            }});
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
+            }});
 
     }
 

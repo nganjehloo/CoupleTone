@@ -103,7 +103,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
+        final ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
+        final ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+
+        (findViewById(R.id.mapButton)).setBackgroundResource(R.color.colorButtonDepressed);
+        myLocButton.setBackgroundColor(0xFFFFFF);
+        settingsButton.setBackgroundColor(0xFFFF);
+
         myLocButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,13 +117,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             }
         });
 
-//        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-//        settingsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-//                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
-//            }});
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
+            }});
     }
 
     /* (non-Javadoc)

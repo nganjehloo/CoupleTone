@@ -4,14 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_height="match_parent"
     tools:context="com.cse110.team36.coupletones.HomeScreen"
     tools:showIn="@layout/activity_home_screen"
     android:gravity="bottom">
 
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9.3"
+        android:name="android.support.v4.app.ListFragment"
+        android:id="@+id/fragment" />
+
     <include layout="@layout/toolbar"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="0.7"
         android:layout_width="fill_parent" />
 
 </LinearLayout>
