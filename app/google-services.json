@@ -1,0 +1,61 @@
+{
+  "project_info": {
+    "project_number": "755936681526",
+    "project_id": "cse110team36coupletones"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755936681526:android:fdb14eacb202eac4",
+        "android_client_info": {
+          "package_name": "com.cse110.team36.coupletones.dummy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnduESq54RmoStkgClt_W_eF6Ox_WiDwY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:755936681526:android:5c6e80f549d1baa0",
+        "android_client_info": {
+          "package_name": "com.android.gcm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnduESq54RmoStkgClt_W_eF6Ox_WiDwY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

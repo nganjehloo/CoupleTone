@@ -1,8 +1,10 @@
 package com.cse110.team36.coupletones;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -10,14 +12,19 @@ import android.location.LocationManager;
 import android.os.SystemClock;
 import android.os.Vibrator;
 
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import android.location.LocationListener;
@@ -57,6 +64,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
     boolean dropMarker = true;
 
+    SharedPreferences sharedPreferences;
+
 
     // The dialog fragment receives a reference to this Activity through the
     // Fragment.onAttach() callback, which it uses to call the following methods
@@ -92,35 +101,43 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         importSavedFavLocs();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean ran_once = sharedPreferences.getBoolean("RAN_ONCE", false);
 
-        setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        if (!ran_once) {
+            sharedPreferences.edit().putBoolean("RAN_ONCE",true).apply();
+            startActivity(new Intent(MapsActivity.this, SOActivity.class));
+        } else {
 
-        Button myLocButton = (Button) findViewById(R.id.myLocButton);
-        myLocButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MapsActivity.this, HomeScreen.class));
-            }
-        });
+            setContentView(R.layout.activity_maps);
+            // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
+
+            Button myLocButton = (Button) findViewById(R.id.myLocButton);
+            myLocButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(MapsActivity.this, HomeScreen.class));
+                }
+            });
 
 
-
-        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
+            ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+            settingsButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(MapsActivity.this, SOConfig.class));
+                }
+            });
+        }
     }
 
     /* (non-Javadoc)
