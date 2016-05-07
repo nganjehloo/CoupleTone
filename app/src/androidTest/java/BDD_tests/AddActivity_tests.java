@@ -19,5 +19,8 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivi
 
     public void test_addSO() {
         soActivity = getActivity();
+
+
+
     }
 }
