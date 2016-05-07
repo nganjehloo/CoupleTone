@@ -7,9 +7,12 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.cse110.team36.coupletones.GCM.Server.Content;
 import com.cse110.team36.coupletones.HomeScreen;
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
@@ -27,7 +30,7 @@ public class SOConfig extends AppCompatActivity {
         setContentView(R.layout.so_config);
         Log.d(TAG, "now we chillin");
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean sentToken = sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
         mInformationTextView = (TextView) findViewById(R.id.informationTextView);
         if (sentToken) {
@@ -37,6 +40,24 @@ public class SOConfig extends AppCompatActivity {
         } else {
             mInformationTextView.setText(getString(R.string.token_error_message));
         }
+
+        final ImageButton mylocations = (ImageButton) findViewById(R.id.myLocButton);
+        final ImageButton map = (ImageButton) findViewById(R.id.mapButton);
+        mylocations.setBackgroundColor(0xFFFFFF);
+        (findViewById(R.id.settingsButton)).setBackgroundResource(R.color.colorButtonDepressed);
+        map.setBackgroundColor(0xFFFFFF);
+
+        Button soButton = (Button) findViewById(R.id.button);
+        soButton.setOnClickListener(new View.OnClickListener() {
+            TextView mBaeCode = (TextView) findViewById(R.id.editText);
+
+            @Override
+            public void onClick(View view) {
+                sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString());
+                Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString() , Toast.LENGTH_SHORT).show();
+                //sendNotification
+            }});
+
 
         ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {

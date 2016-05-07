@@ -15,8 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
+import com.cse110.team36.coupletones.HomeScreen;
 import com.cse110.team36.coupletones.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -129,4 +132,5 @@ public class SOActivity extends AppCompatActivity{
 
         return super.onOptionsItemSelected(item);
     }
+
 }

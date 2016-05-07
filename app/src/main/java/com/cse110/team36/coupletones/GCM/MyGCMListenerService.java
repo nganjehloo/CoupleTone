@@ -20,15 +20,20 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.cse110.team36.coupletones.FaveLocation;
+import com.cse110.team36.coupletones.FaveLocationManager;
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
 import com.google.android.gms.gcm.GcmListenerService;
+import com.google.android.gms.maps.model.LatLng;
 
 public class MyGCMListenerService extends GcmListenerService {
 
@@ -48,11 +53,14 @@ public class MyGCMListenerService extends GcmListenerService {
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
 
-        if (from.startsWith("/topics/")) {
+      /*  if (from.startsWith("/topics/")) {
             // message received from some topic.
         } else {
-            // normal downstream message.
-        }
+
+        }*/
+        Log.d(TAG, "download");
+        char type = message.charAt(0);
+        String appended = message.substring(1);
 
         // [START_EXCLUDE]
         /**
@@ -67,7 +75,7 @@ public class MyGCMListenerService extends GcmListenerService {
          * that a message was received.
          */
         Log.d(TAG, "GOT IT");
-        sendNotification(message);
+        messageType(type, appended);
         // [END_EXCLUDE]
     }
     // [END receive_message]
@@ -78,6 +86,7 @@ public class MyGCMListenerService extends GcmListenerService {
      * @param message GCM message received.
      */
     private void sendNotification(String message) {
+        Log.d(TAG, "downstream");
         Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -86,7 +95,7 @@ public class MyGCMListenerService extends GcmListenerService {
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
-                .setContentTitle("GCM Message")
+                .setContentTitle("CoupleTones")
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
@@ -97,4 +106,32 @@ public class MyGCMListenerService extends GcmListenerService {
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
+
+    private void addSO(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences.edit().putBoolean("HAS_SO", true);
+        sendNotification("ADDED SO");
+    }
+
+    private void removeSO(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences.edit().putBoolean("HAS_SO", false);
+        sharedPreferences.edit().remove("SOREGID");
+        sendNotification("YOUR SO REMOVED YOU");
+
+    }
+
+
+    private void messageType(char type, String append) {
+        if (type == 'a') {
+            addSO();
+        } else if (type == 'e') {
+            removeSO();
+        } else if (type == 'l') {
+            sendNotification("SO visited " + append.substring(1));
+        }else {
+            Log.d(TAG, "INVALID MESSAGE RECIEVED");
+        }
+    }
+
 }
