@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.GCM;
 
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.

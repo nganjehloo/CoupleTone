@@ -45,12 +45,12 @@
             android:theme="@style/Theme.AppCompat"
             android:launchMode="singleInstance"/>
 a
-        <activity android:name=".SOConfig"
+        <activity android:name=".GCM.SOConfig"
             android:label="CoupleTones Settings"
             android:theme="@style/Theme.AppCompat"
             android:launchMode="singleInstance"/>
 
-        <activity android:name=".SOActivity"
+        <activity android:name=".GCM.SOActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:launchMode="singleInstance"/>
 
@@ -75,7 +75,7 @@ a
      notifications on the app’s behalf) -->
 
         <service
-            android:name=".MyGCMListenerService"
+            android:name=".GCM.MyGCMListenerService"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -85,7 +85,7 @@ a
         <!-- Handles the creation and updating of registration tokens -->
 
         <service
-            android:name=".MyInstanceIDListenerService"
+            android:name=".GCM.MyInstanceIDListenerService"
             android:exported="false" >
             <intent-filter>
                 <action android:name="com.google.android.gms.iid.InstanceID" />
@@ -95,7 +95,7 @@ a
         <!-- To get the registration token -->
 
         <service
-            android:name=".RegistrationIntentService"
+            android:name=".GCM.RegistrationIntentService"
             android:exported="false" >
         </service>
         <!--
