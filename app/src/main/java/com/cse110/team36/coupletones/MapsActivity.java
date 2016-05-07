@@ -123,7 +123,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
 
-            Button myLocButton = (Button) findViewById(R.id.myLocButton);
+            ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
             myLocButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
