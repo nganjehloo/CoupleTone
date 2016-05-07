@@ -36,7 +36,6 @@ public class HomeScreen extends AppCompatActivity {
                 startActivity(new Intent(HomeScreen.this, SOConfig.class));
             }
         });
-
     }
 /*
     @Override
