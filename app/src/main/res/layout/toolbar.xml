@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar  xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/actionbarT"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?attr/actionBarSize"
-    app:theme="@style/Base.Theme.AppCompat.CompactMenu" >
-
     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:gravity="bottom|end"
-        android:foregroundGravity="bottom"
-        android:baselineAligned="true">
+        android:gravity="bottom|center_horizontal"
+        android:foregroundGravity="bottom">
 
         <ImageButton
             android:layout_width="0dp"
@@ -21,22 +13,49 @@
             android:id="@+id/mapButton"
             android:src="@drawable/ic_map"
             android:contentDescription="@string/map_button"
-            android:layout_weight="1" />
-
-        <Button
-            style="?android:attr/buttonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:text="@string/my_locations"
-            android:id="@+id/myLocButton"
+            android:background="#ffffff"
+            android:clickable="true"
+            android:focusable="true"
+            android:maxWidth="30dp"
             android:layout_weight="1" />
 
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:id="@+id/settingsButton"
-            android:src="@drawable/ic_notifications_black_24dp"
-            android:layout_weight="1" />
-    </LinearLayout>
+            android:id="@+id/myLocButton"
+            android:src="@drawable/ic_listview"
+            android:background="#ffffff"
+            android:layout_weight="1"
+            android:contentDescription="location list" />
 
-</android.support.v7.widget.Toolbar>
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:id="@+id/settingsButton"
+            android:src="@drawable/ic_action_name"
+            android:background="#ffffff"
+            android:layout_weight="1"
+            android:contentDescription="add and delete significant other" />
+
+
+    <!--<Button-->
+            <!--style="?android:attr/buttonStyleSmall"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:text="@string/my_locations"-->
+            <!--android:id="@+id/myLocButton"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#ffffff"-->
+            <!--android:clickable="true"-->
+            <!--android:focusable="true"-->
+            <!--android:gravity="center"-->
+            <!--android:singleLine="true" />-->
+
+        <!--<ImageButton-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:id="@+id/settingsButton"-->
+            <!--android:src="@drawable/ic_notifications_black_24dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#ffffff" />-->
+    </LinearLayout>

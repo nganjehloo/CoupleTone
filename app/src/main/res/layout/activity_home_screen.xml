@@ -5,7 +5,6 @@
     android:weightSum="1"
     android:background="@mipmap/homescreen">
 
-
     <ExpandableListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

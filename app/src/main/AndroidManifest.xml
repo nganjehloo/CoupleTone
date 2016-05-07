@@ -27,7 +27,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name=".MapsActivity"
             android:label="CoupleTones"
@@ -40,6 +40,7 @@
         </activity>
 
         <activity android:name=".HomeScreen"
+
             android:label="Locations"
             android:theme="@style/Theme.AppCompat"/>
 a
@@ -49,6 +50,7 @@ a
 
         <activity android:name=".SOActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >

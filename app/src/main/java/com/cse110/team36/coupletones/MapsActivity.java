@@ -55,8 +55,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     FaveLocation currFavLoc = null;
     FaveLocation lastFavLoc = null;
 
-    MapManager mapManager;
-    FaveLocationManager faveLocationManager = new FaveLocationManager(getBaseContext());
+    public MapManager mapManager;
+    public FaveLocationManager faveLocationManager = new FaveLocationManager(getBaseContext());
 
     boolean debug = true;
     private GoogleMap mMap;
@@ -101,10 +101,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getWindow().setWindowAnimations(android.R.style.Animation);
+
         importSavedFavLocs();
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
 
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -149,6 +151,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         Log.i("onStop", "On Stop .....");
 
         exportSavedFavLocs();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(0, 0);
     }
 
     /**
@@ -245,7 +254,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //                            currLoc = new LatLng(gpsLatitude,gpsLongitude);
 
 
-                            Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
                             i = locList.size();
                             // TODO: notify()
 
@@ -254,7 +263,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                         } else {
                             //TODO:  I AM IN NO FAV LOCATION, NO NOTIFY NEEDED
                             string = "NOT checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
-                            Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show(); //?
+                            //Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show(); //?
                         }
                     }
                 }
