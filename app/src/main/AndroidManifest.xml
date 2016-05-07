@@ -31,7 +31,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="CoupleTones"
-            android:theme="@style/Theme.AppCompat">
+            android:theme="@style/Theme.AppCompat"
+            android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
