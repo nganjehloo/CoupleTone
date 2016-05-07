@@ -452,7 +452,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             fos.write(savedLocs.getBytes());
             fos.close();
         } catch (Exception e) {
-
+            Log.e("File", "File error!");
         }
     }
 }
