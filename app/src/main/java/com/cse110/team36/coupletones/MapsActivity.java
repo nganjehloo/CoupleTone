@@ -44,10 +44,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                                                                 LocationDialog.LocationDialogListener,
                                                                 Constants {
     String savedLocs = "";
-    LatLng currLoc = null;
+
     FaveLocation currFavLoc = null;
     FaveLocation lastFavLoc = null;
-    LatLng lastLoc = null;
+
     MapManager mapManager;
     FaveLocationManager faveLocationManager = new FaveLocationManager(getBaseContext());
 
@@ -55,13 +55,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     private GoogleMap mMap;
     double dist = 0;
 
-//    ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
-
-    double gpsLatitude = 0;
-    double gpsLongitude = 0;
     boolean dropMarker = true;
 
-    LatLng gpsPos;
 
     // The dialog fragment receives a reference to this Activity through the
     // Fragment.onAttach() callback, which it uses to call the following methods
@@ -97,22 +92,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FileInputStream fis = null;
-        try {
-            fis = openFileInput("favorite_locs");
-            int test = 0;
-            while (test != -1) {
-                test = fis.read();
-                if (test != -1)
-                    savedLocs += (char) test;
-            }
-//            } while (test != -1);
-//            savedLocs.substring(1);
-            fis.close();
-        } catch (Exception e) {
-//            if ( fis != null)
-//                fis.close();
-        }
+
+        importSavedFavLocs();
 
 
 
@@ -146,29 +127,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     protected void onStop() {
         super.onStop();
         Log.i("onStop", "On Stop .....");
-        String FILENAME = "favorite_locs";
 
-        savedLocs = "";
-        for ( int i = 0 ; i < faveLocationManager.locList.size() ; i++ ) {
-            savedLocs += faveLocationManager.locList.get(i).getName();
-            savedLocs += "\n";
-            savedLocs += faveLocationManager.locList.get(i).getCoords().latitude;
-            savedLocs += "\n";
-            savedLocs += faveLocationManager.locList.get(i).getCoords().longitude;
-            savedLocs += "\n";
-        }
-
-//        String string = "32.8801\n-117.2340";
-//        String string = "Favorite Locations";
-//        LatLng ucsd = new LatLng(32.8801, -117.2340);       // GPS COORDS OF UCSD
-
-        try {
-            FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-            fos.write(savedLocs.getBytes());
-            fos.close();
-        } catch (Exception e) {
-
-        }
+        exportSavedFavLocs();
     }
 
     /**
@@ -184,14 +144,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        String savedLocArr[] = savedLocs.split("\n");
-
-        for ( int i = 0 ; i < savedLocArr.length - 1 ; i+=3 )
-            faveLocationManager.locList.add(new FaveLocation(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));
-
-        for ( int i = 0 ; i < faveLocationManager.locList.size() ; i++ )
-            dropFavLocMarker(faveLocationManager.locList.get(i).getName(),faveLocationManager.locList.get(i).getCoords());
-
+        loadAndDropSavedLocs();
 
 
         mMap.setOnMapLongClickListener(this);   // LISTENER FOR THE LONG-CLICK SO MARKER DROPS ON HELD LOCATION
@@ -455,5 +408,50 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //                                        circle.getCenter().latitude, circle.getCenter().longitude, vector);
 
         marker.setTitle(name);
+    }
+
+    void importSavedFavLocs() {
+        try {
+            FileInputStream fis = openFileInput("favorite_locs");
+            int test = 0;
+            while (test != -1) {
+                test = fis.read();
+                if (test != -1)
+                    savedLocs += (char) test;
+            } fis.close();
+        } catch (Exception e) {
+            Log.e("File", "File error!");
+        }
+    }
+
+    void exportSavedFavLocs() {
+        String FILENAME = "favorite_locs";
+
+        savedLocs = "";
+
+        for ( int i = 0 ; i < faveLocationManager.locList.size() ; i++ ) {
+            savedLocs += faveLocationManager.locList.get(i).getName() + "\n";
+            savedLocs += faveLocationManager.locList.get(i).getLat() + "\n";
+            savedLocs += faveLocationManager.locList.get(i).getLng() + "\n";
+        }
+
+
+        try {
+            FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            fos.write(savedLocs.getBytes());
+            fos.close();
+        } catch (Exception e) {
+            Log.e("File", "File error!");
+        }
+    }
+
+    void loadAndDropSavedLocs() {
+        String savedLocArr[] = savedLocs.split("\n");
+
+        for ( int i = 0 ; i < savedLocArr.length - 1 ; i+=3 )
+            faveLocationManager.locList.add(new FaveLocation(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));
+
+        for ( int i = 0 ; i < faveLocationManager.locList.size() ; i++ )
+            dropFavLocMarker(faveLocationManager.locList.get(i).getName(),faveLocationManager.locList.get(i).getCoords());
     }
 }
