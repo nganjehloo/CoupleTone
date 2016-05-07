@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //getWindow().setWindowAnimations(android.R.style.Animation);
         setContentView(R.layout.activity_home_screen);
 
         final ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
@@ -41,6 +43,18 @@ public class HomeScreen extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
             }});
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        overridePendingTransition(0, 0);
     }
 
     @Override

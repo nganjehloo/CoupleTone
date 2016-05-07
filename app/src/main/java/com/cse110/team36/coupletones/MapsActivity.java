@@ -92,10 +92,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //getWindow().setWindowAnimations(android.R.style.Animation);
         importSavedFavLocs();
-
-
 
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -133,6 +131,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         Log.i("onStop", "On Stop .....");
 
         exportSavedFavLocs();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        overridePendingTransition(0, 0);
     }
 
     /**

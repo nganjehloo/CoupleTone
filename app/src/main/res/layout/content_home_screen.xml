@@ -9,12 +9,13 @@
     tools:showIn="@layout/activity_home_screen"
     android:gravity="bottom">
 
-    <fragment
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:text=""
+        android:id="@+id/textView"
         android:layout_weight="9.3"
-        android:name="android.support.v4.app.ListFragment"
-        android:id="@+id/fragment" />
+        android:background="#6f6f6f" />
 
     <include layout="@layout/toolbar"
         android:layout_height="0dp"
