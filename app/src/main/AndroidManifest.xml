@@ -42,14 +42,17 @@
         <activity android:name=".HomeScreen"
 
             android:label="Locations"
-            android:theme="@style/Theme.AppCompat"/>
+            android:theme="@style/Theme.AppCompat"
+            android:launchMode="singleInstance"/>
 a
         <activity android:name=".SOConfig"
             android:label="CoupleTones Settings"
-            android:theme="@style/Theme.AppCompat" />
+            android:theme="@style/Theme.AppCompat"
+            android:launchMode="singleInstance"/>
 
         <activity android:name=".SOActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:launchMode="singleInstance"/>
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
