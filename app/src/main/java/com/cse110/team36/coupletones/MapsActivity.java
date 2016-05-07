@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.os.SystemClock;
 import android.os.Vibrator;
 
@@ -18,12 +20,15 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import android.location.LocationListener;
 
+import com.cse110.team36.coupletones.GCM.RegistrationIntentService;
 import com.cse110.team36.coupletones.GCM.SOActivity;
 import com.cse110.team36.coupletones.GCM.SOConfig;
+import com.cse110.team36.coupletones.GCM.sendNotification;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -57,6 +62,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     double dist = 0;
 
     boolean dropMarker = true;
+
+    private static String SOKey;
+    private static String message;
 
     SharedPreferences sharedPreferences;
 
@@ -251,6 +259,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                             //Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
                             i = locList.size();
                             // TODO: notify()
+
+
+                            SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SOKey = keyPreferences.getString("REGID", null);
+                            message = "ENTER MESSAGE HERE";
+                            sendNotificationJob job = new sendNotificationJob();
+                            job.execute(null, null);
+
 
                             lastFavLoc = currFavLoc;
                             break;
@@ -476,5 +492,29 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         for ( int i = 0 ; i < faveLocationManager.locList.size() ; i++ )
             dropFavLocMarker(faveLocationManager.locList.get(i).getName(),faveLocationManager.locList.get(i).getCoords());
+    }
+
+    public static String getSOKey(){
+        return SOKey;
+    }
+
+    public static String getMessage(){
+        return message;
+    }
+}
+class sendNotificationJob extends AsyncTask<String, Void, String> {
+
+    String SOKey = MapsActivity.getSOKey();
+    String message = MapsActivity.getMessage();
+
+    @Override
+    protected String doInBackground(String[] params) {
+        sendNotification.arrivalMsg(SOKey, message);
+        return "some message";
+    }
+
+    @Override
+    protected void onPostExecute(String message) {
+        //process message
     }
 }

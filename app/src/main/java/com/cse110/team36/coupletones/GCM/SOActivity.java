@@ -32,9 +32,11 @@ public class SOActivity extends AppCompatActivity{
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     private ProgressBar mRegistrationProgressBar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -68,6 +70,7 @@ public class SOActivity extends AppCompatActivity{
             }
         }
 
+
     }
 
     @Override
@@ -82,6 +85,7 @@ public class SOActivity extends AppCompatActivity{
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mRegistrationBroadcastReceiver);
         super.onPause();
     }
+
 
     /**
      * Check the device to make sure it has the Google Play Services APK. If

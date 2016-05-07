@@ -23,6 +23,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.cse110.team36.coupletones.MyContext;
 import com.cse110.team36.coupletones.R;
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -38,6 +39,7 @@ public class RegistrationIntentService extends IntentService {
     public RegistrationIntentService() {
         super(TAG);
     }
+
 
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -72,6 +74,8 @@ public class RegistrationIntentService extends IntentService {
             // on a third-party server, this ensures that we'll attempt the update at a later time.
             sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false).apply();
         }
+
+
         // Notify UI that registration has completed, so the progress indicator can be hidden.
         Intent registrationComplete = new Intent(QuickstartPreferences.REGISTRATION_COMPLETE);
         LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
@@ -92,6 +96,9 @@ public class RegistrationIntentService extends IntentService {
         //content.addRegId(token);
         //content.createData("hi", "hi");
         //Post2Gcm.post("AIzaSyCnduESq54RmoStkgClt_W_eF6Ox_WiDwY", content);
+
+        //sendNotification.arrivalMsg("Burger King", "13", "37", "8:15AM");
+
     }
 
     /**
