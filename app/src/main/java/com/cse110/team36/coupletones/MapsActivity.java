@@ -117,22 +117,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
 
-            ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
-            myLocButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(MapsActivity.this, HomeScreen.class));
-                }
-            });
+            initializeButtons();
 
-
-            ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-            settingsButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    startActivity(new Intent(MapsActivity.this, SOConfig.class));
-                }
-            });
         }
     }
 
@@ -181,9 +167,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //        LatLng ucsd = new LatLng(32.8801, -117.2340);       // GPS COORDS OF UCSD
 //        mMap.addMarker(new MarkerOptions().position(ucsd).title("Marker in UCSD")); // MARKER OPTIONS with TITLE and POSITION @ GPS COORDS OF UCSD
 
-        mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
-        mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
-        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        initializeGMapUISettings();
+
 
         //GPS
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -476,5 +461,30 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         for ( int i = 0 ; i < faveLocationManager.locList.size() ; i++ )
             dropFavLocMarker(faveLocationManager.locList.get(i).getName(),faveLocationManager.locList.get(i).getCoords());
+    }
+
+    void initializeButtons() {
+        ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
+        myLocButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MapsActivity.this, HomeScreen.class));
+            }
+        });
+
+
+        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MapsActivity.this, SOConfig.class));
+            }
+        });
+    }
+
+    void initializeGMapUISettings() {
+        mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
+        mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
     }
 }
