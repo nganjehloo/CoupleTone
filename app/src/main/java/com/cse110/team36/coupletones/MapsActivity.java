@@ -112,6 +112,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         } else {
 
             setContentView(R.layout.activity_maps);
+
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
@@ -475,6 +476,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
      *
      */
     void initializeButtons() {
+
+       // final ImageButton mylocations = (ImageButton) findViewById(R.id.myLocButton);
+        //final ImageButton settings = (ImageButton) findViewById(R.id.settingsButton);
+       // mylocations.setBackgroundColor(0xFFFFFF);
+        (findViewById(R.id.mapButton)).setBackgroundResource(R.color.colorButtonDepressed);
+        //settings.setBackgroundColor(0xFFFFFF);
+
         //MyLocList (Middle button)
         ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
         myLocButton.setOnClickListener(new View.OnClickListener() {

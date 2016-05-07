@@ -58,7 +58,7 @@ public class MyGCMListenerService extends GcmListenerService {
         } else {
 
         }*/
-
+        Log.d(TAG, "download");
         char type = message.charAt(0);
         String appended = message.substring(1);
 
@@ -86,6 +86,7 @@ public class MyGCMListenerService extends GcmListenerService {
      * @param message GCM message received.
      */
     private void sendNotification(String message) {
+        Log.d(TAG, "downstream");
         Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -127,7 +128,7 @@ public class MyGCMListenerService extends GcmListenerService {
         } else if (type == 'e') {
             removeSO();
         } else if (type == 'l') {
-            sendNotification("SO visited " + append);
+            sendNotification("SO visited " + append.substring(1));
         }else {
             Log.d(TAG, "INVALID MESSAGE RECIEVED");
         }

@@ -41,9 +41,14 @@ public class SOConfig extends AppCompatActivity {
             mInformationTextView.setText(getString(R.string.token_error_message));
         }
 
+        final ImageButton mylocations = (ImageButton) findViewById(R.id.myLocButton);
+        final ImageButton map = (ImageButton) findViewById(R.id.mapButton);
+        mylocations.setBackgroundColor(0xFFFFFF);
+        (findViewById(R.id.settingsButton)).setBackgroundResource(R.color.colorButtonDepressed);
+        map.setBackgroundColor(0xFFFFFF);
+
         Button soButton = (Button) findViewById(R.id.button);
         soButton.setOnClickListener(new View.OnClickListener() {
-
             TextView mBaeCode = (TextView) findViewById(R.id.editText);
 
             @Override
