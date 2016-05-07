@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class MapManager implements Constants {
     LocationManager locationManager;
     LatLng gpsPos;
+    LocationDialog locationDialog;
 
     public MapManager(LocationManager locationManager) {
         this.locationManager = locationManager;
@@ -105,12 +106,16 @@ public class MapManager implements Constants {
     }
 
     public void showLocationDialog(LatLng point, FragmentManager fragmentManager) {
-        LocationDialog locationDialog = new LocationDialog();
+        locationDialog = new LocationDialog();
         locationDialog.setCoords(point);
         locationDialog.show(fragmentManager, "set location");
     }
 
     public LatLng getGPSPos() {
         return gpsPos;
+    }
+
+    public LocationDialog getLocationDialog() {
+        return locationDialog;
     }
 }

@@ -28,13 +28,13 @@ public class HomeScreen extends AppCompatActivity {
             }});
 
 
-        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
-            }});
+//        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+//        settingsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+//                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
+//            }});
 
     }
 
