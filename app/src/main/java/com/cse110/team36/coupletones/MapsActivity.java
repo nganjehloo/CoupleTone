@@ -122,7 +122,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Button myLocButton = (Button) findViewById(R.id.myLocButton);
+        ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
         myLocButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,16 +130,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             }
         });
 
-
-
-        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
-                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+//        settingsButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //startActivity(new Intent(MapsActivity.this, MapsActivity.class));
+//                Toast.makeText(getBaseContext(), "Sorry, this page not implemented yet", Toast.LENGTH_SHORT).show();
+//            }});
     }
 
     /* (non-Javadoc)
@@ -275,7 +272,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //                            currLoc = new LatLng(gpsLatitude,gpsLongitude);
 
 
-                            Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
                             i = locList.size();
                             // TODO: notify()
 
@@ -284,7 +281,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                         } else {
                             //TODO:  I AM IN NO FAV LOCATION, NO NOTIFY NEEDED
                             string = "NOT checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
-                            Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show(); //?
+                            //Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show(); //?
                         }
                     }
                 }
