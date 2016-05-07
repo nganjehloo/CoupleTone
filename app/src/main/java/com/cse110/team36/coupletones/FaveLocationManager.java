@@ -11,14 +11,14 @@ import java.util.ArrayList;
  * Created by stazia on 5/5/16.
  */
 public class FaveLocationManager {
-    public ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
-    Context context;
+    public static ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
+    static Context context;
 
     public FaveLocationManager(Context context) {
         this.context = context;
     }
 
-    public void addLocation(String name, LatLng loc) {
+    public static void addLocation(String name, LatLng loc) {
         FaveLocation newLoc = new FaveLocation(name, loc);
         locList.add(newLoc);
 //        Toast.makeText(context,
@@ -26,7 +26,7 @@ public class FaveLocationManager {
 //                Toast.LENGTH_SHORT).show();
     }
 
-    public boolean removeLocation(String name) {
+    public static boolean removeLocation(String name) {
         for (int i = 0; i < locList.size(); i++) {
             FaveLocation faveLocation = locList.get(i);
             if (faveLocation.getName().equals(name)) {
@@ -37,11 +37,11 @@ public class FaveLocationManager {
         return false;
     }
 
-    public void emptyLocs() {
+    public static void emptyLocs() {
         locList.clear();
     }
 
-    public ArrayList<FaveLocation> getLocList() {
+    public static ArrayList<FaveLocation> getLocList() {
         return locList;
     }
 }
