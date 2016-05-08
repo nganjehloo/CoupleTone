@@ -8,6 +8,7 @@ import android.test.UiThreadTest;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.cse110.team36.coupletones.GCM.MyGCMListenerService;
 import com.cse110.team36.coupletones.GCM.SOActivity;
 import com.cse110.team36.coupletones.GCM.Server.Post2Gcm;
 import com.cse110.team36.coupletones.GCM.sendNotificationJob;
@@ -30,13 +31,14 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivi
         }
 
     /*
-     * Testing by adding ourselves
+     * Testing send to ourselves
      */
     @UiThreadTest
-    public void test_addSO() {
+    public void test_sendNotification() {
         soActivity = getActivity();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(soActivity.getApplicationContext());
+        String message = "ADD SO";
 
         //Get our RegID
         InstanceID instanceID = InstanceID.getInstance(soActivity.getApplicationContext());
@@ -49,10 +51,13 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivi
             e.printStackTrace();
         }
 
-        String params[] = {sharedPreferences.getString("MYIDTEST", null), "TESTMESSAGE"};
+        //Send a notification to myself
+        String params[] = {sharedPreferences.getString("MYIDTEST", null), message};
         sendNotificationJob job = new sendNotificationJob();
         job.execute(params);
 
+        //check to see if we get the message
+        assertEquals(message, MyGCMListenerService.getNotificationMessage());
 
     }
 }
