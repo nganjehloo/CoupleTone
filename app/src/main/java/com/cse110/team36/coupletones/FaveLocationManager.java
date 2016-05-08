@@ -47,8 +47,4 @@ public class FaveLocationManager {
     public static void emptyLocs() {
         locList.clear();
     }
-
-    public static ArrayList<FaveLocation> getLocList() {
-        return locList;
-    }
 }

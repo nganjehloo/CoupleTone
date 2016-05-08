@@ -42,24 +42,26 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                                                                 OnMapReadyCallback,
                                                                 LocationDialog.LocationDialogListener,
                                                                 Constants {
+    // Debug vars
+    boolean debug = true;
+
+    // File vars
+    static boolean firstOpen = true;
     String savedLocs = "";
 
-    FaveLocation currFavLoc = null;
-    FaveLocation lastFavLoc = null;
-
-    static boolean firstOpen = true;
-
-    public MapManager mapManager;
-
-    boolean debug = true;
+    // Map vars
     private GoogleMap mMap;
-    double dist = 0;
-
+    public MapManager mapManager;
     boolean dropMarker = true;
 
+    // Loc vars
+    FaveLocation currFavLoc = null;
+    FaveLocation lastFavLoc = null;
+    double dist = 0;
+
+    // SO vars
     private static String SOKey;
     private static String message;
-
     SharedPreferences sharedPreferences;
 
 
@@ -73,12 +75,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
          * This implementation is temporary - I was testing that the information gets here
          * Use this method to save the new location
          */
-        //TODO: DELETE ME!
-        if (name.equals("")) {
-            savedLocs = "";
-            FaveLocationManager.emptyLocs();
-            return;
-        }
+//        //TODO: DELETE ME!
+//        if (name.equals("")) {
+//            savedLocs = "";
+//            FaveLocationManager.emptyLocs();
+//            return;
+//        }
 
         boolean addSuccess = FaveLocationManager.addLocation(name, loc);
         if (!addSuccess) {
@@ -89,11 +91,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //        Toast.makeText(getBaseContext(),
 //                "" + newLoc.getName() + "\n" + String.valueOf(newLoc.getCoords().latitude) + ", " + String.valueOf(newLoc.getCoords().longitude),
 //                Toast.LENGTH_SHORT).show();
-        //TODO: DELETE ME!
-        if (name.equals("")) {
-            savedLocs = "";
-            FaveLocationManager.emptyLocs();
-        }
+//        //TODO: DELETE ME!
+//        if (name.equals("")) {
+//            savedLocs = "";
+//            FaveLocationManager.emptyLocs();
+//        }
     }
 
     @Override
@@ -116,8 +118,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             setContentView(R.layout.activity_maps);
 
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                    .findFragmentById(R.id.map);
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
 
             initializeButtons();
@@ -182,9 +183,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    100);
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},100);
             Log.d("test1", "ins");
             return;
         } else if(mMap != null) {

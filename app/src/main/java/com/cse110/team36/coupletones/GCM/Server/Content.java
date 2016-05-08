@@ -15,6 +15,8 @@ public class Content implements Serializable{
     private List<String> registration_ids;
     private Map<String, String> data;
 
+
+
     public void addRegId(String regId) {
         if(registration_ids == null) {
             registration_ids = new LinkedList<String>();

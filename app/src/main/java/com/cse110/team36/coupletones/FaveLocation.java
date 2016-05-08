@@ -28,9 +28,7 @@ public class FaveLocation {
         return new LatLng(lat, lon);
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     protected void setName(String name) {
         this.name = name;

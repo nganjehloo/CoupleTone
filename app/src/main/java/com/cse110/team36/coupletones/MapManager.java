@@ -56,19 +56,19 @@ public class MapManager implements Constants {
     }
 
     public void updateGPSLoc(Location location) {
-        Criteria criteria = new Criteria();
-
-        // Get the name of the best provider
-        String provider = locationManager.getBestProvider(criteria, true);
-        Location myLocation = null;
-        try {
-//                    if (mMap != null) {}
-            myLocation = locationManager.getLastKnownLocation(provider);
-        } catch (SecurityException e) {
-            Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
-            return;
-        }
-        try {
+            //        Criteria criteria = new Criteria();
+            //
+            //        // Get the name of the best provider
+            //        String provider = locationManager.getBestProvider(criteria, true);
+            ////        Location myLocation = null;
+            //        try {
+            ////                    if (mMap != null) {}
+            ////            myLocation = locationManager.getLastKnownLocation(provider);
+            //        } catch (SecurityException e) {
+            //            Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
+            //            return;
+            //        }
+            //        try {
             // Create a LatLng object for the current location
             gpsPos = new LatLng(location.getLatitude(), location.getLongitude());
 //                String string = "" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()) + "\n";
@@ -76,14 +76,10 @@ public class MapManager implements Constants {
 //                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
 
 
-        } catch (NullPointerException e) {
-            Log.e("NULL_POINTER_EXCEPTION", "GPS LOCATION NOT FOUND");
-        }
+//        } catch (NullPointerException e) {
+//            Log.e("NULL_POINTER_EXCEPTION", "GPS LOCATION NOT FOUND");
+//        }
 
-        //Initialize our GpsUtility object (not important to know what is going on with it)
-
-        //Computes distance (based on GPS coords, earth sphericalness, etc.) from current point/marker trying to drop
-        // to ALL OTHER points/marker in the list
     }
 
     public boolean checkValidDrop(ArrayList<FaveLocation> locList, LatLng point) {

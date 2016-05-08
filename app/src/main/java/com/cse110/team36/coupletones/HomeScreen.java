@@ -33,6 +33,8 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
         initializeButtons();
     }
 
+
+
     void initializeButtons() {
 
         final ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
