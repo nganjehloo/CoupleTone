@@ -103,6 +103,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         super.onCreate(savedInstanceState);
 
         if (firstOpen) {
+
+//            SavedLocFileIO.importSavedFavLocs();
             importSavedFavLocs();
             firstOpen = false;
         }
@@ -135,6 +137,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         Log.i("onStop", "On Stop .....");
 
         exportSavedFavLocs();
+//        SavedLocFileIO.exportSavedFavLocs();
         overridePendingTransition(0, 0);
     }
 
@@ -159,14 +162,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         loadAndDropSavedLocs();
 
-
         mMap.setOnMapLongClickListener(this);   // LISTENER FOR THE LONG-CLICK SO MARKER DROPS ON HELD LOCATION
 
-        /***** Add a marker at UCSD and move the camera
-         *          ADDED BY: MrSwirlyEyes
-         *                      4/25
-         *
-         *****/
         initializeGMapUISettings();
 
 
@@ -202,16 +199,17 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                     for ( int i = 0 ; i < FaveLocationManager.locList.size() ; i++ ) {
                         dist = SphericalUtil.computeDistanceBetween(FaveLocationManager.locList.get(i).getCoords(), mapManager.getGPSPos());
                         if ( dist <= ONE_TENTH_MILE ) {
+                            // I AM WITHIN ONE TENTH OF A MILE OF MY FAVORITE LOCATION!
                             currFavLoc = new FaveLocation(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords() );
                             string = "checked in!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
                             if ( lastFavLoc == null ) {
+                                // FIRST RUN, SET MY LAST LOCATION
                                 lastFavLoc = currFavLoc;
                             } else if ( currFavLoc.getName().equals(lastFavLoc.getName()) ) {
+                                // I AM STILL IN THE LOCATION I WAS JUST IN, NO NOTIFY REQUIRED
                                 string = "Still @ Curr Fav Loc!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
-                                //TODO: NO NEED FOR NOTIFY, I AM WHERE I JUST WAS
                             } else {
-
-                                //TODO: I AM SOMEWHERE NEW! NOTIFY
+                                // I AM A NEW LOCATION, CHECK ME IN!!  NOTIFY MY SO!!
                                 String str = currFavLoc.getName();
                                 SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                 SOKey = keyPreferences.getString("SOREGID", null);
@@ -220,13 +218,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                                 sendNotificationJob job = new sendNotificationJob();
                                 job.execute(params);
                                 string = "checked in!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
+                                vibrate();
                             }
-
-
                             lastFavLoc = currFavLoc;
                             break;
                         } else {
-                            //TODO:  I AM IN NO FAV LOCATION, NO NOTIFY NEEDED
+                            // I am in no favorite location - NO NOTIFY NEEDED
                             string = "NOT checked in!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
                             //Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show(); //?
                         }
@@ -257,9 +254,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         vibrate();
 
         dropMarker = true;  //Always assume we can drop a marker (and show we cannot, if we cannot)
-        String markerCoords = "";   //Initializing markerCoords string (for debug output)
+//        String markerCoords = "";   //Initializing markerCoords string (for debug output)
 
-        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+//        String timeStamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
 
 
         // If the list already has ANY point (if we already have saved favorite locations
@@ -272,18 +269,20 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             // No markers/saved-locs to begin with
             // OR, all the other markers are outside of 2*ONE_TENTH_MILE rule
         // Thus we wish to drop a marker, and we can!
-
-            if (dropMarker) { //Check our boolean to be absolutely sure we can still drop marker
-
-                // Stazia's code
-                mapManager.showLocationDialog(point, getFragmentManager());
-
-                if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nYES! DROP THE MARKER" + "\nArraySize=" + FaveLocationManager.locList.size();
-            } else {
-                if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nDONT DROP THE MARKER" + "\nArraySize=" + FaveLocationManager.locList.size();
-            }
-            markerCoords += "\n" + savedLocs;
-            if (debug) Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
+            if (dropMarker) { mapManager.showLocationDialog(point, getFragmentManager()); }
+            else { Toast.makeText(getBaseContext(), "CANNOT drop FavLoc here\nToo Close to another FavLoc", Toast.LENGTH_SHORT).show(); }
+//
+//            if (dropMarker) { //Check our boolean to be absolutely sure we can still drop marker
+//
+//                // Stazia's code
+//                mapManager.showLocationDialog(point, getFragmentManager());
+//
+//                if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nYES! DROP THE MARKER" + "\nArraySize=" + FaveLocationManager.locList.size();
+//            } else {
+//                if (debug) markerCoords = "D=" + dist + "m\nt=" + timeStamp + "\nDONT DROP THE MARKER" + "\nArraySize=" + FaveLocationManager.locList.size();
+//            }
+//            markerCoords += "\n" + savedLocs;
+//            if (debug) Toast.makeText(getBaseContext(), markerCoords, Toast.LENGTH_LONG).show();
     }
 
 
@@ -419,6 +418,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
     void loadAndDropSavedLocs() {
         String savedLocArr[] = savedLocs.split("\n");
+//        String savedLocArr[] = SavedLocFileIO.savedLocs.split("\n");
 
         for ( int i = 0 ; i < savedLocArr.length - 1 ; i+=3 )
             FaveLocationManager.locList.add(new FaveLocation(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));

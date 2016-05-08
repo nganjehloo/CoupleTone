@@ -33,7 +33,11 @@ public class ListView_tests extends ActivityInstrumentationTestCase2<HomeScreen>
         homeScreen = getActivity();
         // add location to locList
         // get custom adapter
-        list.add("Equator",Double.valueOf(equator.latitude), Double.valueOf(equator.longitude));
+        FaveLocation equatorLoc = new FaveLocation("Equator", equator);
+        FaveLocation ucsdLoc = new FaveLocation("UCSD", ucsd);
+        FaveLocation ocLoc = new FaveLocation("OC", oc);
+        list.add(equatorLoc);
+
 
         MyCustomAdapter adapter = new MyCustomAdapter(list, context, fragmentManager);
         assertEquals(adapter.getCount(), 1);
