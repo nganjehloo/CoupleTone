@@ -18,9 +18,16 @@ public class FaveLocationManager {
         this.context = context;
     }
 
-    public static void addLocation(String name, LatLng loc) {
+    public static boolean addLocation(String name, LatLng loc) {
         FaveLocation newLoc = new FaveLocation(name, loc);
+        int i;
+        for (i = 0; i < locList.size(); i++) {
+            if (locList.get(i).getName().equals(name)) {
+                return false;
+            }
+        }
         locList.add(newLoc);
+        return true;
 //        Toast.makeText(context,
 //                "" + newLoc.getName() + "\n" + String.valueOf(newLoc.getLat()) + ", " + String.valueOf(newLoc.getLng()),
 //                Toast.LENGTH_SHORT).show();

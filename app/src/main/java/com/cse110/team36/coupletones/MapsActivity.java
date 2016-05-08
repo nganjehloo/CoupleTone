@@ -86,7 +86,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             return;
         }
 
-        faveLocationManager.addLocation(name, loc);
+        boolean addSuccess = faveLocationManager.addLocation(name, loc);
+        if (!addSuccess) {
+            Toast.makeText(getBaseContext(), "You have to input a unique name! Try again.", Toast.LENGTH_SHORT).show();
+        }
 //        savedLocs += newLoc.getName() + "\n" + newLoc.getCoords().latitude + "\n" + newLoc.getCoords().longitude;
         dropFavLocMarker(name, loc);
 
