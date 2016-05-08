@@ -1,12 +1,10 @@
 package com.cse110.team36.coupletones;
 
 import android.app.FragmentManager;
-import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -33,21 +31,15 @@ public class MapManager implements Constants {
         String provider = locationManager.getBestProvider(criteria, true);
         Location myLocation;
         try {
-//                if (mMap != null) {
             myLocation = locationManager.getLastKnownLocation(provider);
-//                }
         } catch (SecurityException e) {
             Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
             return;
         }
         try {
-//            Toast.makeText(getBaseContext(), "Found You!", Toast.LENGTH_SHORT).show();
             // Create a LatLng object for the current location
             gpsPos = new LatLng(myLocation.getLatitude(),myLocation.getLongitude());
-//                String string = "" + String.valueOf(myLocation.getLatitude()) + ", " + String.valueOf(myLocation.getLongitude()) + "\n";
-//                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
 
-//            mMap.moveCamera(CameraUpdateFactory.newLatLng(gpsPos));
             float zoomLevel = 15; // Sets default zoom level (instead of seeing world, zooms to UCSD) [This goes up to 21]
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(gpsPos, zoomLevel));    // MOVES CAMERA THEN ZOOMS TO SET ZOOM LEVEL
         } catch (NullPointerException e) {
@@ -56,30 +48,7 @@ public class MapManager implements Constants {
     }
 
     public void updateGPSLoc(Location location) {
-            //        Criteria criteria = new Criteria();
-            //
-            //        // Get the name of the best provider
-            //        String provider = locationManager.getBestProvider(criteria, true);
-            ////        Location myLocation = null;
-            //        try {
-            ////                    if (mMap != null) {}
-            ////            myLocation = locationManager.getLastKnownLocation(provider);
-            //        } catch (SecurityException e) {
-            //            Log.e("PERMISSION_EXCEPTION", "PERMISSION_NOT_GRANTED");
-            //            return;
-            //        }
-            //        try {
-            // Create a LatLng object for the current location
             gpsPos = new LatLng(location.getLatitude(), location.getLongitude());
-//                String string = "" + String.valueOf(location.getLatitude()) + ", " + String.valueOf(location.getLongitude()) + "\n";
-
-//                Toast.makeText(getBaseContext(), string, Toast.LENGTH_LONG).show();
-
-
-//        } catch (NullPointerException e) {
-//            Log.e("NULL_POINTER_EXCEPTION", "GPS LOCATION NOT FOUND");
-//        }
-
     }
 
     public boolean checkValidDrop(ArrayList<FaveLocation> locList, LatLng point) {
