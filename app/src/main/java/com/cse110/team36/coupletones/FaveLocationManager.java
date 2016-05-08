@@ -1,10 +1,7 @@
 package com.cse110.team36.coupletones;
 
 import android.content.Context;
-import android.widget.Toast;
-
 import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
 
 /**
@@ -28,9 +25,6 @@ public class FaveLocationManager {
         }
         locList.add(newLoc);
         return true;
-//        Toast.makeText(context,
-//                "" + newLoc.getName() + "\n" + String.valueOf(newLoc.getLat()) + ", " + String.valueOf(newLoc.getLng()),
-//                Toast.LENGTH_SHORT).show();
     }
 
     public static boolean removeLocation(String name) {
@@ -42,9 +36,5 @@ public class FaveLocationManager {
             }
         }
         return false;
-    }
-
-    public static void emptyLocs() {
-        locList.clear();
     }
 }

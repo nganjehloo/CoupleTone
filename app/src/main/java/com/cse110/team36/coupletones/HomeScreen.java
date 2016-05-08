@@ -9,7 +9,6 @@ import android.widget.ListView;
 import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.google.android.gms.maps.model.LatLng;
 
-
 /* NOTE: This is actually the location page (middle button) */
 
 public class HomeScreen extends AppCompatActivity implements LocationDialog.LocationDialogListener{
@@ -32,8 +31,6 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
         initializeListViewAdapter();
         initializeButtons();
     }
-
-
 
     void initializeButtons() {
 

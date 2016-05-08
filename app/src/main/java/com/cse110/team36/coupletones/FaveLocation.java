@@ -2,9 +2,6 @@ package com.cse110.team36.coupletones;
 
 import com.google.android.gms.maps.model.LatLng;
 
-/**
- *
- */
 public class FaveLocation {
     private double lat;
     private double lon;
