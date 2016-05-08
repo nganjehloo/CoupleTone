@@ -14,6 +14,8 @@ import com.google.android.gms.maps.model.LatLng;
  * Tester for BDD scenarios reliant on the MapsActivity. Scenarios can be mapped
  * to our submitted scenarios by (Story Name).(Scenario Name)
  */
+
+
 public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsActivity>  implements Constants {
     LatLng[] testPoints = { new LatLng(0,0),
             new LatLng(ONE_TENTH_MILE/2, ONE_TENTH_MILE/2),

@@ -27,11 +27,11 @@ public class sendNotificationJob extends AsyncTask<String, Void, String> {
     protected String doInBackground(String[] params) {
         Content content = new Content();
         String apiKey = "AIzaSyCnduESq54RmoStkgClt_W_eF6Ox_WiDwY";
-        System.out.println("SENDING MESSAGE TO SO " + params[0]);
+        System.out.println("SENDING '" + params[1] + "' TO SO " + params[0]);
 
 
         content.addRegId(params[0]);
-        content.createData("Working!!", params[1]);
+        content.createData("From " + params[0], params[1]);
 
         Post2Gcm.post(apiKey, content);
         return "some message";
