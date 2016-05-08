@@ -34,7 +34,7 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivi
      * Testing send to ourselves
      */
     @UiThreadTest
-    public void test_sendNotification() {
+    public void test_sendNotification() throws IOException {
         soActivity = getActivity();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(soActivity.getApplicationContext());
@@ -42,14 +42,10 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivi
 
         //Get our RegID
         InstanceID instanceID = InstanceID.getInstance(soActivity.getApplicationContext());
-        try {
-            String token = instanceID.getToken("755936681526", GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-            //Add our regID to sharedpreferences
-            sharedPreferences.edit().putString("MYIDTEST", token).apply();
-            sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String token = instanceID.getToken("755936681526", GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+        //Add our regID to sharedpreferences
+        sharedPreferences.edit().putString("MYIDTEST", token).apply();
+        sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
 
         //Send a notification to myself
         String params[] = {sharedPreferences.getString("MYIDTEST", null), message};
@@ -57,7 +53,7 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivi
         job.execute(params);
 
         //check to see if we get the message
-        assertEquals(message, MyGCMListenerService.getNotificationMessage());
+        assertEquals(message, sharedPreferences.getString("MYIDTEST", null));
 
     }
 }
