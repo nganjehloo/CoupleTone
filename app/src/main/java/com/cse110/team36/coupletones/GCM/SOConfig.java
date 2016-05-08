@@ -80,15 +80,6 @@ public class SOConfig extends AppCompatActivity {
                 }
             }
         });
-         /*       sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString()).apply();
-                Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString() , Toast.LENGTH_SHORT).show();
-                //sendNotification
-                String SOKey = sharedPreferences.getString("SOREGID", null);
-                System.out.println("ID IS: " + SOKey);
-                sendNotificationJob send = new sendNotificationJob(SOKey, "a" + SOKey);
-                send.execute(null, null);
-            }});*/
-
 
         ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {

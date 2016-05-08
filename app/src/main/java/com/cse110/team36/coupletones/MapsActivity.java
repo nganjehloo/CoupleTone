@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.AsyncTask;
-import android.os.Handler;
 import android.os.SystemClock;
 import android.os.Vibrator;
 
@@ -20,12 +18,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import android.location.LocationListener;
-
-import com.cse110.team36.coupletones.GCM.RegistrationIntentService;
 import com.cse110.team36.coupletones.GCM.SOActivity;
 import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.GCM.sendNotificationJob;
@@ -56,7 +50,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     static boolean firstOpen = true;
 
     public MapManager mapManager;
-//    public FaveLocationManager FaveLocationManager = new FaveLocationManager(getBaseContext());
 
     boolean debug = true;
     private GoogleMap mMap;
