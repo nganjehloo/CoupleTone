@@ -15,18 +15,25 @@ import java.util.List;
 
 
 import com.cse110.team36.coupletones.GCM.SOConfig;
+import com.google.android.gms.maps.model.LatLng;
 
 
 /* NOTE: This is actually the location page (middle button) */
 
-public class HomeScreen extends AppCompatActivity {
+public class HomeScreen extends AppCompatActivity implements LocationDialog.LocationDialogListener{
     ExpandableListView exview;
     public List<String> first = new ArrayList<String>();
     public List<String> second = new ArrayList<String>();
     public List<String> listDataHeader;
     public HashMap<String, List<String>> listDataChild;
+    MyCustomAdapter myCustomAdapter;
 
 
+    @Override
+    public void onDialogPositiveClick(String name, LatLng loc, int position) {
+        FaveLocationManager.locList.get(position).setName(name);
+        myCustomAdapter.notifyDataSetChanged();
+    }
     /*
      * Preparing the list data
      */
@@ -52,7 +59,7 @@ public class HomeScreen extends AppCompatActivity {
         Log.d("BREH", Integer.toString(FaveLocationManager.locList.size()) );
         Log.d("BREH2", Integer.toString(FaveLocationManager.locList.size()) );
 
-        MyCustomAdapter myCustomAdapter = new MyCustomAdapter(FaveLocationManager.locList, this);
+        myCustomAdapter = new MyCustomAdapter(FaveLocationManager.locList, this, getFragmentManager());
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(myCustomAdapter);

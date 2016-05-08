@@ -1,4 +1,5 @@
 package com.cse110.team36.coupletones;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,19 +8,24 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 /**
  * Created by admin on 5/7/16.
  */
 //public class MyCustomAdapter {
 //}
-public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
+public class MyCustomAdapter extends BaseAdapter {
     private ArrayList<FaveLocation> list = new ArrayList<>();
     private Context context;
+    private FragmentManager fragmentManager;
     // public static ArrayList<FaveLocation> favLocList = FaveLocationManager.getLocList();
-    public MyCustomAdapter(ArrayList<FaveLocation> list, Context context) {
+    public MyCustomAdapter(ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
         this.list = list;
         this.context = context;
+        this.fragmentManager = fragmentManager;
     }
     @Override
     public int getCount() {
@@ -66,8 +72,9 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         addBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //do something
-                notifyDataSetChanged();
+                LocationDialog locationDialog = new LocationDialog();
+                locationDialog.setPosition(position);
+                locationDialog.show(fragmentManager, "rename loc");
             }
         });
         return view;

@@ -22,10 +22,11 @@ import com.google.android.gms.maps.model.Marker;
  * Dialog to appear when naming or renaming locations
  */
 public class LocationDialog extends DialogFragment {
-    private LatLng coords;
+    private LatLng coords = null;
+    private int position = 0;
 
     public interface LocationDialogListener {
-        void onDialogPositiveClick(String name, LatLng loc);
+        void onDialogPositiveClick(String name, LatLng loc, int position);
     }
 
     LocationDialogListener listener;
@@ -33,6 +34,7 @@ public class LocationDialog extends DialogFragment {
     public void setCoords(LatLng coords) {
         this.coords = coords;
     }
+    public void setPosition(int position) { this.position = position; }
 
     @Override
     public void onAttach(Activity activity) {
@@ -61,7 +63,7 @@ public class LocationDialog extends DialogFragment {
         AlertDialog.Builder location = builder.setPositiveButton(R.string.set_name, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 String newName = ((EditText) layout.findViewById(R.id.namefield)).getText().toString();
-                listener.onDialogPositiveClick(newName, coords);
+                listener.onDialogPositiveClick(newName, coords, position);
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

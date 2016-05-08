@@ -76,7 +76,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     // defined by the LocationDialogFragment.LocationDialogListener interface
     /* Create new location with the coordinates and name */
     @Override
-    public void onDialogPositiveClick(String name, LatLng loc) {
+    public void onDialogPositiveClick(String name, LatLng loc, int pos) {
         /* NOTE (Aimed toward locations team)
          * This implementation is temporary - I was testing that the information gets here
          * Use this method to save the new location
