@@ -73,7 +73,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:text="Enter Code"
+        android:text="fmmPChvGJYs:APA91bFxStwP78xfYG2_P-QaHC2YpHpD0HcXADs2BSIlnig_bhKcCcvIk7rVbQtehT9a8lDeJ2ZYbkN1CK6ehub03rVfIWUEt8f_jJK6FRvSvV76z3gTWEuTJsxZyYP7crvrWV8Ropwl"
         android:background="@drawable/edittext_bg"
         android:alpha="0.6"
         android:layout_gravity="center_horizontal"

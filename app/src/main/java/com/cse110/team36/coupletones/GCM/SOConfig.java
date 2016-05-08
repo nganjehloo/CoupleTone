@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,8 @@ import com.cse110.team36.coupletones.GCM.Server.Content;
 import com.cse110.team36.coupletones.HomeScreen;
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Nima on 5/7/2016.
@@ -53,18 +56,22 @@ public class SOConfig extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
+
                 String SOKey = mBaeCode.getText().toString();
 
-                if (!sharedPreferences.getBoolean("HAS_SO", false)) {
-                    /*sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString()).apply();
+                if ( !(sharedPreferences.getBoolean("HAS_SO", false)) ) {
+                    sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString()).apply();
                     sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
-                   */
+
                     Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString(), Toast.LENGTH_SHORT).show();
                     //sendNotification
                     String[] param = {SOKey, "a" + SOKey};
                     sendNotificationJob job = new sendNotificationJob();
                     job.execute(param);
                 } else {
+                    sharedPreferences.edit().putBoolean("HAS_SO", false).apply();
+                    sharedPreferences.edit().remove("SOREGID").apply();
+
                     Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
                     //sendNotification
                     String[] param = {SOKey, "e" + SOKey};
@@ -73,6 +80,14 @@ public class SOConfig extends AppCompatActivity {
                 }
             }
         });
+         /*       sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString()).apply();
+                Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString() , Toast.LENGTH_SHORT).show();
+                //sendNotification
+                String SOKey = sharedPreferences.getString("SOREGID", null);
+                System.out.println("ID IS: " + SOKey);
+                sendNotificationJob send = new sendNotificationJob(SOKey, "a" + SOKey);
+                send.execute(null, null);
+            }});*/
 
 
         ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);

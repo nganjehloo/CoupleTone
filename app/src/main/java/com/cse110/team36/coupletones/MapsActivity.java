@@ -250,8 +250,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                             SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                             SOKey = keyPreferences.getString("SOREGID", null);
                             message = "l " + str;
-                            sendNotificationJob job = new sendNotificationJob(SOKey, message);
-                            job.execute(null, null);
+                            String[] params = { SOKey, message};
+                            sendNotificationJob job = new sendNotificationJob();
+                            job.execute(params);
 
 
                             lastFavLoc = currFavLoc;
