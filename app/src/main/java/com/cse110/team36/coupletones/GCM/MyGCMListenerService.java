@@ -27,6 +27,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.EditText;
+import android.view.View;
+import android.widget.TextView;
 
 import com.cse110.team36.coupletones.FaveLocation;
 import com.cse110.team36.coupletones.FaveLocationManager;
@@ -50,6 +53,8 @@ public class MyGCMListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
+        Log.d(TAG, "DOWNLOADING");
+
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
 
@@ -58,10 +63,13 @@ public class MyGCMListenerService extends GcmListenerService {
         } else {
 
         }*/
-        Log.d(TAG, "download");
+
+        Log.d(TAG, "DOWNLOADING");
         char type = message.charAt(0);
         String appended = message.substring(1);
 
+        Log.d(TAG, "APPEND IS " + appended);
+        Log.d(TAG, "MESSAGE TYPE IS " + appended);
         // [START_EXCLUDE]
         /**
          * Production applications would usually process the message here.
@@ -74,9 +82,9 @@ public class MyGCMListenerService extends GcmListenerService {
          * In some cases it may be useful to show a notification indicating to the user
          * that a message was received.
          */
-        Log.d(TAG, "GOT IT");
         messageType(type, appended);
         // [END_EXCLUDE]
+        Log.d(TAG, "DOWNLOAD COMPLETE");
     }
     // [END receive_message]
 
@@ -86,7 +94,7 @@ public class MyGCMListenerService extends GcmListenerService {
      * @param message GCM message received.
      */
     private void sendNotification(String message) {
-        Log.d(TAG, "downstream");
+        Log.d(TAG, "CREATING NOTIFICATION");
         Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -108,17 +116,22 @@ public class MyGCMListenerService extends GcmListenerService {
     }
 
     private void addSO(String append){
+        Log.d(TAG, "ADDING SO");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
         sharedPreferences.edit().putString("SOREGID", append).apply();
-        System.out.println("THIS ISSSSS " + sharedPreferences.getString("SOREGID", null));
+
+        System.out.println("AFTER ADDING SO, THEIR ID IS " + sharedPreferences.getString("SOREGID", null));
         sendNotification("ADDED SO");
     }
 
     private void removeSO(){
+        Log.d(TAG, "REMOVING SO");
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         sharedPreferences.edit().putBoolean("HAS_SO", false).apply();
         sharedPreferences.edit().remove("SOREGID").apply();
+        System.out.println("AFTER REMOVING SO, THEIR ID IS " + sharedPreferences.getString("SOREGID", null));
+
         sendNotification("YOUR SO REMOVED YOU");
 
     }

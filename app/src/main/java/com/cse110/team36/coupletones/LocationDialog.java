@@ -1,5 +1,9 @@
-// use http://developer.android.com/guide/topics/ui/dialogs.html#DialogFragment for this,
-// I was on the part about communicating with the activity that called it (the map activity)
+/*
+ * Name: LocationDialog.java
+ * Purpose: This class is used for the dialog box displayed when a user wants to add a new location.
+ * Courtesy of: http://developer.android.com/guide/topics/ui/dialogs.html#DialogFragment for this,
+ use the part about communicating with the activity that called it (the map activity)
+ */
 package com.cse110.team36.coupletones;
 
 import android.app.Activity;
