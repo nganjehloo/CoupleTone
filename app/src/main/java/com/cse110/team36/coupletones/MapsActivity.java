@@ -191,10 +191,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                                 String str = currFavLoc.getName();
                                 SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                                 SOKey = keyPreferences.getString("SOREGID", null);
-                                message = "l " + str;
-                                String[] params = { SOKey, message};
+                                message = "l" + str;
+                                String[] params = {SOKey, message};
                                 sendNotificationJob job = new sendNotificationJob();
+
                                 job.execute(params);
+
                                 string = "checked in!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
                                 vibrate();
                             }

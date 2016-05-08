@@ -1,3 +1,9 @@
+/*
+ * Class name: HomeScreen.java
+ * Purpose: This class is used in FaveLocationManager and the rest of the program to represent
+ * a SO's favorite location, which consists of a name and a latitude and longitude.
+ */
+
 package com.cse110.team36.coupletones;
 
 import android.content.Intent;
