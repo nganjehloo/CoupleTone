@@ -43,16 +43,16 @@ public class HomeScreen extends AppCompatActivity {
         (findViewById(R.id.myLocButton)).setBackgroundResource(R.color.colorButtonDepressed);
         settingsButton.setBackgroundColor(0xFFFFFF);
 
-        ArrayList<String> list = new ArrayList<String>();
+//        ArrayList<String> list = new ArrayList<String>();
 
-        for(int i = 0; i < FaveLocationManager.locList.size(); ++i){
-            list.add(i, FaveLocationManager.locList.get(i).getName());
-        }
+//        for(int i = 0; i < FaveLocationManager.locList.size(); ++i){
+//            list.add(i, FaveLocationManager.locList.get(i).getName());
+//        }
 
-        Log.d("BREH", Integer.toString(list.size()) );
+        Log.d("BREH", Integer.toString(FaveLocationManager.locList.size()) );
         Log.d("BREH2", Integer.toString(FaveLocationManager.locList.size()) );
 
-        MyCustomAdapter myCustomAdapter = new MyCustomAdapter(list, this);
+        MyCustomAdapter myCustomAdapter = new MyCustomAdapter(FaveLocationManager.locList, this);
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(myCustomAdapter);

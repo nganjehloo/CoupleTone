@@ -54,6 +54,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     FaveLocation currFavLoc = null;
     FaveLocation lastFavLoc = null;
 
+    static boolean firstOpen = false;
+
     public MapManager mapManager;
     public FaveLocationManager faveLocationManager = new FaveLocationManager(getBaseContext());
 
@@ -108,7 +110,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         super.onCreate(savedInstanceState);
         //getWindow().setWindowAnimations(android.R.style.Animation);
 
-        importSavedFavLocs();
+        if (firstOpen) {
+            importSavedFavLocs();
+            firstOpen = false;
+        }
         /*requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);*/

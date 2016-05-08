@@ -14,10 +14,10 @@ import java.util.ArrayList;
 //public class MyCustomAdapter {
 //}
 public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
-    private ArrayList<String> list = new ArrayList<String>();
+    private ArrayList<FaveLocation> list = new ArrayList<>();
     private Context context;
     // public static ArrayList<FaveLocation> favLocList = FaveLocationManager.getLocList();
-    public MyCustomAdapter(ArrayList<String> list, Context context) {
+    public MyCustomAdapter(ArrayList<FaveLocation> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -45,7 +45,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
         }
         //Handle TextView and display string from your list
         TextView listItemText = (TextView)view.findViewById(R.id.list_item_string);
-        listItemText.setText(list.get(position));
+        listItemText.setText(list.get(position).getName());
 
         //Handle buttons and add onClickListeners
         Button deleteBtn = (Button)view.findViewById(R.id.delete_btn);
@@ -56,7 +56,7 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
                 //do something
                 FaveLocationManager.removeLocation(FaveLocationManager.locList.get(position).getName());
 //                FaveLocationManager.locList.remove(position);
-                list.remove(position); //or some other task
+                //list.remove(position); //or some other task
                 //favLocList.remove(position);
 //                favLocList.clear();
                 notifyDataSetChanged();
