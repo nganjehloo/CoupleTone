@@ -92,5 +92,4 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
         assertEquals(mapsActivity.faveLocationManager.locList.size(), 0);
     }
 
-
 }

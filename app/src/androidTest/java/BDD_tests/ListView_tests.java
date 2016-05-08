@@ -28,12 +28,22 @@ public class ListView_tests extends ActivityInstrumentationTestCase2<HomeScreen>
         super(HomeScreen.class);
     }
 
+    /* Test FaveLocation */
+    public void test_FaveLocation() {
+        FaveLocation equ = new FaveLocation("Equator", equator);
+        assertEquals(equator.latitude, equ.getLat());
+        assertEquals(equator.longitude, equ.getLng());
+        assertEquals(equator, equ.getCoords());
+        assertEquals("Equator", equ.getName());
+        //equ.setName("hi");
+    }
     /* (Rename and Delete locations).(Only one favorite place was added) */
     public void test_addLocation() {
         homeScreen = getActivity();
         // add location to locList
         // get custom adapter
-        list.add("Equator",Double.valueOf(equator.latitude), Double.valueOf(equator.longitude));
+        FaveLocation equ = new FaveLocation("Equator", equator);
+        list.add(equ);
 
         MyCustomAdapter adapter = new MyCustomAdapter(list, context, fragmentManager);
         assertEquals(adapter.getCount(), 1);
