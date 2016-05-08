@@ -54,7 +54,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     FaveLocation currFavLoc = null;
     FaveLocation lastFavLoc = null;
 
-    static boolean firstOpen = false;
+    static boolean firstOpen = true;
 
     public MapManager mapManager;
     public FaveLocationManager faveLocationManager = new FaveLocationManager(getBaseContext());
@@ -476,10 +476,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         savedLocs = "";
 
-        for ( int i = 0 ; i < faveLocationManager.locList.size() ; i++ ) {
-            savedLocs += faveLocationManager.locList.get(i).getName() + "\n";
-            savedLocs += faveLocationManager.locList.get(i).getLat() + "\n";
-            savedLocs += faveLocationManager.locList.get(i).getLng() + "\n";
+        for ( int i = 0 ; i < FaveLocationManager.locList.size() ; i++ ) {
+            savedLocs += FaveLocationManager.locList.get(i).getName() + "\n";
+            savedLocs += FaveLocationManager.locList.get(i).getLat() + "\n";
+            savedLocs += FaveLocationManager.locList.get(i).getLng() + "\n";
         }
 
 
