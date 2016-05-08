@@ -32,13 +32,14 @@ public class SOConfig extends AppCompatActivity {
 
         setContentView(R.layout.so_config);
 
+
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean sentToken = sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
         mInformationTextView = (TextView) findViewById(R.id.informationTextView);
         if (sentToken) {
             mInformationTextView.setText(getString(R.string.gcm_send_message));
-            mInformationTextView.setText(sharedPreferences.getString("REGID", "nope"));
-            Log.d(TAG, "MY ID IS " + sharedPreferences.getString("REGID", "nope"));
+            mInformationTextView.setText(sharedPreferences.getString("MYREGID", "nope"));
+            Log.d(TAG, "MY ID IS " + sharedPreferences.getString("MYREGID", "nope"));
         } else {
             mInformationTextView.setText(getString(R.string.token_error_message));
         }
@@ -79,6 +80,9 @@ public class SOConfig extends AppCompatActivity {
                 }
             }
         });
+        TextView mBaeCode = (TextView) findViewById(R.id.editText);
+
+        mBaeCode.setText(sharedPreferences.getString("SOREGID", "NO SO ID"));
 
         ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {

@@ -18,7 +18,7 @@ import java.net.URL;
 public class Post2Gcm {
     public static void post(String apiKey, Content content) {
         try {
-
+            System.out.println("SENDING MESSAGE UPSTREAM");
             URL url = new URL("https://android.googleapis.com/gcm/send");
 
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -38,6 +38,7 @@ public class Post2Gcm {
             //Get connection output stream
             DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 
+            content.printContent();
             //Copy Content "JSON" into wr
             mapper.writeValue(wr, content);
 
