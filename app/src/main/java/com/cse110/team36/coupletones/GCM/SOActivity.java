@@ -58,6 +58,8 @@ public class SOActivity extends AppCompatActivity{
                     handler.postDelayed(new Runnable() {
                         public void run() {
                             mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
+
+                            finish();
                             startActivity(new Intent(SOActivity.this, SOConfig.class));
                         }
                     }, 5000);

@@ -214,25 +214,33 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             public void onLocationChanged(Location location) {
             mapManager.updateGPSLoc(location);
 
-                ArrayList<FaveLocation> locList = faveLocationManager.getLocList();
-                if (faveLocationManager.locList.size() > 0) {
+                //ArrayList<FaveLocation> locList = faveLocationManager.getLocList();
+                if (FaveLocationManager.locList.size() > 0) {
                     String string = null;
 //                    currLoc = new LatLng(gpsLatitude, gpsLongitude);
-                    for ( int i = 0 ; i < locList.size() ; i++ ) {
-                        dist = SphericalUtil.computeDistanceBetween(locList.get(i).getCoords(), mapManager.getGPSPos());
+                    for ( int i = 0 ; i < FaveLocationManager.locList.size() ; i++ ) {
+                        dist = SphericalUtil.computeDistanceBetween(FaveLocationManager.locList.get(i).getCoords(), mapManager.getGPSPos());
                         if ( dist <= ONE_TENTH_MILE ) {
-                            currFavLoc = new FaveLocation(locList.get(i).getName(), locList.get(i).getCoords() );
-                            string = "checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
+                            currFavLoc = new FaveLocation(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords() );
+                            string = "checked in!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
                             if ( lastFavLoc == null ) {
                                 lastFavLoc = currFavLoc;
                             } else if ( currFavLoc.getName().equals(lastFavLoc.getName()) ) {
-                                string = "Still @ Curr Fav Loc!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
+                                string = "Still @ Curr Fav Loc!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
 //                                Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
                                 //TODO: NO NEED FOR NOTIFY, I AM WHERE I JUST WAS
 //                                break;
                             } else {
+
                                 //TODO: I AM SOMEWHERE NEW! NOTIFY
-                                string = "checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
+                                String str = currFavLoc.getName();
+                                SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                SOKey = keyPreferences.getString("SOREGID", null);
+                                message = "l " + str;
+                                String[] params = { SOKey, message};
+                                sendNotificationJob job = new sendNotificationJob();
+                                job.execute(params);
+                                string = "checked in!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
                             }
 //                            else if ( !currFavLoc.getName().equals(lastFavLoc.getName())) {
 //                                //TODO: I AM NOT IN THE SAME PLACE, BUT I AM IN A DIFF LOC!
@@ -246,8 +254,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
 
                             //Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
-                            i = locList.size();
-                            // TODO: notify()
+                            i = FaveLocationManager.locList.size();
+                            /*// TODO: notify()
 
                             String str = currFavLoc.getName();
                             SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -255,14 +263,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                             message = "l " + str;
                             String[] params = { SOKey, message};
                             sendNotificationJob job = new sendNotificationJob();
-                            job.execute(params);
+                            job.execute(params);*/
 
 
                             lastFavLoc = currFavLoc;
                             break;
                         } else {
                             //TODO:  I AM IN NO FAV LOCATION, NO NOTIFY NEEDED
-                            string = "NOT checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
+                            string = "NOT checked in!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
                             //Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show(); //?
                         }
                     }
@@ -508,6 +516,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         myLocButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
                 startActivity(new Intent(MapsActivity.this, HomeScreen.class));
             }
         });
@@ -517,6 +526,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
                 startActivity(new Intent(MapsActivity.this, SOConfig.class));
             }
         });
