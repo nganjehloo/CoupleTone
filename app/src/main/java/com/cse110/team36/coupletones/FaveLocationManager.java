@@ -37,4 +37,8 @@ public class FaveLocationManager {
         }
         return false;
     }
+
+    public static void emptyLocs() {
+        locList.clear();
+    }
 }
