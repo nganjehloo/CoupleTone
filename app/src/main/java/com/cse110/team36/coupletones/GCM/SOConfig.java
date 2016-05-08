@@ -65,7 +65,7 @@ public class SOConfig extends AppCompatActivity {
 
                     Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString(), Toast.LENGTH_SHORT).show();
                     //sendNotification
-                    String[] param = {SOKey, "a" + sharedPreferences.getString("REGID", null)};
+                    String[] param = {SOKey, "a" + sharedPreferences.getString("MYREGID", null)};
                     sendNotificationJob job = new sendNotificationJob();
                     job.execute(param);
                 } else {
@@ -77,7 +77,7 @@ public class SOConfig extends AppCompatActivity {
 
                     Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
                     //sendNotification
-                    String[] param = {SOKey, "e" + sharedPreferences.getString("REGID", null)};
+                    String[] param = {SOKey, "e" + sharedPreferences.getString("MYREGID", null)};
                     sendNotificationJob job = new sendNotificationJob();
                     job.execute(param);
                 }
