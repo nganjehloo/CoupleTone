@@ -28,7 +28,7 @@ import android.location.LocationListener;
 import com.cse110.team36.coupletones.GCM.RegistrationIntentService;
 import com.cse110.team36.coupletones.GCM.SOActivity;
 import com.cse110.team36.coupletones.GCM.SOConfig;
-import com.cse110.team36.coupletones.GCM.sendNotification;
+import com.cse110.team36.coupletones.GCM.sendNotificationJob;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -250,7 +250,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                             SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                             SOKey = keyPreferences.getString("SOREGID", null);
                             message = "l " + str;
-                            sendNotificationJob job = new sendNotificationJob();
+                            sendNotificationJob job = new sendNotificationJob(SOKey, message);
                             job.execute(null, null);
 
 
@@ -540,21 +540,4 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     }
 }
 
-class sendNotificationJob extends AsyncTask<String, Void, String> {
-
-    String SOKey = MapsActivity.getSOKey();
-    String message = MapsActivity.getMessage();
-
-    @Override
-    protected String doInBackground(String[] params) {
-        sendNotification.arrivalMsg(SOKey, message);
-        return "some message";
-    }
-
-    @Override
-    protected void onPostExecute(String message) {
-        //process message
-    }
-
-}
 

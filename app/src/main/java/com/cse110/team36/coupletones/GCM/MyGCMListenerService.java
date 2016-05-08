@@ -109,15 +109,16 @@ public class MyGCMListenerService extends GcmListenerService {
 
     private void addSO(String append){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        sharedPreferences.edit().putBoolean("HAS_SO", true);
-        sharedPreferences.edit().putString("SOREGID", append);
+        sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
+        sharedPreferences.edit().putString("SOREGID", append).apply();
+        System.out.println("THIS ISSSSS " + sharedPreferences.getString("SOREGID", null));
         sendNotification("ADDED SO");
     }
 
     private void removeSO(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        sharedPreferences.edit().putBoolean("HAS_SO", false);
-        sharedPreferences.edit().remove("SOREGID");
+        sharedPreferences.edit().putBoolean("HAS_SO", false).apply();
+        sharedPreferences.edit().remove("SOREGID").apply();
         sendNotification("YOUR SO REMOVED YOU");
 
     }

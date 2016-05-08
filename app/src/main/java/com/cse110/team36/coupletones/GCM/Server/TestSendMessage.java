@@ -6,7 +6,6 @@ import android.preference.PreferenceManager;
 
 import com.cse110.team36.coupletones.GCM.RegistrationIntentService;
 import com.cse110.team36.coupletones.GCM.SOActivity;
-import com.cse110.team36.coupletones.GCM.sendNotification;
 import com.cse110.team36.coupletones.MyContext;
 
 /**
