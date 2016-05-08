@@ -71,7 +71,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:text="fmmPChvGJYs:APA91bFxStwP78xfYG2_P-QaHC2YpHpD0HcXADs2BSIlnig_bhKcCcvIk7rVbQtehT9a8lDeJ2ZYbkN1CK6ehub03rVfIWUEt8f_jJK6FRvSvV76z3gTWEuTJsxZyYP7crvrWV8Ropwl"
+        android:text="ck-7MSSVvf0:APA91bE3iRSfG6G9QQTUaCIyYsShHTd0a4ZrKlVZH6F3tvFyhKmXr9ltnQa7A8UDWZsW4OXjMKeFp78XaYHcd9cIKa0CkJnhoK9GmFqtWPqzZa8opc6UurN_qt1C1ZQ1Tv1C0qKdOdfD"
         android:background="@drawable/edittext_bg"
         android:alpha="0.6"
         android:layout_gravity="center_horizontal"
