@@ -229,6 +229,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //                                break;
                             } else {
                                 //TODO: I AM SOMEWHERE NEW! NOTIFY
+                                String str = currFavLoc.getName();
+                                SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                SOKey = keyPreferences.getString("SOREGID", null);
+                                message = "l " + str;
+                                String[] params = { SOKey, message};
+                                sendNotificationJob job = new sendNotificationJob();
+                                job.execute(params);
                                 string = "checked in!" + "\nLocName=" + locList.get(i).getName() + "\nArraySize=" + locList.size() + "\nx=" + locList.get(i).getCoords().latitude + "\ny=" + locList.get(i).getCoords().longitude;
                             }
 //                            else if ( !currFavLoc.getName().equals(lastFavLoc.getName())) {
@@ -244,7 +251,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
                             //Toast.makeText(getBaseContext(), string, Toast.LENGTH_SHORT).show();
                             i = locList.size();
-                            // TODO: notify()
+                            /*// TODO: notify()
 
                             String str = currFavLoc.getName();
                             SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -252,7 +259,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                             message = "l " + str;
                             String[] params = { SOKey, message};
                             sendNotificationJob job = new sendNotificationJob();
-                            job.execute(params);
+                            job.execute(params);*/
 
 
                             lastFavLoc = currFavLoc;
