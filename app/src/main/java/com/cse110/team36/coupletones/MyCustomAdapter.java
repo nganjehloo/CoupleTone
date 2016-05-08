@@ -1,3 +1,9 @@
+/*
+ * Class name: MyCustomAdapter.java
+ * Purpose: This class is as an adapter so that arrayLists can be adapted into ListArrays.
+ */
+
+
 package com.cse110.team36.coupletones;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -12,11 +18,7 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
-/**
- * Created by admin on 5/7/16.
- */
-//public class MyCustomAdapter {
-//}
+
 public class MyCustomAdapter extends BaseAdapter {
     private ArrayList<FaveLocation> list = new ArrayList<>();
     private Context context;
