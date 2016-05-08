@@ -45,14 +45,14 @@ public class HomeScreen extends AppCompatActivity {
 
 //        ArrayList<String> list = new ArrayList<String>();
 
-//        for(int i = 0; i < FaveLocationManager.locList.size(); ++i){
-//            list.add(i, FaveLocationManager.locList.get(i).getName());
+//        for(int i = 0; i < FaveLocationManager.getLocList().size(); ++i){
+//            list.add(i, FaveLocationManager.getLocList().get(i).getName());
 //        }
 
-        Log.d("BREH", Integer.toString(FaveLocationManager.locList.size()) );
-        Log.d("BREH2", Integer.toString(FaveLocationManager.locList.size()) );
+        Log.d("BREH", Integer.toString(FaveLocationManager.getLocList().size()) );
+        Log.d("BREH2", Integer.toString(FaveLocationManager.getLocList().size()) );
 
-        MyCustomAdapter myCustomAdapter = new MyCustomAdapter(FaveLocationManager.locList, this);
+        MyCustomAdapter myCustomAdapter = new MyCustomAdapter(FaveLocationManager.getLocList(), this);
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(myCustomAdapter);

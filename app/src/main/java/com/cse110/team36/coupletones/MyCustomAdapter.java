@@ -54,8 +54,8 @@ public class MyCustomAdapter extends BaseAdapter implements ListAdapter {
             @Override
             public void onClick(View v) {
                 //do something
-                FaveLocationManager.removeLocation(FaveLocationManager.locList.get(position).getName());
-//                FaveLocationManager.locList.remove(position);
+                FaveLocationManager.removeLocation(FaveLocationManager.getLocList().get(position).getName());
+//                FaveLocationManager.getLocList().remove(position);
                 //list.remove(position); //or some other task
                 //favLocList.remove(position);
 //                favLocList.clear();
