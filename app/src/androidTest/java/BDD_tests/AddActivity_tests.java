@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cse110.team36.coupletones.GCM.SOActivity;
+import com.cse110.team36.coupletones.GCM.Server.Post2Gcm;
+import com.cse110.team36.coupletones.GCM.sendNotificationJob;
 import com.cse110.team36.coupletones.HomeScreen;
 import com.cse110.team36.coupletones.R;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -47,15 +49,9 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivi
             e.printStackTrace();
         }
 
-        //get the mBaeCode text field
-        TextView mBaeCode = (TextView) soActivity.findViewById(R.id.editText);
-
-        //set it to our RegID
-        mBaeCode.setText(sharedPreferences.getString("MYIDTEST", null));
-
-        //run the add SO
-        Button soButton = (Button) soActivity.findViewById(R.id.button);
-        soButton.performClick();
+        String params[] = {sharedPreferences.getString("MYIDTEST", null), "TESTMESSAGE"};
+        sendNotificationJob job = new sendNotificationJob();
+        job.execute(params);
 
 
     }
