@@ -53,12 +53,26 @@ public class SOConfig extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString());
-                Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString() , Toast.LENGTH_SHORT).show();
-                //sendNotification
-                String SOKey = sharedPreferences.getString("SOREGID", null);
-                sendNotificationJob send = new sendNotificationJob(SOKey, SOKey);
-            }});
+                String SOKey = mBaeCode.getText().toString();
+
+                if (!sharedPreferences.getBoolean("HAS_SO", false)) {
+                    /*sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString()).apply();
+                    sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
+                   */
+                    Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString(), Toast.LENGTH_SHORT).show();
+                    //sendNotification
+                    String[] param = {SOKey, "a" + SOKey};
+                    sendNotificationJob job = new sendNotificationJob();
+                    job.execute(param);
+                } else {
+                    Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
+                    //sendNotification
+                    String[] param = {SOKey, "e" + SOKey};
+                    sendNotificationJob job = new sendNotificationJob();
+                    job.execute(param);
+                }
+            }
+        });
 
 
         ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
@@ -66,7 +80,8 @@ public class SOConfig extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SOConfig.this, MapsActivity.class));
-            }});
+            }
+        });
 
 
         ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);

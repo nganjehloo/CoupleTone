@@ -12,23 +12,23 @@ import com.cse110.team36.coupletones.GCM.Server.Post2Gcm;
 
 public class sendNotificationJob extends AsyncTask<String, Void, String> {
 
-    String SOKey;
-    String message;
+   // String SOKey;
+    //String message;
 
 
-    public sendNotificationJob(String key, String msg)
+    /*public sendNotificationJob(String key, String msg)
     {
         SOKey = key;
         message = msg;
-    }
+    }*/
 
     @Override
     protected String doInBackground(String[] params) {
         Content content = new Content();
         String apiKey = "AIzaSyCnduESq54RmoStkgClt_W_eF6Ox_WiDwY";
 
-        content.addRegId(SOKey);
-        content.createData("Working!!", message);
+        content.addRegId(params[0]);
+        content.createData("Working!!", params[1]);
 
         Post2Gcm.post(apiKey, content);
         return "some message";
