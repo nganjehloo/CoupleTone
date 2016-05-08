@@ -25,9 +25,9 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     void initializeButtons() {
-        final ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
-        final ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
 
+        final ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+        final ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
         mapButton.setBackgroundColor(0xFFFFFF);
         (findViewById(R.id.myLocButton)).setBackgroundResource(R.color.colorButtonDepressed);
         settingsButton.setBackgroundColor(0xFFFFFF);
