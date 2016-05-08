@@ -94,6 +94,7 @@ public class SOConfig extends AppCompatActivity {
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
                 startActivity(new Intent(SOConfig.this, MapsActivity.class));
             }
         });
@@ -103,6 +104,7 @@ public class SOConfig extends AppCompatActivity {
         myLocButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
                 startActivity(new Intent(SOConfig.this, HomeScreen.class));
             }
         });

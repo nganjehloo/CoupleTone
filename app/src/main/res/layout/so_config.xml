@@ -54,12 +54,10 @@
         android:shadowRadius="5"
         android:alpha="1"
         android:textColor="#ffb0df"
-        android:layout_marginTop="114dp"
+        android:layout_marginTop="37dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp" />
+        android:layout_alignLeft="@+id/editText"
+        android:layout_alignStart="@+id/editText" />
 
     <include layout="@layout/toolbar"
         android:layout_width="fill_parent"
