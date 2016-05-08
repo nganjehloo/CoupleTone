@@ -31,15 +31,14 @@ public class SOConfig extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.so_config);
-        Log.d(TAG, "now we chillin");
 
         final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean sentToken = sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
         mInformationTextView = (TextView) findViewById(R.id.informationTextView);
         if (sentToken) {
-            Log.d(TAG, "WOOOOW");
             mInformationTextView.setText(getString(R.string.gcm_send_message));
             mInformationTextView.setText(sharedPreferences.getString("REGID", "nope"));
+            Log.d(TAG, "MY ID IS " + sharedPreferences.getString("REGID", "nope"));
         } else {
             mInformationTextView.setText(getString(R.string.token_error_message));
         }

@@ -27,6 +27,7 @@ public class sendNotificationJob extends AsyncTask<String, Void, String> {
     protected String doInBackground(String[] params) {
         Content content = new Content();
         String apiKey = "AIzaSyCnduESq54RmoStkgClt_W_eF6Ox_WiDwY";
+        System.out.println("SENDING MESSAGE TO SO " + params[0]);
 
 
         content.addRegId(params[0]);
