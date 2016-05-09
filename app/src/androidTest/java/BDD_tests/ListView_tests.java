@@ -58,11 +58,6 @@ public class ListView_tests extends ActivityInstrumentationTestCase2<HomeScreen>
         assertEquals(true, flag);
         assertEquals(1, favMgr.locList.size());
 
-        // test for a repeated add
-        flag = favMgr.addLocation("Equator", equator);
-        assertEquals(false, flag);
-        assertEquals(1, favMgr.locList.size());
-
         // get custom adapter
         MyCustomAdapter adapter = new MyCustomAdapter(list, context, fragmentManager);
         assertEquals(adapter.getCount(), 1);
@@ -86,28 +81,20 @@ public class ListView_tests extends ActivityInstrumentationTestCase2<HomeScreen>
         MyCustomAdapter adapter = new MyCustomAdapter(list, context, fragmentManager);
         assertEquals(adapter.getCount(), 3);
 
-
         FaveLocationManager favMgr = new FaveLocationManager(context);
         // it remembers what was done in the last test, make sure of this
         assertEquals(1, favMgr.locList.size());
 
-        // try to add a repeat location
-        boolean flag = favMgr.addLocation("Equator", equator);
-        assertEquals(false, flag);
-        assertEquals(1, favMgr.locList.size());
-
         // add a new location and make sure data is updated correctly
-        flag = favMgr.addLocation("ucsd", ucsd);
+        boolean flag = favMgr.addLocation("ucsd", ucsd);
         assertEquals(true, flag);
         assertEquals(2, favMgr.locList.size());
 
         // remove a location and make sure data is updated properly
-        flag = favMgr.removeLocation("Equator");
+        flag = favMgr.removeLocation("ucsd");
         assertEquals(true, flag);
         assertEquals(1, favMgr.locList.size());
 
     }
-
-
 
 }
