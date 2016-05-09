@@ -49,9 +49,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     boolean dropMarker = true;
 
     // Loc vars
-    FaveLocation currFavLoc = null;
+    /*FaveLocation currFavLoc = null;
     FaveLocation lastFavLoc = null;
-    double dist = 0;
+    double dist = 0;*/
 
     // SO vars
     private static String SOKey;
@@ -61,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     Vibrate v;
     FileManager fileManager;
     MarkerManager markerManager;
-
+    LocationChangeListener locationListener = new LocationChangeListener(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,7 +199,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             markerManager.dropFavLocMarker(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords());
     }
 
-    LocationListener locationListener = new LocationListener() {
+
+
+    /*new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
             mapManager.updateGPSLoc(location);
@@ -219,17 +221,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                             string = "Still @ Curr Fav Loc!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
                         } else {
                             // I AM A NEW LOCATION, CHECK ME IN!!  NOTIFY MY SO!!
-                            String str = currFavLoc.getName();
-                            SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            SOKey = keyPreferences.getString("SOREGID", null);
-                            message = "l" + str;
-                            String[] params = {SOKey, message};
-                            sendNotificationJob job = new sendNotificationJob();
-
-                            job.execute(params);
-
+                            notifySOLoc();
                             string = "checked in!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
-                            v.vibrate();
+
                         }
                         lastFavLoc = currFavLoc;
                         break;
@@ -250,7 +244,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         @Override
         public void onProviderDisabled(String provider) {}
-    };
+    };*/
 
     // The dialog fragment receives a reference to this Activity through the
     // Fragment.onAttach() callback, which it uses to call the following methods
