@@ -31,7 +31,6 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.maps.android.MarkerManager;
 import com.google.maps.android.SphericalUtil;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
