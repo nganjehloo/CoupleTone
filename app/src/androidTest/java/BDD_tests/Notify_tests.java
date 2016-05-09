@@ -16,11 +16,13 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.google.android.gms.maps.model.LatLng;
 import com.cse110.team36.coupletones.Constants;
+import com.cse110.team36.coupletones.MapManager;
 import com.google.maps.android.SphericalUtil;
 
 import android.test.ActivityInstrumentationTestCase2;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Nima on 5/8/2016.
@@ -41,12 +43,18 @@ public class Notify_tests extends ActivityInstrumentationTestCase2<MapsActivity>
     public void test_OutsideRange() {
         new AsyncTask<Void, Void, String>() {
 
-            FaveLocation faveLocation = new FaveLocation("testloc", testPoints[1]);
             MapsActivity map = getActivity();
+            FaveLocation faveLocation = new FaveLocation("testloc", testPoints[0]);
+            ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
+
+
             String token;
 
             @Override
             protected String doInBackground(Void... params) {
+
+                String message = "";
+                locList.add(faveLocation);
 
                 //Get Reg ID
                 InstanceID instanceID = InstanceID.getInstance(map.getApplicationContext());
@@ -56,8 +64,19 @@ public class Notify_tests extends ActivityInstrumentationTestCase2<MapsActivity>
                     e.printStackTrace();
                 }
 
-                //equation for distance
-                int dist = SphericalUtil.computeDistanceBetween(FaveLocationManager.locList.get(i).getCoords(), mapsManager.getGPSPos());
+                //get boolean value if our current location is within the fav location
+                MapManager map = new MapManager();
+                boolean isValid = map.checkValidDrop(locList, testPoints[1]);
+
+                if(isValid)
+                {
+                    message = "lSEND NOTIFICATION";
+                }
+                else
+                {
+                    message = "lDO NOT SEND NOTIFICATION";
+                }
+
 
                 return message;
             }
@@ -69,6 +88,7 @@ public class Notify_tests extends ActivityInstrumentationTestCase2<MapsActivity>
                 job.execute(param);
 
                 //assert stuff here
+                assertEquals("DO NOT SEND NOTIFICATION", MyGCMListenerService.getNotificationMessage());
 
             }
         }.execute(null, null, null);

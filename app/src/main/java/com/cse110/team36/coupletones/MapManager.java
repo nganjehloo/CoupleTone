@@ -20,6 +20,8 @@ public class MapManager implements Constants {
     LatLng gpsPos;
     LocationDialog locationDialog;
 
+    public MapManager(){};
+
     public MapManager(LocationManager locationManager) {
         this.locationManager = locationManager;
     }
