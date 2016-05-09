@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cse110.team36.coupletones.GCM.MyGCMListenerService;
+import com.cse110.team36.coupletones.GCM.QuickstartPreferences;
 import com.cse110.team36.coupletones.GCM.SOActivity;
 import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.GCM.Server.Post2Gcm;
@@ -40,7 +41,7 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
         SOConfig soConfig = getActivity();
         soConfig.setContentView(R.layout.so_config);
         soConfig.addSO();
-
+        assertEquals(true, soConfig.sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true));
     }
 
 
