@@ -60,13 +60,17 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
     Vibrate v;
     FileManager fileManager;
+    MarkerManager markerManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         v = new Vibrate(this);
         fileManager = new FileManager(this);
+        markerManager = new MarkerManager(this);
+
         if (firstOpen) {
             fileManager.importSavedFavLocs();
             firstOpen = false;
