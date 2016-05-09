@@ -37,12 +37,11 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
         }
 
     public void test_AddSO(){
+        //First TIme adding SO and addSO are now the same
         SOConfig soConfig = getActivity();
-        soConfig.setContentView(R.layout.so_config);
         soConfig.addSO();
-        assertEquals(true, soConfig.sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true));
+        assertEquals(true, soConfig.sharedPreferences.getBoolean("HAS_SO", false));
     }
-
 
     public void test_AddSOAfterRemoveSO(){
 
@@ -54,7 +53,7 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
      * Cancel during adding SO
      */
     public void test_cancelAdding(){
-        //NO LONGER BE IMPLEMENTED
+        //NO LONGER NEEDED TO BE IMPLEMENTED
     }
 
     /*
