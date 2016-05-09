@@ -26,22 +26,25 @@ import java.io.IOException;
  * Created by stazia on 5/5/16.
  */
 public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivity> {
-//    Activity soActivity ;
-    SOActivity soActivity;
+
+
     private static String regID = "";
-//    HomeScreen soActivity;
-        public AddActivity_tests() {
+
+    public AddActivity_tests() {
             super(SOActivity.class);
         }
 
 
     public void test_AddSO(){
+        SOActivity soActivity;
+        soActivity = getActivity();
+
 
 
     }
 
 
-    public void test_AddSOAfterRemove(){
+    public void test_AddSOAfterRemoveSO(){
 
 
     }
@@ -62,6 +65,7 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivi
 
             @Override
             protected String doInBackground(Void... params) {
+                SOActivity soActivity;
                 soActivity = getActivity();
                 String message = "ADD SO";
 
