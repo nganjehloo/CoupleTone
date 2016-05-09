@@ -1,5 +1,6 @@
 package com.cse110.team36.coupletones;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import java.io.FileInputStream;
@@ -8,20 +9,24 @@ import java.io.FileOutputStream;
 /**
  * Created by admin on 5/8/16.
  */
-public class SavedLocFileIO {
-    public FileInputStream fis;
-    public FileOutputStream fos;
-    public String savedLocs = "";
-    final public String FILENAME = "favorite_locs";
+public class FileManager {
+    private Activity mapsActivity;
+//    private FileInputStream fis;
+//    private FileOutputStream fos;
+    private String savedLocs = "";
+    final private String FILENAME = "favorite_locs";
     static Context context;
 
-//    public SavedLocFileIO(Context context) { this.context = context; }
+    public FileManager(Activity mapsActivity /*Context context*/) {
+        this.mapsActivity = mapsActivity;
+        this.context = context;
+    }
 
 
     public void importSavedFavLocs() {
         savedLocs = "";
         try {
-            fis = MyContext.getAppContext().openFileInput(FILENAME);
+            FileInputStream fis = mapsActivity.openFileInput(FILENAME);
             int test = 0;
             while (test != -1) {
                 test = fis.read();
@@ -44,11 +49,15 @@ public class SavedLocFileIO {
 
 
         try {
-            fos = MyContext.getAppContext().openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            FileOutputStream fos = mapsActivity.openFileOutput(FILENAME, Context.MODE_PRIVATE);
             fos.write(savedLocs.getBytes());
             fos.close();
         } catch (Exception e) {
             Log.e("File", "File error!");
         }
+    }
+
+    public String getSavedLocs() {
+        return savedLocs;
     }
 }

@@ -40,8 +40,10 @@ public class SOActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        attemptRegister();
+    }
 
-
+    public void attemptRegister(){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         if(!sharedPreferences.getBoolean("HAS_REGID", false))
@@ -74,8 +76,6 @@ public class SOActivity extends AppCompatActivity{
                 startService(intent);
             }
         }
-
-
     }
 
     @Override
