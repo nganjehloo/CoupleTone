@@ -26,16 +26,20 @@ import org.w3c.dom.Text;
 public class SOConfig extends AppCompatActivity {
     private static final String TAG = "SOActivity";
     private TextView mInformationTextView;
-    final private SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+    private SharedPreferences sharedPreferences;
 
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.so_config);
+
+        refreshIDView();
+
+        refreshCoupleCode();
 
         initalizeButtons();
 
-        refersehCoupleCode();
+
 
     }
 
@@ -80,7 +84,7 @@ public class SOConfig extends AppCompatActivity {
         job.execute(param);
     }
 
-    public void refersehCoupleCode(){
+    public void refreshCoupleCode(){
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
         mBaeCode.setText(sharedPreferences.getString("SOREGID", "NO SO ID"));
     }
