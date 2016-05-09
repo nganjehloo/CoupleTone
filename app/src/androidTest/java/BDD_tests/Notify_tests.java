@@ -28,10 +28,7 @@ import java.util.ArrayList;
  * Created by Nima on 5/8/2016.
  */
 public class Notify_tests extends ActivityInstrumentationTestCase2<MapsActivity> implements Constants  {
-    LatLng[] testPoints = { new LatLng(0,0),
-            new LatLng(ONE_TENTH_MILE/2, ONE_TENTH_MILE/2),
-            new LatLng(ONE_TENTH_MILE, ONE_TENTH_MILE),
-            new LatLng(ONE_TENTH_MILE+1, ONE_TENTH_MILE+1)};
+    LatLng[] testPoints = { new LatLng(40,50), new LatLng(250,250)};
 
     public Notify_tests(){super(MapsActivity.class);};
 
@@ -53,7 +50,8 @@ public class Notify_tests extends ActivityInstrumentationTestCase2<MapsActivity>
             @Override
             protected String doInBackground(Void... params) {
 
-                String message = "";
+                String message = " ";
+
                 locList.add(faveLocation);
 
                 //Get Reg ID
@@ -87,8 +85,69 @@ public class Notify_tests extends ActivityInstrumentationTestCase2<MapsActivity>
                 String[] param = {token, msg};
                 job.execute(param);
 
+                System.out.println("!!!!!!!!MESSAAAAAGE IS : " + msg);
+
                 //assert stuff here
-                assertEquals("DO NOT SEND NOTIFICATION", MyGCMListenerService.getNotificationMessage());
+                assertEquals(msg , MyGCMListenerService.getNotificationMessage(), "DO NOT SEND NOTIFICATION");
+
+
+            }
+        }.execute(null, null, null);
+    }
+
+    public void test_InsideRange() {
+        new AsyncTask<Void, Void, String>() {
+
+            MapsActivity map = getActivity();
+            FaveLocation faveLocation = new FaveLocation("testloc", testPoints[0]);
+            ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
+
+
+            String token;
+
+            @Override
+            protected String doInBackground(Void... params) {
+
+                String message = " ";
+
+                locList.add(faveLocation);
+
+                //Get Reg ID
+                InstanceID instanceID = InstanceID.getInstance(map.getApplicationContext());
+                try {
+                    token = instanceID.getToken("755936681526", GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                //get boolean value if our current location is within the fav location
+                MapManager map = new MapManager();
+                boolean isValid = map.checkValidDrop(locList, testPoints[0]);
+
+                if(isValid)
+                {
+                    message = "lSEND NOTIFICATION";
+                }
+                else
+                {
+                    message = "lDO NOT SEND NOTIFICATION";
+                }
+
+
+                return message;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+                sendNotificationJob job = new sendNotificationJob();
+                String[] param = {token, msg};
+                job.execute(param);
+
+                System.out.println("!!!!!!!!MESSAAAAAGE IS : " + msg);
+
+                //assert stuff here
+                assertEquals(msg , MyGCMListenerService.getNotificationMessage(), "SEND NOTIFICATION");
+
 
             }
         }.execute(null, null, null);
