@@ -9,6 +9,9 @@ import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
 import com.google.android.gms.maps.model.LatLng;
 
+
+import java.util.ArrayList;
+
 /**
  * Created by stazia on 5/4/16.
  *
@@ -46,6 +49,10 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
         FaveLocationManager.emptyLocs();
         mapsActivity.onMapLongClick(testPoints[0]);
         mapsActivity.onMapLongClick(testPoints[1]);
+        ArrayList<FaveLocation> testList = new ArrayList<FaveLocation>();
+        FaveLocation first = new FaveLocation("first", testPoints[0]);
+        testList.add(first);
+        mapsActivity.checkValidDrop(testList, testPoints[0]);
 
         FaveLocationManager.addLocation(Integer.toString(R.string.loc0), testPoints[0]);
         FaveLocationManager.addLocation(Integer.toString(R.string.loc1), testPoints[1]);
