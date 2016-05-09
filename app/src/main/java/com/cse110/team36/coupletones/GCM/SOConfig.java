@@ -31,15 +31,11 @@ public class SOConfig extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         super.onCreate(savedInstanceState);
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        refreshIDView();
+        setContentView(R.layout.so_config);
 
         refreshCoupleCode();
-
         initalizeButtons();
-
-
+        refreshIDView();
     }
 
 

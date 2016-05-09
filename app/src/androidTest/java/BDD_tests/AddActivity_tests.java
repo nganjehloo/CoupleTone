@@ -37,14 +37,9 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
         }
 
     public void test_AddSO(){
-<<<<<<< HEAD
-        SOActivity soActivity;
-
-=======
         SOConfig soConfig = getActivity();
         soConfig.setContentView(R.layout.so_config);
         soConfig.addSO();
->>>>>>> c9328126d112abdf816b07f48f7e0db076e9bee5
 
     }
 
