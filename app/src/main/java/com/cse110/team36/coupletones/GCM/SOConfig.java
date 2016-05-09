@@ -26,14 +26,21 @@ import org.w3c.dom.Text;
 public class SOConfig extends AppCompatActivity {
     private static final String TAG = "SOActivity";
     private TextView mInformationTextView;
+    final private SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.so_config);
 
+        initalizeButtons();
 
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        refersehCoupleCode();
+
+    }
+
+
+    public void refreshIDView(){
         boolean sentToken = sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
         mInformationTextView = (TextView) findViewById(R.id.informationTextView);
         if (sentToken) {
@@ -43,6 +50,42 @@ public class SOConfig extends AppCompatActivity {
         } else {
             mInformationTextView.setText(getString(R.string.token_error_message));
         }
+    }
+
+    public void addSO(){
+        TextView mBaeCode = (TextView) findViewById(R.id.editText);
+        String SOKey = mBaeCode.getText().toString();
+
+        sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString()).apply();
+        sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
+
+        Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString(), Toast.LENGTH_SHORT).show();
+        //sendNotification
+        String[] param = {SOKey, "a" + sharedPreferences.getString("MYREGID", null)};
+        sendNotificationJob job = new sendNotificationJob();
+        job.execute(param);
+    }
+
+    public void removeSO(){
+        TextView mBaeCode = (TextView) findViewById(R.id.editText);
+        String SOKey = mBaeCode.getText().toString();
+
+        sharedPreferences.edit().putBoolean("HAS_SO", false).apply();
+        sharedPreferences.edit().remove("SOREGID").apply();
+
+        Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
+        //sendNotification
+        String[] param = {SOKey, "e" + sharedPreferences.getString("MYREGID", null)};
+        sendNotificationJob job = new sendNotificationJob();
+        job.execute(param);
+    }
+
+    public void refersehCoupleCode(){
+        TextView mBaeCode = (TextView) findViewById(R.id.editText);
+        mBaeCode.setText(sharedPreferences.getString("SOREGID", "NO SO ID"));
+    }
+
+    public void initalizeButtons() {
 
         final ImageButton mylocations = (ImageButton) findViewById(R.id.myLocButton);
         final ImageButton map = (ImageButton) findViewById(R.id.mapButton);
@@ -52,40 +95,16 @@ public class SOConfig extends AppCompatActivity {
 
         Button soButton = (Button) findViewById(R.id.button);
         soButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
 
                 if (!(sharedPreferences.getBoolean("HAS_SO", false))) {
-                    TextView mBaeCode = (TextView) findViewById(R.id.editText);
-                    String SOKey = mBaeCode.getText().toString();
-
-                    sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString()).apply();
-                    sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
-
-                    Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString(), Toast.LENGTH_SHORT).show();
-                    //sendNotification
-                    String[] param = {SOKey, "a" + sharedPreferences.getString("MYREGID", null)};
-                    sendNotificationJob job = new sendNotificationJob();
-                    job.execute(param);
+                    addSO();
                 } else {
-                    TextView mBaeCode = (TextView) findViewById(R.id.editText);
-                    String SOKey = mBaeCode.getText().toString();
-
-                    sharedPreferences.edit().putBoolean("HAS_SO", false).apply();
-                    sharedPreferences.edit().remove("SOREGID").apply();
-
-                    Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
-                    //sendNotification
-                    String[] param = {SOKey, "e" + sharedPreferences.getString("MYREGID", null)};
-                    sendNotificationJob job = new sendNotificationJob();
-                    job.execute(param);
+                    removeSO();
                 }
             }
         });
-        TextView mBaeCode = (TextView) findViewById(R.id.editText);
-
-        mBaeCode.setText(sharedPreferences.getString("SOREGID", "NO SO ID"));
 
         ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
         mapButton.setOnClickListener(new View.OnClickListener() {
@@ -107,3 +126,5 @@ public class SOConfig extends AppCompatActivity {
         });
     }
 }
+
+

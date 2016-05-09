@@ -41,6 +41,7 @@ import com.google.android.gms.maps.model.LatLng;
 public class MyGCMListenerService extends GcmListenerService {
 
     private static final String TAG = "MyGCMListenerService";
+    private static String testMessage = "";
 
     /**
      * Called when message is received.
@@ -53,6 +54,7 @@ public class MyGCMListenerService extends GcmListenerService {
     @Override
     public void onMessageReceived(String from, Bundle data) {
         String message = data.getString("message");
+        testMessage = message; // use for testing
         Log.d(TAG, "DOWNLOADING");
 
         Log.d(TAG, "From: " + from);
@@ -82,6 +84,7 @@ public class MyGCMListenerService extends GcmListenerService {
          * In some cases it may be useful to show a notification indicating to the user
          * that a message was received.
          */
+
         messageType(type, appended);
         // [END_EXCLUDE]
         Log.d(TAG, "DOWNLOAD COMPLETE");
@@ -147,6 +150,11 @@ public class MyGCMListenerService extends GcmListenerService {
         }else {
             Log.d(TAG, "INVALID MESSAGE RECIEVED");
         }
+    }
+
+    public static String getNotificationMessage()
+    {
+        return testMessage;
     }
 
 }
