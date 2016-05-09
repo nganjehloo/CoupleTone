@@ -85,4 +85,14 @@ public class MapManager implements Constants {
     public LocationDialog getLocationDialog() {
         return locationDialog;
     }
+
+    public void populateMap(FileManager fileManager, MarkerManager markerManager) {
+        String savedLocArr[] = fileManager.getSavedLocs().split("\n");
+
+        for ( int i = 0 ; i < savedLocArr.length - 1 ; i+=3 )
+            FaveLocationManager.locList.add(new FaveLocation(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));
+
+        for ( int i = 0 ; i < FaveLocationManager.locList.size() ; i++ )
+            markerManager.dropFavLocMarker(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords());
+    }
 }
