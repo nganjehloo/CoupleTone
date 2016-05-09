@@ -52,7 +52,6 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
         assertEquals(false, soConfig.sharedPreferences.getBoolean("HAS_SO", true));
         soConfig.addSO();
         assertEquals(true, soConfig.sharedPreferences.getBoolean("HAS_SO", false));
-
     }
 
 
@@ -63,11 +62,5 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
         //NO LONGER BE IMPLEMENTED
     }
 
-    /*
-     * Test send notification - get a notification by sending it to ourselves
-     */
-    public void test_getNotification() {
-
-    }
 
 }
