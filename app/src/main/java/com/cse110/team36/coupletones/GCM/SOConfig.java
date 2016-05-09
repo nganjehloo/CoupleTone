@@ -52,29 +52,32 @@ public class SOConfig extends AppCompatActivity {
 
         Button soButton = (Button) findViewById(R.id.button);
         soButton.setOnClickListener(new View.OnClickListener() {
-            TextView mBaeCode = (TextView) findViewById(R.id.editText);
 
             @Override
             public void onClick(View view) {
 
-                String SOKey = mBaeCode.getText().toString();
+                if (!(sharedPreferences.getBoolean("HAS_SO", false))) {
+                    TextView mBaeCode = (TextView) findViewById(R.id.editText);
+                    String SOKey = mBaeCode.getText().toString();
 
-                if ( !(sharedPreferences.getBoolean("HAS_SO", false)) ) {
                     sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString()).apply();
                     sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
 
                     Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString(), Toast.LENGTH_SHORT).show();
                     //sendNotification
-                    String[] param = {SOKey, "a" + SOKey};
+                    String[] param = {SOKey, "a" + sharedPreferences.getString("MYREGID", null)};
                     sendNotificationJob job = new sendNotificationJob();
                     job.execute(param);
                 } else {
+                    TextView mBaeCode = (TextView) findViewById(R.id.editText);
+                    String SOKey = mBaeCode.getText().toString();
+
                     sharedPreferences.edit().putBoolean("HAS_SO", false).apply();
                     sharedPreferences.edit().remove("SOREGID").apply();
 
                     Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
                     //sendNotification
-                    String[] param = {SOKey, "e" + SOKey};
+                    String[] param = {SOKey, "e" + sharedPreferences.getString("MYREGID", null)};
                     sendNotificationJob job = new sendNotificationJob();
                     job.execute(param);
                 }
