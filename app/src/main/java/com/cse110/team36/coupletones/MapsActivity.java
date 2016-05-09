@@ -269,57 +269,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             dropFavLocMarker(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords());
     }
 
-    /**
-     * Creates these button listeners on the Maps GUI to open other Activities:
-     *      + Open HomeScreen [MyLocList]
-     *      + Open SOConfig [SO Page]
-     *
-     */
-    void initializeButtons() {
-
-        (findViewById(R.id.mapButton)).setBackgroundResource(R.color.colorButtonDepressed);
-
-        ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
-        myLocButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                startActivity(new Intent(MapsActivity.this, HomeScreen.class));
-            }
-        });
-
-        //SO Page (Right button)
-        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-                startActivity(new Intent(MapsActivity.this, SOConfig.class));
-            }
-        });
-    }
-
-    /**
-     * Sets the googleMap UI Settings for:
-     *      + zoomControl
-     *      + MapToolbar
-     *      + LocationButtonEnable
-     */
-    void initializeGMapUISettings() {
-        mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
-        mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
-        mMap.getUiSettings().setMyLocationButtonEnabled(false);
-    }
-
-
-    public static String getSOKey(){
-        return SOKey;
-    }
-
-    public static String getMessage(){
-        return message;
-    }
-
     LocationListener locationListener = new LocationListener() {
         @Override
         public void onLocationChanged(Location location) {
@@ -388,5 +337,52 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             Toast.makeText(getBaseContext(), "You have to input a unique name! Try again.", Toast.LENGTH_SHORT).show();
         }
         dropFavLocMarker(name, loc);
+    }
+
+
+
+
+
+
+    /**
+     * Creates these button listeners on the Maps GUI to open other Activities:
+     *      + Open HomeScreen [MyLocList]
+     *      + Open SOConfig [SO Page]
+     *
+     */
+    void initializeButtons() {
+
+        (findViewById(R.id.mapButton)).setBackgroundResource(R.color.colorButtonDepressed);
+
+        ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
+        myLocButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(MapsActivity.this, HomeScreen.class));
+            }
+        });
+
+        //SO Page (Right button)
+        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(MapsActivity.this, SOConfig.class));
+            }
+        });
+    }
+
+    /**
+     * Sets the googleMap UI Settings for:
+     *      + zoomControl
+     *      + MapToolbar
+     *      + LocationButtonEnable
+     */
+    void initializeGMapUISettings() {
+        mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
+        mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
     }
 }

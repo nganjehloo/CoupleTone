@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -67,7 +68,19 @@ public class LocationDialog extends DialogFragment {
         AlertDialog.Builder location = builder.setPositiveButton(R.string.set_name, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 String newName = ((EditText) layout.findViewById(R.id.namefield)).getText().toString();
-                listener.onDialogPositiveClick(newName, coords, position);
+
+                boolean uniqueName = true;
+
+                for (int i = 0; i < FaveLocationManager.locList.size(); i++) {
+                    if (FaveLocationManager.locList.get(i).getName().equals(newName)) {
+                        uniqueName = false;
+                        Toast.makeText(getActivity(), "You have to input a unique name! Try again.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                if (uniqueName) {
+                    listener.onDialogPositiveClick(newName, coords, position);
+                }
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
