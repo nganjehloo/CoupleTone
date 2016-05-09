@@ -1,6 +1,8 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.Managers;
 
 import android.content.Context;
+
+import com.cse110.team36.coupletones.FaveLocation;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 

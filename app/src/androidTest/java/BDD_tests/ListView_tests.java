@@ -5,7 +5,7 @@ import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.cse110.team36.coupletones.FaveLocation;
-import com.cse110.team36.coupletones.FaveLocationManager;
+import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.HomeScreen;
 import com.cse110.team36.coupletones.MyCustomAdapter;
 import com.google.android.gms.maps.model.LatLng;
