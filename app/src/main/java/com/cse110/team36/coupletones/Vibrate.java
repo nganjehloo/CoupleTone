@@ -5,7 +5,7 @@ import android.content.Context;
 import android.os.Vibrator;
 
 /**
- * Created by admin on 5/8/16.
+ * Class to access a consistent vibrate function for feedback on long click and notification.
  */
 public class Vibrate  {
     Activity mapsActivity;
