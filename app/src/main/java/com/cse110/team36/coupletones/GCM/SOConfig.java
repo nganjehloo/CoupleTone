@@ -26,7 +26,7 @@ import org.w3c.dom.Text;
 public class SOConfig extends AppCompatActivity {
     private static final String TAG = "SOActivity";
     private TextView mInformationTextView;
-    private SharedPreferences sharedPreferences;
+    public SharedPreferences sharedPreferences;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
