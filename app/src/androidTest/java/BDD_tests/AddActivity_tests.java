@@ -2,9 +2,12 @@ package BDD_tests;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.UiThreadTest;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -25,35 +28,65 @@ import java.io.IOException;
 public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivity> {
 //    Activity soActivity ;
     SOActivity soActivity;
+    private static String regID = "";
 //    HomeScreen soActivity;
         public AddActivity_tests() {
             super(SOActivity.class);
         }
 
-    /*
-     * Testing send to ourselves
-     */
-    @UiThreadTest
-    public void test_sendNotification() throws IOException {
-        soActivity = getActivity();
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(soActivity.getApplicationContext());
-        String message = "ADD SO";
+    public void test_AddSO(){
 
-        //Get our RegID
-        InstanceID instanceID = InstanceID.getInstance(soActivity.getApplicationContext());
-        String token = instanceID.getToken("755936681526", GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
-        //Add our regID to sharedpreferences
-        sharedPreferences.edit().putString("MYIDTEST", token).apply();
-        sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
-
-        //Send a notification to myself
-        String params[] = {sharedPreferences.getString("MYIDTEST", null), message};
-        sendNotificationJob job = new sendNotificationJob();
-        job.execute(params);
-
-        //check to see if we get the message
-        assertEquals(message, sharedPreferences.getString("MYIDTEST", null));
 
     }
+
+
+    public void test_AddSOAfterRemove(){
+
+
+    }
+
+
+    /*
+     * Cancel during adding SO
+     */
+    public void test_cancelAdding(){
+        //NO LONGER BE IMPLEMENTED
+    }
+
+    /*
+     * Test send notification - get a notification by sending it to ourselves
+     */
+    public void test_getNotification() {
+        new AsyncTask<Void, Void, String>() {
+
+            @Override
+            protected String doInBackground(Void... params) {
+                soActivity = getActivity();
+                String message = "ADD SO";
+
+                //Get our RegID
+                InstanceID instanceID = InstanceID.getInstance(soActivity.getApplicationContext());
+                try {
+                    regID = instanceID.getToken("755936681526", "GCM");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                return message;
+            }
+
+            @Override
+            protected void onPostExecute(String msg) {
+                //Send a notification to myself
+                String params[] = {regID, msg};
+                sendNotificationJob job = new sendNotificationJob();
+                job.execute(params);
+
+                assertEquals(MyGCMListenerService.getNotificationMessage(), msg);
+            }
+        }.execute(null, null, null);
+    }
+
+
 }
