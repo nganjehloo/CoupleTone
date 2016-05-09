@@ -1,10 +1,5 @@
-/*
- * Class name: MyCustomAdapter.java
- * Purpose: This class is as an adapter so that arrayLists can be adapted into ListArrays.
- */
-
-
 package com.cse110.team36.coupletones;
+
 import android.app.FragmentManager;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,6 +12,11 @@ import android.widget.TextView;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 
 import java.util.ArrayList;
+
+/**
+ * MyCustomAdapter adapters the buttons for the ListView
+ *     in such a way that button
+ */
 
 public class MyCustomAdapter extends BaseAdapter {
     private ArrayList<FaveLocation> list = new ArrayList<>();
