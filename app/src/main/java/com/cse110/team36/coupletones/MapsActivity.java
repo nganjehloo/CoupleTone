@@ -1,6 +1,7 @@
 package com.cse110.team36.coupletones;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -58,6 +59,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     private static String message;
     SharedPreferences sharedPreferences;
 
+    Vibrate v;
+
 
     // The dialog fragment receives a reference to this Activity through the
     // Fragment.onAttach() callback, which it uses to call the following methods
@@ -79,7 +82,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        v = new Vibrate(this);
         if (firstOpen) {
 
 //            SavedLocFileIO.importSavedFavLocs();
@@ -198,7 +201,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                                 job.execute(params);
 
                                 string = "checked in!" + "\nLocName=" + FaveLocationManager.locList.get(i).getName() + "\nArraySize=" + FaveLocationManager.locList.size() + "\nx=" + FaveLocationManager.locList.get(i).getCoords().latitude + "\ny=" + FaveLocationManager.locList.get(i).getCoords().longitude;
-                                vibrate();
+                                v.vibrate();
                             }
                             lastFavLoc = currFavLoc;
                             break;
@@ -231,7 +234,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
      *
      *****/
     public void onMapLongClick(LatLng point) {
-        vibrate();
+        v.vibrate();
 
         dropMarker = true;  //Always assume we can drop a marker (and show we cannot, if we cannot)
 
@@ -326,11 +329,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
      *                      4/29
      *
      *****/
-    void vibrate() {
-        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 100 milliseconds
-        v.vibrate(100);
-    }
+//    void vibrate() {
+//        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+//        // Vibrate for 100 milliseconds
+//        v.vibrate(100);
+//    }
 
     void dropFavLocMarker(String name, LatLng loc) {
         Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(loc.latitude, loc.longitude)));
