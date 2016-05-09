@@ -42,6 +42,9 @@ public class SOConfig extends AppCompatActivity {
     public void refreshIDView(){
         boolean sentToken = sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
         mInformationTextView = (TextView) findViewById(R.id.informationTextView);
+        TextView mBaeCode = (TextView) findViewById(R.id.editText);
+
+        mBaeCode.setText( sharedPreferences.getString("SOREGID", "NOSOID"));
         if (sentToken) {
             mInformationTextView.setText(getString(R.string.gcm_send_message));
             mInformationTextView.setText(sharedPreferences.getString("MYREGID", "nope"));
@@ -75,6 +78,7 @@ public class SOConfig extends AppCompatActivity {
 
         Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
         //sendNotification
+
         String[] param = {SOKey, "e" + sharedPreferences.getString("MYREGID", null)};
         sendNotificationJob job = new sendNotificationJob();
         job.execute(param);
@@ -97,7 +101,6 @@ public class SOConfig extends AppCompatActivity {
         soButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (!(sharedPreferences.getBoolean("HAS_SO", false))) {
                     addSO();
                 } else {
