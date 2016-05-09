@@ -31,14 +31,13 @@ public class SOConfig extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.so_config);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         refreshIDView();
 
         refreshCoupleCode();
 
         initalizeButtons();
-
 
 
     }
@@ -57,6 +56,7 @@ public class SOConfig extends AppCompatActivity {
     }
 
     public void addSO(){
+
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
         String SOKey = mBaeCode.getText().toString();
 
@@ -90,7 +90,7 @@ public class SOConfig extends AppCompatActivity {
     }
 
     public void initalizeButtons() {
-
+        setContentView(R.layout.so_config);
         final ImageButton mylocations = (ImageButton) findViewById(R.id.myLocButton);
         final ImageButton map = (ImageButton) findViewById(R.id.mapButton);
         mylocations.setBackgroundColor(0xFFFFFF);

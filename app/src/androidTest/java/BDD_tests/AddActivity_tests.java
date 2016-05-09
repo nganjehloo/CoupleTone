@@ -29,7 +29,7 @@ import java.io.IOException;
 
 public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig> {
 
-    private static String regID = "";
+    private static String regID = "dPP6UdUV8gI:APA91bHmFkJquQDqB8hzHFEVWLaCAjAZtjlKoF8ER6_yiduhcwEUJjvp-uISlE9AqneYDgYqmFPfiBcJixr2d1jbfXZuyo0CxHY_pAFPOq7YiXBnzSYylHVKjB9F_rZwtniF7AVNKXP5";
 //    HomeScreen soActivity;
 
     public AddActivity_tests() {
@@ -37,8 +37,14 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
         }
 
     public void test_AddSO(){
+<<<<<<< HEAD
         SOActivity soActivity;
 
+=======
+        SOConfig soConfig = getActivity();
+        soConfig.setContentView(R.layout.so_config);
+        soConfig.addSO();
+>>>>>>> c9328126d112abdf816b07f48f7e0db076e9bee5
 
     }
 
