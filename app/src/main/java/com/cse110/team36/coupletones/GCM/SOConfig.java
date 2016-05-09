@@ -29,13 +29,13 @@ public class SOConfig extends AppCompatActivity {
     public SharedPreferences sharedPreferences;
 
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.so_config);
 
+        refreshCoupleCode();
         initalizeButtons();
-        refersehCoupleCode();
         refreshIDView();
-
     }
 
 
@@ -80,7 +80,7 @@ public class SOConfig extends AppCompatActivity {
         job.execute(param);
     }
 
-    public void refersehCoupleCode(){
+    public void refreshCoupleCode(){
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
         mBaeCode.setText(sharedPreferences.getString("SOREGID", "NO SO ID"));
     }

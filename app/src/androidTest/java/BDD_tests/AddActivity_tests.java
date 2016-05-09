@@ -27,6 +27,7 @@ import java.io.IOException;
 /**
  * Created by stazia on 5/5/16.
  */
+
 public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig> {
 
     private static String regID = "dPP6UdUV8gI:APA91bHmFkJquQDqB8hzHFEVWLaCAjAZtjlKoF8ER6_yiduhcwEUJjvp-uISlE9AqneYDgYqmFPfiBcJixr2d1jbfXZuyo0CxHY_pAFPOq7YiXBnzSYylHVKjB9F_rZwtniF7AVNKXP5";
@@ -45,6 +46,12 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
 
     public void test_AddSOAfterRemoveSO(){
 
+        SOConfig soConfig = getActivity();
+        soConfig.addSO();
+        soConfig.removeSO();
+        assertEquals(false, soConfig.sharedPreferences.getBoolean("HAS_SO", true));
+        soConfig.addSO();
+        assertEquals(true, soConfig.sharedPreferences.getBoolean("HAS_SO", false));
 
     }
 
@@ -60,6 +67,7 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
      * Test send notification - get a notification by sending it to ourselves
      */
     public void test_getNotification() {
+
     }
 
 }
