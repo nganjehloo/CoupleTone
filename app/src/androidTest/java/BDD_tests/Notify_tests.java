@@ -16,8 +16,7 @@ public class Notify_tests implements Constants{
             new LatLng(ONE_TENTH_MILE+1, ONE_TENTH_MILE+1)};
 
     public void test_OutsideRange(){
-        FaveLocation faveLocation = new FaveLocation("testloc", testPoints[1]);
-        MyGCMListenerService.getNotificationMessage();
+
     }
 
 }
