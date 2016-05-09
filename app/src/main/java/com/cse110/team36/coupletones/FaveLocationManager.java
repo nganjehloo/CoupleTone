@@ -17,22 +17,38 @@ public class FaveLocationManager {
 
     public static boolean addLocation(String name, LatLng loc) {
         FaveLocation newLoc = new FaveLocation(name, loc);
-        locList.add(newLoc);
-        return true;
+
+        if(find(name) == -1)
+            return false;
+        else {
+            locList.add(newLoc);
+            return true;
+        }
     }
 
     public static boolean removeLocation(String name) {
-        for (int i = 0; i < locList.size(); i++) {
-            FaveLocation faveLocation = locList.get(i);
-            if (faveLocation.getName().equals(name)) {
-                locList.remove(i);
-                return true;
-            }
+
+        int removeInd = find(name);
+        if(removeInd == -1)
+            return false;
+        else {
+            locList.remove(removeInd);
+            return true;
         }
-        return false;
     }
 
     public static void emptyLocs() {
         locList.clear();
+    }
+
+
+    public static int find( String name ) {
+        for (int i = 0; i < locList.size(); i++) {
+            FaveLocation faveLocation = locList.get(i);
+            if (faveLocation.getName().equals(name)) {
+                return i;
+            }
+        }
+        return -1;
     }
 }

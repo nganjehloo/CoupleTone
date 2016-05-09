@@ -62,7 +62,6 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
 
         assertEquals(true, check);
         mapsActivity.onMapLongClick(testPoints[0]);
-
         testList.add(first);
         check = mapmanager.checkValidDrop(testList, testPoints[1]);
         assertEquals(false, check);

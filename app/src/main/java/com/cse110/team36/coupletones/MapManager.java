@@ -58,7 +58,7 @@ public class MapManager implements Constants {
 
             //Computes distance (based on GPS coords, earth sphericalness, etc.) from current point/marker trying to drop
             // to ALL OTHER points/marker in the list
-            dist = SphericalUtil.computeDistanceBetween(new LatLng(locList.get(i).getCoords().latitude, locList.get(i).getCoords().longitude), new LatLng(point.latitude, point.longitude));
+            dist = SphericalUtil.computeDistanceBetween(new LatLng(locList.get(i).getCoords().latitude, locList.get(i).getCoords().longitude), point);
 
             // If distance between 2 markers (radius's) are within 2*ONE_TENTH_MILEs
             //We do not want to drop a marker, and thus we will abort

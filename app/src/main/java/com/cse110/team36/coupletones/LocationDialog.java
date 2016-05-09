@@ -69,18 +69,17 @@ public class LocationDialog extends DialogFragment {
             public void onClick(DialogInterface dialog, int id) {
                 String newName = ((EditText) layout.findViewById(R.id.namefield)).getText().toString();
 
-                boolean uniqueName = true;
+                int uniqueName = -1;
 
-                for (int i = 0; i < FaveLocationManager.locList.size(); i++) {
-                    if (FaveLocationManager.locList.get(i).getName().equals(newName)) {
-                        uniqueName = false;
-                        Toast.makeText(getActivity(), "You have to input a unique name! Try again.", Toast.LENGTH_SHORT).show();
-                    }
-                }
+                uniqueName = FaveLocationManager.find(newName);
 
-                if (uniqueName) {
+                if (uniqueName != -1) {
                     listener.onDialogPositiveClick(newName, coords, position);
                 }
+                else {
+                    Toast.makeText(getActivity(), "You have to input a unique name! Try again.", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
