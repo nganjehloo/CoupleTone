@@ -1,6 +1,9 @@
 package BDD_tests;
 
+import android.location.LocationListener;
+
 import com.cse110.team36.coupletones.FaveLocation;
+import com.cse110.team36.coupletones.GCM.MyGCMListenerService;
 import com.google.android.gms.maps.model.LatLng;
 import com.cse110.team36.coupletones.Constants;
 /**
@@ -14,7 +17,7 @@ public class Notify_tests implements Constants{
 
     public void test_OutsideRange(){
         FaveLocation faveLocation = new FaveLocation("testloc", testPoints[1]);
-
+        MyGCMListenerService.getNotificationMessage();
     }
 
 }
