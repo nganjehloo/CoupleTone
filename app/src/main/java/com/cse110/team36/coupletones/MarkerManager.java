@@ -17,7 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class MarkerManager implements Constants {
     Activity mapsActivity;
     GoogleMap mMap;
-    public MarkerManager(Activity mapsActivity, GoogleMap gMap) {
+    public MarkerManager(Activity mapsActivity, GoogleMap mMap) {
         this.mapsActivity = mapsActivity;
         this.mMap = mMap;
     }
