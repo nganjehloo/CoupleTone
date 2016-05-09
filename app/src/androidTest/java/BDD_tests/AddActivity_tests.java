@@ -39,17 +39,19 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
 
     public void test_AddSO(){
         SOConfig soConfig = getActivity();
-        soConfig.setContentView(R.layout.so_config);
         soConfig.addSO();
-        assertEquals(true, soConfig.sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true));
+        assertEquals(true, soConfig.sharedPreferences.getBoolean("HAS_SO", false));
     }
 
 
     public void test_AddSOAfterRemoveSO(){
 
-        test_AddSO();
-
-
+        SOConfig soConfig = getActivity();
+        soConfig.addSO();
+        soConfig.removeSO();
+        assertEquals(false, soConfig.sharedPreferences.getBoolean("HAS_SO", true));
+        soConfig.addSO();
+        assertEquals(true, soConfig.sharedPreferences.getBoolean("HAS_SO", false));
 
     }
 
