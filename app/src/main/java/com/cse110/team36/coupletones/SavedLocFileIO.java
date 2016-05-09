@@ -9,16 +9,16 @@ import java.io.FileOutputStream;
  * Created by admin on 5/8/16.
  */
 public class SavedLocFileIO {
-    public static FileInputStream fis;
-    public static FileOutputStream fos;
-    public static String savedLocs = "";
-    final public static String FILENAME = "favorite_locs";
+    public FileInputStream fis;
+    public FileOutputStream fos;
+    public String savedLocs = "";
+    final public String FILENAME = "favorite_locs";
     static Context context;
 
 //    public SavedLocFileIO(Context context) { this.context = context; }
 
 
-    public static void importSavedFavLocs() {
+    public void importSavedFavLocs() {
         savedLocs = "";
         try {
             fis = MyContext.getAppContext().openFileInput(FILENAME);
@@ -33,7 +33,7 @@ public class SavedLocFileIO {
         }
     }
 
-    public static void exportSavedFavLocs() {
+    public void exportSavedFavLocs() {
         savedLocs = "";
 
         for ( int i = 0 ; i < FaveLocationManager.locList.size() ; i++ ) {

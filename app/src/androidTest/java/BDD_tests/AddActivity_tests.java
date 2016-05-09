@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.cse110.team36.coupletones.GCM.MyGCMListenerService;
 import com.cse110.team36.coupletones.GCM.SOActivity;
+import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.GCM.Server.Post2Gcm;
 import com.cse110.team36.coupletones.GCM.sendNotificationJob;
 import com.cse110.team36.coupletones.HomeScreen;
@@ -25,20 +26,18 @@ import java.io.IOException;
 /**
  * Created by stazia on 5/5/16.
  */
-public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivity> {
 
+public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig> {
 
     private static String regID = "";
+//    HomeScreen soActivity;
 
     public AddActivity_tests() {
-            super(SOActivity.class);
+            super(SOConfig.class);
         }
-
 
     public void test_AddSO(){
         SOActivity soActivity;
-        soActivity = getActivity();
-
 
 
     }
@@ -61,36 +60,7 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOActivi
      * Test send notification - get a notification by sending it to ourselves
      */
     public void test_getNotification() {
-        new AsyncTask<Void, Void, String>() {
 
-            @Override
-            protected String doInBackground(Void... params) {
-                SOActivity soActivity;
-                soActivity = getActivity();
-                String message = "ADD SO";
-
-                //Get our RegID
-                InstanceID instanceID = InstanceID.getInstance(soActivity.getApplicationContext());
-                try {
-                    regID = instanceID.getToken("755936681526", "GCM");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                return message;
-            }
-
-            @Override
-            protected void onPostExecute(String msg) {
-                //Send a notification to myself
-                String params[] = {regID, msg};
-                sendNotificationJob job = new sendNotificationJob();
-                job.execute(params);
-
-                assertEquals(MyGCMListenerService.getNotificationMessage(), msg);
-            }
-        }.execute(null, null, null);
     }
-
 
 }
