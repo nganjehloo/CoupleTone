@@ -17,12 +17,6 @@ public class FaveLocationManager {
 
     public static boolean addLocation(String name, LatLng loc) {
         FaveLocation newLoc = new FaveLocation(name, loc);
-        int i;
-        for (i = 0; i < locList.size(); i++) {
-            if (locList.get(i).getName().equals(name)) {
-                return false;
-            }
-        }
         locList.add(newLoc);
         return true;
     }
