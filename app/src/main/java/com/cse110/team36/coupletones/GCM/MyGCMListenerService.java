@@ -27,16 +27,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
-import android.widget.EditText;
-import android.view.View;
-import android.widget.TextView;
 
-import com.cse110.team36.coupletones.FaveLocation;
-import com.cse110.team36.coupletones.FaveLocationManager;
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
 import com.google.android.gms.gcm.GcmListenerService;
-import com.google.android.gms.maps.model.LatLng;
 
 public class MyGCMListenerService extends GcmListenerService {
 

@@ -40,8 +40,19 @@ public class SOConfig extends AppCompatActivity {
 
 
     public void refreshIDView(){
+        refreshCoupleCode();
+
         boolean sentToken = sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
         mInformationTextView = (TextView) findViewById(R.id.informationTextView);
+        TextView mBaeCode = (TextView) findViewById(R.id.editText);
+        Button addremovebtn = (Button) findViewById(R.id.button);
+        if(sharedPreferences.getBoolean("HAS_SO", false)) {
+            addremovebtn.setText("REMOVE SO");
+        }else{
+            addremovebtn.setText("LINK ME");
+        }
+
+        mBaeCode.setText(sharedPreferences.getString("SOREGID", "NOSOID"));
         if (sentToken) {
             mInformationTextView.setText(getString(R.string.gcm_send_message));
             mInformationTextView.setText(sharedPreferences.getString("MYREGID", "nope"));
@@ -54,20 +65,26 @@ public class SOConfig extends AppCompatActivity {
     public void addSO(){
 
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
+        Button addremovebtn = (Button) findViewById(R.id.button);
+
         String SOKey = mBaeCode.getText().toString();
 
         sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString()).apply();
         sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
 
+
         Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString(), Toast.LENGTH_SHORT).show();
         //sendNotification
+
         String[] param = {SOKey, "a" + sharedPreferences.getString("MYREGID", null)};
         sendNotificationJob job = new sendNotificationJob();
         job.execute(param);
+
     }
 
     public void removeSO(){
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
+        Button addremovebtn = (Button) findViewById(R.id.button);
         String SOKey = mBaeCode.getText().toString();
 
         sharedPreferences.edit().putBoolean("HAS_SO", false).apply();
@@ -75,9 +92,11 @@ public class SOConfig extends AppCompatActivity {
 
         Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
         //sendNotification
+
         String[] param = {SOKey, "e" + sharedPreferences.getString("MYREGID", null)};
         sendNotificationJob job = new sendNotificationJob();
         job.execute(param);
+
     }
 
     public void refreshCoupleCode(){
@@ -89,6 +108,7 @@ public class SOConfig extends AppCompatActivity {
         setContentView(R.layout.so_config);
         final ImageButton mylocations = (ImageButton) findViewById(R.id.myLocButton);
         final ImageButton map = (ImageButton) findViewById(R.id.mapButton);
+
         mylocations.setBackgroundColor(0xFFFFFF);
         (findViewById(R.id.settingsButton)).setBackgroundResource(R.color.colorButtonDepressed);
         map.setBackgroundColor(0xFFFFFF);
@@ -97,7 +117,6 @@ public class SOConfig extends AppCompatActivity {
         soButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (!(sharedPreferences.getBoolean("HAS_SO", false))) {
                     addSO();
                 } else {

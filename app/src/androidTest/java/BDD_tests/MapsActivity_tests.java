@@ -3,8 +3,7 @@ package BDD_tests;
 import android.test.ActivityInstrumentationTestCase2;
 import com.cse110.team36.coupletones.Constants;
 
-import com.cse110.team36.coupletones.FaveLocation;
-import com.cse110.team36.coupletones.FaveLocationManager;
+import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
 import com.google.android.gms.maps.model.LatLng;

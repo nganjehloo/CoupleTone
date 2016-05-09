@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.cse110.team36.coupletones.GCM.sendNotificationJob;
+import com.cse110.team36.coupletones.Managers.FaveLocationManager;
+import com.cse110.team36.coupletones.Managers.MapManager;
 import com.google.maps.android.SphericalUtil;
 
 /**
