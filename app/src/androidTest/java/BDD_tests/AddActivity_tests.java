@@ -38,36 +38,29 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
         }
 
     public void test_AddSO(){
+        //First TIme adding SO and addSO are now the same
         SOConfig soConfig = getActivity();
         soConfig.addSO();
         assertEquals(true, soConfig.sharedPreferences.getBoolean("HAS_SO", false));
     }
-
 
     public void test_AddSOAfterRemoveSO(){
-
-        SOConfig soConfig = getActivity();
-        soConfig.addSO();
-        soConfig.removeSO();
-        assertEquals(false, soConfig.sharedPreferences.getBoolean("HAS_SO", true));
-        soConfig.addSO();
-        assertEquals(true, soConfig.sharedPreferences.getBoolean("HAS_SO", false));
-
+        test_AddSO();
+        test_RemoveSO();
+        test_AddSO();
     }
 
+    public void test_RemoveSO(){
+        SOConfig soConfig = getActivity();
+        soConfig.removeSO();
+        assertEquals(false, soConfig.sharedPreferences.getBoolean("HAS_SO", true));
+    }
 
     /*
      * Cancel during adding SO
      */
     public void test_cancelAdding(){
-        //NO LONGER BE IMPLEMENTED
-    }
-
-    /*
-     * Test send notification - get a notification by sending it to ourselves
-     */
-    public void test_getNotification() {
-
+        //NO LONGER NEEDED TO BE IMPLEMENTED
     }
 
 }
