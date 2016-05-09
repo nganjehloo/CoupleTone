@@ -1,9 +1,11 @@
 package BDD_tests;
 
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import com.cse110.team36.coupletones.Constants;
 
 import com.cse110.team36.coupletones.FaveLocation;
+import com.cse110.team36.coupletones.MapManager;
 import com.cse110.team36.coupletones.FaveLocationManager;
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
@@ -11,6 +13,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 
 import java.util.ArrayList;
+import android.location.Location;
+import android.location.LocationManager;
 
 /**
  * Created by stazia on 5/4/16.
@@ -47,20 +51,21 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
     public void test_tooCloseNoAdd() {
         mapsActivity = getActivity();
         FaveLocationManager.emptyLocs();
-        mapsActivity.onMapLongClick(testPoints[0]);
-        mapsActivity.onMapLongClick(testPoints[1]);
+
+        // test checkValidDrop to see if it adds or not
+        // create empty list and grab result of checkValidDrop
         ArrayList<FaveLocation> testList = new ArrayList<FaveLocation>();
         FaveLocation first = new FaveLocation("first", testPoints[0]);
+        LocationManager locationManager = (LocationManager)  mapsActivity.getSystemService(Context.LOCATION_SERVICE);
+        MapManager mapmanager = new MapManager(locationManager);
+        boolean check = mapmanager.checkValidDrop(testList, testPoints[0]);
+
+        assertEquals(true, check);
+        mapsActivity.onMapLongClick(testPoints[0]);
+
         testList.add(first);
-        mapsActivity.checkValidDrop(testList, testPoints[0]);
-
-        FaveLocationManager.addLocation(Integer.toString(R.string.loc0), testPoints[0]);
-        FaveLocationManager.addLocation(Integer.toString(R.string.loc1), testPoints[1]);
-
-        assertEquals(FaveLocationManager.locList.get(0).getCoords(), testPoints[0]);
-        assertEquals(FaveLocationManager.locList.get(1).getCoords(), testPoints[1]);
-        assertNotNull(FaveLocationManager.locList.get(1));
-        assertEquals(FaveLocationManager.locList.size(), 2);
+        check = mapmanager.checkValidDrop(testList, testPoints[1]);
+        assertEquals(false, check);
     }
 
     /* (Click map to add favorite location).(Adding a favorite location) */
