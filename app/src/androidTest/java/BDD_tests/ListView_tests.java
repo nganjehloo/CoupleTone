@@ -36,7 +36,11 @@ public class ListView_tests extends ActivityInstrumentationTestCase2<HomeScreen>
         assertEquals(equator.longitude, equ.getLng());
         assertEquals(equator, equ.getCoords());
         assertEquals("Equator", equ.getName());
-        //equ.setName("hi");
+
+        // test renaming
+        equ.setName("hi");
+        assertEquals("hi", equ.getName());
+
     }
     /* (Rename and Delete locations).(Only one favorite place was added) */
     public void test_addLocation() {
