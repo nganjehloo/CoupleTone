@@ -1,10 +1,14 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.Managers;
 
 import android.app.FragmentManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
+
+import com.cse110.team36.coupletones.Constants;
+import com.cse110.team36.coupletones.FaveLocation;
+import com.cse110.team36.coupletones.LocationDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;

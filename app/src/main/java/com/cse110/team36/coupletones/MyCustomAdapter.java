@@ -12,10 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.google.android.gms.maps.model.LatLng;
+import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 
 import java.util.ArrayList;
 

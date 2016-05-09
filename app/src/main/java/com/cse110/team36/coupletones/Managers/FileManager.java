@@ -1,8 +1,11 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.Managers;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+
+import com.cse110.team36.coupletones.Managers.FaveLocationManager;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
@@ -41,7 +44,7 @@ public class FileManager {
     public void exportSavedFavLocs() {
         savedLocs = "";
 
-        for ( int i = 0 ; i < FaveLocationManager.locList.size() ; i++ ) {
+        for (int i = 0; i < FaveLocationManager.locList.size() ; i++ ) {
             savedLocs += FaveLocationManager.locList.get(i).getName() + "\n";
             savedLocs += FaveLocationManager.locList.get(i).getLat() + "\n";
             savedLocs += FaveLocationManager.locList.get(i).getLng() + "\n";

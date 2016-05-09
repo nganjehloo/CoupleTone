@@ -1,9 +1,10 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.Managers;
 
 import android.app.Activity;
 import android.os.SystemClock;
 import android.view.animation.BounceInterpolator;
 
+import com.cse110.team36.coupletones.Constants;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
@@ -79,7 +80,7 @@ public class MarkerManager implements Constants {
                 .strokeColor(0x00000000));   // Circle outline is transparent (the first 2 00's --> transparency));
     }
 
-    void dropFavLocMarker(String name, LatLng loc) {
+    public void dropFavLocMarker(String name, LatLng loc) {
         Marker marker = mMap.addMarker(new MarkerOptions().position(new LatLng(loc.latitude, loc.longitude)));
         // Special dropping effect
         dropPinEffect(marker);

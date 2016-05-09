@@ -1,17 +1,11 @@
 package BDD_tests;
 
-import android.location.LocationListener;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.cse110.team36.coupletones.FaveLocation;
-import com.cse110.team36.coupletones.FaveLocationManager;
-import com.cse110.team36.coupletones.GCM.MyGCMListenerService;
-import com.cse110.team36.coupletones.GCM.SOConfig;
+import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.GCM.sendNotificationJob;
-import com.cse110.team36.coupletones.MapManager;
 import com.cse110.team36.coupletones.MapsActivity;
-import com.cse110.team36.coupletones.R;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
 import com.google.android.gms.maps.model.LatLng;
