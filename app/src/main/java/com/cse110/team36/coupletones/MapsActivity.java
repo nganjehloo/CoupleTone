@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -44,7 +46,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     private static String message;
     SharedPreferences sharedPreferences;
 
-    Vibrate v;
+    VibeToneFactory v;
     FileManager fileManager;
     MarkerManager markerManager;
 //    LocationChangeListener locationListener = new LocationChangeListener(this);
@@ -53,7 +55,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        v = new Vibrate(this);
+
+
+        v = new VibeToneFactory(this);
         fileManager = new FileManager(this);
 
         if (firstOpen) {
@@ -235,5 +239,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
         mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
+    }
+
+    public void runVibe(View view) {
+//        FloatingActionButton vibe = (FloatingActionButton) findViewById(R.id.vibe);
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                startActivity(new Intent(MapsActivity.this, NotifSettings.class));
+
     }
 }

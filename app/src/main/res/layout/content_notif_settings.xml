@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_notif_settings"
+    tools:context="com.cse110.team36.coupletones.NotifSettings">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="            Arrival Sound"
+        android:id="@+id/arrival_sound_label"
+        android:layout_marginTop="69dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="          Arrival Vibrate"
+        android:id="@+id/arival_vibe_label"
+        android:layout_marginTop="69dp"
+        android:layout_below="@+id/arrival_sound_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="     Departure Sound"
+        android:id="@+id/depart_sound_label"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Departure Vibration"
+        android:id="@+id/depart_vibe_label"
+        android:layout_marginTop="69dp"
+        android:layout_below="@+id/depart_sound_label"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        android:id="@+id/arrival_sound_btn"
+        android:layout_alignBottom="@+id/arrival_sound_label"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="selectArrivalSound" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        android:id="@+id/arrival_vibe_btn"
+        android:layout_alignBottom="@+id/arival_vibe_label"
+        android:layout_alignRight="@+id/arrival_sound_btn"
+        android:layout_alignEnd="@+id/arrival_sound_btn" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        android:id="@+id/depart_sound_btn"
+        android:layout_alignBottom="@+id/depart_sound_label"
+        android:layout_alignRight="@+id/arrival_vibe_btn"
+        android:layout_alignEnd="@+id/arrival_vibe_btn" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select"
+        android:id="@+id/depart_vibe_btn"
+        android:layout_alignBottom="@+id/depart_vibe_label"
+        android:layout_alignRight="@+id/depart_sound_btn"
+        android:layout_alignEnd="@+id/depart_sound_btn" />
+</RelativeLayout>

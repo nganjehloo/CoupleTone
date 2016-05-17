@@ -20,9 +20,18 @@
         android:layout_weight="9.3"
         tools:context="com.cse110.team36.coupletones.MapsActivity" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/vibe"
+        android:onClick="runVibe"
+        android:layout_gravity="right" />
+
     <include layout="@layout/toolbar"
         android:layout_weight=".7"
         android:layout_height="0dp"
         android:layout_width="fill_parent" />
+
+
 
 </LinearLayout>

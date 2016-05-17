@@ -139,7 +139,7 @@ public class LocationChangeListener implements LocationListener, Constants {
 
         job.execute(params);
 
-        Vibrate vibrate = new Vibrate(mapsActivity);
+        VibeToneFactory vibrate = new VibeToneFactory(mapsActivity);
         vibrate.vibrate();
     }
 }
