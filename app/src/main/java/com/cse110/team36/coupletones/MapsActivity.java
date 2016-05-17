@@ -47,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     Vibrate v;
     FileManager fileManager;
     MarkerManager markerManager;
-    LocationChangeListener locationListener = new LocationChangeListener(this);
+//    LocationChangeListener locationListener = new LocationChangeListener(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +140,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             // Create a criteria object to retrieve provider
             mapManager.firstLocationSet(mMap);
         }
-        locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
+        locationManager.requestLocationUpdates(locationProvider, 0, 0, new LocationChangeListener(this));
     }
 
     /***** DROPPING OF MAP MARKER ON MAP LONG-CLICK
