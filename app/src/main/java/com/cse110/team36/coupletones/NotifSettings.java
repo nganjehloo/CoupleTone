@@ -30,7 +30,7 @@ public class NotifSettings extends AppCompatActivity {
     }
 
     public void selectArrivalSound(View view) {
-        vibeToneFactory.vibrate();
+        vibeToneFactory.vibeTone(Constants.VibeToneName.SWIRLS);
     }
 
 }

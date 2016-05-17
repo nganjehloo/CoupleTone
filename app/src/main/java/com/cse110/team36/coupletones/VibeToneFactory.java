@@ -11,7 +11,8 @@ import com.cse110.team36.coupletones.Managers.FaveLocationManager;
  */
 
 public class VibeToneFactory implements Constants{
-    long vibeTones[][];
+    long vibeTones[][] = new long[20][];
+
     Activity activity;
     Vibrator v;
 //    VibeToneName L = VibeToneName.SWIRLS;
@@ -20,7 +21,7 @@ public class VibeToneFactory implements Constants{
         this.activity = activity;
         v = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
         for (int i=0;i<=NUM_VIBE_TONES;i++) {
-
+            vibeTones[i] = getVibeTone(i);
         }
     }
 
@@ -28,5 +29,9 @@ public class VibeToneFactory implements Constants{
 
     public void vibeTone(VibeToneName name) {
         v.vibrate(vibeTones[name.ordinal()],-1);
+    }
+
+    private long[] getVibeTone(int i) {
+        return new long[] {100, 100, 200, 200};
     }
 }
