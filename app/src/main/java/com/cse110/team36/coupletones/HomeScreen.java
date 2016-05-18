@@ -83,4 +83,8 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
         (new FileManager(this)).exportSavedFavLocs();
         overridePendingTransition(0, 0);
     }
+
+    public void runOurMap(View view) {
+        startActivity(new Intent(HomeScreen.this, MapsActivity.class));
+    }
 }

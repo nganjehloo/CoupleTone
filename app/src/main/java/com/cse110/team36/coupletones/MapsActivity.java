@@ -249,4 +249,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
                 startActivity(new Intent(MapsActivity.this, NotifSettings.class));
 
     }
+
+    public void runOurList(View view) {
+        startActivity(new Intent(MapsActivity.this, HomeScreen.class));
+    }
 }
