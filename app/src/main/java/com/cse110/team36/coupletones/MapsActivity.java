@@ -182,10 +182,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //    }
 
 
-    // The dialog fragment receives a reference to this Activity through the
-    // Fragment.onAttach() callback, which it uses to call the following methods
-    // defined by the LocationDialogFragment.LocationDialogListener interface
-    /* Create new location with the coordinates and name */
+
+    /* ----------------------------------------------------
+     * Allows us to communicate with the LocationDialog
+     * Saves new location
+     * ---------------------------------------------------- */
     @Override
     public void onDialogPositiveClick(String name, LatLng loc, int pos) {
         /* NOTE (Aimed toward locations team)
