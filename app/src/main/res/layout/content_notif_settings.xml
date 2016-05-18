@@ -75,7 +75,9 @@
         android:id="@+id/arrival_vibe_btn"
         android:layout_alignBottom="@+id/arival_vibe_label"
         android:layout_alignRight="@+id/arrival_sound_btn"
-        android:layout_alignEnd="@+id/arrival_sound_btn" />
+        android:layout_alignEnd="@+id/arrival_sound_btn"
+        android:layout_alignParentEnd="true"
+        android:onClick="selectArrivalVibe" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -85,7 +87,8 @@
         android:id="@+id/depart_sound_btn"
         android:layout_alignBottom="@+id/depart_sound_label"
         android:layout_alignRight="@+id/arrival_vibe_btn"
-        android:layout_alignEnd="@+id/arrival_vibe_btn" />
+        android:layout_alignEnd="@+id/arrival_vibe_btn"
+        android:onClick="selectDepartSound" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -95,5 +98,6 @@
         android:id="@+id/depart_vibe_btn"
         android:layout_alignBottom="@+id/depart_vibe_label"
         android:layout_alignRight="@+id/depart_sound_btn"
-        android:layout_alignEnd="@+id/depart_sound_btn" />
+        android:layout_alignEnd="@+id/depart_sound_btn"
+        android:onClick="selectDepartVibe" />
 </RelativeLayout>

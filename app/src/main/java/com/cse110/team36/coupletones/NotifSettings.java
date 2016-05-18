@@ -30,7 +30,16 @@ public class NotifSettings extends AppCompatActivity {
     }
 
     public void selectArrivalSound(View view) {
-        vibeToneFactory.vibeTone(Constants.VibeToneName.SWIRLS);
+        vibeToneFactory.vibeTone(Constants.VibeToneName.FUNKYTOWN);
+    }
+    public void selectArrivalVibe(View view) {
+        vibeToneFactory.vibeTone(Constants.VibeToneName.MOUNTAIN);
+    }
+    public void selectDepartSound(View view) {
+        vibeToneFactory.vibeTone(Constants.VibeToneName.VALLEY);
+    }
+    public void selectDepartVibe(View view) {
+        vibeToneFactory.vibeTone(Constants.VibeToneName.SLOW2FAST);
     }
 
 }
