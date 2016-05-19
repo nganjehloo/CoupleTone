@@ -97,13 +97,14 @@ public class MyGCMListenerService extends GcmListenerService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Uri soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.funkytown);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                 .setContentTitle("CoupleTones")
                 .setContentText(message)
                 .setAutoCancel(true)
-                .setSound(defaultSoundUri)
+                .setSound(soundUri)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =
@@ -142,7 +143,7 @@ public class MyGCMListenerService extends GcmListenerService {
         } else if (type == 'l') {
             sendNotification("SO visited " + append);
         }else {
-            Log.d(TAG, "INVALID MESSAGE RECIEVED");
+            Log.d(TAG, "INVALID MESSAGE RECEIVED");
         }
     }
 
