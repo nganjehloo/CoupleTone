@@ -30,6 +30,7 @@ import android.util.Log;
 
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
+import com.cse110.team36.coupletones.VibeToneFactory;
 import com.google.android.gms.gcm.GcmListenerService;
 
 public class MyGCMListenerService extends GcmListenerService {
