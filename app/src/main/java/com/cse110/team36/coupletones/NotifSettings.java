@@ -1,5 +1,6 @@
 package com.cse110.team36.coupletones;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,8 @@ import android.view.View;
 public class NotifSettings extends AppCompatActivity {
 //    VibeToneFactory vibeToneFactory = new VibeToneFactory(this);
     VibeToneFactory vibeToneFactory;
+    MediaPlayer mediaPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,19 +30,24 @@ public class NotifSettings extends AppCompatActivity {
         });
 
         vibeToneFactory = new VibeToneFactory(this);
+        mediaPlayer.create(getApplicationContext(),R.raw.ballon_gx_prefix);
     }
 
     public void selectArrivalSound(View view) {
         vibeToneFactory.vibeTone(Constants.VibeToneName.FUNKYTOWN);
+        mediaPlayer.start();
     }
     public void selectArrivalVibe(View view) {
         vibeToneFactory.vibeTone(Constants.VibeToneName.MOUNTAIN);
+        mediaPlayer.start();
     }
     public void selectDepartSound(View view) {
         vibeToneFactory.vibeTone(Constants.VibeToneName.VALLEY);
+        mediaPlayer.start();
     }
     public void selectDepartVibe(View view) {
         vibeToneFactory.vibeTone(Constants.VibeToneName.SLOW2FAST);
+        mediaPlayer.start();
     }
 
 }
