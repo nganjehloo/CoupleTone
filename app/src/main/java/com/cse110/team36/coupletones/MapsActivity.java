@@ -6,9 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -16,13 +15,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.cse110.team36.coupletones.FireBase.FireBaseManager;
+import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.GCM.SOActivity;
 import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
 import com.cse110.team36.coupletones.Managers.MapManager;
 import com.cse110.team36.coupletones.Managers.MarkerManager;
-import com.firebase.client.Firebase;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -123,7 +124,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         //GPS
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        mapManager = new MapManager(locationManager);
+        mapManager = new MapManager(locationManager, this);
         String locationProvider = LocationManager.GPS_PROVIDER;
 
         mapManager.populateMap(fileManager, markerManager);
@@ -195,6 +196,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
          * This implementation is temporary - I was testing that the information gets here
          * Use this method to save the new location
          */
+
         double lat = loc.latitude;
         double Long = loc.longitude;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -210,6 +212,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         locFB.setName(name);
         locFB.setLat(lat);
         locFB.setLong(Long);
+        locFB.setHere(false);
 
         FireBaseManager FBman = new FireBaseManager(sharedPreferences);
         FBman.add(locFB);

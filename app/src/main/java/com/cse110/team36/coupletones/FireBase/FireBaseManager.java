@@ -1,7 +1,6 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.FireBase;
 
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.firebase.client.Firebase;
 
@@ -35,6 +34,5 @@ public class FireBaseManager{
     {
         remove(oldData);
         add(newData);
-
     }
 }

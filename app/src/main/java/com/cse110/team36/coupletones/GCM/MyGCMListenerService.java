@@ -22,6 +22,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.cse110.team36.coupletones.FaveLocation;
+import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
 import com.cse110.team36.coupletones.VibeToneFactory;
@@ -99,8 +102,10 @@ public class MyGCMListenerService extends GcmListenerService {
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
-        Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        //Uri soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.funkytown);
+        //Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//        if (FaveLocationManager.locList.size() > 0 ) {
+//            Ringtone ringtone = FaveLocationManager.locList.get(0).getRingtone();
+//        }
 
 //        VibeToneFactory v = new VibeToneFactory();
 
@@ -111,7 +116,6 @@ public class MyGCMListenerService extends GcmListenerService {
                 .setContentTitle("CoupleTones")
                 .setContentText(message)
                 .setAutoCancel(true)
-                .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent)
                 .setDefaults(Notification.DEFAULT_LIGHTS);
 
@@ -119,6 +123,13 @@ public class MyGCMListenerService extends GcmListenerService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+
+        // for release (aka device communication) locList must be replaced by the SOlocList
+        if (FaveLocationManager.locList.size() > 0 ) {
+            Ringtone ringtone = FaveLocationManager.locList.get(0).getRingtone();
+            ringtone.play();
+        }
+
     }
 
     private void addSO(String append){

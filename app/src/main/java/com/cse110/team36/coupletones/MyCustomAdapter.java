@@ -12,9 +12,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.cse110.team36.coupletones.GCM.RegistrationIntentService;
+import com.cse110.team36.coupletones.FireBase.FireBaseManager;
+import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
-import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 
