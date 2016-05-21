@@ -12,7 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.cse110.team36.coupletones.GCM.RegistrationIntentService;
+import com.cse110.team36.coupletones.FireBase.FireBaseManager;
+import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.firebase.client.Firebase;
 
@@ -29,11 +30,25 @@ public class MyCustomAdapter extends BaseAdapter {
     private FragmentManager fragmentManager;
     private Activity activity;
 
-    public MyCustomAdapter(Activity activity, ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
+    public MyCustomAdapter() {}
+
+    public MyCustomAdapter(ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
         this.list = list;
         this.context = context;
         this.fragmentManager = fragmentManager;
         this.activity = activity;
+    }
+
+    public void setList(ArrayList<FaveLocation> l) {
+        list = l;
+    }
+
+    public void setContext(Context c) {
+        context = c;
+    }
+
+    public void setFragmentManager(FragmentManager fm) {
+        fragmentManager = fm;
     }
 
     @Override
@@ -83,7 +98,10 @@ public class MyCustomAdapter extends BaseAdapter {
 
                 //TODO: ADD UNIQUE ID
                 //Remove from Firebase
+                //Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
+                Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/debugList");
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+
                 LocationFB locFB = new LocationFB();
                 locFB.setName(name);
                 FireBaseManager FBman = new FireBaseManager(sharedPreferences);
