@@ -32,4 +32,12 @@ public class SOFaveLoc extends FaveLocation {
 
     }
 
+    public void setRingtone (Ringtone sparkleTone) {
+        this.sparkleTone = sparkleTone;
+    }
+
+    public Ringtone getRingtone () {
+        return sparkleTone;
+    }
+
 }
