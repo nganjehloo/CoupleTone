@@ -7,8 +7,6 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.preference.PreferenceManager;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -228,7 +226,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(MapsActivity.this, SOHomeScreen.class));
+                startActivity(new Intent(MapsActivity.this, SOVisitedActivity.class));
             }
         });
 
