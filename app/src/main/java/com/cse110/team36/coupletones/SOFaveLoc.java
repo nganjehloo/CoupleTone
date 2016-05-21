@@ -2,6 +2,8 @@ package com.cse110.team36.coupletones;
 
 import android.media.Ringtone;
 
+import com.google.android.gms.maps.model.LatLng;
+
 /**
  * Created by admin on 5/21/16.
  */
@@ -9,8 +11,8 @@ public class SOFaveLoc extends FaveLocation {
     Ringtone sparkleTone;
     VibeToneFactory vibeTone;
 
-    public SOFaveLoc(Ringtone sparkleTone, VibeToneFactory vibeTone) {
-        super();
+    public SOFaveLoc(String name, LatLng loc,Ringtone sparkleTone, VibeToneFactory vibeTone) {
+        super(name, loc);
         this.sparkleTone = sparkleTone;
         this.vibeTone = vibeTone;
     }
