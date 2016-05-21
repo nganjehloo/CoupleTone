@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
+import com.cse110.team36.coupletones.FireBase.MyFireBaseRegistration;
 import com.cse110.team36.coupletones.GCM.SOActivity;
 import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
@@ -74,7 +75,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         if (!ran_once) {
             sharedPreferences.edit().putBoolean("RAN_ONCE",true).apply();
-            startActivity(new Intent(MapsActivity.this, SOActivity.class));
+            startActivity(new Intent(MapsActivity.this, MyFireBaseRegistration.class));
         } else {
 
             setContentView(R.layout.activity_maps);

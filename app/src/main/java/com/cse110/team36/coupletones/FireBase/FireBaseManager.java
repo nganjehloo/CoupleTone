@@ -17,7 +17,11 @@ public class FireBaseManager{
     }
 
     public void createAccount(String email){
-
+        String emailid = email.substring(0, email.length() - 3);
+        sharedPreferences.edit().putString("MYEMAIL",emailid );
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid + "/Reg");
+        FBreg fBreg = new FBreg();
+        myFirebaseRef.setValue(fBreg);
     }
 
     public void add(LocationFB data)

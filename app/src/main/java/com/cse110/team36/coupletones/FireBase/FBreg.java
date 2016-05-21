@@ -7,6 +7,11 @@ public class FBreg {
     String SO_ID;
     Boolean relationshipStatus;
 
+    FBreg(){
+        relationshipStatus = false;
+        SO_ID = "NOSO";
+    }
+
     public void setID(String ID)
     {
         this.SO_ID = ID;
