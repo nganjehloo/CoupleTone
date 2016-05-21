@@ -22,11 +22,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
-
-<<<<<<< HEAD
-//import com.cse110.team36.coupletones.FireBaseManager;
-=======
->>>>>>> 7d64dcd53c92598d7909834f8ccb622790f00acd
 import com.cse110.team36.coupletones.R;
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
