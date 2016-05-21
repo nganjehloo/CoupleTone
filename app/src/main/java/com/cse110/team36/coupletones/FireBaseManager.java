@@ -17,6 +17,10 @@ public class FireBaseManager{
         sharedPreferences = shared;
     }
 
+    public void createAccount(String email){
+
+    }
+
     public void add(LocationFB data)
     {
         String MYFBID = sharedPreferences.getString("MYFBREGID", "null");
@@ -35,6 +39,5 @@ public class FireBaseManager{
     {
         remove(oldData);
         add(newData);
-
     }
 }
