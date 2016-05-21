@@ -6,11 +6,15 @@ import android.media.RingtoneManager;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public class FaveLocation {
+abstract class FaveLocation {
     private double lat;
     private double lon;
     private String name;
     private Ringtone ringtone;
+
+    public FaveLocation() {
+        super();
+    }
 
     // for testing purposes only. Do not use for release
     public FaveLocation(String name, LatLng coords, Ringtone ringtone) {
