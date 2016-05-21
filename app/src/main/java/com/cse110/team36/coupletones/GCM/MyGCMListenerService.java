@@ -125,10 +125,10 @@ public class MyGCMListenerService extends GcmListenerService {
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
 
         // for release (aka device communication) locList must be replaced by the SOlocList
-        if (FaveLocationManager.locList.size() > 0 ) {
-            Ringtone ringtone = FaveLocationManager.locList.get(0).getRingtone();
-            ringtone.play();
-        }
+//        if (FaveLocationManager.locList.size() > 0 ) {
+//            Ringtone ringtone = FaveLocationManager.locList.get(0).getRingtone();
+//            ringtone.play();
+//        }
 
     }
 

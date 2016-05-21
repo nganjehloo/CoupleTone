@@ -91,7 +91,8 @@ public class NotifSettings extends AppCompatActivity {
                         uri);
             }
             Ringtone ringtone = RingtoneManager.getRingtone(this, uri);
-            FaveLocationManager.locList.get(0).setRingtone(ringtone);
+//            FaveLocationManager.locList.get(0).setRingtone(ringtone);
+
         }
     }
 

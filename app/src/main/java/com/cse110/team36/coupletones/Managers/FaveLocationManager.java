@@ -4,6 +4,7 @@ import android.content.Context;
 import android.media.Ringtone;
 
 import com.cse110.team36.coupletones.FaveLocation;
+import com.cse110.team36.coupletones.OurFaveLoc;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
@@ -20,13 +21,13 @@ public class FaveLocationManager {
 
     // for testing purposes only. Not for release
     public static boolean addLocation(String name, LatLng loc, Ringtone ringtone) {
-        FaveLocation newLoc = new FaveLocation(name, loc, ringtone);
+        FaveLocation newLoc = new OurFaveLoc(name, loc);
         locList.add(newLoc);
         return true;
     }
 
     public static boolean addLocation(String name, LatLng loc) {
-        FaveLocation newLoc = new FaveLocation(name, loc);
+        FaveLocation newLoc = new OurFaveLoc(name, loc);
         locList.add(newLoc);
         return true;
     }
