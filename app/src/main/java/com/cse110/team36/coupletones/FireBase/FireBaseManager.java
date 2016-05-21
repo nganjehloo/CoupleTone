@@ -39,4 +39,9 @@ public class FireBaseManager{
         remove(oldData);
         add(newData);
     }
+
+    public void regKey(FBreg regInfo)
+    {
+
+    }
 }
