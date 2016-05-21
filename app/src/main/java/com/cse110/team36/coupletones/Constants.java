@@ -11,10 +11,13 @@ public interface Constants {
     final int NUM_VIBE_TONES = VibeToneName.values().length;
 
     public enum VibeToneName {
-          //      0           1           2          3          4         5
-            DEFAULT, _5THSYMPHONY, PRESENTING, FUNKYTOWN, SLOW2FAST, FAST2SLOW, MOUNTAIN,
-          //      6           7           8          9         10
-                VALLEY,     SWIRLS,    THE_NIMA,  GANGITIS,  SURPRISE }
+          //       0                1              2            3          4         5
+            DEFAULT_ARRIVAL, DEFAULT_DEPART, _5THSYMPHONY, PRESENTING, FUNKYTOWN, SLOW2FAST,
+          //    6         7        8       9        10
+            FAST2SLOW, MOUNTAIN, VALLEY, SWIRLS, THE_NIMA,
+          //   11         12
+            GANGITIS,  SURPRISE
+    }
 
 
 

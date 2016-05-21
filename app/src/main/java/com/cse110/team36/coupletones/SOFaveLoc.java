@@ -11,30 +11,34 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class SOFaveLoc extends FaveLocation {
     Ringtone sparkleTone;
-    Constants.VibeToneName vibeToneName;
     Activity activity;
+
+    Constants.VibeToneName vibeToneArrivalName;
+    Constants.VibeToneName vibeToneDepartName;
 
     public SOFaveLoc(String name, LatLng loc,Ringtone sparkleTone, Constants.VibeToneName vibeToneName, Activity activity) {
         super(name, loc);
         this.activity = activity;
         this.sparkleTone = RingtoneManager.getRingtone(activity,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-        this.vibeToneName = Constants.VibeToneName.DEFAULT;
+//        this.sparkleTone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        this.vibeToneArrivalName = Constants.VibeToneName.DEFAULT_ARRIVAL;
+        this.vibeToneDepartName = Constants.VibeToneName.DEFAULT_DEPART;
     }
 
 
-    public void addArrivalVibeTone() {
+    public void changeArrivalVibeTone(Constants.VibeToneName vibeToneArrivalName) {
+        this.vibeToneArrivalName = vibeToneArrivalName;
+    }
+
+    public void changeDepartVibeTone(Constants.VibeToneName vibeToneDepartName) {
+        this.vibeToneDepartName = vibeToneDepartName;
+    }
+
+    public void changeArrivalSparkleTone() {
 
     }
 
-    public void addDepartVibeTone() {
-
-    }
-
-    public void addArrivalSparkleTone() {
-
-    }
-
-    public void addDepartSparkleTones() {
+    public void changeDepartSparkleTones() {
 
     }
 
