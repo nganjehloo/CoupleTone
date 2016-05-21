@@ -15,10 +15,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
+import com.cse110.team36.coupletones.FireBase.FireBaseManager;
+import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
-import com.firebase.client.Firebase;
 import com.google.android.gms.maps.model.LatLng;
 
 /* NOTE: This is actually the location page (middle button) */
@@ -46,6 +48,7 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
         newlocFB.setName(name);
         newlocFB.setLat(lat);
         newlocFB.setLong(Long);
+        newlocFB.setHere(false);
 
         FireBaseManager FBman = new FireBaseManager(sharedPreferences);
 
