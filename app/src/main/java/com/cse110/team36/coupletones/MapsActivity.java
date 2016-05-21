@@ -119,8 +119,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         initializeGMapUISettings();
         mMap.setOnMapLongClickListener(this);   // LISTENER FOR THE LONG-CLICK SO MARKER DROPS ON HELD LOCATION
 
-
-
         //GPS
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         mapManager = new MapManager(locationManager);
@@ -183,8 +181,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //            markerManager.dropFavLocMarker(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords());
 //    }
 
-
-
     /* ----------------------------------------------------
      * Allows us to communicate with the LocationDialog
      * Saves new location
@@ -233,7 +229,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(MapsActivity.this, HomeScreen.class));
+                startActivity(new Intent(MapsActivity.this, SOHomeScreen.class));
             }
         });
 
