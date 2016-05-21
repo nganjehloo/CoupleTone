@@ -22,6 +22,7 @@ import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
 import com.cse110.team36.coupletones.Managers.MapManager;
 import com.cse110.team36.coupletones.Managers.MarkerManager;
+import com.firebase.client.Firebase;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -49,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     VibeToneFactory v;
     FileManager fileManager;
     MarkerManager markerManager;
+
 //    LocationChangeListener locationListener = new LocationChangeListener(this);
 
     @Override
@@ -193,11 +195,26 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
          * This implementation is temporary - I was testing that the information gets here
          * Use this method to save the new location
          */
+        double lat = loc.latitude;
+        double Long = loc.longitude;
+
         boolean addSuccess = FaveLocationManager.addLocation(name, loc);
         if (!addSuccess) {
             Toast.makeText(getBaseContext(), "You have to input a unique name! Try again.", Toast.LENGTH_SHORT).show();
         }
         markerManager.dropFavLocMarker(name, loc);
+
+        //TODO: UNIQUE ID FOR THE LINK
+
+        //Add to Firebase
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
+        LocationFB locFB = new LocationFB();
+        locFB.setName(name);
+        locFB.setLat(lat);
+        locFB.setLong(Long);
+        myFirebaseRef.child(locFB.getName()).setValue(locFB);
+
+
     }
 
     /**
