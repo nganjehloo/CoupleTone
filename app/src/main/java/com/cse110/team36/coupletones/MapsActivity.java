@@ -222,8 +222,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         (findViewById(R.id.mapButton)).setBackgroundResource(R.color.colorButtonDepressed);
 
-        ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
-        myLocButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton SOlocButton = (ImageButton) findViewById(R.id.myLocButton);
+        SOlocButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
