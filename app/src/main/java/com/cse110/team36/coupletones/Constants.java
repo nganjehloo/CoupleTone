@@ -1,5 +1,8 @@
 package com.cse110.team36.coupletones;
 
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+
 /**
  * Created by stazia on 5/6/16.
  */
@@ -12,5 +15,7 @@ public interface Constants {
             DEFAULT, _5THSYMPHONY, PRESENTING, FUNKYTOWN, SLOW2FAST, FAST2SLOW, MOUNTAIN,
           //      6           7           8          9         10
                 VALLEY,     SWIRLS,    THE_NIMA,  GANGITIS,  SURPRISE }
+
+
 
 }

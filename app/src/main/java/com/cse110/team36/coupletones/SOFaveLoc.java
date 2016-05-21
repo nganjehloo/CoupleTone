@@ -1,5 +1,6 @@
 package com.cse110.team36.coupletones;
 
+import android.app.Activity;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 
@@ -11,10 +12,12 @@ import com.google.android.gms.maps.model.LatLng;
 public class SOFaveLoc extends FaveLocation {
     Ringtone sparkleTone;
     Constants.VibeToneName vibeToneName;
+    Activity activity;
 
-    public SOFaveLoc(String name, LatLng loc,Ringtone sparkleTone, Constants.VibeToneName vibeToneName) {
+    public SOFaveLoc(String name, LatLng loc,Ringtone sparkleTone, Constants.VibeToneName vibeToneName, Activity activity) {
         super(name, loc);
-        this.sparkleTone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        this.activity = activity;
+        this.sparkleTone = RingtoneManager.getRingtone(activity,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
         this.vibeToneName = Constants.VibeToneName.DEFAULT;
     }
 
