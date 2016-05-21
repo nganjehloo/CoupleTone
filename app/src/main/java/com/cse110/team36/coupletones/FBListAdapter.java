@@ -50,7 +50,7 @@ public class FBListAdapter extends BaseAdapter {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.custom_layout, null);
+            view = inflater.inflate(R.layout.so_list_row, null);
         }
 
         //Handle TextView and display string from your list
@@ -72,6 +72,9 @@ public class FBListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "add stuff here", Toast.LENGTH_SHORT).show();
+                //LocationDialog locationDialog = new LocationDialog();
+                //locationDialog.setPosition(position);
+                //locationDialog.show(fragmentManager, "rename loc");
             }
         });
     }
