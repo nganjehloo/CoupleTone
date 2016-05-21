@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
@@ -27,11 +28,9 @@ public class SOListActivity extends AppCompatActivity{
 
     LocationFB locFB = new LocationFB();
     //mocked data, please edit as needed
-    FaveLocation faveLocation = new FaveLocation("land", new LatLng(32.88182224246528, 163.9531598612666));
-    //FaveLocationManager favManager = new FaveLocationManager();
+    OurFaveLoc faveLocation = new OurFaveLoc("land", new LatLng(32.88182224246528, 163.9531598612666));
     ArrayList<FaveLocation> soList = new ArrayList<FaveLocation>();
-    //ArrayList<FaveLocation> soList = FaveLocationManager.locList;
-    soList.add(faveLocation);
+
     /*
      * Preparing the list data
      */
@@ -42,6 +41,8 @@ public class SOListActivity extends AppCompatActivity{
 
         initializeListViewAdapter();
         initializeButtons();
+        soList.add(faveLocation);
+
     }
 
     void initializeButtons() {
@@ -72,7 +73,7 @@ public class SOListActivity extends AppCompatActivity{
     }
 
     void initializeListViewAdapter() {
-        fbListAdapter = new FBListAdapter(FaveLocationManager.locList, this, getFragmentManager());
+        fbListAdapter = new FBListAdapter(soList, this, getFragmentManager());
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(fbListAdapter);
