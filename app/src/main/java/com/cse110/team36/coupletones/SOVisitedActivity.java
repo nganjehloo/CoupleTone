@@ -7,63 +7,28 @@
 package com.cse110.team36.coupletones;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.cse110.team36.coupletones.FireBase.FireBaseManager;
-import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
-import com.firebase.client.Firebase;
 import com.google.android.gms.maps.model.LatLng;
 
 /* NOTE: This is actually the location page (middle button) */
 
-public class HomeScreen extends AppCompatActivity implements LocationDialog.LocationDialogListener{
-    MyCustomAdapter myCustomAdapter;
+public class SOVisitedActivity extends AppCompatActivity implements LocationDialog.LocationDialogListener{
+    SOVisitedAdapter myCustomAdapter;
+    FBListAdapter fbListAdapter;
 
     @Override
     public void onDialogPositiveClick(String name, LatLng loc, int position) {
-        String originalName = FaveLocationManager.locList.get(position).getName();
-        double lat = FaveLocationManager.locList.get(position).getLat();
-        double Long = FaveLocationManager.locList.get(position).getLng();
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-
         FaveLocationManager.locList.get(position).setName(name);
         myCustomAdapter.notifyDataSetChanged();
-
-        //Remove from Firebase and add again (Rename)
-        //Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
-        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/debugList");
-        LocationFB locFB = new LocationFB();
-        locFB.setName(originalName);
-        myFirebaseRef.child(locFB.getName()).removeValue();
-        locFB.setName(name);
-        locFB.setLat(lat);
-        locFB.setLong(Long);
-        myFirebaseRef.child(locFB.getName()).setValue(locFB);
-        //TODO: GET UNIQUE ID FOR FIREBASE
-        //Remove from Firebase and add again (Rename) -- there's no actual way to rename the key
-
-        LocationFB newlocFB = new LocationFB();
-        LocationFB oldlocFB = new LocationFB();
-        oldlocFB.setName(originalName);
-        newlocFB.setName(name);
-        newlocFB.setLat(lat);
-        newlocFB.setLong(Long);
-        newlocFB.setHere(false);
-
-        FireBaseManager FBman = new FireBaseManager(sharedPreferences);
-
-        FBman.rename(oldlocFB, newlocFB);
     }
 
     /*
@@ -72,7 +37,7 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        setContentView(R.layout.activity_so_visited);
 
         initializeListViewAdapter();
         initializeButtons();
@@ -92,7 +57,7 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(HomeScreen.this, MapsActivity.class));
+                startActivity(new Intent(SOVisitedActivity.this, MapsActivity.class));
             }
         });
 
@@ -100,13 +65,13 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(HomeScreen.this, SOConfig.class));
+                startActivity(new Intent(SOVisitedActivity.this, SOConfig.class));
             }
         });
     }
 
     void initializeListViewAdapter() {
-        myCustomAdapter = new MyCustomAdapter(FaveLocationManager.locList, this, getFragmentManager());
+        myCustomAdapter = new SOVisitedAdapter(FaveLocationManager.locList, this, getFragmentManager());
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(myCustomAdapter);
@@ -121,7 +86,11 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
         overridePendingTransition(0, 0);
     }
 
-    public void runOurMap(View view) {
-        startActivity(new Intent(HomeScreen.this, MapsActivity.class));
+//    public void toSOMap(View view) {
+//        startActivity(new Intent(SOVisitedActivity.this, SOMapActivity.class));
+//    }
+
+    public void toSOList(View view) {
+        startActivity(new Intent(SOVisitedActivity.this, SOListActivity.class));
     }
 }

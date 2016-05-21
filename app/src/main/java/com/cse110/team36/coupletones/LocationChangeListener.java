@@ -25,13 +25,16 @@ public class LocationChangeListener implements LocationListener, Constants {
     private boolean currOutside = false;
     private boolean prevOutside = false;
 
+    VibeToneFactory vibe;
+
     public LocationChangeListener(Activity mapsActivity) {
         this.mapsActivity = mapsActivity;
+        this.vibe = new VibeToneFactory(mapsActivity);
     }
 
     public void onLocationChanged(Location location) {
         LocationManager locationManager = (LocationManager) mapsActivity.getSystemService(Context.LOCATION_SERVICE);
-        MapManager mapManager = new MapManager(locationManager);
+        MapManager mapManager = new MapManager(locationManager, mapsActivity);
 
         mapManager.updateGPSLoc(location);
         if (FaveLocationManager.locList.size() > 0) {
@@ -70,11 +73,14 @@ public class LocationChangeListener implements LocationListener, Constants {
             } else {
                 Log.d("MAP","DEPART NOTIF! Just left Loc: " + FaveLocationManager.locList.get(currLoc).getName());
                 // TODO: VIBETONE_DEPART
+                vibe.vibeTone(Constants.VibeToneName._5THSYMPHONY);
+
             }
         } else if (!currOutside && prevOutside) {
             Log.d("MAP","ARRIVAL NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
             notifySOLoc(currLoc);
             // TODO: VIBETONE_ARRIVAL
+            vibe.vibeTone(VibeToneName.PRESENTING);
         } else {
             if (currLoc == lastLoc) {
                 Log.d("MAP","Still inside CurrLoc: " + FaveLocationManager.locList.get(currLoc).getName());
@@ -82,6 +88,7 @@ public class LocationChangeListener implements LocationListener, Constants {
                 Log.d("MAP","ARRIVAL + DEPART NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
                 //Departing lastLoc
                 // TODO: VIBETONE_DEPART
+                vibe.vibeTone(Constants.VibeToneName._5THSYMPHONY);
             }
         }
         prevOutside = currOutside;

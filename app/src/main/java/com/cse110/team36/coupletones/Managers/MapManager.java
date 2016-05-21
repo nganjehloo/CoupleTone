@@ -1,14 +1,17 @@
 package com.cse110.team36.coupletones.Managers;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
 import android.util.Log;
 
 import com.cse110.team36.coupletones.Constants;
 import com.cse110.team36.coupletones.FaveLocation;
 import com.cse110.team36.coupletones.LocationDialog;
+import com.cse110.team36.coupletones.OurFaveLoc;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -23,11 +26,13 @@ public class MapManager implements Constants {
     LocationManager locationManager;
     LatLng gpsPos;
     LocationDialog locationDialog;
+    Activity activity;
 
     public MapManager(){};
 
-    public MapManager(LocationManager locationManager) {
+    public MapManager(LocationManager locationManager, Activity activity) {
         this.locationManager = locationManager;
+        this.activity = activity;
     }
 
     public void firstLocationSet(GoogleMap mMap) {
@@ -94,8 +99,10 @@ public class MapManager implements Constants {
         String savedLocArr[] = fileManager.getSavedLocs().split("\n");
 
         for ( int i = 0 ; i < savedLocArr.length - 1 ; i+=3 )
-            FaveLocationManager.locList.add(new FaveLocation(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));
-
+            FaveLocationManager.locList.add(new OurFaveLoc(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));
+              // The line below is for sound testing purposes only. Final implementation will attribute ringtones to SO's locations, and the below line
+              // links it to our own location. The commented out line above is release behavior.
+//            FaveLocationManager.locList.add(new OurFaveLoc(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2])), RingtoneManager.getRingtone(activity,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))));
         for ( int i = 0 ; i < FaveLocationManager.locList.size() ; i++ )
             markerManager.dropFavLocMarker(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords());
     }
