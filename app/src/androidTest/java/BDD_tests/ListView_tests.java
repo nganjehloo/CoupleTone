@@ -59,7 +59,7 @@ public class ListView_tests extends ActivityInstrumentationTestCase2<HomeScreen>
         assertEquals(1, favMgr.locList.size());
 
         // get custom adapter
-        MyCustomAdapter adapter = new MyCustomAdapter(list, context, fragmentManager);
+        MyCustomAdapter adapter = new MyCustomAdapter(homeScreen, list, context, fragmentManager);
         assertEquals(adapter.getCount(), 1);
     }
 
@@ -78,7 +78,7 @@ public class ListView_tests extends ActivityInstrumentationTestCase2<HomeScreen>
         // add location to locList
         // get custom adapter
         // remove location from locList
-        MyCustomAdapter adapter = new MyCustomAdapter(list, context, fragmentManager);
+        MyCustomAdapter adapter = new MyCustomAdapter(homeScreen, list, context, fragmentManager);
         assertEquals(adapter.getCount(), 3);
 
         FaveLocationManager favMgr = new FaveLocationManager(context);
