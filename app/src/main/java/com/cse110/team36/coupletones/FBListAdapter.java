@@ -6,14 +6,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 
+/**
+ * Created by aspidiske on 5/22/2016.
+ */
 public class FBListAdapter extends BaseAdapter {
     private ArrayList<FaveLocation> list = new ArrayList<>();
     private Context context;
@@ -57,6 +62,7 @@ public class FBListAdapter extends BaseAdapter {
         return view;
     }
 
+
     void initializeButtons(View view, final int position) {
         //Handle buttons and add onClickListeners
         ImageButton soundBtn = (ImageButton)view.findViewById(R.id.sound_settings);
@@ -65,9 +71,10 @@ public class FBListAdapter extends BaseAdapter {
         soundBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                LocationDialog locationDialog = new LocationDialog();
-                locationDialog.setPosition(position);
-                locationDialog.show(fragmentManager, "rename loc");
+                Toast.makeText(context, "add stuff here", Toast.LENGTH_SHORT).show();
+                //LocationDialog locationDialog = new LocationDialog();
+                //locationDialog.setPosition(position);
+                //locationDialog.show(fragmentManager, "rename loc");
             }
         });
     }

@@ -1,6 +1,7 @@
 package com.cse110.team36.coupletones;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+
+import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
@@ -17,8 +20,17 @@ import com.google.android.gms.maps.model.LatLng;
 
 import com.cse110.team36.coupletones.Managers.FileManager;
 
+import java.util.ArrayList;
+
 public class SOListActivity extends AppCompatActivity{
     FBListAdapter fbListAdapter;
+
+
+    LocationFB locFB = new LocationFB();
+    //mocked data, please edit as needed
+    OurFaveLoc faveLocation = new OurFaveLoc("land", new LatLng(32.88182224246528, 163.9531598612666));
+    ArrayList<FaveLocation> soList = new ArrayList<FaveLocation>();
+
     /*
      * Preparing the list data
      */
@@ -29,6 +41,8 @@ public class SOListActivity extends AppCompatActivity{
 
         initializeListViewAdapter();
         initializeButtons();
+        soList.add(faveLocation);
+
     }
 
     void initializeButtons() {
@@ -59,7 +73,7 @@ public class SOListActivity extends AppCompatActivity{
     }
 
     void initializeListViewAdapter() {
-        fbListAdapter = new FBListAdapter(FaveLocationManager.locList, this, getFragmentManager());
+        fbListAdapter = new FBListAdapter(soList, this, getFragmentManager());
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(fbListAdapter);
