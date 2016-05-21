@@ -1,11 +1,14 @@
 package com.cse110.team36.coupletones;
 
+import android.media.Ringtone;
+
 import com.google.android.gms.maps.model.LatLng;
 
 public class FaveLocation {
     private double lat;
     private double lon;
     private String name;
+    private Ringtone ringtone;
 
     public FaveLocation(String name, LatLng coords) {
         this.lat = coords.latitude;
@@ -29,5 +32,13 @@ public class FaveLocation {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setRingtone (Ringtone ringtone) {
+        this.ringtone = ringtone;
+    }
+
+    public Ringtone getRingtone () {
+        return ringtone;
     }
 }
