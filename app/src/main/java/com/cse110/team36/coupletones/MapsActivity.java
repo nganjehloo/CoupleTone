@@ -24,6 +24,7 @@ import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
 import com.cse110.team36.coupletones.Managers.MapManager;
 import com.cse110.team36.coupletones.Managers.MarkerManager;
+import com.firebase.client.Firebase;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -120,8 +121,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         initializeGMapUISettings();
         mMap.setOnMapLongClickListener(this);   // LISTENER FOR THE LONG-CLICK SO MARKER DROPS ON HELD LOCATION
 
-
-
         //GPS
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         mapManager = new MapManager(locationManager, this);
@@ -184,8 +183,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 //            markerManager.dropFavLocMarker(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords());
 //    }
 
-
-
     /* ----------------------------------------------------
      * Allows us to communicate with the LocationDialog
      * Saves new location
@@ -208,6 +205,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         markerManager.dropFavLocMarker(name, loc);
 
         //Add to Firebase
+        //Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/myLoc");
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/debugList");
+
         LocationFB locFB = new LocationFB();
         locFB.setName(name);
         locFB.setLat(lat);
@@ -228,12 +228,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         (findViewById(R.id.mapButton)).setBackgroundResource(R.color.colorButtonDepressed);
 
-        ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
-        myLocButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton SOlocButton = (ImageButton) findViewById(R.id.myLocButton);
+        SOlocButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(MapsActivity.this, HomeScreen.class));
+                startActivity(new Intent(MapsActivity.this, SOVisitedActivity.class));
             }
         });
 
