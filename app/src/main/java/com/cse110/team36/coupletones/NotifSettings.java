@@ -11,7 +11,7 @@ import android.view.View;
 public class NotifSettings extends AppCompatActivity {
 //    VibeToneFactory vibeToneFactory = new VibeToneFactory(this);
     VibeToneFactory vibeToneFactory;
-    MediaPlayer mediaPlayer;
+//    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,24 +30,24 @@ public class NotifSettings extends AppCompatActivity {
         });
 
         vibeToneFactory = new VibeToneFactory(this);
-        mediaPlayer.create(getApplicationContext(),R.raw.ballon_gx_prefix);
+//        mediaPlayer.create(getApplicationContext(),R.raw.ballon_gx_prefix);
     }
 
     public void selectArrivalSound(View view) {
         vibeToneFactory.vibeTone(Constants.VibeToneName.FUNKYTOWN);
-        mediaPlayer.start();
+//        mediaPlayer.start();
     }
     public void selectArrivalVibe(View view) {
         vibeToneFactory.vibeTone(Constants.VibeToneName.MOUNTAIN);
-        mediaPlayer.start();
+//        mediaPlayer.start();
     }
     public void selectDepartSound(View view) {
         vibeToneFactory.vibeTone(Constants.VibeToneName.VALLEY);
-        mediaPlayer.start();
+//        mediaPlayer.start();
     }
     public void selectDepartVibe(View view) {
         vibeToneFactory.vibeTone(Constants.VibeToneName.SLOW2FAST);
-        mediaPlayer.start();
+//        mediaPlayer.start();
     }
 
 }
