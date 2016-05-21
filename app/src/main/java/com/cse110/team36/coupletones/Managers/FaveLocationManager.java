@@ -1,6 +1,7 @@
 package com.cse110.team36.coupletones.Managers;
 
 import android.content.Context;
+import android.media.Ringtone;
 
 import com.cse110.team36.coupletones.FaveLocation;
 import com.google.android.gms.maps.model.LatLng;
@@ -15,6 +16,13 @@ public class FaveLocationManager {
 
     public FaveLocationManager(Context context) {
         this.context = context;
+    }
+
+    // for testing purposes only. Not for release
+    public static boolean addLocation(String name, LatLng loc, Ringtone ringtone) {
+        FaveLocation newLoc = new FaveLocation(name, loc, ringtone);
+        locList.add(newLoc);
+        return true;
     }
 
     public static boolean addLocation(String name, LatLng loc) {

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -121,7 +122,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         //GPS
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        mapManager = new MapManager(locationManager);
+        mapManager = new MapManager(locationManager, this);
         String locationProvider = LocationManager.GPS_PROVIDER;
 
         mapManager.populateMap(fileManager, markerManager);
@@ -193,7 +194,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
          * This implementation is temporary - I was testing that the information gets here
          * Use this method to save the new location
          */
-        boolean addSuccess = FaveLocationManager.addLocation(name, loc);
+
+        // For the sake of testing sound, give it default location when it's created. Since we set SO's ringtone, not our own, this is
+        // temporary. We will ultimately remove this and instead add the default ringtone to SO locations
+        boolean addSuccess = FaveLocationManager.addLocation(name, loc, RingtoneManager.getRingtone(this,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)));
         if (!addSuccess) {
             Toast.makeText(getBaseContext(), "You have to input a unique name! Try again.", Toast.LENGTH_SHORT).show();
         }

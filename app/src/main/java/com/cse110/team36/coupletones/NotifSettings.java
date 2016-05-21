@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.cse110.team36.coupletones.Managers.FaveLocationManager;
+
 public class NotifSettings extends AppCompatActivity {
 //    VibeToneFactory vibeToneFactory = new VibeToneFactory(this);
     VibeToneFactory vibeToneFactory;
@@ -65,14 +67,14 @@ public class NotifSettings extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
             if (uri != null) {
-                String ringTonePath = uri.toString();
+//                String ringTonePath = uri.toString();
                 RingtoneManager.setActualDefaultRingtoneUri(
                         this,
                         RingtoneManager.TYPE_RINGTONE,
                         uri);
             }
             Ringtone ringtone = RingtoneManager.getRingtone(this, uri);
-            ringtone.play();
+            FaveLocationManager.locList.get(0).setRingtone(ringtone);
         }
     }
 }

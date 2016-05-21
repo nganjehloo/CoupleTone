@@ -103,7 +103,9 @@ public class MyGCMListenerService extends GcmListenerService {
                 PendingIntent.FLAG_ONE_SHOT);
 
         //Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Ringtone ringtone = FaveLocationManager.locList.get(i).getRingtone();
+//        if (FaveLocationManager.locList.size() > 0 ) {
+//            Ringtone ringtone = FaveLocationManager.locList.get(0).getRingtone();
+//        }
 
 //        VibeToneFactory v = new VibeToneFactory();
 
@@ -121,7 +123,13 @@ public class MyGCMListenerService extends GcmListenerService {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-        ringtone.play();
+
+        // for release (aka device communication) locList must be replaced by the SOlocList
+        if (FaveLocationManager.locList.size() > 0 ) {
+            Ringtone ringtone = FaveLocationManager.locList.get(0).getRingtone();
+            ringtone.play();
+        }
+
     }
 
     private void addSO(String append){

@@ -31,7 +31,7 @@ public class LocationChangeListener implements LocationListener, Constants {
 
     public void onLocationChanged(Location location) {
         LocationManager locationManager = (LocationManager) mapsActivity.getSystemService(Context.LOCATION_SERVICE);
-        MapManager mapManager = new MapManager(locationManager);
+        MapManager mapManager = new MapManager(locationManager, mapsActivity);
 
         mapManager.updateGPSLoc(location);
         if (FaveLocationManager.locList.size() > 0) {
