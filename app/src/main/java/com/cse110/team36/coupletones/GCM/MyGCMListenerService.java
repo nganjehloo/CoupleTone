@@ -16,6 +16,7 @@ package com.cse110.team36.coupletones.GCM;
  * limitations under the License.
  */
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -99,13 +100,20 @@ public class MyGCMListenerService extends GcmListenerService {
                 PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        //Uri soundUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.funkytown);
+
+//        VibeToneFactory v = new VibeToneFactory();
+
+
+
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                 .setContentTitle("CoupleTones")
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
-                .setContentIntent(pendingIntent);
+                .setContentIntent(pendingIntent)
+                .setDefaults(Notification.DEFAULT_LIGHTS);
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -143,7 +151,7 @@ public class MyGCMListenerService extends GcmListenerService {
         } else if (type == 'l') {
             sendNotification("SO visited " + append);
         }else {
-            Log.d(TAG, "INVALID MESSAGE RECIEVED");
+            Log.d(TAG, "INVALID MESSAGE RECEIVED");
         }
     }
 

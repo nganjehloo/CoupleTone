@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
+import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 
@@ -70,8 +71,16 @@ public class MyCustomAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 //do something
+                String name = FaveLocationManager.locList.get(position).getName();
                 FaveLocationManager.removeLocation(FaveLocationManager.locList.get(position).getName());
                 notifyDataSetChanged();
+
+                //TODO: ADD UNIQUE ID
+                //Remove from Firebase
+                Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
+                LocationFB locFB = new LocationFB();
+                locFB.setName(name);
+                myFirebaseRef.child(locFB.getName()).removeValue();
             }
         });
 
