@@ -23,6 +23,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class SOHomeScreen extends AppCompatActivity implements LocationDialog.LocationDialogListener{
     MyCustomAdapter myCustomAdapter;
+    FBListAdapter fbListAdapter;
 
     @Override
     public void onDialogPositiveClick(String name, LatLng loc, int position) {
