@@ -22,6 +22,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 908400614c303b3c0fa2524f09073b8038e960a9
 import com.cse110.team36.coupletones.R;
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;

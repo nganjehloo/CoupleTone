@@ -23,14 +23,14 @@ public class FireBaseManager{
     public void add(LocationFB data)
     {
         String MYFBID = sharedPreferences.getString("MYFBREGID", "null");
-        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + MYFBID);
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + MYFBID + "/Locations");
         myFirebaseRef.child(data.getName()).setValue(data);
     }
 
     public void remove(LocationFB data)
     {
         String MYFBID = sharedPreferences.getString("MYFBREGID", "null");
-        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + MYFBID);
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + MYFBID + "/Locations");
         myFirebaseRef.child(data.getName()).removeValue();
     }
 
@@ -38,5 +38,10 @@ public class FireBaseManager{
     {
         remove(oldData);
         add(newData);
+    }
+
+    public void regKey(FBreg regInfo)
+    {
+
     }
 }
