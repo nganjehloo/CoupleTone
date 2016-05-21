@@ -7,11 +7,11 @@
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/toOurMap"
-        android:onClick="runOurMap"
+        android:id="@+id/toVisitedList"
+        android:onClick="toVisitedList"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_map"/>
+        android:src="@drawable/ic_listview"/>
 
     <ListView
         android:layout_width="match_parent"

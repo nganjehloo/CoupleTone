@@ -22,7 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 /* NOTE: This is actually the location page (middle button) */
 
 public class SOVisitedActivity extends AppCompatActivity implements LocationDialog.LocationDialogListener{
-    MyCustomAdapter myCustomAdapter;
+    SOVisitedAdapter myCustomAdapter;
     FBListAdapter fbListAdapter;
 
     @Override
@@ -37,7 +37,7 @@ public class SOVisitedActivity extends AppCompatActivity implements LocationDial
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        setContentView(R.layout.activity_so_visited);
 
         initializeListViewAdapter();
         initializeButtons();
@@ -71,7 +71,7 @@ public class SOVisitedActivity extends AppCompatActivity implements LocationDial
     }
 
     void initializeListViewAdapter() {
-        myCustomAdapter = new MyCustomAdapter(FaveLocationManager.locList, this, getFragmentManager());
+        myCustomAdapter = new SOVisitedAdapter(FaveLocationManager.locList, this, getFragmentManager());
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(myCustomAdapter);
@@ -86,9 +86,9 @@ public class SOVisitedActivity extends AppCompatActivity implements LocationDial
         overridePendingTransition(0, 0);
     }
 
-    public void toSOMap(View view) {
-        startActivity(new Intent(SOVisitedActivity.this, SOMapActivity.class));
-    }
+//    public void toSOMap(View view) {
+//        startActivity(new Intent(SOVisitedActivity.this, SOMapActivity.class));
+//    }
 
     public void toSOList(View view) {
         startActivity(new Intent(SOVisitedActivity.this, SOListActivity.class));

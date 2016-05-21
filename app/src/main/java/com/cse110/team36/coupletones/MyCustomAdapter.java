@@ -19,7 +19,7 @@ import java.util.ArrayList;
  *     in such a way that button
  */
 
-public abstract class MyCustomAdapter extends BaseAdapter {
+public class MyCustomAdapter extends BaseAdapter {
     private ArrayList<FaveLocation> list = new ArrayList<>();
     private Context context;
     private FragmentManager fragmentManager;

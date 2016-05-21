@@ -54,8 +54,8 @@ public class SOListActivity extends AppCompatActivity{
             public void onClick(View view) {
                 finish();
                 startActivity(new Intent(SOListActivity.this, SOConfig.class));
-        }
-    });
+            }
+        });
     }
 
     void initializeListViewAdapter() {
@@ -78,7 +78,8 @@ public class SOListActivity extends AppCompatActivity{
         startActivity(new Intent(SOListActivity.this, SOMapActivity.class));
     }
 
-    public void toSOList(View view) {
-        startActivity(new Intent(SOListActivity.this, SOListActivity.class));
+    public void toVisitedList(View view) {
+        startActivity(new Intent(SOListActivity.this, SOVisitedActivity.class));
     }
+
 }
