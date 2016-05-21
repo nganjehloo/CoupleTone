@@ -76,7 +76,6 @@ public class MyCustomAdapter extends BaseAdapter {
                 notifyDataSetChanged();
 
                 //TODO: ADD UNIQUE ID
-
                 //Remove from Firebase
                 Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
                 LocationFB locFB = new LocationFB();
@@ -91,7 +90,6 @@ public class MyCustomAdapter extends BaseAdapter {
                 LocationDialog locationDialog = new LocationDialog();
                 locationDialog.setPosition(position);
                 locationDialog.show(fragmentManager, "rename loc");
-
             }
         });
     }
