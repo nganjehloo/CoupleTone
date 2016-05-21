@@ -19,15 +19,29 @@ import java.util.ArrayList;
  *     in such a way that button
  */
 
-public class MyCustomAdapter extends BaseAdapter {
+public abstract class MyCustomAdapter extends BaseAdapter {
     private ArrayList<FaveLocation> list = new ArrayList<>();
     private Context context;
     private FragmentManager fragmentManager;
+
+    public MyCustomAdapter() {}
 
     public MyCustomAdapter(ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
         this.list = list;
         this.context = context;
         this.fragmentManager = fragmentManager;
+    }
+
+    public void setList(ArrayList<FaveLocation> l) {
+        list = l;
+    }
+
+    public void setContext(Context c) {
+        context = c;
+    }
+
+    public void setFragmentManager(FragmentManager fm) {
+        fragmentManager = fm;
     }
 
     @Override
