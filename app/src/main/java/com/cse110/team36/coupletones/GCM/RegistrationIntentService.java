@@ -50,6 +50,8 @@ public class RegistrationIntentService extends IntentService {
                    // [START get_token]
             InstanceID instanceID = InstanceID.getInstance(this);
             String token = instanceID.getToken(getString(R.string.gcm_defaultSenderId), GoogleCloudMessaging.INSTANCE_ID_SCOPE, null);
+            String MyFBRegID = token.substring(0,11);
+
             // [END get_token]
             Log.i(TAG, "GCM Registration Token: " + token);
 
@@ -64,6 +66,7 @@ public class RegistrationIntentService extends IntentService {
             // otherwise your server should have already received the token.
             sharedPreferences.edit().putBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, true).apply();
             sharedPreferences.edit().putString("MYREGID", token).apply();
+            sharedPreferences.edit().putString("MYFBREGID", MyFBRegID).apply();
             sharedPreferences.edit().putBoolean("HAS_REGID", true).apply();
             Log.i(TAG, sharedPreferences.getString("MYREGID", "BREH!!!!!!!!!!!!!!"));
             // [END register_for_gcm]
@@ -80,23 +83,11 @@ public class RegistrationIntentService extends IntentService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(registrationComplete);
     }
 
-    /**
-     * Persist registration to third-party servers.
-     *
-     * Modify this method to associate the user's GCM registration token with any server-side account
-     * maintained by your application.
-     *
-     * @param token The new token.
-     */
+
+
+
     private void sendRegistrationToServer(String token) {
         // Add custom implementation, as needed.
-        //Content content = new Content();
-
-        //content.addRegId(token);
-        //content.createData("hi", "hi");
-        //Post2Gcm.post("AIzaSyCnduESq54RmoStkgClt_W_eF6Ox_WiDwY", content);
-
-        //sendNotification.arrivalMsg("Burger King", "13", "37", "8:15AM");
 
     }
 

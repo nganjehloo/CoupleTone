@@ -1,7 +1,10 @@
 package com.cse110.team36.coupletones;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,8 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.cse110.team36.coupletones.FireBase.FireBaseManager;
+import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 
 import java.util.ArrayList;
@@ -22,11 +27,13 @@ public class MyCustomAdapter extends BaseAdapter {
     private ArrayList<FaveLocation> list = new ArrayList<>();
     private Context context;
     private FragmentManager fragmentManager;
+    private Activity activity;
 
-    public MyCustomAdapter(ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
+    public MyCustomAdapter(Activity activity, ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
         this.list = list;
         this.context = context;
         this.fragmentManager = fragmentManager;
+        this.activity = activity;
     }
 
     @Override
@@ -70,8 +77,17 @@ public class MyCustomAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 //do something
+                String name = FaveLocationManager.locList.get(position).getName();
                 FaveLocationManager.removeLocation(FaveLocationManager.locList.get(position).getName());
                 notifyDataSetChanged();
+
+                //TODO: ADD UNIQUE ID
+                //Remove from Firebase
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+                LocationFB locFB = new LocationFB();
+                locFB.setName(name);
+                FireBaseManager FBman = new FireBaseManager(sharedPreferences);
+                FBman.remove(locFB);
             }
         });
 
