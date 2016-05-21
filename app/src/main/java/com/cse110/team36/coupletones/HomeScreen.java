@@ -7,7 +7,9 @@
 package com.cse110.team36.coupletones;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -29,19 +31,25 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
         String originalName = FaveLocationManager.locList.get(position).getName();
         double lat = FaveLocationManager.locList.get(position).getLat();
         double Long = FaveLocationManager.locList.get(position).getLng();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
 
         FaveLocationManager.locList.get(position).setName(name);
         myCustomAdapter.notifyDataSetChanged();
 
-        //Remove from Firebase and add again (Rename)
-        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
-        LocationFB locFB = new LocationFB();
-        locFB.setName(originalName);
-        myFirebaseRef.child(locFB.getName()).removeValue();
-        locFB.setName(name);
-        locFB.setLat(lat);
-        locFB.setLong(Long);
-        myFirebaseRef.child(locFB.getName()).setValue(locFB);
+        //TODO: GET UNIQUE ID FOR FIREBASE
+        //Remove from Firebase and add again (Rename) -- there's no actual way to rename the key
+
+        LocationFB newlocFB = new LocationFB();
+        LocationFB oldlocFB = new LocationFB();
+        oldlocFB.setName(originalName);
+        newlocFB.setName(name);
+        newlocFB.setLat(lat);
+        newlocFB.setLong(Long);
+
+        FireBaseManager FBman = new FireBaseManager(sharedPreferences);
+
+        FBman.rename(oldlocFB, newlocFB);
     }
 
     /*
@@ -84,7 +92,7 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
     }
 
     void initializeListViewAdapter() {
-        myCustomAdapter = new MyCustomAdapter(FaveLocationManager.locList, this, getFragmentManager());
+        myCustomAdapter = new MyCustomAdapter(HomeScreen.this, FaveLocationManager.locList, this, getFragmentManager());
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(myCustomAdapter);

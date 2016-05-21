@@ -1,7 +1,10 @@
 package com.cse110.team36.coupletones;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.cse110.team36.coupletones.GCM.RegistrationIntentService;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.firebase.client.Firebase;
 
@@ -23,11 +27,13 @@ public class MyCustomAdapter extends BaseAdapter {
     private ArrayList<FaveLocation> list = new ArrayList<>();
     private Context context;
     private FragmentManager fragmentManager;
+    private Activity activity;
 
-    public MyCustomAdapter(ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
+    public MyCustomAdapter(Activity activity, ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
         this.list = list;
         this.context = context;
         this.fragmentManager = fragmentManager;
+        this.activity = activity;
     }
 
     @Override
@@ -77,10 +83,11 @@ public class MyCustomAdapter extends BaseAdapter {
 
                 //TODO: ADD UNIQUE ID
                 //Remove from Firebase
-                Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
                 LocationFB locFB = new LocationFB();
                 locFB.setName(name);
-                myFirebaseRef.child(locFB.getName()).removeValue();
+                FireBaseManager FBman = new FireBaseManager(sharedPreferences);
+                FBman.remove(locFB);
             }
         });
 

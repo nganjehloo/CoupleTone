@@ -197,6 +197,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
          */
         double lat = loc.latitude;
         double Long = loc.longitude;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         boolean addSuccess = FaveLocationManager.addLocation(name, loc);
         if (!addSuccess) {
@@ -204,17 +205,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         }
         markerManager.dropFavLocMarker(name, loc);
 
-        //TODO: UNIQUE ID FOR THE LINK
-
         //Add to Firebase
-        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
         LocationFB locFB = new LocationFB();
         locFB.setName(name);
         locFB.setLat(lat);
         locFB.setLong(Long);
-        myFirebaseRef.child(locFB.getName()).setValue(locFB);
 
-
+        FireBaseManager FBman = new FireBaseManager(sharedPreferences);
+        FBman.add(locFB);
     }
 
     /**
