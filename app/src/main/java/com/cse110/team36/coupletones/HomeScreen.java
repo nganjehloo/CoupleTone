@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
+import com.firebase.client.Firebase;
 import com.google.android.gms.maps.model.LatLng;
 
 /* NOTE: This is actually the location page (middle button) */
@@ -25,8 +26,22 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
 
     @Override
     public void onDialogPositiveClick(String name, LatLng loc, int position) {
+        String originalName = FaveLocationManager.locList.get(position).getName();
+        double lat = FaveLocationManager.locList.get(position).getLat();
+        double Long = FaveLocationManager.locList.get(position).getLng();
+
         FaveLocationManager.locList.get(position).setName(name);
         myCustomAdapter.notifyDataSetChanged();
+
+        //Remove from Firebase and add again (Rename)
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
+        LocationFB locFB = new LocationFB();
+        locFB.setName(originalName);
+        myFirebaseRef.child(locFB.getName()).removeValue();
+        locFB.setName(name);
+        locFB.setLat(lat);
+        locFB.setLong(Long);
+        myFirebaseRef.child(locFB.getName()).setValue(locFB);
     }
 
     /*
