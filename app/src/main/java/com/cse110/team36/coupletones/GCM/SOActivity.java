@@ -51,7 +51,7 @@ public class SOActivity extends AppCompatActivity{
 
         if( !sharedPreferences.getBoolean("HAS_REGID", false)){
             Log.d(TAG, "We gonna reg dawg");
-            setContentView(R.layout.register);
+            setContentView(R.layout.registerinput);
             mRegistrationProgressBar = (ProgressBar) findViewById(R.id.registrationProgressBar);
             mRegistrationBroadcastReceiver = new BroadcastReceiver() {
                 @Override
@@ -62,6 +62,7 @@ public class SOActivity extends AppCompatActivity{
                             mRegistrationProgressBar.setVisibility(ProgressBar.GONE);
 
                             finish();
+                            setContentView(R.layout.register);
                             startActivity(new Intent(SOActivity.this, SOConfig.class));
                         }
                     }, 5000);

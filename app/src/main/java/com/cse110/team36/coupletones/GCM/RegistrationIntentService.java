@@ -23,6 +23,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.cse110.team36.coupletones.FireBaseManager;
 import com.cse110.team36.coupletones.R;
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
@@ -87,8 +88,7 @@ public class RegistrationIntentService extends IntentService {
 
 
     private void sendRegistrationToServer(String token) {
-        // Add custom implementation, as needed.
-
+        // Add custom implementation, as needed
     }
 
     /**
