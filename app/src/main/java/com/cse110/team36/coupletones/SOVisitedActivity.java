@@ -21,7 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 /* NOTE: This is actually the location page (middle button) */
 
-public class SOHomeScreen extends AppCompatActivity implements LocationDialog.LocationDialogListener{
+public class SOVisitedActivity extends AppCompatActivity implements LocationDialog.LocationDialogListener{
     MyCustomAdapter myCustomAdapter;
     FBListAdapter fbListAdapter;
 
@@ -57,7 +57,7 @@ public class SOHomeScreen extends AppCompatActivity implements LocationDialog.Lo
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(SOHomeScreen.this, MapsActivity.class));
+                startActivity(new Intent(SOVisitedActivity.this, MapsActivity.class));
             }
         });
 
@@ -65,7 +65,7 @@ public class SOHomeScreen extends AppCompatActivity implements LocationDialog.Lo
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(SOHomeScreen.this, SOConfig.class));
+                startActivity(new Intent(SOVisitedActivity.this, SOConfig.class));
             }
         });
     }
@@ -86,7 +86,11 @@ public class SOHomeScreen extends AppCompatActivity implements LocationDialog.Lo
         overridePendingTransition(0, 0);
     }
 
-    public void runOurMap(View view) {
-        startActivity(new Intent(SOHomeScreen.this, MapsActivity.class));
+    public void toSOMap(View view) {
+        startActivity(new Intent(SOVisitedActivity.this, SOMapActivity.class));
+    }
+
+    public void toSOList(View view) {
+        startActivity(new Intent(SOVisitedActivity.this, SOListActivity.class));
     }
 }
