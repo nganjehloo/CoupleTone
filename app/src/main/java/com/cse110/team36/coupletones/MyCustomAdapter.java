@@ -77,7 +77,8 @@ public class MyCustomAdapter extends BaseAdapter {
 
                 //TODO: ADD UNIQUE ID
                 //Remove from Firebase
-                Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
+                //Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
+                Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/debugList");
                 LocationFB locFB = new LocationFB();
                 locFB.setName(name);
                 myFirebaseRef.child(locFB.getName()).removeValue();

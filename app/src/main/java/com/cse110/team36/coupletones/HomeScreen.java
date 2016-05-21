@@ -34,7 +34,8 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
         myCustomAdapter.notifyDataSetChanged();
 
         //Remove from Firebase and add again (Rename)
-        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
+        //Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/debugList");
         LocationFB locFB = new LocationFB();
         locFB.setName(originalName);
         myFirebaseRef.child(locFB.getName()).removeValue();

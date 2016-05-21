@@ -207,7 +207,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         //TODO: UNIQUE ID FOR THE LINK
 
         //Add to Firebase
-        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
+        //Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/myLoc");
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/debugList");
         LocationFB locFB = new LocationFB();
         locFB.setName(name);
         locFB.setLat(lat);
