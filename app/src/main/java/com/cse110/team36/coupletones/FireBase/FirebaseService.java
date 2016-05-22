@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import java.lang.Thread;
 
 import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.cse110.team36.coupletones.SOFaveLoc;
@@ -20,6 +21,12 @@ import com.cse110.team36.coupletones.FireBase.LocationFB;
 public class FirebaseService extends Service {
     public FirebaseService() {
     }
+
+    @Override
+    public void onCreate(){
+        Thread MyThread = new Thread(new MyThread(0));
+    }
+
     final class MyThread implements Runnable {
         int startId;
         Firebase myFirebaseRefReg;
@@ -79,6 +86,7 @@ public class FirebaseService extends Service {
             */
         }
     }
+
 
     @Override
     public IBinder onBind(Intent intent) {
