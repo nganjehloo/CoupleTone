@@ -29,6 +29,8 @@ public class SOConfig extends AppCompatActivity {
     public SharedPreferences sharedPreferences;
 
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intent = new Intent(SOConfig.this, FirebaseService.class);
+        startService(intent);
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.so_config);

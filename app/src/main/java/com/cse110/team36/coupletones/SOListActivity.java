@@ -36,22 +36,6 @@ public class SOListActivity extends AppCompatActivity{
     protected void onStart(){
         super.onStart();
 
-        myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/debugList");
-
-        //Query queryRef = myFirebaseRef.orderByChild("studentId").equalTo(idToSearch);
-        myFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot == null || snapshot.getValue() == null)
-                    Toast.makeText(SOListActivity.this, "No record found", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(SOListActivity.this, snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCancelled(FirebaseError error) {
-            }
-        });
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +47,6 @@ public class SOListActivity extends AppCompatActivity{
         soList.add(faveLocation);
 
         //start a FirebaseService, that has all the listeners
-        Intent intent = new Intent(SOListActivity.this, FirebaseService.class);
-        startService(intent);
-
     }
 
     void initializeButtons() {
