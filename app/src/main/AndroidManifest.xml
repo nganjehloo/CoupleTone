@@ -133,7 +133,9 @@
         <activity
             android:name=".NotifSettings"
             android:label="@string/title_activity_notif_settings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme.NoActionBar" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -143,7 +145,7 @@
             android:value="@integer/google_play_services_version" />
 
         <service
-            android:name=".FirebaseService"
+            android:name=".FireBase.FirebaseService"
             android:enabled="true"
             android:exported="true"></service>
     </application>

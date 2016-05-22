@@ -10,16 +10,12 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import com.cse110.team36.coupletones.FireBase.FirebaseService;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.FireBase.SOConfig;
-import com.cse110.team36.coupletones.FireBase.SOConfig;
-import com.cse110.team36.coupletones.Managers.FaveLocationManager;
-import com.cse110.team36.coupletones.Managers.FileManager;
-import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.Query;
 import com.firebase.client.ValueEventListener;
 import com.google.android.gms.maps.model.LatLng;
 
