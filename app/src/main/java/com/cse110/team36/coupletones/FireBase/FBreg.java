@@ -9,7 +9,7 @@ public class FBreg {
 
     FBreg(){
         relationshipStatus = false;
-        SO_ID = "NOSO";
+        SO_ID = "NOID";
     }
 
     public void setID(String ID)

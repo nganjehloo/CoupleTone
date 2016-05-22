@@ -66,31 +66,39 @@ public class SOConfig extends AppCompatActivity {
 
         sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString()).apply();
         sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
+        */
 
-
-        Toast.makeText(getBaseContext(), (mBaeCode.getText()).toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(getBaseContext(), "ADDED SO", Toast.LENGTH_SHORT).show();
         //sendNotification
-
+        /*
         String[] param = {SOKey, "a" + sharedPreferences.getString("MYREGID", null)};
         sendNotificationJob job = new sendNotificationJob();
-        job.execute(param);*/
+        job.execute(param);
+        */
 
     }
 
     public void removeSO(){
+        FireBaseManager fb = new FireBaseManager(sharedPreferences);
+        fb.removeSO();
+
+        /*
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
         Button addremovebtn = (Button) findViewById(R.id.button);
         String SOKey = mBaeCode.getText().toString();
 
         sharedPreferences.edit().putBoolean("HAS_SO", false).apply();
         sharedPreferences.edit().remove("SOREGID").apply();
+        */
 
         Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
         //sendNotification
 
+        /*
         String[] param = {SOKey, "e" + sharedPreferences.getString("MYREGID", null)};
         sendNotificationJob job = new sendNotificationJob();
         job.execute(param);
+        */
 
     }
 

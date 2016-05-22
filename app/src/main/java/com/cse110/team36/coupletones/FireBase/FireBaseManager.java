@@ -20,13 +20,14 @@ public class FireBaseManager{
         String emailid = email.substring(0, email.length() - 4);
         sharedPreferences.edit().putString("MYEMAIL",emailid ).apply();
         Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid);
+        Firebase myFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + emailid + "/Locations");
         FBreg fBreg = new FBreg();
         myFirebaseRef.child("REG").setValue(fBreg);
     }
 
     public void addSO(String email){
         String emailid = email.substring(0, email.length() - 4);
-        sharedPreferences.edit().putString("SOEMAIL",emailid );
+        sharedPreferences.edit().putString("SOEMAIL", emailid);
         Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null));
         Firebase soFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid);
         FBreg fBreg = new FBreg();
@@ -38,17 +39,30 @@ public class FireBaseManager{
         soFirebaseRef.child("REG").setValue(fBreg);
     }
 
+    public void removeSO(){
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null));
+        Firebase soFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null));
+        FBreg fBreg = new FBreg();
+        fBreg.setID("NOID");
+        fBreg.setStatus(false);
+        myFirebaseRef.child("REG").setValue(fBreg);
+        soFirebaseRef.child("REG").setValue(fBreg);
+
+        sharedPreferences.edit().remove("SOEMAIL");
+
+    }
+
     public void add(LocationFB data)
     {
         String MYFBID = sharedPreferences.getString("MYFBREGID", "null");
-        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + MYFBID + "/Locations");
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/Locations");
         myFirebaseRef.child(data.getName()).setValue(data);
     }
 
     public void remove(LocationFB data)
     {
         String MYFBID = sharedPreferences.getString("MYFBREGID", "null");
-        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + MYFBID + "/Locations");
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/Locations");
         myFirebaseRef.child(data.getName()).removeValue();
     }
 
