@@ -16,10 +16,10 @@ public class SOFaveLoc extends FaveLocation {
     Constants.VibeToneName vibeToneArrivalName;
     Constants.VibeToneName vibeToneDepartName;
 
-    public SOFaveLoc(String name, LatLng loc,Ringtone sparkleTone, Constants.VibeToneName vibeToneName, Activity activity) {
+    public SOFaveLoc(String name, LatLng loc,Ringtone sparkleTone, Constants.VibeToneName vibeToneName) {
         super(name, loc);
         this.activity = activity;
-        this.sparkleTone = RingtoneManager.getRingtone(activity,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+        //this.sparkleTone = RingtoneManager.getRingtone(activity,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 //        this.sparkleTone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         this.vibeToneArrivalName = Constants.VibeToneName.DEFAULT_ARRIVAL;
         this.vibeToneDepartName = Constants.VibeToneName.DEFAULT_DEPART;
