@@ -40,16 +40,6 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
         FaveLocationManager.locList.get(position).setName(name);
         myCustomAdapter.notifyDataSetChanged();
 
-        //Remove from Firebase and add again (Rename)
-        //Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
-        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/debugList");
-        LocationFB locFB = new LocationFB();
-        locFB.setName(originalName);
-        myFirebaseRef.child(locFB.getName()).removeValue();
-        locFB.setName(name);
-        locFB.setLat(lat);
-        locFB.setLong(Long);
-        myFirebaseRef.child(locFB.getName()).setValue(locFB);
         //TODO: GET UNIQUE ID FOR FIREBASE
         //Remove from Firebase and add again (Rename) -- there's no actual way to rename the key
 
@@ -106,7 +96,7 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
     }
 
     void initializeListViewAdapter() {
-        myCustomAdapter = new MyCustomAdapter(FaveLocationManager.locList, this, getFragmentManager());
+        myCustomAdapter = new MyCustomAdapter(HomeScreen.this, FaveLocationManager.locList, this, getFragmentManager());
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(myCustomAdapter);

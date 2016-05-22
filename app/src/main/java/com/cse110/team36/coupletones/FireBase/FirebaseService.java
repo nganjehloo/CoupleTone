@@ -62,15 +62,6 @@ public class FirebaseService extends Service {
                 }
             });
 
-            myFirebaseRefReg.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot snapshot) {
-
-                }
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                }
-            });
 
             // I don't know if I need this
             /*
@@ -84,6 +75,26 @@ public class FirebaseService extends Service {
                 stopSelf(startId);
             }
             */
+
+            myFirebaseRefReg.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    FBreg fBreg = dataSnapshot.getValue(FBreg.class);
+                    String SOEmail = fBreg.getID();
+                    if(fBreg.getRelationshipStatus()) {
+                        sharedPreferences.edit().putString("SOEMAIL", SOEmail).apply();
+                    }
+                    else
+                    {
+                        sharedPreferences.edit().remove("SOEMAIL").apply();
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
         }
     }
 
