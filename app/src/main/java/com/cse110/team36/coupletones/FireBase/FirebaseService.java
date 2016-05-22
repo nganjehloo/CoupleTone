@@ -24,7 +24,9 @@ public class FirebaseService extends Service {
 
     @Override
     public void onCreate(){
-        Thread MyThread = new Thread(new MyThread(0));
+        super.onCreate();
+        Thread myThread = new Thread(new MyThread(0));
+        myThread.start();
     }
 
     final class MyThread implements Runnable {
