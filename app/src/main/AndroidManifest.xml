@@ -54,7 +54,7 @@
             android:theme="@style/Theme.AppCompat" />
 
         <activity
-            android:name=".GCM.SOConfig"
+            android:name=".FireBase.SOConfig"
             android:label="CoupleTones Settings"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"

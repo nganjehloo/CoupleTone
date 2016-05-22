@@ -27,7 +27,7 @@ public class FireBaseManager{
 
     public void addSO(String email){
         String emailid = email.substring(0, email.length() - 4);
-        sharedPreferences.edit().putString("SOEMAIL", emailid);
+        sharedPreferences.edit().putString("SOEMAIL", emailid).apply();
         Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null));
         Firebase soFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid);
         FBreg fBreg = new FBreg();
@@ -45,10 +45,11 @@ public class FireBaseManager{
         FBreg fBreg = new FBreg();
         fBreg.setID("NOID");
         fBreg.setStatus(false);
+
         myFirebaseRef.child("REG").setValue(fBreg);
         soFirebaseRef.child("REG").setValue(fBreg);
 
-        sharedPreferences.edit().remove("SOEMAIL");
+        sharedPreferences.edit().remove("SOEMAIL").apply();
 
     }
 

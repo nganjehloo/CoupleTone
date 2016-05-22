@@ -3,10 +3,7 @@ package BDD_tests;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.cse110.team36.coupletones.GCM.SOConfig;
-
-
-import java.io.IOException;
+import com.cse110.team36.coupletones.FireBase.SOConfig;
 
 /**
  * Created by stazia on 5/5/16.

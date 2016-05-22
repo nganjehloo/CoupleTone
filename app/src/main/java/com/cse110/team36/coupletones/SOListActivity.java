@@ -1,24 +1,17 @@
 package com.cse110.team36.coupletones;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
 
 import com.cse110.team36.coupletones.FireBase.LocationFB;
-import com.cse110.team36.coupletones.GCM.SOConfig;
-import com.cse110.team36.coupletones.Managers.FaveLocationManager;
-import com.cse110.team36.coupletones.Managers.FileManager;
-import com.firebase.client.Firebase;
+import com.cse110.team36.coupletones.FireBase.SOConfig;
 import com.google.android.gms.maps.model.LatLng;
-
-import com.cse110.team36.coupletones.Managers.FileManager;
 
 import java.util.ArrayList;
 

@@ -1,25 +1,24 @@
-package com.cse110.team36.coupletones.GCM;
+package com.cse110.team36.coupletones.FireBase;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse110.team36.coupletones.FireBase.FireBaseManager;
-import com.cse110.team36.coupletones.GCM.Server.Content;
+import com.cse110.team36.coupletones.GCM.QuickstartPreferences;
 import com.cse110.team36.coupletones.HomeScreen;
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
-
-import org.w3c.dom.Text;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 /**
  * Created by Nima on 5/7/2016.
@@ -28,11 +27,39 @@ public class SOConfig extends AppCompatActivity {
     private static final String TAG = "SOActivity";
     private TextView mInformationTextView;
     public SharedPreferences sharedPreferences;
+    private Firebase myFireBase;
+    private Firebase soFireBase;
 
     protected void onCreate(Bundle savedInstanceState) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.so_config);
+
+        String MYID = sharedPreferences.getString("MYEMAIL", "null");
+        myFireBase = new Firebase("https://coupletones36.firebaseio.com/" + MYID + "/REG");
+
+        myFireBase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FBreg fBreg = dataSnapshot.getValue(FBreg.class);
+                String SOEmail = fBreg.getID();
+                if(fBreg.getRelationshipStatus()) {
+                    sharedPreferences.edit().putString("SOEMAIL", SOEmail).apply();
+                }
+                else
+                {
+                    sharedPreferences.edit().remove("SOEMAIL").apply();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
+
+        System.out.println("WHAT IS MY SO EMAIL: " + sharedPreferences.getString("SOEMAIL", "null"));
+
 
         refreshCoupleCode();
         initalizeButtons();
@@ -46,7 +73,7 @@ public class SOConfig extends AppCompatActivity {
         boolean sentToken = sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
         mInformationTextView = (TextView) findViewById(R.id.informationTextView);
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
-
+        mBaeCode.setText(sharedPreferences.getString("SOEMAIL", "null"));
         mInformationTextView.setText(sharedPreferences.getString("MYEMAIL", "ERROR"));
     }
 
@@ -57,6 +84,9 @@ public class SOConfig extends AppCompatActivity {
 
         FireBaseManager fb = new FireBaseManager(sharedPreferences);
         fb.addSO(SOKey);
+
+
+
 
         /*
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
@@ -120,19 +150,19 @@ public class SOConfig extends AppCompatActivity {
         soButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!(sharedPreferences.getBoolean("HAS_SO", false))) {
+                //if (!(sharedPreferences.getBoolean("HAS_SO", false))) {
                     addSO();
-                }
+                //}
             }
         });
 
         Button soButton1 = (Button) findViewById(R.id.button2);
-        soButton.setOnClickListener(new View.OnClickListener() {
+        soButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ((sharedPreferences.getBoolean("HAS_SO", false))) {
+                //if ((sharedPreferences.getBoolean("HAS_SO", false))) {
                     removeSO();
-                }
+                //}
             }
         });
 

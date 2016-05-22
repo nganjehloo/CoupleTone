@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.cse110.team36.coupletones.GCM.SOConfig;
+import com.cse110.team36.coupletones.FireBase.SOConfig;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
 import com.google.android.gms.maps.model.LatLng;
