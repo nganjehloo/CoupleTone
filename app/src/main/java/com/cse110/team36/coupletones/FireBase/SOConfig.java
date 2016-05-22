@@ -27,39 +27,11 @@ public class SOConfig extends AppCompatActivity {
     private static final String TAG = "SOActivity";
     private TextView mInformationTextView;
     public SharedPreferences sharedPreferences;
-    private Firebase myFireBase;
-    private Firebase soFireBase;
 
     protected void onCreate(Bundle savedInstanceState) {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.so_config);
-
-        String MYID = sharedPreferences.getString("MYEMAIL", "null");
-        myFireBase = new Firebase("https://coupletones36.firebaseio.com/" + MYID + "/REG");
-
-        myFireBase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                FBreg fBreg = dataSnapshot.getValue(FBreg.class);
-                String SOEmail = fBreg.getID();
-                if(fBreg.getRelationshipStatus()) {
-                    sharedPreferences.edit().putString("SOEMAIL", SOEmail).apply();
-                }
-                else
-                {
-                    sharedPreferences.edit().remove("SOEMAIL").apply();
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-
-            }
-        });
-
-        System.out.println("WHAT IS MY SO EMAIL: " + sharedPreferences.getString("SOEMAIL", "null"));
-
 
         refreshCoupleCode();
         initalizeButtons();
@@ -84,8 +56,6 @@ public class SOConfig extends AppCompatActivity {
 
         FireBaseManager fb = new FireBaseManager(sharedPreferences);
         fb.addSO(SOKey);
-
-
 
 
         /*
