@@ -49,6 +49,7 @@ public class FirebaseService extends Service {
                 public void onDataChange(DataSnapshot snapshot) {
                     //System.out.println("There are " + snapshot.getChildrenCount() + " locationFBs");
                     // loop through the snapshot's children
+                    SOFaveLocManager.emptyLocs();
                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                         //grab the children
                         LocationFB locFB = postSnapshot.getValue(LocationFB.class);
