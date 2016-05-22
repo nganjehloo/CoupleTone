@@ -1,5 +1,6 @@
 package com.cse110.team36.coupletones.FireBase;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.R;
 
 /**
@@ -36,6 +38,7 @@ public class MyFireBaseRegistration extends AppCompatActivity {
             public void onClick(View view) {
                 FireBaseManager fireBaseManager = new FireBaseManager(sharedPreferences);
                 fireBaseManager.createAccount( text.getText().toString() );
+                startActivity(new Intent(MyFireBaseRegistration.this, SOConfig.class));
             }
         });
 

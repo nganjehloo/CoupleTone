@@ -52,7 +52,7 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat" />
-a
+
         <activity
             android:name=".GCM.SOConfig"
             android:label="CoupleTones Settings"
@@ -60,7 +60,7 @@ a
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat" />
         <activity
-            android:name=".GCM.SOActivity"
+            android:name=".FireBase.MyFireBaseRegistration"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
