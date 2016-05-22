@@ -18,10 +18,24 @@ public class FireBaseManager{
 
     public void createAccount(String email){
         String emailid = email.substring(0, email.length() - 4);
-        sharedPreferences.edit().putString("MYEMAIL",emailid );
+        sharedPreferences.edit().putString("MYEMAIL",emailid ).apply();
         Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid);
         FBreg fBreg = new FBreg();
         myFirebaseRef.child("REG").setValue(fBreg);
+    }
+
+    public void addSO(String email){
+        String emailid = email.substring(0, email.length() - 4);
+        sharedPreferences.edit().putString("SOEMAIL",emailid );
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null));
+        Firebase soFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid);
+        FBreg fBreg = new FBreg();
+        fBreg.setID(emailid);
+        fBreg.setStatus(true);
+        myFirebaseRef.child("REG").setValue(fBreg);
+
+        fBreg.setID(sharedPreferences.getString("MYEMAIL", null));
+        soFirebaseRef.child("REG").setValue(fBreg);
     }
 
     public void add(LocationFB data)
