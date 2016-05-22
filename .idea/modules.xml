@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ProjectModuleManager">
+<<<<<<< HEAD
+    <modules />
+=======
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CoupleTones.iml" filepath="$PROJECT_DIR$/CoupleTones.iml" />
       <module fileurl="file://$PROJECT_DIR$/CoupleTonesMaster.iml" filepath="$PROJECT_DIR$/CoupleTonesMaster.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
+>>>>>>> 8fdc450144b20da6d70897a56a586eac1317bd46
   </component>
 </project>
