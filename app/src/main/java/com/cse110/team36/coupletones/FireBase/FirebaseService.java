@@ -33,6 +33,7 @@ public class FirebaseService extends Service {
         int startId;
         Firebase myFirebaseRefReg;
         Firebase myFirebaseRefLoc;
+        Firebase soFirebaseRefLoc;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         public MyThread(int startId) {
@@ -41,9 +42,9 @@ public class FirebaseService extends Service {
         @Override
         public void run() {
             myFirebaseRefReg = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/REG");
-            myFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/Locations");
+            soFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null) + "/Locations");
 
-            myFirebaseRefLoc.addValueEventListener(new ValueEventListener() {
+            soFirebaseRefLoc.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
                     //System.out.println("There are " + snapshot.getChildrenCount() + " locationFBs");
