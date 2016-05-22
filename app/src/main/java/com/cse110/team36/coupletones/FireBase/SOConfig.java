@@ -15,6 +15,7 @@ import com.cse110.team36.coupletones.GCM.QuickstartPreferences;
 import com.cse110.team36.coupletones.HomeScreen;
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
+import com.cse110.team36.coupletones.SOVisitedActivity;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -153,7 +154,7 @@ public class SOConfig extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(SOConfig.this, HomeScreen.class));
+                startActivity(new Intent(SOConfig.this, SOVisitedActivity.class));
             }
         });
     }
