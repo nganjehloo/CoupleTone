@@ -16,10 +16,12 @@ import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.GCM.SOConfig;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
+import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.maps.model.LatLng;
 
 import com.cse110.team36.coupletones.Managers.FileManager;
@@ -33,45 +35,31 @@ public class SOListActivity extends AppCompatActivity{
     //mocked data, please edit as needed
     OurFaveLoc faveLocation = new OurFaveLoc("land", new LatLng(32.88182224246528, 163.9531598612666));
     ArrayList<FaveLocation> soList = new ArrayList<FaveLocation>();
+    //SOFaveLocManager.addLocation()
 
     // reference to firebase
-    Firebase myFirebaseRef = new Firebase("https://hungale-110.firebaseio.com/student");
-    /*
-    Query queryRef = myFirebaseRef.orderByChild("studentId").equalTo(idToSearch);
-    myFirebaseRef.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot snapshot) {
-            if (snapshot == null || snapshot.getValue() == null)
-                Toast.makeText(SearchActivity.this, "No record found", Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(SearchActivity.this, snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
-        }
+    Firebase myFirebaseRef;
 
-        @Override
-        public void onCancelled(FirebaseError error) {
-        }
-    });
-    */
-    /*
-    // Attach an listener to read the data at our posts reference
-    ref.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot snapshot) {
-            System.out.println("There are " + snapshot.getChildrenCount() + " blog posts");
-            for (DataSnapshot postSnapshot: snapshot.getChildren()) {
-                BlogPost post = postSnapshot.getValue(BlogPost.class);
-                System.out.println(post.getAuthor() + " - " + post.getTitle());
+    protected void onStart(){
+        super.onStart();
+
+        myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/debugList");
+
+        //Query queryRef = myFirebaseRef.orderByChild("studentId").equalTo(idToSearch);
+        myFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot == null || snapshot.getValue() == null)
+                    Toast.makeText(SOListActivity.this, "No record found", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(SOListActivity.this, snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
             }
-        }
-        @Override
-        public void onCancelled(FirebaseError firebaseError) {
-            System.out.println("The read failed: " + firebaseError.getMessage());
-        }
-    });
-    */
-    /*
-     * Preparing the list data
-     */
+
+            @Override
+            public void onCancelled(FirebaseError error) {
+            }
+        });
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +68,10 @@ public class SOListActivity extends AppCompatActivity{
         initializeListViewAdapter();
         initializeButtons();
         soList.add(faveLocation);
+
+        //start a FirebaseService, that has all the listeners
+        Intent intent = new Intent(SOListActivity.this, FirebaseService.class);
+        startService(intent);
 
     }
 
