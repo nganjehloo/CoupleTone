@@ -7,10 +7,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.FireBase.SOConfig;
+import com.cse110.team36.coupletones.FireBase.SOConfig;
+import com.cse110.team36.coupletones.Managers.FaveLocationManager;
+import com.cse110.team36.coupletones.Managers.FileManager;
+import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.Query;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
@@ -18,15 +28,35 @@ import java.util.ArrayList;
 public class SOListActivity extends AppCompatActivity{
     FBListAdapter fbListAdapter;
 
-
     LocationFB locFB = new LocationFB();
     //mocked data, please edit as needed
     OurFaveLoc faveLocation = new OurFaveLoc("land", new LatLng(32.88182224246528, 163.9531598612666));
     ArrayList<FaveLocation> soList = new ArrayList<FaveLocation>();
+    //SOFaveLocManager.addLocation()
 
-    /*
-     * Preparing the list data
-     */
+    // reference to firebase
+    Firebase myFirebaseRef;
+
+    protected void onStart(){
+        super.onStart();
+
+        myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/debugList");
+
+        //Query queryRef = myFirebaseRef.orderByChild("studentId").equalTo(idToSearch);
+        myFirebaseRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot == null || snapshot.getValue() == null)
+                    Toast.makeText(SOListActivity.this, "No record found", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(SOListActivity.this, snapshot.getValue().toString(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(FirebaseError error) {
+            }
+        });
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +65,10 @@ public class SOListActivity extends AppCompatActivity{
         initializeListViewAdapter();
         initializeButtons();
         soList.add(faveLocation);
+
+        //start a FirebaseService, that has all the listeners
+        Intent intent = new Intent(SOListActivity.this, FirebaseService.class);
+        startService(intent);
 
     }
 

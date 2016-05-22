@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 
+import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.google.android.gms.maps.model.LatLng;
 
 /**
@@ -25,6 +26,12 @@ public class SOFaveLoc extends FaveLocation {
         this.vibeToneDepartName = Constants.VibeToneName.DEFAULT_DEPART;
     }
 
+    // constructor for converting a LocationFB to a SOFaveLoc
+    public SOFaveLoc(LocationFB locationFB) {
+        super(locationFB.getName(), new LatLng(locationFB.getLat(), locationFB.getLong()));
+        this.vibeToneArrivalName = Constants.VibeToneName.DEFAULT_ARRIVAL;
+        this.vibeToneDepartName = Constants.VibeToneName.DEFAULT_DEPART;
+    }
 
     public void changeArrivalVibeTone(Constants.VibeToneName vibeToneArrivalName) {
         this.vibeToneArrivalName = vibeToneArrivalName;
