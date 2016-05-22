@@ -24,9 +24,8 @@ public class SOFaveLocManager {
 
     // for testing purposes only. Not for release
 
-    public static boolean addLocation(String name, LatLng loc, Ringtone sparkleTone, Constants.VibeToneName vibeTone) {
-        FaveLocation newLoc = new SOFaveLoc(name, loc, sparkleTone, vibeTone);
-        locList.add(newLoc);
+    public static boolean addLocation(SOFaveLoc soFaveLoc) {
+        locList.add(soFaveLoc);
         return true;
     }
 

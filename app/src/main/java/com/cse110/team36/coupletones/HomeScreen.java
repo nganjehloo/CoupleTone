@@ -18,7 +18,7 @@ import android.widget.ListView;
 
 import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
-import com.cse110.team36.coupletones.GCM.SOConfig;
+import com.cse110.team36.coupletones.FireBase.SOConfig;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
 import com.firebase.client.Firebase;
