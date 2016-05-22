@@ -44,8 +44,4 @@ public class FireBaseManager{
         add(newData);
     }
 
-    public void regKey(FBreg regInfo)
-    {
-
-    }
 }

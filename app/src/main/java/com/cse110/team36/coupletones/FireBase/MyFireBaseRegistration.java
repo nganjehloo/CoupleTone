@@ -18,7 +18,6 @@ import com.cse110.team36.coupletones.R;
  */
 public class MyFireBaseRegistration extends AppCompatActivity {
 
-    String MY_ID;
     SharedPreferences sharedPreferences;
     FireBaseManager FBman;
     Button regBtn;
