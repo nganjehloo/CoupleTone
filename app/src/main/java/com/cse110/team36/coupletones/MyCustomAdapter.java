@@ -32,7 +32,7 @@ public class MyCustomAdapter extends BaseAdapter {
 
     public MyCustomAdapter() {}
 
-    public MyCustomAdapter(ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
+    public MyCustomAdapter(Activity activity, ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
         this.list = list;
         this.context = context;
         this.fragmentManager = fragmentManager;
@@ -98,13 +98,11 @@ public class MyCustomAdapter extends BaseAdapter {
 
                 //TODO: ADD UNIQUE ID
                 //Remove from Firebase
-                //Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/MyLoc");
-                Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/debugList");
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+                FireBaseManager FBman = new FireBaseManager(sharedPreferences);
 
                 LocationFB locFB = new LocationFB();
                 locFB.setName(name);
-                FireBaseManager FBman = new FireBaseManager(sharedPreferences);
                 FBman.remove(locFB);
             }
         });
