@@ -60,6 +60,7 @@ public class FirebaseService extends Service {
                         //somehow stick this into manager
                     }
                 }
+
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {
                 }
