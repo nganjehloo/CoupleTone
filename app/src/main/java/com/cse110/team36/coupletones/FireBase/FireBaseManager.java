@@ -17,7 +17,7 @@ public class FireBaseManager{
     }
 
     public void createAccount(String email){
-        String emailid = email.substring(0, email.length() - 4);
+        String emailid = email.replace(".com","");
         sharedPreferences.edit().putString("MYEMAIL",emailid ).apply();
         Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid);
         Firebase myFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + emailid + "/Locations");
@@ -26,7 +26,7 @@ public class FireBaseManager{
     }
 
     public void addSO(String email){
-        String emailid = email.substring(0, email.length() - 4);
+        String emailid = email.replace(".com","");
         sharedPreferences.edit().putString("SOEMAIL", emailid).apply();
         Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null));
         Firebase soFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid);

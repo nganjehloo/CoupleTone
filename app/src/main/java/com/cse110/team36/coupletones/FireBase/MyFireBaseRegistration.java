@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cse110.team36.coupletones.R;
 
@@ -34,8 +35,19 @@ public class MyFireBaseRegistration extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FireBaseManager fireBaseManager = new FireBaseManager(sharedPreferences);
-                fireBaseManager.createAccount( text.getText().toString() );
-                startActivity(new Intent(MyFireBaseRegistration.this, SOConfig.class));
+                if(text.getText().toString().equals(""))
+                {
+                    Toast.makeText(getBaseContext(), "Field can't be blank", Toast.LENGTH_SHORT).show();
+                }
+                else if(!text.getText().toString().contains("@") || !text.getText().toString().contains("."))
+                {
+                    Toast.makeText(getBaseContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    fireBaseManager.createAccount( text.getText().toString() );
+                    startActivity(new Intent(MyFireBaseRegistration.this, SOConfig.class));
+                }
             }
         });
 

@@ -35,84 +35,66 @@ public class SOConfig extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.so_config);
 
-        refreshCoupleCode();
         initalizeButtons();
         refreshIDView();
     }
 
 
     public void refreshIDView(){
-        refreshCoupleCode();
-
-        boolean sentToken = sharedPreferences.getBoolean(QuickstartPreferences.SENT_TOKEN_TO_SERVER, false);
         mInformationTextView = (TextView) findViewById(R.id.informationTextView);
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
-        mBaeCode.setText(sharedPreferences.getString("SOEMAIL", "null"));
-        mInformationTextView.setText(sharedPreferences.getString("MYEMAIL", "ERROR"));
+        mBaeCode.setText(sharedPreferences.getString("SOEMAIL", "bae") + ".com");
+        mInformationTextView.setText(sharedPreferences.getString("MYEMAIL", "ERROR") + ".com");
     }
 
     public void addSO(){
 
+        Button soButton = (Button) findViewById(R.id.button);
+        Button soRemoveButton = (Button) findViewById(R.id.button2);
+        soRemoveButton.setEnabled(false);
+
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
         String SOKey = mBaeCode.getText().toString();
 
         FireBaseManager fb = new FireBaseManager(sharedPreferences);
-        fb.addSO(SOKey);
-
-
-        /*
-        TextView mBaeCode = (TextView) findViewById(R.id.editText);
-        Button addremovebtn = (Button) findViewById(R.id.button);
-
-        String SOKey = mBaeCode.getText().toString();
-
-        sharedPreferences.edit().putString("SOREGID", (mBaeCode.getText()).toString()).apply();
-        sharedPreferences.edit().putBoolean("HAS_SO", true).apply();
-        */
-
-        Toast.makeText(getBaseContext(), "ADDED SO", Toast.LENGTH_SHORT).show();
-        //sendNotification
-        /*
-        String[] param = {SOKey, "a" + sharedPreferences.getString("MYREGID", null)};
-        sendNotificationJob job = new sendNotificationJob();
-        job.execute(param);
-        */
+        if(SOKey.equals(""))
+        {
+            Toast.makeText(getBaseContext(), "Field can't be blank", Toast.LENGTH_SHORT).show();
+        }
+        else if(!SOKey.contains("@") || !SOKey.contains("."))
+        {
+            Toast.makeText(getBaseContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            soButton.setEnabled(false);
+            mBaeCode.setEnabled(false);
+            soRemoveButton.setEnabled(true);
+            fb.addSO(SOKey);
+            Toast.makeText(getBaseContext(), "ADDED SO", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
     public void removeSO(){
+        Button soButton = (Button) findViewById(R.id.button);
+        Button soRemoveButton = (Button) findViewById(R.id.button2);
+        TextView mBaeCode = (TextView) findViewById(R.id.editText);
         FireBaseManager fb = new FireBaseManager(sharedPreferences);
         fb.removeSO();
-
-        /*
-        TextView mBaeCode = (TextView) findViewById(R.id.editText);
-        Button addremovebtn = (Button) findViewById(R.id.button);
-        String SOKey = mBaeCode.getText().toString();
-
-        sharedPreferences.edit().putBoolean("HAS_SO", false).apply();
-        sharedPreferences.edit().remove("SOREGID").apply();
-        */
-
+        soButton.setEnabled(true);
+        mBaeCode.setEnabled(true);
+        soRemoveButton.setEnabled(false);
         Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
-        //sendNotification
-
-        /*
-        String[] param = {SOKey, "e" + sharedPreferences.getString("MYREGID", null)};
-        sendNotificationJob job = new sendNotificationJob();
-        job.execute(param);
-        */
 
     }
 
-    public void refreshCoupleCode(){
-        TextView mBaeCode = (TextView) findViewById(R.id.editText);
-        mBaeCode.setText(sharedPreferences.getString("SOREGID", "NO SO ID"));
-    }
 
     public void initalizeButtons() {
         setContentView(R.layout.so_config);
         final ImageButton mylocations = (ImageButton) findViewById(R.id.myLocButton);
         final ImageButton map = (ImageButton) findViewById(R.id.mapButton);
+        final TextView mBaeCode = (TextView) findViewById(R.id.editText);
 
         mylocations.setBackgroundColor(0xFFFFFF);
         (findViewById(R.id.settingsButton)).setBackgroundResource(R.color.colorButtonDepressed);
@@ -122,19 +104,15 @@ public class SOConfig extends AppCompatActivity {
         soButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if (!(sharedPreferences.getBoolean("HAS_SO", false))) {
-                    addSO();
-                //}
+                addSO();
             }
         });
 
-        Button soButton1 = (Button) findViewById(R.id.button2);
-        soButton1.setOnClickListener(new View.OnClickListener() {
+        Button soRemoveButton = (Button) findViewById(R.id.button2);
+        soRemoveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //if ((sharedPreferences.getBoolean("HAS_SO", false))) {
-                    removeSO();
-                //}
+                removeSO();
             }
         });
 
