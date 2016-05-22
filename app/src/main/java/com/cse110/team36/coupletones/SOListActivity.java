@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.cse110.team36.coupletones.FireBase.FirebaseService;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.FireBase.SOConfig;
+import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -77,7 +78,7 @@ public class SOListActivity extends AppCompatActivity{
     }
 
     void initializeListViewAdapter() {
-        fbListAdapter = new FBListAdapter(soList, this, getFragmentManager());
+        fbListAdapter = new FBListAdapter(SOFaveLocManager.locList, this, getFragmentManager());
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(fbListAdapter);
