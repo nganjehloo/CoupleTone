@@ -209,7 +209,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         locFB.setName(name);
         locFB.setLat(lat);
         locFB.setLong(Long);
-        locFB.setHere(false);
+        locFB.setHere("N/A");
 
         FireBaseManager FBman = new FireBaseManager(sharedPreferences);
         FBman.add(locFB);

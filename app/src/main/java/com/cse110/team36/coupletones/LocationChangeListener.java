@@ -13,6 +13,7 @@ import android.util.Log;
 import com.cse110.team36.coupletones.GCM.sendNotificationJob;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.MapManager;
+import com.firebase.client.Firebase;
 import com.google.maps.android.SphericalUtil;
 
 /**
@@ -78,7 +79,7 @@ public class LocationChangeListener implements LocationListener, Constants {
             }
         } else if (!currOutside && prevOutside) {
             Log.d("MAP","ARRIVAL NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
-            notifySOLoc(currLoc);
+            notifySOArrivalLoc(currLoc);
             // TODO: VIBETONE_ARRIVAL
             vibe.vibeTone(VibeToneName.PRESENTING);
         } else {
@@ -88,6 +89,7 @@ public class LocationChangeListener implements LocationListener, Constants {
                 Log.d("MAP","ARRIVAL + DEPART NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
                 //Departing lastLoc
                 // TODO: VIBETONE_DEPART
+                notifySODepartLoc(lastLoc);
                 vibe.vibeTone(Constants.VibeToneName._5THSYMPHONY);
             }
         }
@@ -95,15 +97,42 @@ public class LocationChangeListener implements LocationListener, Constants {
         lastLoc = currLoc;
     }
 
-    private void notifySOLoc(int currLoc) {
-        String str = FaveLocationManager.locList.get(currLoc).getName();
-        SharedPreferences keyPreferences = PreferenceManager.getDefaultSharedPreferences(mapsActivity.getApplicationContext());
+    private void notifySOArrivalLoc(int currLoc) {
+        String locName = FaveLocationManager.locList.get(currLoc).getName();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mapsActivity.getApplicationContext());
+        String MYName = sharedPreferences.getString("MYEMAIL", "NOSO");
+        Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations" + locName);
+
+        /*this is the gcm stuff
         String SOKey = keyPreferences.getString("SOREGID", null);
         String message = "l" + str;
         String[] params = {SOKey, message};
         sendNotificationJob job = new sendNotificationJob();
-
         job.execute(params);
+        */
+
+        MYFBLocStatus.child("here").setValue("true");
+
+        VibeToneFactory vibrate = new VibeToneFactory(mapsActivity);
+        vibrate.vibrate();
+    }
+
+    private void notifySODepartLoc(int lastLoc)
+    {
+        String locName = FaveLocationManager.locList.get(lastLoc).getName();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mapsActivity.getApplicationContext());
+        String MYName = sharedPreferences.getString("MYEMAIL", "NOSO");
+        Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations" + locName);
+
+        /*this is the gcm stuff
+        String SOKey = keyPreferences.getString("SOREGID", null);
+        String message = "l" + str;
+        String[] params = {SOKey, message};
+        sendNotificationJob job = new sendNotificationJob();
+        job.execute(params);
+        */
+
+        MYFBLocStatus.child("here").setValue("false");
 
         VibeToneFactory vibrate = new VibeToneFactory(mapsActivity);
         vibrate.vibrate();

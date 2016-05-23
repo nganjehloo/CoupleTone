@@ -20,7 +20,6 @@ public class FireBaseManager{
         String emailid = email.replace(".com","");
         sharedPreferences.edit().putString("MYEMAIL",emailid ).apply();
         Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid);
-        Firebase myFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + emailid + "/Locations");
         FBreg fBreg = new FBreg();
         myFirebaseRef.child("REG").setValue(fBreg);
     }

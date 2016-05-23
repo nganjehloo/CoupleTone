@@ -7,7 +7,7 @@ public class LocationFB {
     private String name;
     private Double Lat;
     private Double Long;
-    private Boolean inLocation;
+    private String inLocation;
 
     public String getName() {return name;}
 
@@ -15,7 +15,7 @@ public class LocationFB {
 
     public Double getLong() {return Long;}
 
-    public Boolean getHere() {return inLocation;}
+    public String getHere() {return inLocation;}
 
     public void setName(String name) {this.name = name;}
 
@@ -23,6 +23,6 @@ public class LocationFB {
 
     public void setLong(Double Long) {this.Long = Long;}
 
-    public void setHere (Boolean isHere) {this.inLocation = isHere;}
+    public void setHere (String isHere) {this.inLocation = isHere;}
 
 }
