@@ -32,7 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:id="@+id/settingsButton"
-            android:src="@drawable/ic_action_name"
+            android:src="@drawable/ic_link"
             android:background="#ffffff"
             android:layout_weight="1"
             android:contentDescription="add and delete significant other" />

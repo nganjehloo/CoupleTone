@@ -73,7 +73,7 @@ public class SOVisitedActivity extends AppCompatActivity implements LocationDial
     void initializeListViewAdapter() {
         myCustomAdapter = new SOVisitedAdapter(FaveLocationManager.locList, this, getFragmentManager());
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = (ListView) findViewById(R.id.listView_visited);
         listView.setAdapter(myCustomAdapter);
     }
 
@@ -86,9 +86,9 @@ public class SOVisitedActivity extends AppCompatActivity implements LocationDial
         overridePendingTransition(0, 0);
     }
 
-//    public void toSOMap(View view) {
-//        startActivity(new Intent(SOVisitedActivity.this, SOMapActivity.class));
-//    }
+    public void toSOMap(View view) {
+        startActivity(new Intent(SOVisitedActivity.this, SOMapActivity.class));
+    }
 
     public void toSOList(View view) {
         startActivity(new Intent(SOVisitedActivity.this, SOListActivity.class));

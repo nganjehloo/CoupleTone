@@ -15,6 +15,7 @@ import com.cse110.team36.coupletones.GCM.QuickstartPreferences;
 import com.cse110.team36.coupletones.HomeScreen;
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
+import com.cse110.team36.coupletones.SOVisitedActivity;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -126,12 +127,12 @@ public class SOConfig extends AppCompatActivity {
         });
 
 
-        ImageButton myLocButton = (ImageButton) findViewById(R.id.myLocButton);
-        myLocButton.setOnClickListener(new View.OnClickListener() {
+        ImageButton SOLocButton = (ImageButton) findViewById(R.id.myLocButton);
+        SOLocButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(SOConfig.this, HomeScreen.class));
+                startActivity(new Intent(SOConfig.this, SOVisitedActivity.class));
             }
         });
     }

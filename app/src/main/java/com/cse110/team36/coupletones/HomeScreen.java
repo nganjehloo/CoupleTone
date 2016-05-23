@@ -108,7 +108,7 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
     void initializeListViewAdapter() {
         myCustomAdapter = new MyCustomAdapter(HomeScreen.this, FaveLocationManager.locList, this, getFragmentManager());
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = (ListView) findViewById(R.id.listView_myLocs);
         listView.setAdapter(myCustomAdapter);
     }
 
@@ -118,6 +118,12 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
         Log.i("onStop", "On Stop .....");
 
         (new FileManager(this)).exportSavedFavLocs();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         overridePendingTransition(0, 0);
     }
 
