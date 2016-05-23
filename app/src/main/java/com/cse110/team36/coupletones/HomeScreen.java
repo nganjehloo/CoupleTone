@@ -49,7 +49,7 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
         newlocFB.setName(name);
         newlocFB.setLat(lat);
         newlocFB.setLong(Long);
-        newlocFB.setHere(false);
+        newlocFB.setHere("N/A");
 
         FireBaseManager FBman = new FireBaseManager(sharedPreferences);
 
