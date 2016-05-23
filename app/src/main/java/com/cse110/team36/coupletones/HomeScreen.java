@@ -106,7 +106,7 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
     }
 
     void initializeListViewAdapter() {
-        myCustomAdapter = new MyCustomAdapter(HomeScreen.this, FaveLocationManager.locList, this, getFragmentManager());
+        myCustomAdapter = new MyCustomAdapter(this, FaveLocationManager.locList, this, getFragmentManager());
 
         ListView listView = (ListView) findViewById(R.id.listView_myLocs);
         listView.setAdapter(myCustomAdapter);
@@ -128,6 +128,7 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
     }
 
     public void runOurMap(View view) {
+        finish();
         startActivity(new Intent(HomeScreen.this, MapsActivity.class));
     }
 }

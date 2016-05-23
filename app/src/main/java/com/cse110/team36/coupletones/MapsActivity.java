@@ -270,6 +270,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     }
 
     public void runOurList(View view) {
+        finish();
         startActivity(new Intent(MapsActivity.this, HomeScreen.class));
     }
 }
