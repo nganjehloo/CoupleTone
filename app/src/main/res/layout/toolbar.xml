@@ -11,7 +11,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:id="@+id/mapButton"
-            android:src="@drawable/ic_map"
+            android:src="@drawable/ic_me"
             android:contentDescription="@string/map_button"
             android:background="#ffffff"
             android:clickable="true"
@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:id="@+id/myLocButton"
-            android:src="@drawable/ic_listview"
+            android:src="@drawable/ic_so"
             android:background="#ffffff"
             android:layout_weight="1"
             android:contentDescription="location list" />

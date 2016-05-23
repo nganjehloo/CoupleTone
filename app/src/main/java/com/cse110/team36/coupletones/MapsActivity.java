@@ -223,9 +223,13 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
      */
     void initializeButtons() {
 
-        (findViewById(R.id.mapButton)).setBackgroundResource(R.color.colorButtonDepressed);
-
         ImageButton SOlocButton = (ImageButton) findViewById(R.id.myLocButton);
+        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+
+        (findViewById(R.id.mapButton)).setBackgroundResource(R.color.colorButtonDepressed);
+//        SOlocButton.setBackgroundColor(0xFFFFFF);
+//        settingsButton.setBackgroundColor(0xFFFFFF);
+
         SOlocButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -235,7 +239,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         });
 
         //SO Page (Right button)
-        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

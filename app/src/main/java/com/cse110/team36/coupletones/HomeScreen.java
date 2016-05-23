@@ -70,13 +70,13 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
 
     void initializeButtons() {
 
-        final ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
-        final ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
-        mapButton.setBackgroundColor(0xFFFFFF);
-        (findViewById(R.id.myLocButton)).setBackgroundResource(R.color.colorButtonDepressed);
-        settingsButton.setBackgroundColor(0xFFFFFF);
+        ImageButton SOlocButton = (ImageButton) findViewById(R.id.myLocButton);
+        ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+        ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
 
-        initializeListViewAdapter();
+        mapButton.setBackgroundResource(R.color.colorButtonDepressed);
+        SOlocButton.setBackgroundColor(0xFFFFFF);
+        settingsButton.setBackgroundColor(0xFFFFFF);
 
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,6 +85,16 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
                 startActivity(new Intent(HomeScreen.this, MapsActivity.class));
             }
         });
+
+        SOlocButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(HomeScreen.this, SOVisitedActivity.class));
+            }
+        });
+
+        //SO Page (Right button)
 
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override

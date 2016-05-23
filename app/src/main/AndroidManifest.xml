@@ -48,7 +48,7 @@
         </activity>
         <activity
             android:name=".HomeScreen"
-            android:label="Locations"
+            android:label="My Locations"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat" />
@@ -65,14 +65,16 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".SOVisitedActivity"
+            android:label="Visited Today"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".SOListActivity"
+            android:label="SO's Locations"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat" />
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
