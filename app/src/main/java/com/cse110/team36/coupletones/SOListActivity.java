@@ -78,7 +78,7 @@ public class SOListActivity extends AppCompatActivity{
     }
 
     void initializeListViewAdapter() {
-        fbListAdapter = new FBListAdapter(SOFaveLocManager.locList, this, getFragmentManager());
+        fbListAdapter = new FBListAdapter(SOFaveLocManager.locList, this, getFragmentManager(),this);
 
         ListView listView = (ListView) findViewById(R.id.listView_solist);
         listView.setAdapter(fbListAdapter);

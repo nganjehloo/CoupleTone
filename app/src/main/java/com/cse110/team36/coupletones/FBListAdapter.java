@@ -1,7 +1,9 @@
 package com.cse110.team36.coupletones;
 
+import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +25,13 @@ public class FBListAdapter extends BaseAdapter {
     private ArrayList<FaveLocation> list = new ArrayList<>();
     private Context context;
     private FragmentManager fragmentManager;
+    private Activity activity;
 
-    public FBListAdapter(ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
+    public FBListAdapter(ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager, Activity activity) {
         this.list = list;
         this.context = context;
         this.fragmentManager = fragmentManager;
+        this.activity = activity;
     }
 
     @Override
@@ -71,10 +75,8 @@ public class FBListAdapter extends BaseAdapter {
         soundBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "add stuff here", Toast.LENGTH_SHORT).show();
-                //LocationDialog locationDialog = new LocationDialog();
-                //locationDialog.setPosition(position);
-                //locationDialog.show(fragmentManager, "rename loc");
+                activity.finish();
+                activity.startActivity(new Intent(activity, NotifSettings.class));
             }
         });
     }
