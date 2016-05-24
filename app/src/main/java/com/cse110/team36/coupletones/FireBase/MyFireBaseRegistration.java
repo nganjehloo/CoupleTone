@@ -43,9 +43,13 @@ public class MyFireBaseRegistration extends AppCompatActivity {
                 {
                     Toast.makeText(getBaseContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                 }
+                else if(text.getText().toString().contains(" "))
+                {
+                    Toast.makeText(getBaseContext(), "No spaces allowed in email address", Toast.LENGTH_SHORT).show();
+                }
                 else
                 {
-                    fireBaseManager.createAccount( text.getText().toString() );
+                    fireBaseManager.createAccount(text.getText().toString());
                     startActivity(new Intent(MyFireBaseRegistration.this, SOConfig.class));
                 }
             }

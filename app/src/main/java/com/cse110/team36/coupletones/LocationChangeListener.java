@@ -74,12 +74,12 @@ public class LocationChangeListener implements LocationListener, Constants {
             } else {
                 Log.d("MAP","DEPART NOTIF! Just left Loc: " + FaveLocationManager.locList.get(currLoc).getName());
                 // TODO: VIBETONE_DEPART
+                notifySODepartLoc(currLoc);
                 vibe.vibeTone(Constants.VibeToneName._5THSYMPHONY);
 
             }
         } else if (!currOutside && prevOutside) {
             Log.d("MAP","ARRIVAL NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
-            notifySOArrivalLoc(currLoc);
             // TODO: VIBETONE_ARRIVAL
             vibe.vibeTone(VibeToneName.PRESENTING);
         } else {
@@ -87,9 +87,9 @@ public class LocationChangeListener implements LocationListener, Constants {
                 Log.d("MAP","Still inside CurrLoc: " + FaveLocationManager.locList.get(currLoc).getName());
             } else {
                 Log.d("MAP","ARRIVAL + DEPART NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
+                notifySOArrivalLoc(currLoc);
                 //Departing lastLoc
                 // TODO: VIBETONE_DEPART
-                notifySODepartLoc(lastLoc);
                 vibe.vibeTone(Constants.VibeToneName._5THSYMPHONY);
             }
         }
@@ -101,15 +101,8 @@ public class LocationChangeListener implements LocationListener, Constants {
         String locName = FaveLocationManager.locList.get(currLoc).getName();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mapsActivity.getApplicationContext());
         String MYName = sharedPreferences.getString("MYEMAIL", "NOSO");
-        Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations" + locName);
+        Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations/" + locName);
 
-        /*this is the gcm stuff
-        String SOKey = keyPreferences.getString("SOREGID", null);
-        String message = "l" + str;
-        String[] params = {SOKey, message};
-        sendNotificationJob job = new sendNotificationJob();
-        job.execute(params);
-        */
 
         MYFBLocStatus.child("here").setValue("true");
 
@@ -117,20 +110,13 @@ public class LocationChangeListener implements LocationListener, Constants {
         vibrate.vibrate();
     }
 
-    private void notifySODepartLoc(int lastLoc)
+    private void notifySODepartLoc(int currLoc)
     {
-        String locName = FaveLocationManager.locList.get(lastLoc).getName();
+        String locName = FaveLocationManager.locList.get(currLoc).getName();
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mapsActivity.getApplicationContext());
         String MYName = sharedPreferences.getString("MYEMAIL", "NOSO");
-        Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations" + locName);
+        Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations/" + locName);
 
-        /*this is the gcm stuff
-        String SOKey = keyPreferences.getString("SOREGID", null);
-        String message = "l" + str;
-        String[] params = {SOKey, message};
-        sendNotificationJob job = new sendNotificationJob();
-        job.execute(params);
-        */
 
         MYFBLocStatus.child("here").setValue("false");
 

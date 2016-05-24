@@ -7,6 +7,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -20,6 +21,7 @@ import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.cse110.team36.coupletones.MapsActivity;
 import com.cse110.team36.coupletones.R;
 import com.cse110.team36.coupletones.SOFaveLoc;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -47,7 +49,7 @@ public class FirebaseService extends Service {
             this.startId = startId;
         }
         @Override
-        public void run() throws NullPointerException {
+        public void run() {
             myFirebaseRefReg = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/REG");
             soFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null) + "/Locations");
 
@@ -55,46 +57,41 @@ public class FirebaseService extends Service {
             soFirebaseRefLoc.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot snapshot) {
-
-                    LocationFB isHereData = snapshot.getValue(LocationFB.class);
                     String SOName = sharedPreferences.getString("SOEMAIL", "NOSO");
+                    // loop through the snapshot's children
+                    SOFaveLocManager.emptyLocs();
+                    for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                        //grab the children
+                        LocationFB locFB = postSnapshot.getValue(LocationFB.class);
 
-                    try {
-                        if(isHereData.getHere().equals("true"))
+                        if(locFB.getHere().equals("true"))
                         {
-                            sendNotification(SOName + " has arrived at " + isHereData.getName());
+                            sendNotification(SOName + " has arrived at " + locFB.getName());
+                            locFB.setHere("N/A");
                         }
-                        else if(isHereData.getHere().equals("false"))
+                        else if(locFB.getHere().equals("false"))
                         {
-                            sendNotification(SOName + " has left " + isHereData.getName());
+                            sendNotification(SOName + " has left " + locFB.getName());
+                            locFB.setHere("N/A");
                         }
                         else
                         {
-                            // loop through the snapshot's children
-                            SOFaveLocManager.emptyLocs();
-                            for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                                //grab the children
-                                LocationFB locFB = postSnapshot.getValue(LocationFB.class);
-
-                                //somehow put this into SOFaveLocManager, use specialconstructor
-                                SOFaveLoc soFaveLoc = new SOFaveLoc(locFB);
-                                SOFaveLocManager.addLocation(soFaveLoc);
-
-                                //somehow stick this into manager
-                            }
+                            //Do nothing
                         }
-                    }
-                    catch(NullPointerException n)
-                    {
-                        //Do nothing
-                    }
 
+                        //somehow put this into SOFaveLocManager, use specialconstructor
+                        SOFaveLoc soFaveLoc = new SOFaveLoc(locFB);
+                        SOFaveLocManager.addLocation(soFaveLoc);
+
+                        //somehow stick this into manager
+                    }
                 }
 
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {
                 }
             });
+
 
 
             // I don't know if I need this
