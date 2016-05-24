@@ -67,12 +67,10 @@ public class FirebaseService extends Service {
                         if(locFB.getHere().equals("true"))
                         {
                             sendNotification(SOName + " has arrived at " + locFB.getName());
-                            locFB.setHere("N/A");
                         }
                         else if(locFB.getHere().equals("false"))
                         {
                             sendNotification(SOName + " has left " + locFB.getName());
-                            locFB.setHere("N/A");
                         }
                         else
                         {
