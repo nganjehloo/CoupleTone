@@ -40,7 +40,6 @@ public class FirebaseService extends Service {
     final class MyThread implements Runnable {
         int startId;
         Firebase myFirebaseRefReg;
-        Firebase myFirebaseRefLoc;
         Firebase soFirebaseRefLoc;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
@@ -48,7 +47,7 @@ public class FirebaseService extends Service {
             this.startId = startId;
         }
         @Override
-        public void run() {
+        public void run() throws NullPointerException {
             myFirebaseRefReg = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/REG");
             soFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null) + "/Locations");
 
@@ -60,29 +59,36 @@ public class FirebaseService extends Service {
                     LocationFB isHereData = snapshot.getValue(LocationFB.class);
                     String SOName = sharedPreferences.getString("SOEMAIL", "NOSO");
 
-                    if(isHereData.getHere().equals("true"))
-                    {
-                        sendNotification(SOName + " has arrived at " + isHereData.getName());
-                    }
-                    else if(isHereData.getHere().equals("false"))
-                    {
-                        sendNotification(SOName + " has left " + isHereData.getName());
-                    }
-                    else
-                    {
-                        // loop through the snapshot's children
-                        SOFaveLocManager.emptyLocs();
-                        for (DataSnapshot postSnapshot : snapshot.getChildren()) {
-                            //grab the children
-                            LocationFB locFB = postSnapshot.getValue(LocationFB.class);
+                    try {
+                        if(isHereData.getHere().equals("true"))
+                        {
+                            sendNotification(SOName + " has arrived at " + isHereData.getName());
+                        }
+                        else if(isHereData.getHere().equals("false"))
+                        {
+                            sendNotification(SOName + " has left " + isHereData.getName());
+                        }
+                        else
+                        {
+                            // loop through the snapshot's children
+                            SOFaveLocManager.emptyLocs();
+                            for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                                //grab the children
+                                LocationFB locFB = postSnapshot.getValue(LocationFB.class);
 
-                            //somehow put this into SOFaveLocManager, use specialconstructor
-                            SOFaveLoc soFaveLoc = new SOFaveLoc(locFB);
-                            SOFaveLocManager.addLocation(soFaveLoc);
+                                //somehow put this into SOFaveLocManager, use specialconstructor
+                                SOFaveLoc soFaveLoc = new SOFaveLoc(locFB);
+                                SOFaveLocManager.addLocation(soFaveLoc);
 
-                            //somehow stick this into manager
+                                //somehow stick this into manager
+                            }
                         }
                     }
+                    catch(NullPointerException n)
+                    {
+                        //Do nothing
+                    }
+
                 }
 
                 @Override
