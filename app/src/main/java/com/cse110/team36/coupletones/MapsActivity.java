@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.cse110.team36.coupletones.FireBase.FireBaseManager;
+import com.cse110.team36.coupletones.FireBase.FirebaseService;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.FireBase.MyFireBaseRegistration;
 import com.cse110.team36.coupletones.FireBase.SOConfig;
@@ -57,7 +58,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Intent intent = new Intent(MapsActivity.this, FirebaseService.class);
+        startService(intent);
 
 
         v = new VibeToneFactory(this);
