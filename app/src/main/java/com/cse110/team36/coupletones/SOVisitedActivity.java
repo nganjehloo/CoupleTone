@@ -88,7 +88,7 @@ public class SOVisitedActivity extends AppCompatActivity implements LocationDial
 
     public void toSOMap(View view) {
         finish();
-        startActivity(new Intent(SOVisitedActivity.this, SOMapActivity.class));
+        startActivity(new Intent(SOVisitedActivity.this, SOMapsActivity.class));
     }
 
     public void toSOList(View view) {
