@@ -58,8 +58,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(MapsActivity.this, FirebaseService.class);
-        startService(intent);
 
 
         v = new VibeToneFactory(this);
@@ -77,7 +75,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             sharedPreferences.edit().putBoolean("RAN_ONCE",true).apply();
             startActivity(new Intent(MapsActivity.this, MyFireBaseRegistration.class));
         } else {
-
+            Intent intent = new Intent(MapsActivity.this, FirebaseService.class);
+            startService(intent);
             setContentView(R.layout.activity_maps);
 
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
