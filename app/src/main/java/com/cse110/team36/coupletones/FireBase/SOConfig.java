@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -55,14 +56,10 @@ public class SOConfig extends AppCompatActivity {
         soRemoveButton.setEnabled(false);
 
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
-        String SOKey = mBaeCode.getText().toString();
+        String SOKey = mBaeCode.getText().toString().trim();
 
         FireBaseManager fb = new FireBaseManager(sharedPreferences);
-        if(SOKey.equals(""))
-        {
-            Toast.makeText(getBaseContext(), "Field can't be blank", Toast.LENGTH_SHORT).show();
-        }
-        else if(!SOKey.contains("@") || !SOKey.contains("."))
+        if(isValidEmail(SOKey) == false)
         {
             Toast.makeText(getBaseContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show();
         }
@@ -135,6 +132,14 @@ public class SOConfig extends AppCompatActivity {
                 startActivity(new Intent(SOConfig.this, SOVisitedActivity.class));
             }
         });
+    }
+
+    private final static boolean isValidEmail(CharSequence target) {
+        if (TextUtils.isEmpty(target)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
     }
 }
 

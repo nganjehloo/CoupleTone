@@ -95,7 +95,7 @@ public class SOListActivity extends AppCompatActivity{
 
     public void toSOMap(View view) {
         finish();
-        startActivity(new Intent(SOListActivity.this, SOMapActivity.class));
+        startActivity(new Intent(SOListActivity.this, SOMapsActivity.class));
     }
 
     public void toVisitedList(View view) {

@@ -47,6 +47,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".SOMapsActivity"
+            android:label="CoupleTones"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
             android:name=".HomeScreen"
             android:label="My Locations"
             android:launchMode="singleInstance"
