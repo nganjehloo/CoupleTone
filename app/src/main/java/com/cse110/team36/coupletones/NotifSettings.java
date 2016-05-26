@@ -1,5 +1,10 @@
 package com.cse110.team36.coupletones;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 
@@ -10,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -35,15 +41,6 @@ public class NotifSettings extends AppCompatActivity {
         setContentView(R.layout.activity_notif_settings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         vibeToneFactory = new VibeToneFactory(this);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -72,7 +69,28 @@ public class NotifSettings extends AppCompatActivity {
     }
 
     public void selectDepartSound(View view) {
-        vibeToneFactory.vibeTone(Constants.VibeToneName.VALLEY);
+//        vibeToneFactory.vibeTone(Constants.VibeToneName.VALLEY);
+//        Intent intent = new Intent(this, MapsActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+//                PendingIntent.FLAG_ONE_SHOT);
+//        //Uri sound= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//        Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.funkytown);
+//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+//                .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+//                .setContentTitle("CoupleTones")
+//                .setAutoCancel(true)
+//                .setContentIntent(pendingIntent)
+//                .setSound(sound)
+//                .setDefaults(Notification.DEFAULT_LIGHTS);
+//
+//        NotificationManager notificationManager =
+//                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.funkytown1);
+        mediaPlayer.start();
     }
 
     public void selectDepartVibe(View view) {
@@ -134,5 +152,10 @@ public class NotifSettings extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+
+    public void runBack(View view) {
+        finish();
+        startActivity(new Intent(NotifSettings.this, SOListActivity.class));
     }
 }

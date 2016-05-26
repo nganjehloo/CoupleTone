@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
@@ -146,13 +147,14 @@ public class FirebaseService extends Service {
 //        }
 
 //        VibeToneFactory v = new VibeToneFactory();
-
+        Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.funkytown);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                 .setContentTitle("CoupleTones")
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
+                .setSound(sound)
                 .setDefaults(Notification.DEFAULT_LIGHTS);
 
         NotificationManager notificationManager =
