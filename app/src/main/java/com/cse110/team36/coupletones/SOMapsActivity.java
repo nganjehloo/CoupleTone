@@ -1,8 +1,16 @@
 package com.cse110.team36.coupletones;
 
+import android.content.Context;
+import android.content.Intent;
+import android.location.LocationManager;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
+import com.cse110.team36.coupletones.FireBase.SOConfig;
+import com.cse110.team36.coupletones.Managers.MapManager;
+import com.cse110.team36.coupletones.Managers.MarkerManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -13,7 +21,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class SOMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
+    MarkerManager markerManager;
+    MapManager mapManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +31,7 @@ public class SOMapsActivity extends FragmentActivity implements OnMapReadyCallba
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        initializeButtons();
     }
 
 
@@ -37,10 +47,49 @@ public class SOMapsActivity extends FragmentActivity implements OnMapReadyCallba
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
+        markerManager = new MarkerManager(this, mMap);
+        initializeGMapUISettings();
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        mapManager = new MapManager(locationManager, this);
+        mapManager.populateMap(markerManager);
+    }
+
+    void initializeGMapUISettings() {
+        mMap.getUiSettings().setZoomControlsEnabled(false); //Disable zoom toolbar
+        mMap.getUiSettings().setMapToolbarEnabled(false);   //Disable (useless) map toolbar (literally is garbage)
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+    }
+
+    void initializeButtons() {
+
+        final ImageButton settingsButton = (ImageButton) findViewById(R.id.settingsButton);
+        final ImageButton mapButton = (ImageButton) findViewById(R.id.mapButton);
+//        mapButton.setBackgroundColor(0xFFFFFF);
+        (findViewById(R.id.myLocButton)).setBackgroundResource(R.color.colorButtonDepressed);
+//        settingsButton.setBackgroundColor(0xFFFFFF);
+
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent intent = new Intent(SOMapsActivity.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                startActivity(new Intent(SOMapsActivity.this, SOConfig.class));
+            }
+        });
+    }
+
+    public void toVisitedList(View view) {
+        finish();
+        startActivity(new Intent(SOMapsActivity.this, SOVisitedActivity.class));
     }
 }

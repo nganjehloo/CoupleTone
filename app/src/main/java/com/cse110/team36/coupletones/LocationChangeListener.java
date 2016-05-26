@@ -105,7 +105,7 @@ public class LocationChangeListener implements LocationListener, Constants {
         MYFBLocStatus.child("here").setValue("true");
         VibeToneFactory vibrate = new VibeToneFactory(mapsActivity);
         vibrate.vibrate();
-        MYFBLocStatus.child("here").setValue("N/A");
+        //MYFBLocStatus.child("here").setValue("N/A");
     }
 
     private void notifySODepartLoc(int currLoc)
@@ -117,6 +117,6 @@ public class LocationChangeListener implements LocationListener, Constants {
         MYFBLocStatus.child("here").setValue("false");
         VibeToneFactory vibrate = new VibeToneFactory(mapsActivity);
         vibrate.vibrate();
-        MYFBLocStatus.child("here").setValue("N/A");
+        //MYFBLocStatus.child("here").setValue("N/A");
     }
 }

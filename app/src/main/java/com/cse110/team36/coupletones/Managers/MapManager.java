@@ -106,4 +106,12 @@ public class MapManager implements Constants {
         for ( int i = 0 ; i < FaveLocationManager.locList.size() ; i++ )
             markerManager.dropFavLocMarker(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords());
     }
+
+    public void populateMap(MarkerManager markerManager) {
+        // The line below is for sound testing purposes only. Final implementation will attribute ringtones to SO's locations, and the below line
+        // links it to our own location. The commented out line above is release behavior.
+//            FaveLocationManager.locList.add(new OurFaveLoc(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2])), RingtoneManager.getRingtone(activity,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))));
+        for ( int i = 0 ; i < SOFaveLocManager.locList.size() ; i++ )
+            markerManager.dropFavLocMarker(SOFaveLocManager.locList.get(i).getName(), SOFaveLocManager.locList.get(i).getCoords());
+    }
 }

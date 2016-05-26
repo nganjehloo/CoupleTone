@@ -5,15 +5,15 @@ package com.cse110.team36.coupletones.FireBase;
  */
 public class LocationFB {
     private String name;
-    private Double Lat;
-    private Double Long;
+    private double Lat;
+    private double Long;
     private String inLocation;
 
     public String getName() {return name;}
 
-    public Double getLat() {return Lat;}
+    public double getLat() {return Lat;}
 
-    public Double getLong() {return Long;}
+    public double getLong() {return Long;}
 
     public String getHere() {return inLocation;}
 

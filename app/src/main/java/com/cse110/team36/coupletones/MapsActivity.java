@@ -30,6 +30,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.FileInputStream;
+
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
                                                                 OnMapReadyCallback,
@@ -62,7 +64,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         v = new VibeToneFactory(this);
         fileManager = new FileManager(this);
-
         if (firstOpen) {
             fileManager.importSavedFavLocs();
             firstOpen = false;
