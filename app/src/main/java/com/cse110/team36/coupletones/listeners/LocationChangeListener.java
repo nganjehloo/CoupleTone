@@ -77,8 +77,6 @@ public class LocationChangeListener implements LocationListener, Constants {
                 Log.d("MAP","DEPART NOTIF! Just left Loc: " + FaveLocationManager.locList.get(currLoc).getName());
                 // TODO: VIBETONE_DEPART
                 notifySODepartLoc(currLoc);
-                vibe.vibeTone(Constants.VibeToneName._5THSYMPHONY);
-
             }
         } else if (!currOutside && prevOutside) {
             Log.d("MAP","ARRIVAL NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
@@ -92,7 +90,6 @@ public class LocationChangeListener implements LocationListener, Constants {
                 Log.d("MAP","ARRIVAL + DEPART NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
                 //Departing lastLoc
                 // TODO: VIBETONE_DEPART
-                vibe.vibeTone(Constants.VibeToneName._5THSYMPHONY);
             }
         }
         prevOutside = currOutside;
