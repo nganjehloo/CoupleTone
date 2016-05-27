@@ -30,9 +30,18 @@ public class SOConfig extends AppCompatActivity {
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.so_config);
-
         initalizeButtons();
         refreshIDView();
+
+        //set button and edit text fields
+        if(!sharedPreferences.getBoolean("isAdded", false))
+        {
+            enableAddFields();
+        }
+        else
+        {
+            disableAddFields();
+        }
     }
 
 
@@ -45,10 +54,6 @@ public class SOConfig extends AppCompatActivity {
 
     public void addSO(){
 
-        Button soButton = (Button) findViewById(R.id.button);
-        Button soRemoveButton = (Button) findViewById(R.id.button2);
-        soRemoveButton.setEnabled(false);
-
         TextView mBaeCode = (TextView) findViewById(R.id.editText);
         String SOKey = mBaeCode.getText().toString().trim();
 
@@ -59,9 +64,8 @@ public class SOConfig extends AppCompatActivity {
         }
         else
         {
-            soButton.setEnabled(false);
-            mBaeCode.setEnabled(false);
-            soRemoveButton.setEnabled(true);
+            disableAddFields();
+            sharedPreferences.edit().putBoolean("isAdded", true).apply();
             fb.addSO(SOKey);
             Toast.makeText(getBaseContext(), "ADDED SO", Toast.LENGTH_SHORT).show();
         }
@@ -69,14 +73,10 @@ public class SOConfig extends AppCompatActivity {
     }
 
     public void removeSO(){
-        Button soButton = (Button) findViewById(R.id.button);
-        Button soRemoveButton = (Button) findViewById(R.id.button2);
-        TextView mBaeCode = (TextView) findViewById(R.id.editText);
         FireBaseManager fb = new FireBaseManager(sharedPreferences);
         fb.removeSO();
-        soButton.setEnabled(true);
-        mBaeCode.setEnabled(true);
-        soRemoveButton.setEnabled(false);
+        enableAddFields();
+        sharedPreferences.edit().putBoolean("isAdded", false).apply();
         Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
 
     }
@@ -134,6 +134,28 @@ public class SOConfig extends AppCompatActivity {
         } else {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
+    }
+
+    private void enableAddFields()
+    {
+        Button soButton = (Button) findViewById(R.id.button);
+        Button soRemoveButton = (Button) findViewById(R.id.button2);
+        TextView mBaeCode = (TextView) findViewById(R.id.editText);
+
+        soButton.setEnabled(true);
+        mBaeCode.setEnabled(true);
+        soRemoveButton.setEnabled(false);
+    }
+
+    private void disableAddFields()
+    {
+        Button soButton = (Button) findViewById(R.id.button);
+        Button soRemoveButton = (Button) findViewById(R.id.button2);
+        TextView mBaeCode = (TextView) findViewById(R.id.editText);
+
+        soButton.setEnabled(false);
+        mBaeCode.setEnabled(false);
+        soRemoveButton.setEnabled(true);
     }
 }
 
