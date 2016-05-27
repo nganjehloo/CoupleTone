@@ -77,23 +77,6 @@ public class NotifSettings extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
-            if (uri != null) {
-//                String ringTonePath = uri.toString();
-                RingtoneManager.setActualDefaultRingtoneUri(
-                        this,
-                        RingtoneManager.TYPE_RINGTONE,
-                        uri);
-            }
-            Ringtone ringtone = RingtoneManager.getRingtone(this, uri);
-//            FaveLocationManager.locList.get(0).setRingtone(ringtone);
-
-        }
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
 

@@ -20,6 +20,7 @@ import com.cse110.team36.coupletones.VibeToneFactory;
 public class SparkleListDialog extends DialogFragment implements Constants {
     Context context;
     Activity activity;
+    String[] sparkles;
 
     public void setContext(Context context) {
         this.context = context;
@@ -32,12 +33,15 @@ public class SparkleListDialog extends DialogFragment implements Constants {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        sparkles = new String[NUM_SPARKLE_TONES];
+        for (int i=0;i<NUM_SPARKLE_TONES;i++)
+            sparkles[i] = SparkleToneName.values()[i].toString();
 
         // Set the dialog title
         builder.setTitle("Pick your sparkleTone")
                 // Specify the list array, the items to be selected by default (null for none),
                 // and the listener through which to receive callbacks when items are selected
-                .setSingleChoiceItems(,-1, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(sparkles,-1, new DialogInterface.OnClickListener() {
                     SparkleToneFactory factory = new SparkleToneFactory(activity, context);
 
                     @Override

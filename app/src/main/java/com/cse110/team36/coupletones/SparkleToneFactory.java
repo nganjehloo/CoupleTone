@@ -10,7 +10,7 @@ import android.os.Vibrator;
  */
 
 public class SparkleToneFactory implements Constants{
-    long sparkleTones[][] = new long[NUM_SPARKLE_TONES][];
+    //int sparkleTones[] = new int[NUM_SPARKLE_TONES];
     int[] sounds = {R.raw.default_arrival, R.raw.default_arrival, R.raw.communication_channel,
                     R.raw.funkytown1, R.raw.okarin, R.raw.served, R.raw.solemn};
     Activity activity;
@@ -21,15 +21,13 @@ public class SparkleToneFactory implements Constants{
         this.context = context;
         this.activity = activity;
 
-        for (int i=0;i<NUM_SPARKLE_TONES;i++)
-            sparkleTones[i] = getSparkleTone(i);
-
     }
 
     public void sparkle() {}
 
     public void sparkle(SparkleToneName name) {
         p = MediaPlayer.create(context, sounds[name.ordinal()]);
+        p.start();
     }
 
     private long[] getSparkleTone(int i) {
