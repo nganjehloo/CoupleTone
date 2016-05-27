@@ -1,15 +1,13 @@
 package com.cse110.team36.coupletones;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 
-
 import android.content.Intent;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.net.Uri;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,7 +20,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class NotifSettings extends AppCompatActivity {
     VibeToneFactory vibeToneFactory;
-    Uri ringtone;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -34,8 +31,7 @@ public class NotifSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notif_settings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         vibeToneFactory = new VibeToneFactory(this);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -118,8 +114,16 @@ public class NotifSettings extends AppCompatActivity {
         client.disconnect();
     }
 
-    public void runBack(View view) {
-        finish();
-        startActivity(new Intent(NotifSettings.this, SOListActivity.class));
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                finish();
+                overridePendingTransition(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
+                startActivity(new Intent(NotifSettings.this, SOListActivity.class));
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

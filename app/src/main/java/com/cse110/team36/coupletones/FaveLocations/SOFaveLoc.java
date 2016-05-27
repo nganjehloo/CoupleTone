@@ -2,6 +2,7 @@ package com.cse110.team36.coupletones.FaveLocations;
 
 import android.app.Activity;
 import android.media.Ringtone;
+import android.util.Log;
 
 import com.cse110.team36.coupletones.Constants;
 import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
@@ -47,9 +48,11 @@ public class SOFaveLoc extends FaveLocation {
 
     public void changeArrivalSparkleTone(Constants.SparkleToneName sparkleToneArrivalName) {
         this.sparkleToneArrivalName = sparkleToneArrivalName;
+        Log.i("MAP",sparkleToneArrivalName.toString());
     }
 
     public void changeDepartSparkleTone(Constants.SparkleToneName sparkleToneDepartName) {
         this.sparkleToneDepartName = sparkleToneDepartName;
+        Log.i("MAP",sparkleToneDepartName.toString());
     }
 }

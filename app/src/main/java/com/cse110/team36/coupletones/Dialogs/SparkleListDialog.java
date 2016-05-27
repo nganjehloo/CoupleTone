@@ -64,11 +64,11 @@ public class SparkleListDialog extends DialogFragment implements Constants {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         if (getTag().equals("arrivalSparkleList")) {
+                            Log.d("MAP", "SPARKLE ARRIVAL: ");
                             SOFaveLocManager.locList.get(locListPos).changeArrivalSparkleTone(SparkleToneName.values()[savePos]);
-                            Log.d("MAP", "SPARKLE ARRIVAL");
                         } else if (getTag().equals("departSparkleList")) {
+                            Log.d("MAP", "SPARKLE DEPART: ");
                             SOFaveLocManager.locList.get(locListPos).changeDepartSparkleTone(SparkleToneName.values()[savePos]);
-                            Log.d("MAP", "SPARKLE DEPART");
                         }
                     }
                 })
