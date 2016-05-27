@@ -42,7 +42,6 @@ public class NotifSettings extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Bundle bundle = getIntent().getExtras();
         pos = bundle.getInt("key");
-
     }
 
     public void selectArrivalSound(View view) {
@@ -63,7 +62,11 @@ public class NotifSettings extends AppCompatActivity {
     }
 
     public void selectArrivalVibe(View view) {
+        ListDialog listDialog = new ListDialog();
+        listDialog.setContext(getBaseContext());
+        listDialog.show(getFragmentManager(), "vibeList");
         vibeToneFactory.vibeTone(Constants.VibeToneName.MOUNTAIN);
+
     }
 
     public void selectDepartSound(View view) {
@@ -93,6 +96,9 @@ public class NotifSettings extends AppCompatActivity {
     }
 
     public void selectDepartVibe(View view) {
+        ListDialog listDialog = new ListDialog();
+        listDialog.setContext(getBaseContext());
+        listDialog.show(getFragmentManager(), "vibeList");
         vibeToneFactory.vibeTone(Constants.VibeToneName.SLOW2FAST);
     }
 
