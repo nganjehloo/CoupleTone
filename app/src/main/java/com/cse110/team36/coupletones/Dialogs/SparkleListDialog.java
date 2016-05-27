@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
@@ -47,6 +48,7 @@ public class SparkleListDialog extends DialogFragment implements Constants {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SOEmail = sharedPreferences.getString("SOEMAIL", null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         sparkles = new String[NUM_SPARKLE_TONES];
@@ -74,7 +76,7 @@ public class SparkleListDialog extends DialogFragment implements Constants {
                             Log.d("MAP", "SPARKLE ARRIVAL: ");
                             SOFaveLocManager.locList.get(locListPos).changeArrivalSparkleTone(SparkleToneName.values()[savePos]);
                             SOLocationName = SOFaveLocManager.locList.get(locListPos).getName();
-                            SOFirebaseSettings = new Firebase("https://coupletones36.firebaseio.com/" + SOEmail + "/" + SOLocationName);
+                            SOFirebaseSettings = new Firebase("https://coupletones36.firebaseio.com/" + SOEmail + "/Locations/" + SOLocationName);
                             SOFirebaseSettings.child("arrivalSound").setValue(savePos);
 
                         } else if (getTag().equals("departSparkleList")) {
