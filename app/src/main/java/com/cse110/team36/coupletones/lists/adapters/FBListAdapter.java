@@ -78,6 +78,7 @@ public class FBListAdapter extends BaseAdapter {
                 Intent intent = new Intent(activity, NotifSettings.class);
                 intent.putExtra("key",position);
                 activity.startActivity(intent);
+                activity.overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
             }
         });
     }
