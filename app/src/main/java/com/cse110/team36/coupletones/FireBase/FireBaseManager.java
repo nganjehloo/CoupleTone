@@ -19,6 +19,7 @@ public class FireBaseManager{
     public void createAccount(String email){
         String emailid = email.replace(".com","");
         sharedPreferences.edit().putString("MYEMAIL",emailid ).apply();
+        sharedPreferences.edit().putBoolean("isAdded", false).apply();
         Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid);
         FBreg fBreg = new FBreg();
         myFirebaseRef.child("REG").setValue(fBreg);

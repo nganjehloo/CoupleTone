@@ -201,12 +201,10 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         markerManager.dropFavLocMarker(name, loc);
 
         //Add to Firebase
-
         LocationFB locFB = new LocationFB();
         locFB.setName(name);
         locFB.setLat(lat);
         locFB.setLong(Long);
-        locFB.setHere("N/A");
 
         FireBaseManager FBman = new FireBaseManager(sharedPreferences);
         FBman.add(locFB);
