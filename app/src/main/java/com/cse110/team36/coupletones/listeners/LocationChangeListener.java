@@ -11,7 +11,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.cse110.team36.coupletones.Constants;
-import com.cse110.team36.coupletones.GCM.sendNotificationJob;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.MapManager;
 import com.cse110.team36.coupletones.VibeToneFactory;
