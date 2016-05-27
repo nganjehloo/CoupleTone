@@ -9,7 +9,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.cse110.team36.coupletones.SOMapsActivity" />
+        tools:context=".maps.SOMapsActivity" />
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"

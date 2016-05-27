@@ -1,14 +1,10 @@
 package com.cse110.team36.coupletones.Managers;
 
 import android.content.Context;
-import android.media.Ringtone;
 
-import com.cse110.team36.coupletones.Constants;
-import com.cse110.team36.coupletones.FaveLocation;
-import com.cse110.team36.coupletones.OurFaveLoc;
-import com.cse110.team36.coupletones.SOFaveLoc;
-import com.cse110.team36.coupletones.VibeToneFactory;
-import com.google.android.gms.maps.model.LatLng;
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
+import com.cse110.team36.coupletones.FaveLocations.SOFaveLoc;
+
 import java.util.ArrayList;
 
 /**

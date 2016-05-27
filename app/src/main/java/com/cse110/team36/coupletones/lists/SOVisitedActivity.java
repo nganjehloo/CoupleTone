@@ -4,7 +4,7 @@
  * It displays a list view of the places that the user's SO has visited for the day.
  */
 
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.lists;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,13 +15,19 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.cse110.team36.coupletones.FireBase.SOConfig;
+import com.cse110.team36.coupletones.Dialogs.LocationDialog;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
+import com.cse110.team36.coupletones.maps.MapsActivity;
+import com.cse110.team36.coupletones.R;
+import com.cse110.team36.coupletones.maps.SOMapsActivity;
+import com.cse110.team36.coupletones.adapters.FBListAdapter;
+import com.cse110.team36.coupletones.adapters.SOVisitedAdapter;
 import com.google.android.gms.maps.model.LatLng;
 
 /* NOTE: This is actually the location page (middle button) */
 
-public class SOVisitedActivity extends AppCompatActivity implements LocationDialog.LocationDialogListener{
+public class SOVisitedActivity extends AppCompatActivity implements LocationDialog.LocationDialogListener {
     SOVisitedAdapter myCustomAdapter;
     FBListAdapter fbListAdapter;
 

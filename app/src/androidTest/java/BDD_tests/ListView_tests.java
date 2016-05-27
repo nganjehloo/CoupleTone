@@ -4,10 +4,10 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.cse110.team36.coupletones.FaveLocation;
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
-import com.cse110.team36.coupletones.HomeScreen;
-import com.cse110.team36.coupletones.MyCustomAdapter;
+import com.cse110.team36.coupletones.lists.HomeScreen;
+import com.cse110.team36.coupletones.adapters.MyCustomAdapter;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;

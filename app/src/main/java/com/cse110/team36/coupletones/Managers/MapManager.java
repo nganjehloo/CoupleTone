@@ -5,13 +5,12 @@ import android.app.FragmentManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.RingtoneManager;
 import android.util.Log;
 
 import com.cse110.team36.coupletones.Constants;
-import com.cse110.team36.coupletones.FaveLocation;
-import com.cse110.team36.coupletones.LocationDialog;
-import com.cse110.team36.coupletones.OurFaveLoc;
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
+import com.cse110.team36.coupletones.Dialogs.LocationDialog;
+import com.cse110.team36.coupletones.FaveLocations.OurFaveLoc;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;

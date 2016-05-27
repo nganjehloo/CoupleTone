@@ -4,7 +4,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import com.cse110.team36.coupletones.Constants;
 
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
-import com.cse110.team36.coupletones.MapsActivity;
+import com.cse110.team36.coupletones.maps.MapsActivity;
 import com.cse110.team36.coupletones.R;
 import com.google.android.gms.maps.model.LatLng;
 

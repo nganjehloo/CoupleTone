@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.maps;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,12 +11,11 @@ import android.widget.ImageButton;
 import com.cse110.team36.coupletones.FireBase.SOConfig;
 import com.cse110.team36.coupletones.Managers.MapManager;
 import com.cse110.team36.coupletones.Managers.MarkerManager;
-import com.google.android.gms.maps.CameraUpdateFactory;
+import com.cse110.team36.coupletones.R;
+import com.cse110.team36.coupletones.lists.SOVisitedActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 public class SOMapsActivity extends FragmentActivity implements OnMapReadyCallback {
 

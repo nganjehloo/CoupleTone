@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.maps;
 
 import android.Manifest;
 import android.content.Context;
@@ -15,28 +15,33 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.cse110.team36.coupletones.Constants;
 import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.FirebaseService;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.FireBase.MyFireBaseRegistration;
 import com.cse110.team36.coupletones.FireBase.SOConfig;
+import com.cse110.team36.coupletones.Dialogs.LocationDialog;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
 import com.cse110.team36.coupletones.Managers.MapManager;
 import com.cse110.team36.coupletones.Managers.MarkerManager;
-import com.firebase.client.Firebase;
+import com.cse110.team36.coupletones.NotifSettings;
+import com.cse110.team36.coupletones.R;
+import com.cse110.team36.coupletones.VibeToneFactory;
+import com.cse110.team36.coupletones.listeners.LocationChangeListener;
+import com.cse110.team36.coupletones.lists.HomeScreen;
+import com.cse110.team36.coupletones.lists.SOVisitedActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
-import java.io.FileInputStream;
-
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
                                                                 OnMapReadyCallback,
-                                                                LocationDialog.LocationDialogListener,
-                                                                Constants {
+        LocationDialog.LocationDialogListener,
+        Constants {
     // File vars
     static boolean firstOpen = true;
 
@@ -173,16 +178,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             if (dropMarker) { mapManager.showLocationDialog(point, getFragmentManager()); }
             else { Toast.makeText(getBaseContext(), "CANNOT drop FavLoc here\nToo Close to another FavLoc", Toast.LENGTH_SHORT).show(); }
     }
-
-//    void populateMap() {
-//        String savedLocArr[] = fileManager.getSavedLocs().split("\n");
-//
-//        for ( int i = 0 ; i < savedLocArr.length - 1 ; i+=3 )
-//            FaveLocationManager.locList.add(new FaveLocation(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2]))));
-//
-//        for ( int i = 0 ; i < FaveLocationManager.locList.size() ; i++ )
-//            markerManager.dropFavLocMarker(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords());
-//    }
 
     /* ----------------------------------------------------
      * Allows us to communicate with the LocationDialog

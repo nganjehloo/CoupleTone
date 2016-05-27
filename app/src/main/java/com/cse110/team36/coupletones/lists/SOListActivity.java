@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.lists;
 
 
 import android.content.Intent;
@@ -7,17 +7,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 
-import com.cse110.team36.coupletones.FireBase.FirebaseService;
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.FireBase.SOConfig;
 import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
-import com.firebase.client.DataSnapshot;
+import com.cse110.team36.coupletones.maps.MapsActivity;
+import com.cse110.team36.coupletones.FaveLocations.OurFaveLoc;
+import com.cse110.team36.coupletones.R;
+import com.cse110.team36.coupletones.maps.SOMapsActivity;
+import com.cse110.team36.coupletones.adapters.FBListAdapter;
 import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;

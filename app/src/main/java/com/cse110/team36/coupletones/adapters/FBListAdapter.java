@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.adapters;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -8,13 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.cse110.team36.coupletones.Managers.FaveLocationManager;
-import com.firebase.client.Firebase;
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
+import com.cse110.team36.coupletones.NotifSettings;
+import com.cse110.team36.coupletones.R;
 
 import java.util.ArrayList;
 

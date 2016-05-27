@@ -1,9 +1,10 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.FaveLocations;
 
 import android.app.Activity;
 import android.media.Ringtone;
-import android.media.RingtoneManager;
 
+import com.cse110.team36.coupletones.Constants;
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.google.android.gms.maps.model.LatLng;
 
