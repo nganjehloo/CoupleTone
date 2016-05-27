@@ -45,7 +45,6 @@ public class FireBaseManager{
         FBreg fBreg = new FBreg();
         fBreg.setID("NOID");
         fBreg.setStatus(false);
-
         myFirebaseRef.child("REG").setValue(fBreg);
         soFirebaseRef.child("REG").setValue(fBreg);
 

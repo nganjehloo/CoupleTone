@@ -10,14 +10,18 @@ public class LocationFB {
     private double Lat;
     private double Long;
     private String inLocation;
-    private int sound;
-    private int vibration;
+    private int arrivalSound;
+    private int arrivalVibration;
+    private int departureSound;
+    private int departureVibration;
 
     public LocationFB()
     {
         inLocation = "N/A";
-        sound = 1;
-        vibration = 1;
+        arrivalSound = 1;
+        arrivalVibration = 1;
+        departureSound = 1;
+        departureVibration = 1;
     }
 
     public String getName() {return name;}
@@ -28,9 +32,13 @@ public class LocationFB {
 
     public String getHere() {return inLocation;}
 
-    public int getSound() {return sound;}
+    public int getArrivalSound() {return arrivalSound;}
 
-    public int getVibration() {return vibration;}
+    public int getArrivalVibration() {return arrivalVibration;}
+
+    public int getDepartureSound() {return departureSound;}
+
+    public int getDepartureVibration() {return departureVibration;}
 
     public void setName(String name) {this.name = name;}
 
@@ -40,8 +48,13 @@ public class LocationFB {
 
     public void setHere (String isHere) {this.inLocation = isHere;}
 
-    public void setSound (int mySound) {this.sound = mySound;}
+    public void setArrivalSound (int mySound) {this.arrivalSound = mySound;}
 
-    public void setVibration (int myVibration) {this.vibration = myVibration;}
+    public void setArrivalVibration (int myVibration) {this.arrivalVibration = myVibration;}
+
+    public void setDepartureSound (int mySound) {this.departureSound = mySound;}
+
+    public void setDepartureVibration (int myVibration) {this.departureVibration = myVibration;}
+
 
 }

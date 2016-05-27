@@ -1,5 +1,6 @@
 package com.cse110.team36.coupletones;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.content.Intent;
@@ -13,19 +14,24 @@ import android.widget.Toast;
 
 import com.cse110.team36.coupletones.Dialogs.SparkleListDialog;
 import com.cse110.team36.coupletones.Dialogs.VibeListDialog;
+import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.cse110.team36.coupletones.lists.SOListActivity;
+import com.firebase.client.Firebase;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 public class NotifSettings extends AppCompatActivity {
     VibeToneFactory vibeToneFactory;
+
+
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
     int pos;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +45,7 @@ public class NotifSettings extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
         Bundle bundle = getIntent().getExtras();
         pos = bundle.getInt("key");
+
     }
 
     public void selectArrivalSound(View view) {
@@ -59,7 +66,6 @@ public class NotifSettings extends AppCompatActivity {
 
     public void selectDepartSound(View view) {
 //        vibeToneFactory.vibeTone(Constants.VibeToneName.VALLEY);
-
         SparkleListDialog listDialog = new SparkleListDialog();
         listDialog.setContext(getBaseContext());
         listDialog.setPosition(pos);
