@@ -82,6 +82,7 @@ public class LocationChangeListener implements LocationListener, Constants {
             }
         } else if (!currOutside && prevOutside) {
             Log.d("MAP","ARRIVAL NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
+            notifySOArrivalLoc(currLoc);
             // TODO: VIBETONE_ARRIVAL
             vibe.vibeTone(VibeToneName.PRESENTING);
         } else {
@@ -89,7 +90,6 @@ public class LocationChangeListener implements LocationListener, Constants {
                 Log.d("MAP","Still inside CurrLoc: " + FaveLocationManager.locList.get(currLoc).getName());
             } else {
                 Log.d("MAP","ARRIVAL + DEPART NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
-                notifySOArrivalLoc(currLoc);
                 //Departing lastLoc
                 // TODO: VIBETONE_DEPART
                 vibe.vibeTone(Constants.VibeToneName._5THSYMPHONY);
@@ -105,6 +105,7 @@ public class LocationChangeListener implements LocationListener, Constants {
         String MYName = sharedPreferences.getString("MYEMAIL", "NOSO");
         Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations/" + locName);
         MYFBLocStatus.child("here").setValue("true");
+        MYFBLocStatus.child("here").setValue("N/A");
         VibeToneFactory vibrate = new VibeToneFactory(mapsActivity);
         vibrate.vibrate();
         //MYFBLocStatus.child("here").setValue("N/A");
@@ -117,6 +118,7 @@ public class LocationChangeListener implements LocationListener, Constants {
         String MYName = sharedPreferences.getString("MYEMAIL", "NOSO");
         Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations/" + locName);
         MYFBLocStatus.child("here").setValue("false");
+        MYFBLocStatus.child("here").setValue("N/A");
         VibeToneFactory vibrate = new VibeToneFactory(mapsActivity);
         vibrate.vibrate();
         //MYFBLocStatus.child("here").setValue("N/A");
