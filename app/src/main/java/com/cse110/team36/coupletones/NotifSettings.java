@@ -49,7 +49,8 @@ public class NotifSettings extends AppCompatActivity {
         //vibeToneFactory.vibeTone(Constants.VibeToneName.FUNKYTOWN);
         SparkleListDialog listDialog = new SparkleListDialog();
         listDialog.setContext(getBaseContext());
-        listDialog.show(getFragmentManager(), "list");
+        listDialog.setPosition(pos);
+        listDialog.show(getFragmentManager(), "arrivalSparkleList");
     }
 
     public void selectArrivalVibe(View view) {
@@ -65,7 +66,8 @@ public class NotifSettings extends AppCompatActivity {
 
         SparkleListDialog listDialog = new SparkleListDialog();
         listDialog.setContext(getBaseContext());
-        listDialog.show(getFragmentManager(), "list");
+        listDialog.setPosition(pos);
+        listDialog.show(getFragmentManager(), "departSparkleList");
     }
 
     public void selectDepartVibe(View view) {

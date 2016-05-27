@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones.adapters;
+package com.cse110.team36.coupletones.lists.adapters;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
 import com.cse110.team36.coupletones.FaveLocations.SOFaveLoc;
 import com.cse110.team36.coupletones.NotifSettings;
 import com.cse110.team36.coupletones.R;

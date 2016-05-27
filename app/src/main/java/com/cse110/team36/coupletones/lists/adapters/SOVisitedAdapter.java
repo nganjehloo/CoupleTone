@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones.adapters;
+package com.cse110.team36.coupletones.lists.adapters;
 
 import android.app.FragmentManager;
 import android.content.Context;

@@ -24,7 +24,7 @@ import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
 import com.cse110.team36.coupletones.maps.MapsActivity;
 import com.cse110.team36.coupletones.R;
-import com.cse110.team36.coupletones.adapters.MyCustomAdapter;
+import com.cse110.team36.coupletones.lists.adapters.MyCustomAdapter;
 import com.google.android.gms.maps.model.LatLng;
 
 /* NOTE: This is actually the location page (middle button) */

@@ -8,8 +8,10 @@ import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.cse110.team36.coupletones.Constants;
+import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.cse110.team36.coupletones.R;
 import com.cse110.team36.coupletones.SparkleToneFactory;
 import com.cse110.team36.coupletones.VibeToneFactory;
@@ -22,12 +24,19 @@ public class SparkleListDialog extends DialogFragment implements Constants {
     Activity activity;
     String[] sparkles;
 
+    int locListPos;
+    int savePos;
+
     public void setContext(Context context) {
         this.context = context;
     }
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public void setPosition(int position) {
+        this.locListPos = position;
     }
 
     @Override
@@ -46,6 +55,7 @@ public class SparkleListDialog extends DialogFragment implements Constants {
 
                     @Override
                     public void onClick(DialogInterface dialog, int pos) {
+                        savePos = pos;
                         factory.sparkle(SparkleToneName.values()[pos]);
                     }
                 })
@@ -53,7 +63,13 @@ public class SparkleListDialog extends DialogFragment implements Constants {
                 .setPositiveButton(R.string.set_name, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
+                        if (getTag().equals("arrivalSparkleList")) {
+                            SOFaveLocManager.locList.get(locListPos).changeArrivalSparkleTone(SparkleToneName.values()[savePos]);
+                            Log.d("MAP", "SPARKLE ARRIVAL");
+                        } else if (getTag().equals("departSparkleList")) {
+                            SOFaveLocManager.locList.get(locListPos).changeDepartSparkleTone(SparkleToneName.values()[savePos]);
+                            Log.d("MAP", "SPARKLE DEPART");
+                        }
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

@@ -11,20 +11,21 @@ import com.google.android.gms.maps.model.LatLng;
 /**
  * Created by admin on 5/21/16.
  */
-public class    SOFaveLoc extends FaveLocation {
-    Ringtone sparkleTone;
-    Activity activity;
-
+public class SOFaveLoc extends FaveLocation {
     Constants.VibeToneName vibeToneArrivalName;
     Constants.VibeToneName vibeToneDepartName;
 
+    Constants.SparkleToneName sparkleToneArrivalName;
+    Constants.SparkleToneName sparkleToneDepartName;
+
     public SOFaveLoc(String name, LatLng loc,Ringtone sparkleTone, Constants.VibeToneName vibeToneName) {
         super(name, loc);
-        this.activity = activity;
         //this.sparkleTone = RingtoneManager.getRingtone(activity,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 //        this.sparkleTone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         this.vibeToneArrivalName = Constants.VibeToneName.DEFAULT_ARRIVAL;
         this.vibeToneDepartName = Constants.VibeToneName.DEFAULT_DEPART;
+        this.sparkleToneArrivalName = Constants.SparkleToneName.DEFAULT_ARRIVAL;
+        this.sparkleToneDepartName = Constants.SparkleToneName.DEFAULT_DEPART;
     }
 
     // constructor for converting a LocationFB to a SOFaveLoc
@@ -32,6 +33,8 @@ public class    SOFaveLoc extends FaveLocation {
         super(locationFB.getName(), new LatLng(locationFB.getLat(), locationFB.getLong()));
         this.vibeToneArrivalName = Constants.VibeToneName.DEFAULT_ARRIVAL;
         this.vibeToneDepartName = Constants.VibeToneName.DEFAULT_DEPART;
+        this.sparkleToneArrivalName = Constants.SparkleToneName.DEFAULT_ARRIVAL;
+        this.sparkleToneDepartName = Constants.SparkleToneName.DEFAULT_DEPART;
     }
 
     public void changeArrivalVibeTone(Constants.VibeToneName vibeToneArrivalName) {
@@ -42,20 +45,11 @@ public class    SOFaveLoc extends FaveLocation {
         this.vibeToneDepartName = vibeToneDepartName;
     }
 
-    public void changeArrivalSparkleTone() {
-
+    public void changeArrivalSparkleTone(Constants.SparkleToneName sparkleToneArrivalName) {
+        this.sparkleToneArrivalName = sparkleToneArrivalName;
     }
 
-    public void changeDepartSparkleTones() {
-
+    public void changeDepartSparkleTone(Constants.SparkleToneName sparkleToneDepartName) {
+        this.sparkleToneDepartName = sparkleToneDepartName;
     }
-
-    public void setRingtone (Ringtone sparkleTone) {
-        this.sparkleTone = sparkleTone;
-    }
-
-    public Ringtone getRingtone () {
-        return sparkleTone;
-    }
-
 }

@@ -17,7 +17,7 @@ import com.cse110.team36.coupletones.maps.MapsActivity;
 import com.cse110.team36.coupletones.FaveLocations.OurFaveLoc;
 import com.cse110.team36.coupletones.R;
 import com.cse110.team36.coupletones.maps.SOMapsActivity;
-import com.cse110.team36.coupletones.adapters.FBListAdapter;
+import com.cse110.team36.coupletones.lists.adapters.FBListAdapter;
 import com.firebase.client.Firebase;
 import com.google.android.gms.maps.model.LatLng;
 

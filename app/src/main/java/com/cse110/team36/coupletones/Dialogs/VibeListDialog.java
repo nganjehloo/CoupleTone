@@ -68,10 +68,10 @@ public class VibeListDialog extends DialogFragment implements Constants {
                     public void onClick(DialogInterface dialog, int id) {
                         if (getTag().equals("arrivalVibeList")) {
                             SOFaveLocManager.locList.get(locListPos).changeArrivalVibeTone(VibeToneName.values()[savePos]);
-                            Log.d("MAP", "ARRIVAL");
-                    } else if (getTag().equals("departVibeList")) {
+                            Log.d("MAP", "VIBE ARRIVAL");
+                        } else if (getTag().equals("departVibeList")) {
                             SOFaveLocManager.locList.get(locListPos).changeDepartVibeTone(VibeToneName.values()[savePos]);
-                            Log.d("MAP", "DEPART");
+                            Log.d("MAP", "VIBE DEPART");
                         }
                     }
                 })
