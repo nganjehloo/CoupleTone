@@ -11,7 +11,7 @@ import com.google.android.gms.maps.model.LatLng;
 /**
  * Created by admin on 5/21/16.
  */
-public class SOFaveLoc extends FaveLocation {
+public class    SOFaveLoc extends FaveLocation {
     Ringtone sparkleTone;
     Activity activity;
 

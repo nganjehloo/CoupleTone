@@ -11,8 +11,10 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.cse110.team36.coupletones.Dialogs.SparkleListDialog;
+import com.cse110.team36.coupletones.Dialogs.VibeListDialog;
 import com.cse110.team36.coupletones.lists.SOListActivity;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -26,7 +28,7 @@ public class NotifSettings extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class NotifSettings extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        Bundle bundle = getIntent().getExtras();
+        pos = bundle.getInt("key");
     }
 
     public void selectArrivalSound(View view) {
@@ -49,7 +53,11 @@ public class NotifSettings extends AppCompatActivity {
     }
 
     public void selectArrivalVibe(View view) {
+        VibeListDialog listDialog = new VibeListDialog();
+        listDialog.setContext(getBaseContext());
+        listDialog.show(getFragmentManager(), "vibeList");
         vibeToneFactory.vibeTone(Constants.VibeToneName.MOUNTAIN);
+
     }
 
     public void selectDepartSound(View view) {
@@ -61,6 +69,9 @@ public class NotifSettings extends AppCompatActivity {
     }
 
     public void selectDepartVibe(View view) {
+        VibeListDialog listDialog = new VibeListDialog();
+        listDialog.setContext(getBaseContext());
+        listDialog.show(getFragmentManager(), "vibeList");
         vibeToneFactory.vibeTone(Constants.VibeToneName.SLOW2FAST);
     }
 

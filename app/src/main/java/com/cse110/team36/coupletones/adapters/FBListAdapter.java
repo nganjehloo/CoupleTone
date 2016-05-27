@@ -75,7 +75,9 @@ public class FBListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 activity.finish();
-                activity.startActivity(new Intent(activity, NotifSettings.class));
+                Intent intent = new Intent(activity, NotifSettings.class);
+                intent.putExtra("key",position);
+                activity.startActivity(intent);
             }
         });
     }
