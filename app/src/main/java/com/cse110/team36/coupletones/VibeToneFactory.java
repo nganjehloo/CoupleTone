@@ -27,7 +27,7 @@ public class VibeToneFactory implements Constants{
 
     public void vibeTone(VibeToneName name) {v.vibrate(vibeTones[name.ordinal()],-1);}
 
-//    public void vibeTone(int pos) {v.vibrate(vibeTones[pos],-1);}
+    public void vibeTone(int pos) {v.vibrate(vibeTones[pos],-1);}
 
     private long[] getVibeTone(int i) {
         switch(i) {
