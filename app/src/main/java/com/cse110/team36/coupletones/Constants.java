@@ -21,8 +21,8 @@ public interface Constants {
     }
 
     public enum SparkleToneName {
-        //      0               1           2           3        4      5       6
-        DEFAULT_ARRIVAL, DEFAULT_DEPART, COMM_LINE, FUNKYTOWN, OKARIN, BEEP, SOLEMN
+        //      0               1           2           3        4      5       6     7
+        DEFAULT_ARRIVAL, DEFAULT_DEPART, COMM_LINE, FUNKYTOWN, OKARIN, BEEP, SOLEMN, FART, RACE_CAR
     }
 
 
