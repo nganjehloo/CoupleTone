@@ -19,6 +19,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.google.android.gms.appindexing.Action;
@@ -33,7 +34,7 @@ public class NotifSettings extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+    int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,9 @@ public class NotifSettings extends AppCompatActivity {
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+        Bundle bundle = getIntent().getExtras();
+        pos = bundle.getInt("key");
+
     }
 
     public void selectArrivalSound(View view) {
@@ -62,6 +66,7 @@ public class NotifSettings extends AppCompatActivity {
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, uri);
 
         this.startActivityForResult(intent, 999);
+        Toast.makeText(getBaseContext(),String.valueOf(pos),Toast.LENGTH_SHORT).show();
     }
 
     public void selectArrivalVibe(View view) {
