@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import com.cse110.team36.coupletones.Dialogs.ListDialog;
+import com.cse110.team36.coupletones.Dialogs.SparkleListDialog;
 import com.cse110.team36.coupletones.lists.SOListActivity;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -43,18 +43,9 @@ public class NotifSettings extends AppCompatActivity {
 
     public void selectArrivalSound(View view) {
         //vibeToneFactory.vibeTone(Constants.VibeToneName.FUNKYTOWN);
-        Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select sound for notifications:");
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
-
-        // for existing ringtone
-        Uri uri = RingtoneManager.getActualDefaultRingtoneUri(
-                getApplicationContext(), RingtoneManager.TYPE_RINGTONE);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, uri);
-
-        this.startActivityForResult(intent, 999);
+        SparkleListDialog listDialog = new SparkleListDialog();
+        listDialog.setContext(getBaseContext());
+        listDialog.show(getFragmentManager(), "list");
     }
 
     public void selectArrivalVibe(View view) {
@@ -63,26 +54,8 @@ public class NotifSettings extends AppCompatActivity {
 
     public void selectDepartSound(View view) {
 //        vibeToneFactory.vibeTone(Constants.VibeToneName.VALLEY);
-//        Intent intent = new Intent(this, MapsActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-//                PendingIntent.FLAG_ONE_SHOT);
-//        //Uri sound= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-//        Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.funkytown);
-//        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-//                .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
-//                .setContentTitle("CoupleTones")
-//                .setAutoCancel(true)
-//                .setContentIntent(pendingIntent)
-//                .setSound(sound)
-//                .setDefaults(Notification.DEFAULT_LIGHTS);
-//
-//        NotificationManager notificationManager =
-//                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//
-//        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
 
-        ListDialog listDialog = new ListDialog();
+        SparkleListDialog listDialog = new SparkleListDialog();
         listDialog.setContext(getBaseContext());
         listDialog.show(getFragmentManager(), "list");
     }

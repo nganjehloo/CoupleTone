@@ -15,8 +15,8 @@ import java.util.ArrayList;
 /**
  * Created by stazia on 5/26/16.
  */
-public class ListDialog extends DialogFragment {
-    CharSequence[] sparkles = {"Funkytown short", "Funkytown long"};
+public class SparkleListDialog extends DialogFragment {
+    CharSequence[] sparkles = {"Funkytown short", "Funkytown long", "Comm"};
     Context context;
 
     public void setContext(Context context) {
@@ -43,8 +43,13 @@ public class ListDialog extends DialogFragment {
                                 break;
                             case 1:
                                 // Your code when 2nd  option selected
-                                MediaPlayer mediaPlayer1 = MediaPlayer.create(context, R.raw.funkytown1);
+                                MediaPlayer mediaPlayer1 = MediaPlayer.create(context, R.raw.funkytown);
                                 mediaPlayer1.start();
+                                break;
+                            case 2:
+                                // Your code when 2nd  option selected
+                                MediaPlayer mediaPlayer2 = MediaPlayer.create(context, R.raw.communication_channel);
+                                mediaPlayer2.start();
                                 break;
                         }
                     }
