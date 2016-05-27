@@ -12,6 +12,7 @@ import com.cse110.team36.coupletones.FireBase.SOConfig;
 import com.cse110.team36.coupletones.Managers.MapManager;
 import com.cse110.team36.coupletones.Managers.MarkerManager;
 import com.cse110.team36.coupletones.R;
+import com.cse110.team36.coupletones.lists.SOListActivity;
 import com.cse110.team36.coupletones.lists.SOVisitedActivity;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -90,5 +91,10 @@ public class SOMapsActivity extends FragmentActivity implements OnMapReadyCallba
     public void toVisitedList(View view) {
         finish();
         startActivity(new Intent(SOMapsActivity.this, SOVisitedActivity.class));
+    }
+
+    public void toSOList(View view) {
+        finish();
+        startActivity(new Intent(SOMapsActivity.this, SOListActivity.class));
     }
 }

@@ -9,6 +9,7 @@ import android.media.RingtoneManager;
 public interface Constants {
     final float ONE_TENTH_MILE = 160.934f;  // ONE TENTH OF A MILE (in meters)
     final int NUM_VIBE_TONES = VibeToneName.values().length;
+    final int NUM_SPARKLE_TONES = SparkleToneName.values().length;
 
     public enum VibeToneName {
           //       0                1              2            3          4         5
@@ -17,6 +18,11 @@ public interface Constants {
             FAST2SLOW, MOUNTAIN, VALLEY, SWIRLS, THE_NIMA,
           //   11         12
             GANGITIS,  SURPRISE
+    }
+
+    public enum SparkleToneName {
+        //      0               1           2           3        4      5       6
+        DEFAULT_ARRIVAL, DEFAULT_DEPART, COMM_LINE, FUNKYTOWN, OKARIN, BEEP, SOLEMN
     }
 
 
