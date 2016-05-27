@@ -52,7 +52,7 @@ public class SOMapsActivity extends FragmentActivity implements OnMapReadyCallba
         // Add a marker in Sydney and move the camera
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         mapManager = new MapManager(locationManager, this);
-        mapManager.populateMap(markerManager);
+        mapManager.populateMap("SOMAPS", markerManager);
     }
 
     void initializeGMapUISettings() {

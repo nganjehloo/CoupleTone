@@ -57,7 +57,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     SharedPreferences sharedPreferences;
 
     VibeToneFactory v;
-    FileManager fileManager;
+    //FileManager fileManager;
     MarkerManager markerManager;
 
 //    LocationChangeListener locationListener = new LocationChangeListener(this);
@@ -68,11 +68,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
 
         v = new VibeToneFactory(this);
-        fileManager = new FileManager(this);
+        /*fileManager = new FileManager(this);
         if (firstOpen) {
             fileManager.importSavedFavLocs();
             firstOpen = false;
-        }
+        }*/
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean ran_once = sharedPreferences.getBoolean("RAN_ONCE", false);
@@ -83,6 +83,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         } else {
             Intent intent = new Intent(MapsActivity.this, FirebaseService.class);
             startService(intent);
+            FireBaseManager fireBaseManager = new FireBaseManager(sharedPreferences);
+            fireBaseManager.loadMyLocs();
             setContentView(R.layout.activity_maps);
 
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -107,7 +109,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         super.onStop();
         Log.i("onStop", "On Stop .....");
 
-        fileManager.exportSavedFavLocs();
+        //fileManager.exportSavedFavLocs();
         overridePendingTransition(0, 0);
     }
 
@@ -132,7 +134,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         mapManager = new MapManager(locationManager, this);
         String locationProvider = LocationManager.GPS_PROVIDER;
 
-        mapManager.populateMap(fileManager, markerManager);
+        mapManager.populateMap("MYMAPS", markerManager);
 
         if(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED&&ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling

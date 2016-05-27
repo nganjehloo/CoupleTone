@@ -5,6 +5,10 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
 
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
 /**
  * Class to access a consistent vibrate function for feedback on long click and notification.
  */
