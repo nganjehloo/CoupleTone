@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by stazia on 5/5/16.
  */
 public class SOFaveLocManager {
-    public static ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
+    public static ArrayList<SOFaveLoc> locList = new ArrayList<SOFaveLoc>();
     static Context context;
 
     public SOFaveLocManager(Context context) {

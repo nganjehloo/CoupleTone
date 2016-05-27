@@ -16,7 +16,7 @@ public interface Constants {
           //    6         7        8       9        10
             FAST2SLOW, MOUNTAIN, VALLEY, SWIRLS, THE_NIMA,
           //   11         12
-            GANGITIS,  SURPRISE
+            GANGITIS,  SURPRISE;
     }
 
 
