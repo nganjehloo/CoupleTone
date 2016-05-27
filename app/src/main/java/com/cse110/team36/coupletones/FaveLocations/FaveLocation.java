@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.FaveLocations;
 
 import android.app.Notification;
 import android.media.Ringtone;

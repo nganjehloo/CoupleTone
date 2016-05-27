@@ -1,5 +1,6 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.FaveLocations;
 
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
 import com.google.android.gms.maps.model.LatLng;
 
 /**

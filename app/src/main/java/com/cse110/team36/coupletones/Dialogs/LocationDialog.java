@@ -4,7 +4,7 @@
  * Courtesy of: http://developer.android.com/guide/topics/ui/dialogs.html#DialogFragment for this,
  use the part about communicating with the activity that called it (the map activity)
  */
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.Dialogs;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
+import com.cse110.team36.coupletones.R;
 import com.google.android.gms.maps.model.LatLng;
 
 

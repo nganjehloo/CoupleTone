@@ -1,4 +1,4 @@
-package com.cse110.team36.coupletones;
+package com.cse110.team36.coupletones.adapters;
 
 import android.app.Activity;
 import android.app.FragmentManager;
@@ -12,10 +12,12 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
 import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
+import com.cse110.team36.coupletones.Dialogs.LocationDialog;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
-import com.firebase.client.Firebase;
+import com.cse110.team36.coupletones.R;
 
 import java.util.ArrayList;
 

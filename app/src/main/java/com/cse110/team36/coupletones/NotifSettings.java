@@ -1,9 +1,5 @@
 package com.cse110.team36.coupletones;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 
@@ -12,16 +8,13 @@ import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.cse110.team36.coupletones.Managers.FaveLocationManager;
+import com.cse110.team36.coupletones.Dialogs.ListDialog;
+import com.cse110.team36.coupletones.lists.SOListActivity;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -94,8 +87,9 @@ public class NotifSettings extends AppCompatActivity {
 //
 //        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
 
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.funkytown1);
-        mediaPlayer.start();
+        ListDialog listDialog = new ListDialog();
+        listDialog.setContext(getBaseContext());
+        listDialog.show(getFragmentManager(), "list");
     }
 
     public void selectDepartVibe(View view) {

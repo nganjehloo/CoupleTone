@@ -12,15 +12,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.cse110.team36.coupletones.GCM.QuickstartPreferences;
-import com.cse110.team36.coupletones.HomeScreen;
-import com.cse110.team36.coupletones.MapsActivity;
+import com.cse110.team36.coupletones.maps.MapsActivity;
 import com.cse110.team36.coupletones.R;
-import com.cse110.team36.coupletones.SOVisitedActivity;
-import com.firebase.client.DataSnapshot;
-import com.firebase.client.Firebase;
-import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
+import com.cse110.team36.coupletones.lists.SOVisitedActivity;
 
 /**
  * Created by Nima on 5/7/2016.

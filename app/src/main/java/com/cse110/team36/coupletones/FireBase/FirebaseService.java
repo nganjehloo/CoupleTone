@@ -7,27 +7,21 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.net.Uri;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
+
 import java.lang.Thread;
 
 import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
-import com.cse110.team36.coupletones.MapsActivity;
+import com.cse110.team36.coupletones.maps.MapsActivity;
 import com.cse110.team36.coupletones.R;
-import com.cse110.team36.coupletones.SOFaveLoc;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.cse110.team36.coupletones.FaveLocations.SOFaveLoc;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import com.cse110.team36.coupletones.FireBase.LocationFB;
 
 public class FirebaseService extends Service {
     public FirebaseService() {
