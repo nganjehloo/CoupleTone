@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
+import com.cse110.team36.coupletones.FaveLocations.SOFaveLoc;
 import com.cse110.team36.coupletones.NotifSettings;
 import com.cse110.team36.coupletones.R;
 
@@ -21,12 +22,12 @@ import java.util.ArrayList;
  * Created by aspidiske on 5/22/2016.
  */
 public class FBListAdapter extends BaseAdapter {
-    private ArrayList<FaveLocation> list = new ArrayList<>();
+    private ArrayList<SOFaveLoc> list = new ArrayList<>();
     private Context context;
     private FragmentManager fragmentManager;
     private Activity activity;
 
-    public FBListAdapter(ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager, Activity activity) {
+    public FBListAdapter(ArrayList<SOFaveLoc> list, Context context, FragmentManager fragmentManager, Activity activity) {
         this.list = list;
         this.context = context;
         this.fragmentManager = fragmentManager;
