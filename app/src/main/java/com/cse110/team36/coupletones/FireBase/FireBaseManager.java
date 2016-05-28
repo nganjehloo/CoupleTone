@@ -1,6 +1,7 @@
 package com.cse110.team36.coupletones.FireBase;
 
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
 import com.cse110.team36.coupletones.FaveLocations.OurFaveLoc;
@@ -11,6 +12,10 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by Duc Le on 5/21/2016.
@@ -101,6 +106,7 @@ public class FireBaseManager{
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.d("FIREBASEMANAGER", "on data changed LOCS");
                     SOFaveLocManager.emptyLocs();
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         LocationFB locFB = child.getValue(LocationFB.class);
@@ -120,16 +126,20 @@ public class FireBaseManager{
     public void loadSOVisited() {
         String soemail = sharedPreferences.getString("SOEMAIL", null);
         if (soemail != null) {
+            Log.d("FIREBASEMANAGER", "NOT NULL");
             Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null) + "/Visited");
             myFirebaseRef.addValueEventListener(new ValueEventListener() {
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    SOFaveLocManager.emptyLocs();
+                    Log.d("FIREBASEMANAGER", "on data changed");
+                    SOFaveLocManager.emptyVis();
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         LocationFB locFB = child.getValue(LocationFB.class);
+                        Log.d("FIREBASEMANAGER", locFB.getName());
                         SOFaveLocManager.addLocation(locFB);
                     }
+                    Collections.sort(SOFaveLocManager.visList, SOFaveLocManager.comparator);
                 }
 
                 @Override
