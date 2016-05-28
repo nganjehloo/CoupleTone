@@ -74,7 +74,7 @@ public class FirebaseService extends Service {
                         {
                             int sound = locFB.getDepartureSound();
                             int vibration = locFB.getDepartureVibration();
-                            soundFactory.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
+                            SparkleToneFactory.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                             sendNotification(SOName + " has left " + locFB.getName(), vibration);
                         }
                         else

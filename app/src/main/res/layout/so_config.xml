@@ -103,4 +103,26 @@
         android:layout_toRightOf="@+id/informationTextView"
         android:layout_toEndOf="@+id/informationTextView" />
 
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sound Notifications                               "
+        android:id="@+id/switch1"
+        android:layout_below="@+id/button2"
+        android:layout_alignRight="@+id/button2"
+        android:layout_alignEnd="@+id/button2"
+        android:layout_marginTop="75dp"
+        android:checked="false" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vibrate Notifications                             "
+        android:id="@+id/switch2"
+        android:layout_below="@+id/switch1"
+        android:layout_alignRight="@+id/button2"
+        android:layout_alignEnd="@+id/button2"
+        android:layout_marginTop="46dp"
+        android:checked="false" />
+
 </RelativeLayout>

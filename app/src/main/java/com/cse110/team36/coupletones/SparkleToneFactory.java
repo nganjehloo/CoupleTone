@@ -24,13 +24,12 @@ public class SparkleToneFactory implements Constants{
     private static boolean sparkEnable = true;
 
 
-    public SparkleToneFactory(Activity activity, Context context) {
+    public SparkleToneFactory( Context context) {
         this.context = context;
-        this.activity = activity;
     }
 
-    public void setSparkEnable(boolean sparkEnable) {
-        this.sparkEnable = sparkEnable;
+    public void setSparkEnable() {
+        this.sparkEnable = !sparkEnable;
     }
 
     private static boolean getSparkEnable() {

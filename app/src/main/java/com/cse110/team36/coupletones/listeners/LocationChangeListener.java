@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.cse110.team36.coupletones.Constants;
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.MapManager;
@@ -82,7 +83,7 @@ public class LocationChangeListener implements LocationListener, Constants {
                 notifySODepartLoc(currLoc);
             }
         } else if (!currOutside && prevOutside) {
-            Log.d("MAP","ARRIVAL NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
+            Log.d("MAP", "ARRIVAL NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
             writeArrivalVisitedToDB(currLoc);
             notifySOArrivalLoc(currLoc);
             // TODO: VIBETONE_ARRIVAL
@@ -107,7 +108,7 @@ public class LocationChangeListener implements LocationListener, Constants {
         Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Visited");
         LocationFB locationFB = new LocationFB();
         locationFB.setName("Arrived:  " + locName);
-        MYFBLocStatus.child(locName).setValue(locationFB);
+        MYFBLocStatus.child(locName + locationFB.getTime()).setValue(locationFB);
     }
     private void writeDepartureVisitedToDB(int currLoc){
         String locName = FaveLocationManager.locList.get(currLoc).getName();
@@ -116,7 +117,7 @@ public class LocationChangeListener implements LocationListener, Constants {
         Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Visited");
         LocationFB locationFB = new LocationFB();
         locationFB.setName("Departed: " + locName);
-        MYFBLocStatus.child(locName).setValue(locationFB);
+        MYFBLocStatus.child(locName + locationFB.getTime()).setValue(locationFB);
     }
 
     private void notifySOArrivalLoc(int currLoc) {

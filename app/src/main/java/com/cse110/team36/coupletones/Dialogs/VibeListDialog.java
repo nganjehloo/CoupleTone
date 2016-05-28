@@ -86,7 +86,7 @@ public class VibeListDialog extends DialogFragment implements Constants {
                             Log.d("MAP", "VIBE DEPART");
                             SOLocationName = SOFaveLocManager.locList.get(locListPos).getName();
                             SOFirebaseSettings = new Firebase("https://coupletones36.firebaseio.com/" + SOEmail + "/Locations/" + SOLocationName);
-                            SOFirebaseSettings.child("departureSound").setValue(savePos);
+                            SOFirebaseSettings.child("departureVibration").setValue(savePos);
                         }
                     }
                 })

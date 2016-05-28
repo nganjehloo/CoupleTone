@@ -8,10 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse110.team36.coupletones.SparkleToneFactory;
+import com.cse110.team36.coupletones.VibeToneFactory;
 import com.cse110.team36.coupletones.maps.MapsActivity;
 import com.cse110.team36.coupletones.R;
 import com.cse110.team36.coupletones.lists.SOVisitedActivity;
@@ -134,6 +138,22 @@ public class SOConfig extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
                 startActivity(new Intent(SOConfig.this, SOVisitedActivity.class));
+            }
+        });
+
+        Switch sound = (Switch)findViewById(R.id.switch1);
+        sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SparkleToneFactory vibeToneFactory = new SparkleToneFactory(SOConfig.this);
+                vibeToneFactory.setSparkEnable();
+            }
+        });
+
+        Switch vibrate = (Switch)findViewById(R.id.switch1);
+        vibrate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                VibeToneFactory vibeToneFactory = new VibeToneFactory(SOConfig.this);
+                vibeToneFactory.setVibeEnable();
             }
         });
     }

@@ -60,7 +60,7 @@ public class SparkleListDialog extends DialogFragment implements Constants {
                 // Specify the list array, the items to be selected by default (null for none),
                 // and the listener through which to receive callbacks when items are selected
                 .setSingleChoiceItems(sparkles,-1, new DialogInterface.OnClickListener() {
-                    SparkleToneFactory factory = new SparkleToneFactory(activity, context);
+                    SparkleToneFactory factory = new SparkleToneFactory( context);
 
                     @Override
                     public void onClick(DialogInterface dialog, int pos) {
