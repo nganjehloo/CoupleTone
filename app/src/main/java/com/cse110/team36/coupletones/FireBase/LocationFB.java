@@ -15,6 +15,7 @@ public class LocationFB {
     private int arrivalVibration;
     private int departureSound;
     private int departureVibration;
+    private String time;
 
     public LocationFB()
     {
@@ -24,6 +25,7 @@ public class LocationFB {
         arrivalVibration = 0;
         departureSound = 1;
         departureVibration = 1;
+        time = new java.text.SimpleDateFormat("h:mm a").format(new java.util.Date (epoch*1000));
     }
 
     public String getName() {return name;}
@@ -36,7 +38,7 @@ public class LocationFB {
 
     public long getEpoch() {return epoch;}
 
-    public String getTime() { return new java.text.SimpleDateFormat("h:mm a").format(new java.util.Date (epoch*1000));}
+    public String getTime() { return time;}
 
     public int getArrivalSound() {return arrivalSound;}
 
@@ -61,6 +63,5 @@ public class LocationFB {
     public void setDepartureSound (int mySound) {this.departureSound = mySound;}
 
     public void setDepartureVibration (int myVibration) {this.departureVibration = myVibration;}
-
 
 }

@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.cse110.team36.coupletones.FaveLocations.SOFaveLoc;
 import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.SOConfig;
 import com.cse110.team36.coupletones.Dialogs.LocationDialog;
@@ -44,6 +45,8 @@ public class SOVisitedActivity extends AppCompatActivity{
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         FireBaseManager fireBaseManager = new FireBaseManager(sharedPreferences);
         fireBaseManager.loadSOVisited();
+        Log.d("SOVISITED", ((Integer) SOFaveLocManager.visList.size()).toString());
+        //Log.d("SOVISITED", SOFaveLocManager.visList.peek().getName());
         setContentView(R.layout.activity_so_visited);
 
         initializeListViewAdapter();

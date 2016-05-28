@@ -41,7 +41,6 @@ public class FirebaseService extends Service {
         int startId;
         Firebase myFirebaseRefReg;
         Firebase soFirebaseRefLoc;
-        Firebase soVisFirebaseRefLoc;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SparkleToneFactory soundFactory;
 
@@ -52,7 +51,6 @@ public class FirebaseService extends Service {
         public void run() {
             myFirebaseRefReg = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/REG");
             soFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null) + "/Locations");
-            soVisFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null) + "/Visited");
             //SO LOCATION FIREBASE
             soFirebaseRefLoc.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -97,18 +95,6 @@ public class FirebaseService extends Service {
                 }
             });
 
-            soVisFirebaseRefLoc.addValueEventListener(new ValueEventListener() {
-
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-
-            });
 
             //MY FIREBASE REG
             myFirebaseRefReg.addValueEventListener(new ValueEventListener() {

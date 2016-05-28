@@ -20,16 +20,16 @@ public class SOFaveLocManager {
         @Override
         public int compare(LocationFB locationFB1, LocationFB locationFB2){
             if(locationFB1.getEpoch() < locationFB2.getEpoch()){
-                return -1;
+                return 1;
             }
             if(locationFB1.getEpoch() > locationFB2.getEpoch()){
-                return 1;
+                return -1;
             }
             return 0;
         }
     }
     public static ArrayList<SOFaveLoc> locList = new ArrayList<SOFaveLoc>();
-    public static PriorityQueue<LocationFB> visList = new PriorityQueue<LocationFB>(1, comparator) ;
+    public static ArrayList<LocationFB> visList = new ArrayList<LocationFB>() ;
     static Context context;
 
     public SOFaveLocManager(Context context) {
@@ -61,5 +61,9 @@ public class SOFaveLocManager {
 
     public static void emptyLocs() {
         locList.clear();
+    }
+
+    public  static void emptyVis(){
+        visList.clear();
     }
 }

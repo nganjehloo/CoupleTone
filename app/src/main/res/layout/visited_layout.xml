@@ -5,21 +5,24 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="VisitedTime"
-        android:id="@+id/VisitedTime"
-        android:layout_centerVertical="true"
+        android:text="VISITEDLOCATION"
+        android:id="@+id/VisitedName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:paddingLeft="8dp"/>
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="VisitedName"
-        android:id="@+id/VisitedName"
-        android:layout_above="@+id/VisitedTime"
+        android:text="VISITEDTIME"
+        android:id="@+id/VisitedTime"
+        android:layout_below="@+id/VisitedName"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:paddingLeft="8dp"/>
+        android:textColor="#262626"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
 </RelativeLayout>
