@@ -113,9 +113,7 @@ public class LocationChangeListener implements LocationListener, Constants {
         Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations/" + locName);
         MYFBLocStatus.child("here").setValue("true");
         MYFBLocStatus.child("here").setValue("N/A");
-        VibeToneFactory vibrate = new VibeToneFactory(mapsActivity);
-        vibrate.vibrate();
-        //MYFBLocStatus.child("here").setValue("N/A");
+
     }
 
     private void notifySODepartLoc(int currLoc)
@@ -126,8 +124,5 @@ public class LocationChangeListener implements LocationListener, Constants {
         Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations/" + locName);
         MYFBLocStatus.child("here").setValue("false");
         MYFBLocStatus.child("here").setValue("N/A");
-        VibeToneFactory vibrate = new VibeToneFactory(mapsActivity);
-        vibrate.vibrate();
-        //MYFBLocStatus.child("here").setValue("N/A");
     }
 }

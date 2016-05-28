@@ -15,23 +15,32 @@ import java.util.Map;
 
 public class SparkleToneFactory implements Constants{
     //int sparkleTones[] = new int[NUM_SPARKLE_TONES];
-    int[] sounds = {R.raw.default_arrival, R.raw.default_arrival, R.raw.communication_channel,
+    static int[] sounds = {R.raw.default_arrival, R.raw.default_arrival, R.raw.communication_channel,
                     R.raw.funkytown1, R.raw.okarin, R.raw.served, R.raw.solemn, R.raw.fart_sound,
                     R.raw.racecar};
     Activity activity;
     Context context;
-    MediaPlayer p;
+    static MediaPlayer p;
+    private static boolean sparkEnable = true;
+
 
     public SparkleToneFactory(Activity activity, Context context) {
         this.context = context;
         this.activity = activity;
-
     }
 
-    public void sparkle() {}
+    public void setSparkEnable(boolean sparkEnable) {
+        this.sparkEnable = sparkEnable;
+    }
 
-    public void sparkle(SparkleToneName name) {
-        p = MediaPlayer.create(context, sounds[name.ordinal()]);
-        p.start();
+    private static boolean getSparkEnable() {
+        return sparkEnable;
+    }
+
+    public static void sparkle(SparkleToneName name, Context myContext) {
+        if (getSparkEnable()) {
+            p = MediaPlayer.create(myContext, sounds[name.ordinal()]);
+            p.start();
+        }
     }
 }
