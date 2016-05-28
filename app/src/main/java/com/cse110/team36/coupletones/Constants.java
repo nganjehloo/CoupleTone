@@ -13,7 +13,7 @@ public interface Constants {
 
     public enum VibeToneName {
           //       0                1              2            3          4         5
-            DEFAULT_ARRIVAL, DEFAULT_DEPART, _5THSYMPHONY, PRESENTING, FUNKYTOWN, SLOW2FAST,
+            PING, DEFAULT_ARRIVAL, DEFAULT_DEPART, _5THSYMPHONY, PRESENTING, FUNKYTOWN, SLOW2FAST,
           //    6         7        8       9        10
             FAST2SLOW, MOUNTAIN, VALLEY, SWIRLS, THE_NIMA,
           //   11         12
