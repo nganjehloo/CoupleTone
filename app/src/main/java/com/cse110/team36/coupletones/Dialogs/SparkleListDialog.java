@@ -65,7 +65,7 @@ public class SparkleListDialog extends DialogFragment implements Constants {
                     @Override
                     public void onClick(DialogInterface dialog, int pos) {
                         savePos = pos;
-                        factory.sparkle(SparkleToneName.values()[pos]);
+                        factory.sparkle(SparkleToneName.values()[pos], context);
                     }
                 })
                 // Set the action buttons
