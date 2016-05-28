@@ -67,16 +67,14 @@ public class FirebaseService extends Service {
                         {
                             int sound = locFB.getArrivalSound();
                             int vibration = locFB.getDepartureVibration();
-                            soundFactory.sparkle(Constants.SparkleToneName.values()[sound]);
-                            System.out.println("THE INT IS: " + sound);
-                            System.out.println("THE SOUND NAME IS:" + Constants.SparkleToneName.values()[sound]);
+                            SparkleToneFactory.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                             sendNotification(SOName + " has arrived at " + locFB.getName(), vibration);
                         }
                         else if(locFB.getHere().equals("false"))
                         {
                             int sound = locFB.getArrivalVibration();
                             int vibration = locFB.getDepartureVibration();
-                            soundFactory.sparkle(Constants.SparkleToneName.values()[sound]);
+                            soundFactory.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                             sendNotification(SOName + " has left " + locFB.getName(), vibration);
                         }
                         else
