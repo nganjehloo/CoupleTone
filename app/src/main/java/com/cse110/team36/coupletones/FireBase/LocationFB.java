@@ -25,7 +25,7 @@ public class LocationFB {
         arrivalVibration = 0;
         departureSound = 1;
         departureVibration = 1;
-        time = new java.text.SimpleDateFormat("h:mm a").format(new java.util.Date (epoch*1000));
+        time = new java.text.SimpleDateFormat("h:mm:ss a").format(new java.util.Date (epoch*1000));
     }
 
     public String getName() {return name;}

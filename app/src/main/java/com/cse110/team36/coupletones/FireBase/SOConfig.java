@@ -32,11 +32,13 @@ public class SOConfig extends AppCompatActivity {
         setContentView(R.layout.so_config);
         initalizeButtons();
         refreshIDView();
+        TextView mBaeCode = (TextView) findViewById(R.id.editText);
 
         //Check if SO is already added
         if(sharedPreferences.getString("SOEMAIL", "null").equals("null"))
         {
             sharedPreferences.edit().putBoolean("isAdded", true).apply();
+            mBaeCode.setText(sharedPreferences.getString("SOEMAIL", "bae") + ".com");
         }
         else
         {
