@@ -33,6 +33,16 @@ public class SOConfig extends AppCompatActivity {
         initalizeButtons();
         refreshIDView();
 
+        //Check if SO is already added
+        if(sharedPreferences.getString("SOEMAIL", "null").equals("null"))
+        {
+            sharedPreferences.edit().putBoolean("isAdded", true).apply();
+        }
+        else
+        {
+            //do nothing
+        }
+
         //set button and edit text fields
         if(!sharedPreferences.getBoolean("isAdded", false))
         {

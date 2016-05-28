@@ -83,7 +83,7 @@ public class SparkleListDialog extends DialogFragment implements Constants {
                             Log.d("MAP", "SPARKLE DEPART: ");
                             SOFaveLocManager.locList.get(locListPos).changeDepartSparkleTone(SparkleToneName.values()[savePos]);
                             SOLocationName = SOFaveLocManager.locList.get(locListPos).getName();
-                            SOFirebaseSettings = new Firebase("https://coupletones36.firebaseio.com/" + SOEmail + "/" + SOLocationName);
+                            SOFirebaseSettings = new Firebase("https://coupletones36.firebaseio.com/" + SOEmail + "/Locations/" + SOLocationName);
                             SOFirebaseSettings.child("departureSound").setValue(savePos);
                         }
                     }

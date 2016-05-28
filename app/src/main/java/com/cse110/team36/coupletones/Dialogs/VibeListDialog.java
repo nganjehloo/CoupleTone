@@ -5,8 +5,10 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 
@@ -15,6 +17,7 @@ import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.cse110.team36.coupletones.R;
 import com.cse110.team36.coupletones.VibeToneFactory;
+import com.firebase.client.Firebase;
 
 /**
  * Created by stazia on 5/26/16.
@@ -27,6 +30,10 @@ public class VibeListDialog extends DialogFragment implements Constants {
     VibeToneFactory vibeToneFactory;
     int locListPos;
     int savePos;
+    Firebase SOFirebaseSettings;
+    String SOLocationName;
+    SharedPreferences sharedPreferences;
+    String SOEmail;
 
     public void setContext(Context context) {
         this.context = context;
@@ -42,6 +49,8 @@ public class VibeListDialog extends DialogFragment implements Constants {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SOEmail = sharedPreferences.getString("SOEMAIL", null);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
 
@@ -69,9 +78,15 @@ public class VibeListDialog extends DialogFragment implements Constants {
                         if (getTag().equals("arrivalVibeList")) {
                             SOFaveLocManager.locList.get(locListPos).changeArrivalVibeTone(VibeToneName.values()[savePos]);
                             Log.d("MAP", "VIBE ARRIVAL");
+                            SOLocationName = SOFaveLocManager.locList.get(locListPos).getName();
+                            SOFirebaseSettings = new Firebase("https://coupletones36.firebaseio.com/" + SOEmail + "/Locations/" + SOLocationName);
+                            SOFirebaseSettings.child("arrivalVibration").setValue(savePos);
                         } else if (getTag().equals("departVibeList")) {
                             SOFaveLocManager.locList.get(locListPos).changeDepartVibeTone(VibeToneName.values()[savePos]);
                             Log.d("MAP", "VIBE DEPART");
+                            SOLocationName = SOFaveLocManager.locList.get(locListPos).getName();
+                            SOFirebaseSettings = new Firebase("https://coupletones36.firebaseio.com/" + SOEmail + "/Locations/" + SOLocationName);
+                            SOFirebaseSettings.child("departureSound").setValue(savePos);
                         }
                     }
                 })
