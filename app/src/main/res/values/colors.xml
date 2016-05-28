@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorButtonDepressed">#c7c6c6</color>
+    <color name="toolbarDark">#212121</color>
 
     <!--<color name="transparent">#00000000</color>-->
     <!--<color name="markerRadiusBlue">#88aabbcc</color>-->

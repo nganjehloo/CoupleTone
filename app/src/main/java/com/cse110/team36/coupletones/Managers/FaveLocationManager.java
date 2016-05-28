@@ -1,10 +1,9 @@
 package com.cse110.team36.coupletones.Managers;
 
 import android.content.Context;
-import android.media.Ringtone;
 
-import com.cse110.team36.coupletones.FaveLocation;
-import com.cse110.team36.coupletones.OurFaveLoc;
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
+import com.cse110.team36.coupletones.FaveLocations.OurFaveLoc;
 import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 
@@ -23,6 +22,12 @@ public class FaveLocationManager {
 
     public static boolean addLocation(String name, LatLng loc) {
         FaveLocation newLoc = new OurFaveLoc(name, loc);
+        locList.add(newLoc);
+        return true;
+    }
+
+    public static boolean addLocation(OurFaveLoc ourFaveLoc) {
+        FaveLocation newLoc = ourFaveLoc;
         locList.add(newLoc);
         return true;
     }

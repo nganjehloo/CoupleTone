@@ -27,4 +27,6 @@
     <string name="registering_message">Generating Your BaeCode...</string>
     <string name="token_error_message">An error occurred while either fetching your BaeCode</string>
     <string name="title_activity_notif_settings">NotifSettings</string>
+
+    <array name="sparkles"></array>
 </resources>

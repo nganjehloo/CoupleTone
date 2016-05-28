@@ -2,16 +2,19 @@ package com.cse110.team36.coupletones.Managers;
 
 import android.app.Activity;
 import android.app.FragmentManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.RingtoneManager;
 import android.util.Log;
 
 import com.cse110.team36.coupletones.Constants;
-import com.cse110.team36.coupletones.FaveLocation;
-import com.cse110.team36.coupletones.LocationDialog;
-import com.cse110.team36.coupletones.OurFaveLoc;
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
+import com.cse110.team36.coupletones.Dialogs.LocationDialog;
+import com.cse110.team36.coupletones.FaveLocations.OurFaveLoc;
+import com.cse110.team36.coupletones.maps.MapsActivity;
+import com.cse110.team36.coupletones.maps.SOMapsActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -95,7 +98,7 @@ public class MapManager implements Constants {
         return locationDialog;
     }
 
-    public void populateMap(FileManager fileManager, MarkerManager markerManager) {
+    /*public void populateMap(FileManager fileManager, MarkerManager markerManager) {
         String savedLocArr[] = fileManager.getSavedLocs().split("\n");
 
         for ( int i = 0 ; i < savedLocArr.length - 1 ; i+=3 )
@@ -105,5 +108,15 @@ public class MapManager implements Constants {
 //            FaveLocationManager.locList.add(new OurFaveLoc(new String(savedLocArr[i]),new LatLng(Double.valueOf(savedLocArr[i+1]),Double.valueOf(savedLocArr[i+2])), RingtoneManager.getRingtone(activity,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))));
         for ( int i = 0 ; i < FaveLocationManager.locList.size() ; i++ )
             markerManager.dropFavLocMarker(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords());
+    }*/
+
+    public void populateMap(String mapactivityname, MarkerManager markerManager) {
+        if (mapactivityname.equals("SOMAPS")) {
+            for (int i = 0; i < SOFaveLocManager.locList.size(); i++)
+                markerManager.dropFavLocMarker(SOFaveLocManager.locList.get(i).getName(), SOFaveLocManager.locList.get(i).getCoords());
+        } else{
+            for ( int i = 0 ; i < FaveLocationManager.locList.size() ; i++ )
+                markerManager.dropFavLocMarker(FaveLocationManager.locList.get(i).getName(), FaveLocationManager.locList.get(i).getCoords());
+        }
     }
 }

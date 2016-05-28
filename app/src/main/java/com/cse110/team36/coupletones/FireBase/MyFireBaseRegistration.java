@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cse110.team36.coupletones.R;
 
@@ -34,12 +36,27 @@ public class MyFireBaseRegistration extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 FireBaseManager fireBaseManager = new FireBaseManager(sharedPreferences);
-                fireBaseManager.createAccount( text.getText().toString() );
-                startActivity(new Intent(MyFireBaseRegistration.this, SOConfig.class));
+                String email = text.getText().toString().trim();
+                CharSequence emailCS = email;
+                if(isValidEmail(emailCS) == false)
+                {
+                    Toast.makeText(getBaseContext(), "Please enter a valid email address", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    fireBaseManager.createAccount(email);
+                    startActivity(new Intent(MyFireBaseRegistration.this, SOConfig.class));
+                }
             }
         });
+    }
 
-
+    private final static boolean isValidEmail(CharSequence target) {
+        if (TextUtils.isEmpty(target)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
     }
 
 }

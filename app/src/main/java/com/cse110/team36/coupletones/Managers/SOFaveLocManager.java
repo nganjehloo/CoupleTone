@@ -1,21 +1,35 @@
 package com.cse110.team36.coupletones.Managers;
 
 import android.content.Context;
-import android.media.Ringtone;
 
-import com.cse110.team36.coupletones.Constants;
-import com.cse110.team36.coupletones.FaveLocation;
-import com.cse110.team36.coupletones.OurFaveLoc;
-import com.cse110.team36.coupletones.SOFaveLoc;
-import com.cse110.team36.coupletones.VibeToneFactory;
-import com.google.android.gms.maps.model.LatLng;
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
+import com.cse110.team36.coupletones.FaveLocations.SOFaveLoc;
+import com.cse110.team36.coupletones.FireBase.LocationFB;
+
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 /**
  * Created by stazia on 5/5/16.
  */
 public class SOFaveLocManager {
-    public static ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
+
+    public static Comparator<LocationFB> comparator = new TimeComparator();
+    static public class TimeComparator implements Comparator<LocationFB>{
+        @Override
+        public int compare(LocationFB locationFB1, LocationFB locationFB2){
+            if(locationFB1.getEpoch() < locationFB2.getEpoch()){
+                return -1;
+            }
+            if(locationFB1.getEpoch() > locationFB2.getEpoch()){
+                return 1;
+            }
+            return 0;
+        }
+    }
+    public static ArrayList<SOFaveLoc> locList = new ArrayList<SOFaveLoc>();
+    public static PriorityQueue<LocationFB> visList = new PriorityQueue<LocationFB>(1, comparator) ;
     static Context context;
 
     public SOFaveLocManager(Context context) {
@@ -26,6 +40,11 @@ public class SOFaveLocManager {
 
     public static boolean addLocation(SOFaveLoc soFaveLoc) {
         locList.add(soFaveLoc);
+        return true;
+    }
+
+    public static boolean addLocation(LocationFB soVisitedeLoc) {
+        visList.add(soVisitedeLoc);
         return true;
     }
 

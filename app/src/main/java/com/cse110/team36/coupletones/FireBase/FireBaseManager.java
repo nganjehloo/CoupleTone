@@ -2,7 +2,15 @@ package com.cse110.team36.coupletones.FireBase;
 
 import android.content.SharedPreferences;
 
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
+import com.cse110.team36.coupletones.FaveLocations.OurFaveLoc;
+import com.cse110.team36.coupletones.FaveLocations.SOFaveLoc;
+import com.cse110.team36.coupletones.Managers.FaveLocationManager;
+import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 /**
  * Created by Duc Le on 5/21/2016.
@@ -17,16 +25,16 @@ public class FireBaseManager{
     }
 
     public void createAccount(String email){
-        String emailid = email.substring(0, email.length() - 4);
+        String emailid = email.replace(".com","");
         sharedPreferences.edit().putString("MYEMAIL",emailid ).apply();
+        sharedPreferences.edit().putBoolean("isAdded", false).apply();
         Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid);
-        Firebase myFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + emailid + "/Locations");
         FBreg fBreg = new FBreg();
         myFirebaseRef.child("REG").setValue(fBreg);
     }
 
     public void addSO(String email){
-        String emailid = email.substring(0, email.length() - 4);
+        String emailid = email.replace(".com","");
         sharedPreferences.edit().putString("SOEMAIL", emailid).apply();
         Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null));
         Firebase soFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + emailid);
@@ -45,7 +53,6 @@ public class FireBaseManager{
         FBreg fBreg = new FBreg();
         fBreg.setID("NOID");
         fBreg.setStatus(false);
-
         myFirebaseRef.child("REG").setValue(fBreg);
         soFirebaseRef.child("REG").setValue(fBreg);
 
@@ -63,6 +70,73 @@ public class FireBaseManager{
     {
         Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/Locations");
         myFirebaseRef.child(data.getName()).removeValue();
+    }
+
+    public void loadMyLocs(){
+        Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/Locations");
+        myFirebaseRef.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                FaveLocationManager.emptyLocs();
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    LocationFB locFB = child.getValue(LocationFB.class);
+                    OurFaveLoc ourFaveLoc = new OurFaveLoc(locFB);
+                    FaveLocationManager.addLocation(ourFaveLoc);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+            }
+        });
+    }
+
+    public void loadSOLocs() {
+        String soemail = sharedPreferences.getString("SOEMAIL", null);
+        if (soemail != null) {
+            Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null) + "/Locations");
+            myFirebaseRef.addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    SOFaveLocManager.emptyLocs();
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        LocationFB locFB = child.getValue(LocationFB.class);
+                        SOFaveLoc soFaveLoc = new SOFaveLoc(locFB);
+                        SOFaveLocManager.addLocation(soFaveLoc);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                }
+            });
+        }
+    }
+
+    public void loadSOVisited() {
+        String soemail = sharedPreferences.getString("SOEMAIL", null);
+        if (soemail != null) {
+            Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null) + "/Visited");
+            myFirebaseRef.addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    SOFaveLocManager.emptyLocs();
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        LocationFB locFB = child.getValue(LocationFB.class);
+                        SOFaveLocManager.addLocation(locFB);
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                }
+            });
+        }
     }
 
     public void rename(LocationFB oldData, LocationFB newData)

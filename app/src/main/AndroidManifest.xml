@@ -28,14 +28,14 @@
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
 
     <application
-        android:name=".FirebaseContext"
+        android:name=".FireBase.FirebaseContext"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name=".MapsActivity"
+            android:name=".maps.MapsActivity"
             android:label="CoupleTones"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
@@ -47,8 +47,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeScreen"
-            android:label="Locations"
+            android:name=".maps.SOMapsActivity"
+            android:label="CoupleTones"
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity
+            android:name=".lists.HomeScreen"
+            android:label="My Locations"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat" />
@@ -64,15 +76,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
-            android:name=".SOVisitedActivity"
+            android:name=".lists.SOVisitedActivity"
+            android:label="Visited Today"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat" />
         <activity
-            android:name=".SOListActivity"
+            android:name=".lists.SOListActivity"
+            android:label="SO's Locations"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar" />
+            android:theme="@style/Theme.AppCompat" />
 
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
@@ -135,7 +149,7 @@
             android:label="@string/title_activity_notif_settings"
 
             android:launchMode="singleInstance"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/Theme.AppCompat" />
         <!--
  ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
