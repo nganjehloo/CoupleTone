@@ -18,8 +18,8 @@ public class LocationFB {
     public LocationFB()
     {
         inLocation = "N/A";
-        arrivalSound = 1;
-        arrivalVibration = 1;
+        arrivalSound = 0;
+        arrivalVibration = 0;
         departureSound = 1;
         departureVibration = 1;
     }
