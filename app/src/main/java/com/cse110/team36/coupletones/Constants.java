@@ -12,12 +12,12 @@ public interface Constants {
     final int NUM_SPARKLE_TONES = SparkleToneName.values().length;
 
     public enum VibeToneName {
-          //       0                1              2            3          4         5
-            PING, DEFAULT_ARRIVAL, DEFAULT_DEPART, _5THSYMPHONY, PRESENTING, FUNKYTOWN, SLOW2FAST,
-          //    6         7        8       9        10
-            FAST2SLOW, MOUNTAIN, VALLEY, SWIRLS, THE_NIMA,
-          //   11         12
-            GANGITIS,  SURPRISE;
+          //  0          1               2              3            4          5
+            PING, DEFAULT_ARRIVAL, DEFAULT_DEPART, _5THSYMPHONY, PRESENTING, FUNKYTOWN,
+          //    6         7         8        9       10
+            SLOW2FAST,FAST2SLOW, MOUNTAIN, VALLEY, SWIRLS,
+          //   11        12         13
+            THE_NIMA, GANGITIS,  SURPRISE;
     }
 
     public enum SparkleToneName {
