@@ -29,7 +29,7 @@ public class VibeToneFactory implements Constants{
 
     public void vibeTone(int pos) {v.vibrate(vibeTones[pos],-1);}
 
-    private long[] getVibeTone(int i) {
+    public static long[] getVibeTone(int i) {
         switch(i) {
             case(0):
                 // 0: DEFAULT_ARRIVAL

@@ -14,7 +14,10 @@ import android.support.v4.app.NotificationCompat;
 
 import java.lang.Thread;
 
+import com.cse110.team36.coupletones.Constants;
 import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
+import com.cse110.team36.coupletones.SparkleToneFactory;
+import com.cse110.team36.coupletones.VibeToneFactory;
 import com.cse110.team36.coupletones.maps.MapsActivity;
 import com.cse110.team36.coupletones.R;
 import com.cse110.team36.coupletones.FaveLocations.SOFaveLoc;
@@ -39,6 +42,7 @@ public class FirebaseService extends Service {
         Firebase myFirebaseRefReg;
         Firebase soFirebaseRefLoc;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SparkleToneFactory soundFactory;
 
         public MyThread(int startId) {
             this.startId = startId;
@@ -61,11 +65,17 @@ public class FirebaseService extends Service {
 
                         if(locFB.getHere().equals("true"))
                         {
-                            sendNotification(SOName + " has arrived at " + locFB.getName());
+                            int sound = locFB.getArrivalSound();
+                            int vibration = locFB.getDepartureVibration();
+                            soundFactory.sparkle(Constants.SparkleToneName.values()[sound]);
+                            sendNotification(SOName + " has arrived at " + locFB.getName(), vibration);
                         }
                         else if(locFB.getHere().equals("false"))
                         {
-                            sendNotification(SOName + " has left " + locFB.getName());
+                            int sound = locFB.getArrivalVibration();
+                            int vibration = locFB.getDepartureVibration();
+                            soundFactory.sparkle(Constants.SparkleToneName.values()[sound]);
+                            sendNotification(SOName + " has left " + locFB.getName(), vibration);
                         }
                         else
                         {
@@ -129,7 +139,7 @@ public class FirebaseService extends Service {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    private void sendNotification(String message) {
+    private void sendNotification(String message, int vibration) {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
@@ -141,6 +151,9 @@ public class FirebaseService extends Service {
 //        }
 
 //        VibeToneFactory v = new VibeToneFactory();
+
+
+
         Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.funkytown);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
@@ -148,7 +161,7 @@ public class FirebaseService extends Service {
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
-                .setSound(sound)
+                .setVibrate(VibeToneFactory.getVibeTone(vibration))
                 .setDefaults(Notification.DEFAULT_LIGHTS);
 
         NotificationManager notificationManager =
