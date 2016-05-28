@@ -17,6 +17,8 @@ import com.cse110.team36.coupletones.VibeToneFactory;
 import com.firebase.client.Firebase;
 import com.google.maps.android.SphericalUtil;
 
+import java.sql.Time;
+
 /**
  * Created by admin on 5/8/16.
  */
@@ -79,6 +81,7 @@ public class LocationChangeListener implements LocationListener, Constants {
             }
         } else if (!currOutside && prevOutside) {
             Log.d("MAP","ARRIVAL NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
+            writeVisitedToDB(currLoc);
             notifySOArrivalLoc(currLoc);
             // TODO: VIBETONE_ARRIVAL
             vibe.vibeTone(VibeToneName.PRESENTING);
@@ -93,6 +96,14 @@ public class LocationChangeListener implements LocationListener, Constants {
         }
         prevOutside = currOutside;
         lastLoc = currLoc;
+    }
+
+    private void writeVisitedToDB(int currLoc){
+        String locName = FaveLocationManager.locList.get(currLoc).getName();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(mapsActivity.getApplicationContext());
+        String MYName = sharedPreferences.getString("MYEMAIL", "NOSO");
+        Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Visited/");
+        MYFBLocStatus.setValue(locName);
     }
 
     private void notifySOArrivalLoc(int currLoc) {

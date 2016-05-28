@@ -10,6 +10,7 @@ public class LocationFB {
     private double Lat;
     private double Long;
     private String inLocation;
+    private long epoch;
     private int arrivalSound;
     private int arrivalVibration;
     private int departureSound;
@@ -17,6 +18,7 @@ public class LocationFB {
 
     public LocationFB()
     {
+        epoch = System.currentTimeMillis()/1000;
         inLocation = "N/A";
         arrivalSound = 0;
         arrivalVibration = 0;
@@ -31,6 +33,10 @@ public class LocationFB {
     public double getLong() {return Long;}
 
     public String getHere() {return inLocation;}
+
+    public long getEpoch() {return epoch;}
+
+    public String getTime() { return new java.text.SimpleDateFormat("h:mm a").format(new java.util.Date (epoch*1000));}
 
     public int getArrivalSound() {return arrivalSound;}
 

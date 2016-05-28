@@ -7,17 +7,21 @@
 package com.cse110.team36.coupletones.lists;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
+import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.SOConfig;
 import com.cse110.team36.coupletones.Dialogs.LocationDialog;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
+import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.cse110.team36.coupletones.maps.MapsActivity;
 import com.cse110.team36.coupletones.R;
 import com.cse110.team36.coupletones.maps.SOMapsActivity;
@@ -27,15 +31,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 /* NOTE: This is actually the location page (middle button) */
 
-public class SOVisitedActivity extends AppCompatActivity implements LocationDialog.LocationDialogListener {
+public class SOVisitedActivity extends AppCompatActivity{
     SOVisitedAdapter myCustomAdapter;
     FBListAdapter fbListAdapter;
-
-    @Override
-    public void onDialogPositiveClick(String name, LatLng loc, int position) {
-        FaveLocationManager.locList.get(position).setName(name);
-        myCustomAdapter.notifyDataSetChanged();
-    }
 
     /*
      * Preparing the list data
@@ -43,6 +41,9 @@ public class SOVisitedActivity extends AppCompatActivity implements LocationDial
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        FireBaseManager fireBaseManager = new FireBaseManager(sharedPreferences);
+        fireBaseManager.loadSOVisited();
         setContentView(R.layout.activity_so_visited);
 
         initializeListViewAdapter();
@@ -77,7 +78,7 @@ public class SOVisitedActivity extends AppCompatActivity implements LocationDial
     }
 
     void initializeListViewAdapter() {
-        myCustomAdapter = new SOVisitedAdapter(FaveLocationManager.locList, this, getFragmentManager());
+        myCustomAdapter = new SOVisitedAdapter(SOFaveLocManager.visList, this, getFragmentManager());
 
         ListView listView = (ListView) findViewById(R.id.listView_visited);
         listView.setAdapter(myCustomAdapter);

@@ -41,6 +41,7 @@ public class FirebaseService extends Service {
         int startId;
         Firebase myFirebaseRefReg;
         Firebase soFirebaseRefLoc;
+        Firebase soVisFirebaseRefLoc;
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SparkleToneFactory soundFactory;
 
@@ -51,7 +52,7 @@ public class FirebaseService extends Service {
         public void run() {
             myFirebaseRefReg = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/REG");
             soFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null) + "/Locations");
-
+            soVisFirebaseRefLoc = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null) + "/Visited");
             //SO LOCATION FIREBASE
             soFirebaseRefLoc.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -69,6 +70,7 @@ public class FirebaseService extends Service {
                             int vibration = locFB.getDepartureVibration();
                             soundFactory.sparkle(Constants.SparkleToneName.values()[sound]);
                             sendNotification(SOName + " has arrived at " + locFB.getName(), vibration);
+                            SOFaveLocManager.addLocation(locFB);
                         }
                         else if(locFB.getHere().equals("false"))
                         {
@@ -83,8 +85,8 @@ public class FirebaseService extends Service {
                         }
 
                         //somehow put this into SOFaveLocManager, use specialconstructor
-                        SOFaveLoc soFaveLoc = new SOFaveLoc(locFB);
-                        SOFaveLocManager.addLocation(soFaveLoc);
+                        /*SOFaveLoc soFaveLoc = new SOFaveLoc(locFB);
+                        SOFaveLocManager.addLocation(soFaveLoc);*/
 
                         //somehow stick this into manager
                     }
@@ -94,6 +96,20 @@ public class FirebaseService extends Service {
                 public void onCancelled(FirebaseError firebaseError) {
                 }
             });
+
+            soVisFirebaseRefLoc.addValueEventListener(new ValueEventListener() {
+
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+
+            });
+
 
 
 

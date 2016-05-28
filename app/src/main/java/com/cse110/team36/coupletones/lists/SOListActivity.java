@@ -29,19 +29,10 @@ import java.util.ArrayList;
 public class SOListActivity extends AppCompatActivity{
     FBListAdapter fbListAdapter;
 
-    LocationFB locFB = new LocationFB();
-    //mocked data, please edit as needed
-    OurFaveLoc faveLocation = new OurFaveLoc("land", new LatLng(32.88182224246528, 163.9531598612666));
-    ArrayList<FaveLocation> soList = new ArrayList<FaveLocation>();
-    //SOFaveLocManager.addLocation()
-
-    // reference to firebase
-    Firebase myFirebaseRef;
-
     protected void onStart(){
         super.onStart();
-
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +43,6 @@ public class SOListActivity extends AppCompatActivity{
 
         initializeListViewAdapter();
         initializeButtons();
-        soList.add(faveLocation);
 
         //start a FirebaseService, that has all the listeners
     }
