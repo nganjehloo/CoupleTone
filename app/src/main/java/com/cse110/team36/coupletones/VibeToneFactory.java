@@ -14,6 +14,7 @@ public class VibeToneFactory implements Constants{
     long vibeTones[][] = new long[NUM_VIBE_TONES][];
     Activity activity;
     Vibrator v;
+    private boolean vibeEnable = true;
 
     public VibeToneFactory(Activity activity) {
         this.activity = activity;
@@ -23,9 +24,20 @@ public class VibeToneFactory implements Constants{
 
     }
 
+    public void setVibeEnable(boolean vibeEnable) {
+        this.vibeEnable = vibeEnable;
+    }
+
+    private boolean getVibeEnable() {
+        return this.vibeEnable;
+    }
+
     public void vibrate() {v.vibrate(100);}
 
-    public void vibeTone(VibeToneName name) {v.vibrate(vibeTones[name.ordinal()],-1);}
+    public void vibeTone(VibeToneName name) {
+        if (vibeEnable)
+            v.vibrate(vibeTones[name.ordinal()],-1);
+    }
 
     public void vibeTone(int pos) {v.vibrate(vibeTones[pos],-1);}
 
