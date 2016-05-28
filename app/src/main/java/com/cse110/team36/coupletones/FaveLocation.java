@@ -7,9 +7,9 @@ import android.media.RingtoneManager;
 import com.google.android.gms.maps.model.LatLng;
 
 public abstract class FaveLocation {
-    private double lat;
-    private double lon;
-    private String name;
+    protected double lat;
+    protected double lon;
+    protected String name;
 
     public FaveLocation() {
         super();

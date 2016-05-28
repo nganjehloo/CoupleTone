@@ -19,17 +19,26 @@ import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.FileManager;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.sql.Time;
+
+//import java.sql.Time;
+
 /* NOTE: This is actually the location page (middle button) */
 
-public class SOVisitedActivity extends AppCompatActivity implements LocationDialog.LocationDialogListener{
+public class SOVisitedActivity extends AppCompatActivity {
     SOVisitedAdapter myCustomAdapter;
-    FBListAdapter fbListAdapter;
+    //FBListAdapter fbListAdapter;
 
+    VisitedLoc aLoc = new VisitedLoc("test arrive", new LatLng(0,0), true);
+    VisitedLoc lLoc = new VisitedLoc("test leave", new LatLng(0,0), false);
+
+    /*
     @Override
     public void onDialogPositiveClick(String name, LatLng loc, int position) {
         FaveLocationManager.locList.get(position).setName(name);
         myCustomAdapter.notifyDataSetChanged();
     }
+    */
 
     /*
      * Preparing the list data
@@ -73,7 +82,7 @@ public class SOVisitedActivity extends AppCompatActivity implements LocationDial
     void initializeListViewAdapter() {
         myCustomAdapter = new SOVisitedAdapter(FaveLocationManager.locList, this, getFragmentManager());
 
-        ListView listView = (ListView) findViewById(R.id.listView);
+        ListView listView = (ListView) findViewById(R.id.visitedList);
         listView.setAdapter(myCustomAdapter);
     }
 

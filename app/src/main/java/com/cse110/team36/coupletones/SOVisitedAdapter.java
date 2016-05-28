@@ -29,7 +29,7 @@ public class SOVisitedAdapter extends MyCustomAdapter {
         View view = convertView;
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.custom_layout, null);
+            view = inflater.inflate(R.layout.visited_layout, null);
         }
 
         //Handle TextView and display string from your list
