@@ -21,17 +21,26 @@ public class SparkleToneFactory implements Constants{
     Activity activity;
     Context context;
     static MediaPlayer p;
+    private static boolean sparkEnable = true;
+
 
     public SparkleToneFactory(Activity activity, Context context) {
         this.context = context;
         this.activity = activity;
     }
 
-    public void sparkle() {}
+    public void setSparkEnable(boolean sparkEnable) {
+        this.sparkEnable = sparkEnable;
+    }
+
+    private static boolean getSparkEnable() {
+        return sparkEnable;
+    }
 
     public static void sparkle(SparkleToneName name, Context myContext) {
-        //p = MediaPlayer.create(context, sounds[name.ordinal()]);
-        p = MediaPlayer.create(myContext, sounds[name.ordinal()]);
-        p.start();
+        if (getSparkEnable()) {
+            p = MediaPlayer.create(myContext, sounds[name.ordinal()]);
+            p.start();
+        }
     }
 }
