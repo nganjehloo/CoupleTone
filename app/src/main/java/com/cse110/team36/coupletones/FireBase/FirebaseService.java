@@ -66,13 +66,13 @@ public class FirebaseService extends Service {
                         if(locFB.getHere().equals("true"))
                         {
                             int sound = locFB.getArrivalSound();
-                            int vibration = locFB.getDepartureVibration();
+                            int vibration = locFB.getArrivalVibration();
                             SparkleToneFactory.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                             sendNotification(SOName + " has arrived at " + locFB.getName(), vibration);
                         }
                         else if(locFB.getHere().equals("false"))
                         {
-                            int sound = locFB.getArrivalVibration();
+                            int sound = locFB.getDepartureSound();
                             int vibration = locFB.getDepartureVibration();
                             soundFactory.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                             sendNotification(SOName + " has left " + locFB.getName(), vibration);
@@ -94,21 +94,6 @@ public class FirebaseService extends Service {
                 public void onCancelled(FirebaseError firebaseError) {
                 }
             });
-
-
-
-            // I don't know if I need this
-            /*
-            synchronized(this) {
-                try{
-                    wait(15000);
-                }
-                catch(InterruptedException e) {
-                    e.printStackTrace();
-                }
-                stopSelf(startId);
-            }
-            */
 
             //MY FIREBASE REG
             myFirebaseRefReg.addValueEventListener(new ValueEventListener() {
@@ -151,7 +136,6 @@ public class FirebaseService extends Service {
 //        }
 
 //        VibeToneFactory v = new VibeToneFactory();
-
 
 
         Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.funkytown);

@@ -25,7 +25,6 @@ public class SparkleToneFactory implements Constants{
     public SparkleToneFactory(Activity activity, Context context) {
         this.context = context;
         this.activity = activity;
-
     }
 
     public void sparkle() {}

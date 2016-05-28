@@ -20,7 +20,6 @@ public class VibeToneFactory implements Constants{
         v = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
         for (int i=0;i<NUM_VIBE_TONES;i++)
             vibeTones[i] = getVibeTone(i);
-
     }
 
     public void vibrate() {v.vibrate(100);}
