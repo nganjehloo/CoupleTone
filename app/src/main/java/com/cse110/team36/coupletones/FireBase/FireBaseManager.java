@@ -93,6 +93,30 @@ public class FireBaseManager{
         });
     }
 
+    public void loadSOLocs() {
+        String soemail = sharedPreferences.getString("SOEMAIL", null);
+        if (soemail != null) {
+            Firebase myFirebaseRef = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("SOEMAIL", null) + "/Locations");
+            myFirebaseRef.addValueEventListener(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    FaveLocationManager.emptyLocs();
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        LocationFB locFB = child.getValue(LocationFB.class);
+                        SOFaveLoc soFaveLoc = new SOFaveLoc(locFB);
+                        SOFaveLocManager.addLocation(soFaveLoc);
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                }
+            });
+        }
+    }
+
     public void rename(LocationFB oldData, LocationFB newData)
     {
         remove(oldData);

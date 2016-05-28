@@ -2,7 +2,9 @@ package com.cse110.team36.coupletones.lists;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
@@ -10,6 +12,7 @@ import android.widget.ListView;
 
 
 import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
+import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.FireBase.SOConfig;
 import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
@@ -42,6 +45,9 @@ public class SOListActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        FireBaseManager fireBaseManager = new FireBaseManager(sharedPreferences);
+        fireBaseManager.loadSOLocs();
         setContentView(R.layout.activity_so_list);
 
         initializeListViewAdapter();
