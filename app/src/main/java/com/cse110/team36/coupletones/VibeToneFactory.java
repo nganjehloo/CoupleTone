@@ -1,6 +1,7 @@
 package com.cse110.team36.coupletones;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.os.Vibrator;
 
@@ -12,13 +13,20 @@ import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 
 public class VibeToneFactory implements Constants{
     long vibeTones[][] = new long[NUM_VIBE_TONES][];
-    Activity activity;
+    //Activity activity;
     Vibrator v;
     private static boolean vibeEnable = true;
 
     public VibeToneFactory(Activity activity) {
-        this.activity = activity;
+        //this.activity = activity;
         v = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
+        for (int i=0;i<NUM_VIBE_TONES;i++)
+            vibeTones[i] = getVibeTone(i);
+    }
+
+    public VibeToneFactory(Service service) {
+        //this.activity = activity;
+        v = (Vibrator) service.getSystemService(Context.VIBRATOR_SERVICE);
         for (int i=0;i<NUM_VIBE_TONES;i++)
             vibeTones[i] = getVibeTone(i);
     }

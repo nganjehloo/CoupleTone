@@ -58,6 +58,8 @@ public class SOConfig extends AppCompatActivity {
         {
             disableAddFields();
         }
+
+        enableAddFields();
     }
 
 
@@ -146,7 +148,7 @@ public class SOConfig extends AppCompatActivity {
         Switch sound = (Switch)findViewById(R.id.switch1);
         sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SparkleToneFactory vibeToneFactory = new SparkleToneFactory(SOConfig.this);
+                SparkleToneFactory vibeToneFactory = new SparkleToneFactory();
                 vibeToneFactory.setSparkEnable();
             }
         });

@@ -14,32 +14,30 @@ import java.util.Map;
  */
 
 public class SparkleToneFactory implements Constants{
-    //int sparkleTones[] = new int[NUM_SPARKLE_TONES];
-    static int[] sounds = {R.raw.default_arrival, R.raw.default_arrival, R.raw.communication_channel,
-                    R.raw.funkytown1, R.raw.okarin, R.raw.served, R.raw.solemn, R.raw.fart_sound,
-                    R.raw.racecar};
-    Activity activity;
-    Context context;
-    static MediaPlayer p;
+    int[] sounds = {R.raw.ping, R.raw.ding, R.raw.default_depart, R.raw.communication_channel,
+                    R.raw.funkytown1, R.raw.okarin, R.raw.solemn, R.raw.fart_sound,
+                    R.raw.racecar, R.raw.jingle, R.raw.kimmunicator};
+    MediaPlayer p;
     private static boolean sparkEnable = true;
 
+    public SparkleToneFactory(){}
 
-    public SparkleToneFactory( Context context) {
-        this.context = context;
-    }
-
-    public void setSparkEnable() {
-        this.sparkEnable = !sparkEnable;
+    public static void setSparkEnable() {
+        sparkEnable = !sparkEnable;
     }
 
     private static boolean getSparkEnable() {
         return sparkEnable;
     }
 
-    public static void sparkle(SparkleToneName name, Context myContext) {
+    public void sparkle(SparkleToneName name, Context myContext) {
         if (getSparkEnable()) {
             p = MediaPlayer.create(myContext, sounds[name.ordinal()]);
             p.start();
         }
+    }
+
+    public boolean isPlaying() {
+        return p.isPlaying();
     }
 }

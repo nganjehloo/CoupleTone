@@ -1,5 +1,6 @@
 package com.cse110.team36.coupletones.FireBase;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -27,6 +28,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 public class FirebaseService extends Service {
+    Service service = this;
     public FirebaseService() {
     }
 
@@ -58,6 +60,9 @@ public class FirebaseService extends Service {
                     String SOName = sharedPreferences.getString("SOEMAIL", "NOSO");
                     // loop through the snapshot's children
                     SOFaveLocManager.emptyLocs();
+                    VibeToneFactory v = new VibeToneFactory(service);
+                    SparkleToneFactory s = new SparkleToneFactory();
+
                     for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                         //grab the children
                         LocationFB locFB = postSnapshot.getValue(LocationFB.class);
@@ -66,7 +71,9 @@ public class FirebaseService extends Service {
                         {
                             int sound = locFB.getArrivalSound();
                             int vibration = locFB.getArrivalVibration();
-                            SparkleToneFactory.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
+                            s.sparkle(Constants.SparkleToneName.ARRIVAL, getApplicationContext());
+                            s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
+                            v.vibeTone(Constants.VibeToneName.DEFAULT_ARRIVAL);
                             sendNotification(SOName + " has arrived at " + locFB.getName(), vibration);
                             SOFaveLocManager.addLocation(locFB);
                         }
@@ -74,7 +81,11 @@ public class FirebaseService extends Service {
                         {
                             int sound = locFB.getDepartureSound();
                             int vibration = locFB.getDepartureVibration();
-                            SparkleToneFactory.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
+
+                            s.sparkle(Constants.SparkleToneName.DEPART, getApplicationContext());
+                            s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
+                            v.vibeTone(Constants.VibeToneName.DEFAULT_DEPART);
+
                             sendNotification(SOName + " has left " + locFB.getName(), vibration);
                         }
                         else
@@ -139,7 +150,7 @@ public class FirebaseService extends Service {
 //        VibeToneFactory v = new VibeToneFactory();
 
 
-        Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.funkytown);
+        Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.funkytown1);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
                 .setContentTitle("CoupleTones")
@@ -153,11 +164,5 @@ public class FirebaseService extends Service {
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
-
-        // for release (aka device communication) locList must be replaced by the SOlocList
-//        if (FaveLocationManager.locList.size() > 0 ) {
-//            Ringtone ringtone = FaveLocationManager.locList.get(0).getRingtone();
-//            ringtone.play();
-//        }
     }
 }

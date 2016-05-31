@@ -16,8 +16,10 @@ import com.cse110.team36.coupletones.Constants;
 import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.cse110.team36.coupletones.R;
 import com.cse110.team36.coupletones.SparkleToneFactory;
-import com.cse110.team36.coupletones.VibeToneFactory;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 /**
  * Created by stazia on 5/26/16.
@@ -30,6 +32,7 @@ public class SparkleListDialog extends DialogFragment implements Constants {
     String SOLocationName;
     SharedPreferences sharedPreferences;
     String SOEmail;
+    int idx;
 
     int locListPos;
     int savePos;
@@ -42,42 +45,59 @@ public class SparkleListDialog extends DialogFragment implements Constants {
         this.activity = activity;
     }
 
-    public void setPosition(int position) {
-        this.locListPos = position;
+    public void setPositions(int locPosition, int idx) {
+        this.locListPos = locPosition;
+        this.idx = idx;
+        this.savePos = idx;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Log.i("STAZ 1", Integer.toString(idx));
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         SOEmail = sharedPreferences.getString("SOEMAIL", null);
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
         sparkles = new String[NUM_SPARKLE_TONES];
         for (int i=0;i<NUM_SPARKLE_TONES;i++)
             sparkles[i] = SparkleToneName.values()[i].toString();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        Log.i("STAZ before builder", Integer.toString(idx));
         // Set the dialog title
         builder.setTitle("Pick your sparkleTone")
                 // Specify the list array, the items to be selected by default (null for none),
                 // and the listener through which to receive callbacks when items are selected
-                .setSingleChoiceItems(sparkles,-1, new DialogInterface.OnClickListener() {
-                    SparkleToneFactory factory = new SparkleToneFactory( context);
+
+                .setSingleChoiceItems(sparkles,idx, new DialogInterface.OnClickListener() {
+                    SparkleToneFactory factory = new SparkleToneFactory();
 
                     @Override
                     public void onClick(DialogInterface dialog, int pos) {
                         savePos = pos;
+                        Log.i("STAZ in onClick", Integer.toString(idx));
                         factory.sparkle(SparkleToneName.values()[pos], context);
                     }
                 })
+
                 // Set the action buttons
                 .setPositiveButton(R.string.set_name, new DialogInterface.OnClickListener() {
+
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         if (getTag().equals("arrivalSparkleList")) {
                             Log.d("MAP", "SPARKLE ARRIVAL: ");
+                            Log.i("STAZ on Set", Integer.toString(idx));
                             SOFaveLocManager.locList.get(locListPos).changeArrivalSparkleTone(SparkleToneName.values()[savePos]);
                             SOLocationName = SOFaveLocManager.locList.get(locListPos).getName();
                             SOFirebaseSettings = new Firebase("https://coupletones36.firebaseio.com/" + SOEmail + "/Locations/" + SOLocationName);
                             SOFirebaseSettings.child("arrivalSound").setValue(savePos);
+                            Log.i("STAZ after firebase", Integer.toString(savePos));
 
                         } else if (getTag().equals("departSparkleList")) {
                             Log.d("MAP", "SPARKLE DEPART: ");
@@ -93,7 +113,7 @@ public class SparkleListDialog extends DialogFragment implements Constants {
                     public void onClick(DialogInterface dialog, int id) {
                     }
                 });
-
+        Log.i("STAZ exiting", Integer.toString(idx));
         return builder.create();
     }
 }
