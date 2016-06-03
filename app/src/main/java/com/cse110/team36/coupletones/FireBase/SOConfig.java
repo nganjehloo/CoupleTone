@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -144,20 +145,35 @@ public class SOConfig extends AppCompatActivity {
                 startActivity(new Intent(SOConfig.this, SOVisitedActivity.class));
             }
         });
+        SparkleToneFactory sparkleToneFactory = new SparkleToneFactory();
+        Switch sparkleSW = (Switch)findViewById(R.id.switch1);
+        if (sparkleToneFactory.getSparkEnable())
+            sparkleSW.setChecked(true);
+        else
+            sparkleSW.setChecked(false);
 
-        Switch sound = (Switch)findViewById(R.id.switch1);
-        sound.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        sparkleSW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SparkleToneFactory vibeToneFactory = new SparkleToneFactory();
-                vibeToneFactory.setSparkEnable();
+                SparkleToneFactory sparkleToneFactory = new SparkleToneFactory();
+                Log.i("MAP","Calling setSparkleEnable()");
+                sparkleToneFactory.setSparkEnable();
+
             }
         });
 
-        Switch vibrate = (Switch)findViewById(R.id.switch1);
-        vibrate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        Switch vibeSW = (Switch)findViewById(R.id.switch2);
+        VibeToneFactory vibeToneFactory = new VibeToneFactory(SOConfig.this);
+        if (vibeToneFactory.getVibeEnable())
+            vibeSW.setChecked(true);
+        else
+            vibeSW.setChecked(false);
+
+        vibeSW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 VibeToneFactory vibeToneFactory = new VibeToneFactory(SOConfig.this);
+                Log.i("MAP","Calling setVibeEnable()");
                 vibeToneFactory.setVibeEnable();
+
             }
         });
     }
