@@ -4,7 +4,8 @@ import android.app.FragmentManager;
 import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
+import com.cse110.team36.coupletones.FaveLocations.OurFaveLoc;
+//import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.lists.HomeScreen;
 import com.cse110.team36.coupletones.lists.adapters.MyCustomAdapter;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
  */
 public class ListView_tests extends ActivityInstrumentationTestCase2<HomeScreen> {
     HomeScreen homeScreen;
-    private ArrayList<FaveLocation> list = new ArrayList<>();
+    private ArrayList<OurFaveLoc> list = new ArrayList<>();
     LatLng equator = new LatLng(0.000000,0.000000);
     LatLng ucsd = new LatLng(32.000000,117.000000);
     LatLng oc = new LatLng(34.000000,118.000000);
@@ -29,9 +30,9 @@ public class ListView_tests extends ActivityInstrumentationTestCase2<HomeScreen>
         super(HomeScreen.class);
     }
 
-    /* Test FaveLocation */
-    public void test_FaveLocation() {
-        FaveLocation equ = new FaveLocation("Equator", equator);
+    /* Test OurFaveLoc */
+    public void test_OurFaveLoc() {
+        OurFaveLoc equ = new OurFaveLoc("Equator", equator);
         assertEquals(equator.latitude, equ.getLat());
         assertEquals(equator.longitude, equ.getLng());
         assertEquals(equator, equ.getCoords());
@@ -46,7 +47,7 @@ public class ListView_tests extends ActivityInstrumentationTestCase2<HomeScreen>
     public void test_addLocation() {
         homeScreen = getActivity();
         // add location to locList
-        FaveLocation equatorLoc = new FaveLocation("Equator", equator);
+        OurFaveLoc equatorLoc = new OurFaveLoc("Equator", equator);
         list.add(equatorLoc);
 
         FaveLocationManager favMgr = new FaveLocationManager(context);
@@ -68,9 +69,9 @@ public class ListView_tests extends ActivityInstrumentationTestCase2<HomeScreen>
         homeScreen = getActivity();
 
         // list of favorite locations
-        FaveLocation equatorLoc = new FaveLocation("Equator", equator);
-        FaveLocation ucsdLoc = new FaveLocation("UCSD", ucsd);
-        FaveLocation ocLoc = new FaveLocation("OC", oc);
+        OurFaveLoc equatorLoc = new OurFaveLoc("Equator", equator);
+        OurFaveLoc ucsdLoc = new OurFaveLoc("UCSD", ucsd);
+        OurFaveLoc ocLoc = new OurFaveLoc("OC", oc);
         list.add(equatorLoc);
         list.add(ucsdLoc);
         list.add(ocLoc);
