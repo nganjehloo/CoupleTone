@@ -13,20 +13,18 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by admin on 5/21/16.
  */
 public class SOFaveLoc extends FaveLocation {
-    Constants.VibeToneName vibeToneArrivalName;
-    Constants.VibeToneName vibeToneDepartName;
+    public Constants.VibeToneName vibeToneArrivalName;
+    public Constants.VibeToneName vibeToneDepartName;
 
-    Constants.SparkleToneName sparkleToneArrivalName;
-    Constants.SparkleToneName sparkleToneDepartName;
+    public Constants.SparkleToneName sparkleToneArrivalName;
+    public Constants.SparkleToneName sparkleToneDepartName;
 
     public SOFaveLoc(String name, LatLng loc,Ringtone sparkleTone, Constants.VibeToneName vibeToneName) {
         super(name, loc);
-        //this.sparkleTone = RingtoneManager.getRingtone(activity,RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-//        this.sparkleTone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         this.vibeToneArrivalName = Constants.VibeToneName.DEFAULT_ARRIVAL;
         this.vibeToneDepartName = Constants.VibeToneName.DEFAULT_DEPART;
-        this.sparkleToneArrivalName = Constants.SparkleToneName.DEFAULT_ARRIVAL;
-        this.sparkleToneDepartName = Constants.SparkleToneName.DEFAULT_DEPART;
+        this.sparkleToneArrivalName = Constants.SparkleToneName.ARRIVAL;
+        this.sparkleToneDepartName = Constants.SparkleToneName.DEPART;
     }
 
     // constructor for converting a LocationFB to a SOFaveLoc
@@ -34,8 +32,8 @@ public class SOFaveLoc extends FaveLocation {
         super(locationFB.getName(), new LatLng(locationFB.getLat(), locationFB.getLong()));
         this.vibeToneArrivalName = Constants.VibeToneName.DEFAULT_ARRIVAL;
         this.vibeToneDepartName = Constants.VibeToneName.DEFAULT_DEPART;
-        this.sparkleToneArrivalName = Constants.SparkleToneName.DEFAULT_ARRIVAL;
-        this.sparkleToneDepartName = Constants.SparkleToneName.DEFAULT_DEPART;
+        this.sparkleToneArrivalName = Constants.SparkleToneName.ARRIVAL;
+        this.sparkleToneDepartName = Constants.SparkleToneName.DEPART;
     }
 
     public void changeArrivalVibeTone(Constants.VibeToneName vibeToneArrivalName) {
@@ -48,11 +46,9 @@ public class SOFaveLoc extends FaveLocation {
 
     public void changeArrivalSparkleTone(Constants.SparkleToneName sparkleToneArrivalName) {
         this.sparkleToneArrivalName = sparkleToneArrivalName;
-        Log.i("MAP",sparkleToneArrivalName.toString());
     }
 
     public void changeDepartSparkleTone(Constants.SparkleToneName sparkleToneDepartName) {
         this.sparkleToneDepartName = sparkleToneDepartName;
-        Log.i("MAP",sparkleToneDepartName.toString());
     }
 }

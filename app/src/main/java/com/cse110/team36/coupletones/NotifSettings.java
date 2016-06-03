@@ -5,9 +5,11 @@ import android.os.Bundle;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -16,7 +18,10 @@ import com.cse110.team36.coupletones.Dialogs.SparkleListDialog;
 import com.cse110.team36.coupletones.Dialogs.VibeListDialog;
 import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.cse110.team36.coupletones.lists.SOListActivity;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -31,7 +36,11 @@ public class NotifSettings extends AppCompatActivity {
      */
     private GoogleApiClient client;
     int pos;
-
+    int idx;
+    Firebase SOFirebaseSettings;
+    String SOLocationName;
+    SharedPreferences sharedPreferences;
+    String SOEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,38 +55,89 @@ public class NotifSettings extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         pos = bundle.getInt("key");
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SOEmail = sharedPreferences.getString("SOEMAIL", null);
+        SOLocationName = SOFaveLocManager.locList.get(pos).getName();
+        SOFirebaseSettings = new Firebase("https://coupletones36.firebaseio.com/" + SOEmail + "/Locations/" + SOLocationName);
     }
 
     public void selectArrivalSound(View view) {
         //vibeToneFactory.vibeTone(Constants.VibeToneName.FUNKYTOWN);
-        SparkleListDialog listDialog = new SparkleListDialog();
+        final SparkleListDialog listDialog = new SparkleListDialog();
         listDialog.setContext(getBaseContext());
-        listDialog.setPosition(pos);
-        listDialog.show(getFragmentManager(), "arrivalSparkleList");
+
+        SOFirebaseSettings.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                long IDX = (long) snapshot.child("arrivalSound").getValue();
+                idx = Long.valueOf(IDX).intValue();
+                listDialog.setPositions(pos, idx);
+                listDialog.show(getFragmentManager(), "arrivalSparkleList");
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {}
+
+        });
     }
 
     public void selectArrivalVibe(View view) {
-        VibeListDialog listDialog = new VibeListDialog();
+        final VibeListDialog listDialog = new VibeListDialog();
         listDialog.setContext(getBaseContext());
         listDialog.setActivity(this);
-        listDialog.setPosition(pos);
-        listDialog.show(getFragmentManager(), "arrivalVibeList");
+
+        SOFirebaseSettings.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                long IDX = (long) snapshot.child("arrivalVibration").getValue();
+                idx = Long.valueOf(IDX).intValue();
+                listDialog.setPositions(pos, idx);
+                listDialog.show(getFragmentManager(), "arrivalVibeList");
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {}
+
+        });
     }
 
     public void selectDepartSound(View view) {
-//        vibeToneFactory.vibeTone(Constants.VibeToneName.VALLEY);
-        SparkleListDialog listDialog = new SparkleListDialog();
+        //vibeToneFactory.vibeTone(Constants.VibeToneName.FUNKYTOWN);
+        final SparkleListDialog listDialog = new SparkleListDialog();
         listDialog.setContext(getBaseContext());
-        listDialog.setPosition(pos);
-        listDialog.show(getFragmentManager(), "departSparkleList");
+
+        SOFirebaseSettings.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                long IDX = (long) snapshot.child("departureSound").getValue();
+                idx = Long.valueOf(IDX).intValue();
+                listDialog.setPositions(pos, idx);
+                listDialog.show(getFragmentManager(), "departSparkleList");
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {}
+        });
     }
 
     public void selectDepartVibe(View view) {
-        VibeListDialog listDialog = new VibeListDialog();
+        final VibeListDialog listDialog = new VibeListDialog();
         listDialog.setContext(getBaseContext());
-        listDialog.show(getFragmentManager(), "departVibeList");
         listDialog.setActivity(this);
-        vibeToneFactory.vibeTone(Constants.VibeToneName.SLOW2FAST);
+
+        SOFirebaseSettings.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                long IDX = (long) snapshot.child("departureVibration").getValue();
+                idx = Long.valueOf(IDX).intValue();
+                listDialog.setPositions(pos, idx);
+                listDialog.show(getFragmentManager(), "departVibeList");
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {}
+
+        });
     }
 
     @Override

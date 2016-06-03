@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -14,33 +15,33 @@ import java.util.Map;
  */
 
 public class SparkleToneFactory implements Constants{
-    //int sparkleTones[] = new int[NUM_SPARKLE_TONES];
-    static int[] sounds = {R.raw.default_arrival, R.raw.default_arrival, R.raw.communication_channel,
-                    R.raw.funkytown1, R.raw.okarin, R.raw.served, R.raw.solemn, R.raw.fart_sound,
-                    R.raw.racecar};
-    Activity activity;
-    Context context;
-    static MediaPlayer p;
+    int[] sounds = {R.raw.ping, R.raw.ding, R.raw.default_depart, R.raw.communication_channel,
+                    R.raw.funkytown1, R.raw.okarin, R.raw.solemn, R.raw.fart_sound,
+                    R.raw.racecar, R.raw.jingle, R.raw.kimmunicator};
+    MediaPlayer p;
     private static boolean sparkEnable = true;
 
+    public SparkleToneFactory(){}
 
-    public SparkleToneFactory(Activity activity, Context context) {
-        this.context = context;
-        this.activity = activity;
+    public static void setSparkEnable() {
+        sparkEnable = !sparkEnable;
+        String str = "  sparkleEnable = ";
+        str += Boolean.toString(sparkEnable);
+        Log.i("MAP",str);
     }
 
-    public void setSparkEnable(boolean sparkEnable) {
-        this.sparkEnable = sparkEnable;
-    }
-
-    private static boolean getSparkEnable() {
+    public boolean getSparkEnable() {
         return sparkEnable;
     }
 
-    public static void sparkle(SparkleToneName name, Context myContext) {
+    public void sparkle(SparkleToneName name, Context myContext) {
         if (getSparkEnable()) {
             p = MediaPlayer.create(myContext, sounds[name.ordinal()]);
             p.start();
         }
+    }
+
+    public boolean isPlaying() {
+        return p.isPlaying();
     }
 }

@@ -11,6 +11,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.cse110.team36.coupletones.Constants;
+import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 import com.cse110.team36.coupletones.Managers.MapManager;
@@ -82,7 +83,7 @@ public class LocationChangeListener implements LocationListener, Constants {
                 notifySODepartLoc(currLoc);
             }
         } else if (!currOutside && prevOutside) {
-            Log.d("MAP","ARRIVAL NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
+            Log.d("MAP", "ARRIVAL NOTIF! Inside NEW Loc: " + FaveLocationManager.locList.get(currLoc).getName());
             writeArrivalVisitedToDB(currLoc);
             notifySOArrivalLoc(currLoc);
             // TODO: VIBETONE_ARRIVAL

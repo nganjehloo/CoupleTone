@@ -1,8 +1,10 @@
 package com.cse110.team36.coupletones;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 
@@ -12,23 +14,33 @@ import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 
 public class VibeToneFactory implements Constants{
     long vibeTones[][] = new long[NUM_VIBE_TONES][];
-    Activity activity;
+    //Activity activity;
     Vibrator v;
-    private boolean vibeEnable = true;
+    private static boolean vibeEnable = true;
 
     public VibeToneFactory(Activity activity) {
-        this.activity = activity;
+        //this.activity = activity;
         v = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
         for (int i=0;i<NUM_VIBE_TONES;i++)
             vibeTones[i] = getVibeTone(i);
     }
 
-    public void setVibeEnable(boolean vibeEnable) {
-        this.vibeEnable = vibeEnable;
+    public VibeToneFactory(Service service) {
+        //this.activity = activity;
+        v = (Vibrator) service.getSystemService(Context.VIBRATOR_SERVICE);
+        for (int i=0;i<NUM_VIBE_TONES;i++)
+            vibeTones[i] = getVibeTone(i);
     }
 
-    private boolean getVibeEnable() {
-        return this.vibeEnable;
+    public static void setVibeEnable() {
+        vibeEnable = !vibeEnable;
+        String str = "  vibeEnable = ";
+        str += Boolean.toString(vibeEnable);
+        Log.i("MAP",str);
+    }
+
+    public boolean getVibeEnable() {
+        return vibeEnable;
     }
 
     public void vibrate() {v.vibrate(100);}
@@ -43,40 +55,49 @@ public class VibeToneFactory implements Constants{
     public static long[] getVibeTone(int i) {
         switch(i) {
             case(0):
-                // 0: DEFAULT_ARRIVAL
-                return new long[] {500, 500};
-            case(1):
-                // 1: DEFAULT_DEPART
-                return new long[] {200, 200, 200, 200};
-            case(2):
-                // 2: _5THSYMPHONY
-                return new long[] {150, 75, 150, 75, 150, 75, 150, 1000};
-            case(3):
-                // 3: PRESENTING
-                return new long[] {100, 400, 100, 100, 100, 100, 100, 400, 100, 500, 250, 250, 100, 250};
-            case(4):
-                // 4: FUNKYTOWN
-                return new long[] {100, 400, 100, 300, 100, 250, 150, 100, 150, 100, 150, 100, 300, 400, 100, 300, 100, 250};
-            case(5):
-                // 5: SLOW2FAST
-                return new long[] {400, 400, 300, 300, 200, 200, 100, 100, 80, 80, 60, 60, 40, 40, 20, 20};
-            case(6):
-                // 6: FAST2SLOW
-                return new long[] {20, 20, 40, 40, 60, 60, 80, 80, 100, 100, 200, 200, 300, 300, 400, 400};
-            case(7):
-                // 7: MOUNTAIN
-                return new long[] {25, 25, 50, 50, 100, 100, 150, 150, 200, 200, 200, 200, 150, 150, 100, 100, 50, 50, 25, 25};
-            case(8):
-                // 8: VALLEY
-                return new long[] {200, 200, 150, 150, 100, 100, 50, 50, 25, 25, 25, 25, 50, 50, 100, 100, 150, 150, 200, 200};
-            case(9):
-                // 9: TODO
+                //  0: PING
                 return new long[] {100, 100};
+            case(1):
+                //  1: DEFAULT_ARRIVAL
+                return new long[] {500, 500, 250, 250, 250, 250};
+            case(2):
+                //  2: DEFAULT_DEPART
+                return new long[] {250, 250, 250, 250, 500, 500};
+            case(3):
+                //  3: _5THSYMPHONY
+                return new long[] {150, 75, 150, 75, 150, 75, 150, 1000};
+            case(4):
+                //  4: PRESENTING
+                return new long[] {100, 400, 100, 100, 100, 100, 100, 400, 100, 500, 250, 250, 100, 250};
+            case(5):
+                //  5: FUNKYTOWN
+                return new long[] {100, 400, 100, 300, 100, 250, 150, 100, 150, 100, 150, 100, 300, 400, 100, 300, 100, 250};
+            case(6):
+                //  6: SLOW2FAST
+                return new long[] {400, 400, 300, 300, 200, 200, 100, 100, 80, 80, 60, 60, 40, 40, 20, 20};
+            case(7):
+                //  7: FAST2SLOW
+                return new long[] {20, 20, 40, 40, 60, 60, 80, 80, 100, 100, 200, 200, 300, 300, 400, 400};
+            case(8):
+                //  8: MOUNTAIN
+                return new long[] {25, 25, 50, 50, 100, 100, 150, 150, 200, 200, 200, 200, 150, 150, 100, 100, 50, 50, 25, 25};
+            case(9):
+                //  9: VALLEY
+                return new long[] {200, 200, 150, 150, 100, 100, 50, 50, 25, 25, 25, 25, 50, 50, 100, 100, 150, 150, 200, 200};
             case(10):
                 // 10: TODO
                 return new long[] {100, 100};
             case(11):
                 // 11: TODO
+                return new long[] {100, 100};
+            case(12):
+                // 12: TODO
+                return new long[] {100, 100};
+            case(13):
+                // 13: TODO
+                return new long[] {100, 100};
+            case(14):
+                // 14: TODO
                 return new long[] {100, 100};
             default:
                 // Just a bzzzt!!

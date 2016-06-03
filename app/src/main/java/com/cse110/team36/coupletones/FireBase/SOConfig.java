@@ -6,12 +6,17 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cse110.team36.coupletones.SparkleToneFactory;
+import com.cse110.team36.coupletones.VibeToneFactory;
 import com.cse110.team36.coupletones.maps.MapsActivity;
 import com.cse110.team36.coupletones.R;
 
@@ -33,11 +38,13 @@ public class SOConfig extends AppCompatActivity {
         setContentView(R.layout.so_config);
         initalizeButtons();
         refreshIDView();
+        TextView mBaeCode = (TextView) findViewById(R.id.editText);
 
         //Check if SO is already added
         if(sharedPreferences.getString("SOEMAIL", "null").equals("null"))
         {
             sharedPreferences.edit().putBoolean("isAdded", true).apply();
+            mBaeCode.setText(sharedPreferences.getString("SOEMAIL", "bae") + ".com");
         }
         else
         {
@@ -53,6 +60,8 @@ public class SOConfig extends AppCompatActivity {
         {
             disableAddFields();
         }
+
+        enableAddFields();
     }
 
 
@@ -135,6 +144,37 @@ public class SOConfig extends AppCompatActivity {
             public void onClick(View view) {
                 finish();
                 startActivity(new Intent(SOConfig.this, SOVisitedActivity.class));
+            }
+        });
+        SparkleToneFactory sparkleToneFactory = new SparkleToneFactory();
+        Switch sparkleSW = (Switch)findViewById(R.id.switch1);
+        if (sparkleToneFactory.getSparkEnable())
+            sparkleSW.setChecked(true);
+        else
+            sparkleSW.setChecked(false);
+
+        sparkleSW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                SparkleToneFactory sparkleToneFactory = new SparkleToneFactory();
+                Log.i("MAP","Calling setSparkleEnable()");
+                sparkleToneFactory.setSparkEnable();
+
+            }
+        });
+
+        Switch vibeSW = (Switch)findViewById(R.id.switch2);
+        VibeToneFactory vibeToneFactory = new VibeToneFactory(SOConfig.this);
+        if (vibeToneFactory.getVibeEnable())
+            vibeSW.setChecked(true);
+        else
+            vibeSW.setChecked(false);
+
+        vibeSW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                VibeToneFactory vibeToneFactory = new VibeToneFactory(SOConfig.this);
+                Log.i("MAP","Calling setVibeEnable()");
+                vibeToneFactory.setVibeEnable();
+
             }
         });
     }
