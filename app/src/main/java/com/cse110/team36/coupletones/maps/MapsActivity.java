@@ -54,7 +54,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     // SO vars
     private static String SOKey;
     private static String message;
-    SharedPreferences sharedPreferences;
+    public SharedPreferences sharedPreferences;
 
     VibeToneFactory v;
     //FileManager fileManager;
