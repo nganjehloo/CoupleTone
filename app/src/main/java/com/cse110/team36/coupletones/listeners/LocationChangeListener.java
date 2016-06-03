@@ -107,7 +107,7 @@ public class LocationChangeListener implements LocationListener, Constants {
         Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Visited");
         LocationFB locationFB = new LocationFB();
         locationFB.setName("Arrived:  " + locName);
-        MYFBLocStatus.child(locName).setValue(locationFB);
+        MYFBLocStatus.child(locName + locationFB.getTime()).setValue(locationFB);
     }
     private void writeDepartureVisitedToDB(int currLoc){
         String locName = FaveLocationManager.locList.get(currLoc).getName();
@@ -116,7 +116,7 @@ public class LocationChangeListener implements LocationListener, Constants {
         Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Visited");
         LocationFB locationFB = new LocationFB();
         locationFB.setName("Departed: " + locName);
-        MYFBLocStatus.child(locName).setValue(locationFB);
+        MYFBLocStatus.child(locName + locationFB.getTime()).setValue(locationFB);
     }
 
     private void notifySOArrivalLoc(int currLoc) {

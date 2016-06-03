@@ -43,8 +43,8 @@ public class SOFaveLocManager {
         return true;
     }
 
-    public static boolean addLocation(LocationFB soVisitedeLoc) {
-        visList.add(soVisitedeLoc);
+    public static boolean addLocation(LocationFB soVisitedLoc) {
+        visList.add(soVisitedLoc);
         return true;
     }
 
