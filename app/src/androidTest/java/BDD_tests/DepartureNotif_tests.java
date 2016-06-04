@@ -33,12 +33,12 @@ public class DepartureNotif_tests extends ActivityInstrumentationTestCase2<MapsA
         LocationFB locationFB = new LocationFB();
         locationFB.setName("TESTLOC");
         locationFB.setHere("true");
-        firebase.child("TESTLOC").setValue(new LocationFB());
+        firebase.child("TESTLOC").setValue(locationFB);
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    LocationFB locFB = dataSnapshot.getValue(LocationFB.class);
+                    LocationFB locFB = postSnapshot.getValue(LocationFB.class);
                     assertEquals("true", locFB.getHere());
                 }
             }
@@ -48,7 +48,6 @@ public class DepartureNotif_tests extends ActivityInstrumentationTestCase2<MapsA
 
             }
         });
-
     }
 
     public void test_recieveNotif(){
@@ -59,12 +58,12 @@ public class DepartureNotif_tests extends ActivityInstrumentationTestCase2<MapsA
         LocationFB locationFB = new LocationFB();
         locationFB.setName("TESTLOC");
         locationFB.setHere("true");
-        secondfirebase.child("TESTLOC").setValue(new LocationFB());
+        secondfirebase.child("TESTLOC").setValue(locationFB);
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    LocationFB locFB = dataSnapshot.getValue(LocationFB.class);
+                    LocationFB locFB = postSnapshot.getValue(LocationFB.class);
                     assertEquals("true", locFB.getHere());
                 }
             }
