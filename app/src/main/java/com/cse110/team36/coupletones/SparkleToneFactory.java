@@ -15,10 +15,10 @@ import java.util.Map;
  */
 
 public class SparkleToneFactory implements Constants{
-    int[] sounds = {R.raw.ping, R.raw.ding, R.raw.default_depart, R.raw.communication_channel,
+    int[] sounds = {R.raw.ping, R.raw.ding, R.raw.pacman, R.raw.communication_channel,
                     R.raw.funkytown1, R.raw.okarin, R.raw.solemn, R.raw.fart_sound,
-                    R.raw.racecar, R.raw.jingle, R.raw.kimmunicator};
-    MediaPlayer p;
+                    R.raw.racecar, R.raw.jingle, R.raw.kimmunicator, R.raw.default_depart};
+    MediaPlayer p = new MediaPlayer();
     private static boolean sparkEnable = true;
 
     public SparkleToneFactory(){}
@@ -47,5 +47,9 @@ public class SparkleToneFactory implements Constants{
 
     public void pause(){
         p.pause();
+    }
+
+    public void destroy() {
+        p.release();
     }
 }

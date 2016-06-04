@@ -72,15 +72,26 @@ public class FirebaseService extends Service {
                             int vibration = locFB.getArrivalVibration();
                             v.vibeTone(Constants.VibeToneName.DEFAULT_ARRIVAL);
                             s.sparkle(Constants.SparkleToneName.ARRIVAL, getApplicationContext());
-
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
                             sendNotification(SOName + " has arrived at " + locFB.getName(), vibration);
                             s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
+
                             SOFaveLocManager.addLocation(locFB);
                         }
                         else if(locFB.getHere().equals("false"))
                         {
                             int sound = locFB.getDepartureSound();
                             int vibration = locFB.getDepartureVibration();
+
+                            try {
+                                Thread.sleep(300);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
 
                             v.vibeTone(Constants.VibeToneName.DEFAULT_DEPART);
                             s.sparkle(Constants.SparkleToneName.DEPART, getApplicationContext());
@@ -99,6 +110,8 @@ public class FirebaseService extends Service {
 
                         //somehow stick this into manager
                     }
+
+
                 }
 
                 @Override

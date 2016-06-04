@@ -127,7 +127,7 @@ public class LocationChangeListener implements LocationListener, Constants {
         String MYName = sharedPreferences.getString("MYEMAIL", "NOSO");
         Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations/" + locName);
         MYFBLocStatus.child("here").setValue("true");
-      //  MYFBLocStatus.child("here").setValue("N/A");
+        MYFBLocStatus.child("here").setValue("N/A");
 
     }
 
@@ -138,6 +138,6 @@ public class LocationChangeListener implements LocationListener, Constants {
         String MYName = sharedPreferences.getString("MYEMAIL", "NOSO");
         Firebase MYFBLocStatus = new Firebase("https://coupletones36.firebaseio.com/" + MYName + "/Locations/" + locName);
         MYFBLocStatus.child("here").setValue("false");
-   //     MYFBLocStatus.child("here").setValue("N/A");
+        MYFBLocStatus.child("here").setValue("N/A");
     }
 }
