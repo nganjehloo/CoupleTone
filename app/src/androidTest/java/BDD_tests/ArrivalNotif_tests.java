@@ -29,10 +29,7 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
         mapsActivity = getActivity();
         SharedPreferences sharedPreferences = mapsActivity.sharedPreferences;
         Firebase firebase = new Firebase("https://coupletones36.firebaseio.com/" + "MYTESTUSER" + "/Locations");
-        LocationFB locationFB = new LocationFB();
-        locationFB.setName("TESTLOC");
-        locationFB.setHere("false");
-        firebase.child("TESTLOC").setValue(locationFB);
+
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -48,7 +45,10 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
             }
         });
 
-
+        LocationFB locationFB = new LocationFB();
+        locationFB.setName("TESTLOC");
+        locationFB.setHere("false");
+        firebase.child("TESTLOC").setValue(locationFB);
 
     }
 
@@ -56,10 +56,7 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
         mapsActivity = getActivity();
         SharedPreferences sharedPreferences = mapsActivity.sharedPreferences;
         Firebase secondfirebase = new Firebase("https://coupletones36.firebaseio.com/" + "SOTESTUSER" + "/Locations");
-        LocationFB locationFB = new LocationFB();
-        locationFB.setName("TESTLOC");
-        locationFB.setHere("false");
-        secondfirebase.child("TESTLOC").setValue(locationFB);
+
         secondfirebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -74,6 +71,11 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
 
             }
         });
+
+        LocationFB locationFB = new LocationFB();
+        locationFB.setName("TESTLOC");
+        locationFB.setHere("false");
+        secondfirebase.child("TESTLOC").setValue(locationFB);
 
     }
 }
