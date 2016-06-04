@@ -24,7 +24,7 @@ public interface Constants {
         //0          1                  2           3        4         5       6     7
         PING, ARRIVAL, DEPART, COMM_LINE, FUNKYTOWN, OKARIN, SOLEMN, FART,
         //  8       9           10
-         RACE_CAR, JINGLE, KIMMUNICATOR
+        RACE_CAR, JINGLE, KIMMUNICATOR
     }
 
 

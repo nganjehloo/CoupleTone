@@ -58,18 +58,14 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
 
     // SO vars
-
-    private static String SOKey;
-    private static String message;
     public SharedPreferences sharedPreferences;
 
 
     VibeToneFactory v;
     MarkerManager markerManager;
 
-    LocationChangeListener locationChangeListener;
     LocationManager locationManager;
-//    LocationChangeListener locationListener = new LocationChangeListener(this);
+    LocationChangeListener locationChangeListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +94,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             mapFragment.getMapAsync(this);
 
             initializeButtons();
-
         }
-
-
     }
 
     @Override
@@ -129,6 +122,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         if (locationManager != null)
             locationManager.removeUpdates(locationChangeListener);
 
+        //fileManager.exportSavedFavLocs();
+        overridePendingTransition(0, 0);
     }
 
     /**
