@@ -13,7 +13,6 @@ public class ResetDailyHist_tests  {
         String time = new java.text.SimpleDateFormat("h:mm:ss a").format(new java.util.Date (epoch*1000));
 
         assert(time.equals("3:00:00 AM"));
-
     }
 
     public void noreset3AM(){
@@ -21,6 +20,5 @@ public class ResetDailyHist_tests  {
         String time = new java.text.SimpleDateFormat("h:mm:ss a").format(new java.util.Date (epoch*1000));
 
         assert(!time.equals("3:00:00 AM"));
-
     }
 }

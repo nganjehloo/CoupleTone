@@ -28,7 +28,6 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
     }
 
     public void test_AddSOAfterRemoveSO(){
-        test_AddSO();
         test_RemoveSO();
         test_AddSO();
     }
