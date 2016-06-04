@@ -70,14 +70,8 @@ public class FirebaseService extends Service {
                         if(locFB.getHere().equals("true")) {
                             int sound = locFB.getArrivalSound();
                             int vibration = locFB.getArrivalVibration();
-                            s.sparkle(Constants.SparkleToneName.ARRIVAL, getApplicationContext());
                             v.vibeTone(Constants.VibeToneName.DEFAULT_ARRIVAL);
                             s.sparkle(Constants.SparkleToneName.ARRIVAL, getApplicationContext());
-                            try {
-                                Thread.sleep(300);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
                             sendNotification(SOName + " has arrived at " + locFB.getName(), vibration);
                             s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                             v.vibeTone(Constants.VibeToneName.values()[vibration]);
@@ -88,13 +82,9 @@ public class FirebaseService extends Service {
                             int sound = locFB.getDepartureSound();
                             int vibration = locFB.getDepartureVibration();
 
-                            s.sparkle(Constants.SparkleToneName.DEPART, getApplicationContext());
                             v.vibeTone(Constants.VibeToneName.DEFAULT_DEPART);
-                            try {
-                                Thread.sleep(500);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            s.sparkle(Constants.SparkleToneName.DEPART, getApplicationContext());
+
                             sendNotification(SOName + " has left " + locFB.getName(), vibration);
                             s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                             v.vibeTone(Constants.VibeToneName.values()[vibration]);
@@ -110,8 +100,6 @@ public class FirebaseService extends Service {
 
                         //somehow stick this into manager
                     }
-
-
                 }
 
                 @Override
@@ -128,6 +116,7 @@ public class FirebaseService extends Service {
                     String SOEmail = fBreg.getID();
                     if(fBreg.getRelationshipStatus()) {
                         sharedPreferences.edit().putString("SOEMAIL", SOEmail).apply();
+
                     }
                     else
                     {
