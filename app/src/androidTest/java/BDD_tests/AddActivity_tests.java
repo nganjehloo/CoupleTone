@@ -23,8 +23,8 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
         //First TIme adding SO and addSO are now the same
         SOConfig soConfig = getActivity();
         FireBaseManager fireBaseManager = new FireBaseManager(soConfig.sharedPreferences);
-        fireBaseManager.addSO("testso.com");
-        assertEquals("testso", soConfig.sharedPreferences.getString("SOEMAIL", null));
+        fireBaseManager.addSO("testso@gmail.com");
+        assertEquals("testso@gmail", soConfig.sharedPreferences.getString("SOEMAIL", null));
     }
 
     public void test_AddSOAfterRemoveSO(){
