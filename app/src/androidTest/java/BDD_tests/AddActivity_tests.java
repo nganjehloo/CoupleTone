@@ -23,7 +23,6 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
         //First TIme adding SO and addSO are now the same
         SOConfig soConfig = getActivity();
         FireBaseManager fireBaseManager = new FireBaseManager(soConfig.sharedPreferences);
-        fireBaseManager.createAccount("testso.com");
         fireBaseManager.addSO("testso.com");
         assertEquals("testso", soConfig.sharedPreferences.getString("SOEMAIL", null));
     }
