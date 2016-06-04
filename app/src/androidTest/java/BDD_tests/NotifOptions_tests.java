@@ -15,7 +15,7 @@ public class NotifOptions_tests extends ActivityInstrumentationTestCase2<SOConfi
 
 
     SOConfig soConfig;
-    NotifOptions_tests(){ super(SOConfig.class);}
+    public NotifOptions_tests(){ super(SOConfig.class);}
 
     public void test_playSound(){
         assertEquals(true, (new SparkleToneFactory()).getSparkEnable());
