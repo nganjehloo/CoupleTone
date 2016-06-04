@@ -23,12 +23,14 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
 
     MapsActivity mapsActivity;
 
-    public ArrivalNotif_tests(){ super(com.cse110.team36.coupletones.maps.MapsActivity.class);}
+    public ArrivalNotif_tests(){ super(MapsActivity.class);}
+
 
     public void test_sendArrival(){
         mapsActivity = getActivity();
         SharedPreferences sharedPreferences = mapsActivity.sharedPreferences;
         Firebase firebase = new Firebase("https://coupletones36.firebaseio.com/" + "MYTESTUSER" + "/Locations");
+
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -43,6 +45,7 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
 
             }
         });
+
         LocationFB locationFB = new LocationFB();
         locationFB.setName("TESTLOC");
         locationFB.setHere("false");
@@ -50,14 +53,15 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
 
     }
 
-    public void test_recieveArrival(){
+    public void test_receiveArrival(){
         mapsActivity = getActivity();
         SharedPreferences sharedPreferences = mapsActivity.sharedPreferences;
-        Firebase firebase = new Firebase("https://coupletones36.firebaseio.com/" + "MYTESTUSER" + "/Locations");
         Firebase secondfirebase = new Firebase("https://coupletones36.firebaseio.com/" + "SOTESTUSER" + "/Locations");
-        firebase.addValueEventListener(new ValueEventListener() {
+
+        secondfirebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     LocationFB locFB = postSnapshot.getValue(LocationFB.class);
                     assertEquals("false", locFB.getHere());
@@ -74,5 +78,6 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
         locationFB.setName("TESTLOC");
         locationFB.setHere("false");
         secondfirebase.child("TESTLOC").setValue(locationFB);
+
     }
 }
