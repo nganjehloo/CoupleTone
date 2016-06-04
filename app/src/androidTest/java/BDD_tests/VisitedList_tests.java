@@ -50,6 +50,6 @@ public class VisitedList_tests extends ActivityInstrumentationTestCase2<SOVisite
             }.start();
         }
 
-        Collections.sort(testFaveLocManager.visList, );
+       // Collections.sort(testFaveLocManager.visList, );
     }
 }
