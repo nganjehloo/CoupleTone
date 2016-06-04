@@ -13,12 +13,12 @@ import com.firebase.client.ValueEventListener;
 /**
  * Created by Duc Le on 6/3/2016.
  */
-public class CustomVibration_tests extends ActivityInstrumentationTestCase2<MapsActivity> implements Constants {
+public class CustomSound_tests extends ActivityInstrumentationTestCase2<MapsActivity> implements Constants {
 
     Firebase myTestFirebase;
 
-    public CustomVibration_tests() {
-        super(MapsActivity.class);
+    public CustomSound_tests() {
+        super(com.cse110.team36.coupletones.maps.MapsActivity.class);
     }
 
     public void test_setVibration()
@@ -34,8 +34,8 @@ public class CustomVibration_tests extends ActivityInstrumentationTestCase2<Maps
                     LocationFB locFB = postSnapshot.getValue(LocationFB.class);
 
                     //Get new vibration from the server
-                    int newArrivalVibe = locFB.getArrivalVibration();
-                    int newDepartureVibe = locFB.getDepartureVibration();
+                    int newArrivalVibe = locFB.getArrivalSound();
+                    int newDepartureVibe = locFB.getDepartureSound();
 
                     //test to see if the set is successful
                     assertEquals(newArrivalVibe, 5);
@@ -67,8 +67,8 @@ public class CustomVibration_tests extends ActivityInstrumentationTestCase2<Maps
         myTestFirebase.setValue(testLoc);
 
         //Set new vibration to the server
-        myTestFirebase.child("arrivalVibration").setValue(5);
-        myTestFirebase.child("departureVibration").setValue(6);
+        myTestFirebase.child("arrivalSound").setValue(5);
+        myTestFirebase.child("departureSound").setValue(6);
 
     }
 

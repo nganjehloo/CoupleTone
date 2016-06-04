@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by stazia on 5/5/16.
  */
 public class FaveLocationManager {
-    public static ArrayList<FaveLocation> locList = new ArrayList<FaveLocation>();
+    public static ArrayList<OurFaveLoc> locList = new ArrayList<OurFaveLoc>();
     static Context context;
 
     public FaveLocationManager(Context context) {
@@ -21,20 +21,20 @@ public class FaveLocationManager {
     // for testing purposes only. Not for release
 
     public static boolean addLocation(String name, LatLng loc) {
-        FaveLocation newLoc = new OurFaveLoc(name, loc);
+        OurFaveLoc newLoc = new OurFaveLoc(name, loc);
         locList.add(newLoc);
         return true;
     }
 
     public static boolean addLocation(OurFaveLoc ourFaveLoc) {
-        FaveLocation newLoc = ourFaveLoc;
+        OurFaveLoc newLoc = ourFaveLoc;
         locList.add(newLoc);
         return true;
     }
 
     public static boolean removeLocation(String name) {
         for (int i = 0; i < locList.size(); i++) {
-            FaveLocation faveLocation = locList.get(i);
+            OurFaveLoc faveLocation = locList.get(i);
             if (faveLocation.getName().equals(name)) {
                 locList.remove(i);
                 return true;

@@ -85,7 +85,7 @@ public class HomeScreen extends AppCompatActivity implements LocationDialog.Loca
             @Override
             public void onClick(View view) {
                 finish();
-                startActivity(new Intent(HomeScreen.this, MapsActivity.class));
+                startActivity(new Intent(HomeScreen.this, SOVisitedActivity.class));
             }
         });
 
