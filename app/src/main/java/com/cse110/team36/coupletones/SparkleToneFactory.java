@@ -40,4 +40,8 @@ public class SparkleToneFactory implements Constants{
     public boolean isPlaying() {
         return p.isPlaying();
     }
+
+    public void pause(){
+        p.pause();
+    }
 }

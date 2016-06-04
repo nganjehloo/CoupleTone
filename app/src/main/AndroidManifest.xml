@@ -38,6 +38,8 @@
             android:name=".maps.MapsActivity"
             android:label="CoupleTones"
             android:launchMode="singleInstance"
+            android:persistent="true"
+            android:alwaysRetainTaskState="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat">
             <intent-filter>
@@ -103,35 +105,6 @@
             </intent-filter>
         </receiver>
 
-        <!--
-     Enables message handling (e.g.detecting different downstream message types,
-     determining upstream send status, and automatically displaying simple
-     notifications on the app’s behalf)
-        -->
-
-        <service
-            android:name=".GCM.MyGCMListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-            </intent-filter>
-        </service>
-
-        <!-- Handles the creation and updating of registration tokens -->
-
-        <service
-            android:name=".GCM.MyInstanceIDListenerService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.android.gms.iid.InstanceID" />
-            </intent-filter>
-        </service>
-
-        <!-- To get the registration token -->
-
-        <service
-            android:name=".GCM.RegistrationIntentService"
-            android:exported="false"></service>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
