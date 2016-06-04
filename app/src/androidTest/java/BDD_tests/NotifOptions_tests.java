@@ -15,9 +15,10 @@ public class NotifOptions_tests extends ActivityInstrumentationTestCase2<SOConfi
 
 
     SOConfig soConfig;
-    NotifOptions_tests(){ super(SOConfig.class);}
+    public NotifOptions_tests(){ super(SOConfig.class);}
 
     public void test_playSound(){
+        SparkleToneFactory.setSparkEnable();
         assertEquals(true, (new SparkleToneFactory()).getSparkEnable());
     }
 
@@ -27,6 +28,7 @@ public class NotifOptions_tests extends ActivityInstrumentationTestCase2<SOConfi
     }
 
     public void test_playVIbrate(){
+        VibeToneFactory.setVibeEnable();
         soConfig = getActivity();
         assertEquals(true, (new VibeToneFactory(soConfig)).getVibeEnable());
     }

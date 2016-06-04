@@ -24,16 +24,13 @@ public class DepartureNotif_tests extends ActivityInstrumentationTestCase2<MapsA
 
     MapsActivity mapsActivity;
 
-    public DepartureNotif_tests(){ super(com.cse110.team36.coupletones.maps.MapsActivity.class);}
+
+    public DepartureNotif_tests(){ super(MapsActivity.class);}
 
     public void test_sendNotif(){
         mapsActivity = getActivity();
         SharedPreferences sharedPreferences = mapsActivity.sharedPreferences;
-        Firebase firebase = new Firebase("https://coupletones36.firebaseio.com/" + "MYTESTUSER" + "/Locations");
-        LocationFB locationFB = new LocationFB();
-        locationFB.setName("TESTLOC");
-        locationFB.setHere("true");
-        firebase.child("TESTLOC").setValue(locationFB);
+        Firebase firebase = new Firebase("https://coupletones36.firebaseio.com/" + "MYTESTUSER1" + "/Locations");
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -48,17 +45,18 @@ public class DepartureNotif_tests extends ActivityInstrumentationTestCase2<MapsA
 
             }
         });
+        LocationFB locationFB = new LocationFB();
+        locationFB.setName("TESTLOC");
+        locationFB.setHere("true");
+        firebase.child("TESTLOC").setValue(locationFB);
+
     }
 
     public void test_recieveNotif(){
         mapsActivity = getActivity();
         SharedPreferences sharedPreferences = mapsActivity.sharedPreferences;
-        Firebase firebase = new Firebase("https://coupletones36.firebaseio.com/" + "MYTESTUSER" + "/Locations");
-        Firebase secondfirebase = new Firebase("https://coupletones36.firebaseio.com/" + "SOTESTUSER" + "/Locations");
-        LocationFB locationFB = new LocationFB();
-        locationFB.setName("TESTLOC");
-        locationFB.setHere("true");
-        secondfirebase.child("TESTLOC").setValue(locationFB);
+        Firebase firebase = new Firebase("https://coupletones36.firebaseio.com/" + "MYTESTUSER1" + "/Locations");
+        Firebase secondfirebase = new Firebase("https://coupletones36.firebaseio.com/" + "SOTESTUSER1" + "/Locations");
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -73,6 +71,11 @@ public class DepartureNotif_tests extends ActivityInstrumentationTestCase2<MapsA
 
             }
         });
+        LocationFB locationFB = new LocationFB();
+        locationFB.setName("TESTLOC");
+        locationFB.setHere("true");
+        secondfirebase.child("TESTLOC").setValue(locationFB);
+
 
     }
 

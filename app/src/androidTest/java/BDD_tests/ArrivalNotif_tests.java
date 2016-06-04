@@ -23,7 +23,8 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
 
     MapsActivity mapsActivity;
 
-    public ArrivalNotif_tests(){ super(com.cse110.team36.coupletones.maps.MapsActivity.class);}
+    public ArrivalNotif_tests(){ super(MapsActivity.class);}
+
 
     public void test_sendArrival(){
         mapsActivity = getActivity();
@@ -60,6 +61,7 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
         secondfirebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     LocationFB locFB = postSnapshot.getValue(LocationFB.class);
                     assertEquals("false", locFB.getHere());
