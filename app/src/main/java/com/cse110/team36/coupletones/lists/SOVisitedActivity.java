@@ -35,14 +35,14 @@ import com.google.android.gms.maps.model.LatLng;
 public class SOVisitedActivity extends AppCompatActivity{
     SOVisitedAdapter myCustomAdapter;
     FBListAdapter fbListAdapter;
-
+    public SharedPreferences sharedPreferences;
     /*
      * Preparing the list data
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         FireBaseManager fireBaseManager = new FireBaseManager(sharedPreferences);
         fireBaseManager.loadSOVisited();
         Log.d("SOVISITED", ((Integer) SOFaveLocManager.visList.size()).toString());

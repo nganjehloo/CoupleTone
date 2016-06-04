@@ -2,15 +2,20 @@ package BDD_tests;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.util.Log;
 
+import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.Managers.SOFaveLocManager;
 import com.cse110.team36.coupletones.lists.HomeScreen;
 import com.cse110.team36.coupletones.lists.SOVisitedActivity;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
 /**
@@ -20,6 +25,7 @@ public class VisitedList_tests extends ActivityInstrumentationTestCase2<SOVisite
 
     private Context context;
     private FragmentManager fragmentManager;
+    private SharedPreferences sp;
 
     SOVisitedActivity soVisitedActivity;
 
@@ -31,11 +37,17 @@ public class VisitedList_tests extends ActivityInstrumentationTestCase2<SOVisite
     public void test_visListOrderedByTime() {
         soVisitedActivity = getActivity();
 
-        SOFaveLocManager testFaveLocManager = new SOFaveLocManager(context);
+        sp = soVisitedActivity.sharedPreferences;
+        //SOFaveLocManager testFaveLocManager = new SOFaveLocManager(context);
+        ArrayList<LocationFB> visList = new ArrayList<>();
+        FireBaseManager fbManager = new FireBaseManager(sp);
 
-        for(int i = 0; i < 10; i++){
-            testFaveLocManager.visList.add(new LocationFB());
-            new CountDownTimer(1000,1000) {
+
+        for (int i = 0; i < 10; i++) {
+            LocationFB testLFB = new LocationFB();
+            visList.add(testLFB);
+            fbManager.add(testLFB);
+            new CountDownTimer(1000, 1000) {
                 int i = 0;
 
                 @Override
@@ -50,6 +62,19 @@ public class VisitedList_tests extends ActivityInstrumentationTestCase2<SOVisite
             }.start();
         }
 
-        Collections.sort(testFaveLocManager.visList, );
+        Collections.sort(visList, SOFaveLocManager.comparator);
+        for(int i = 0; i < SOFaveLocManager.visList.size(); i++) {
+            assertEquals(equals(SOFaveLocManager.visList.get(i), visList.get(i)), true);
+        }
+    }
+
+    public boolean equals(LocationFB loc1, LocationFB loc2) {
+
+        if(loc1.getName() != loc2.getName())
+            return false;
+        if(loc1.getEpoch() != loc2.getEpoch())
+            return false;
+
+        return true;
     }
 }
