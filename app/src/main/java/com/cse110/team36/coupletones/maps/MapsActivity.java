@@ -1,6 +1,8 @@
 package com.cse110.team36.coupletones.maps;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.cse110.team36.coupletones.AlarmReset;
 import com.cse110.team36.coupletones.Constants;
 import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.FirebaseService;
@@ -37,13 +40,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
-                                                                OnMapReadyCallback,
+        OnMapReadyCallback,
         LocationDialog.LocationDialogListener,
         Constants {
-    // File vars
-    static boolean firstOpen = true;
 
     // Map vars
     private GoogleMap mMap;
@@ -52,14 +58,17 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
 
     // SO vars
+
     private static String SOKey;
     private static String message;
-    SharedPreferences sharedPreferences;
+    public SharedPreferences sharedPreferences;
+
 
     VibeToneFactory v;
-    //FileManager fileManager;
     MarkerManager markerManager;
 
+    LocationChangeListener locationChangeListener;
+    LocationManager locationManager;
 //    LocationChangeListener locationListener = new LocationChangeListener(this);
 
     @Override
@@ -68,17 +77,12 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
 
         v = new VibeToneFactory(this);
-        /*fileManager = new FileManager(this);
-        if (firstOpen) {
-            fileManager.importSavedFavLocs();
-            firstOpen = false;
-        }*/
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean ran_once = sharedPreferences.getBoolean("RAN_ONCE", false);
 
         if (!ran_once) {
-            sharedPreferences.edit().putBoolean("RAN_ONCE",true).apply();
+            sharedPreferences.edit().putBoolean("RAN_ONCE", true).apply();
             startActivity(new Intent(MapsActivity.this, MyFireBaseRegistration.class));
         } else {
             Intent intent = new Intent(MapsActivity.this, FirebaseService.class);
@@ -94,23 +98,39 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             initializeButtons();
 
         }
+
+
     }
 
     @Override
+<<<<<<< HEAD
     protected void onStart() {
         super.onStart();
         Log.i("onStart", "On Start .....");
-
+        setAlarm();
         overridePendingTransition(0, 0);
     }
 
     @Override
     protected void onStop() {
+=======
+    public void onStop() {
+>>>>>>> 13c12a7172bc2324824571ba6b97b656ed5ce19d
         super.onStop();
-        Log.i("onStop", "On Stop .....");
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
 
-        //fileManager.exportSavedFavLocs();
-        overridePendingTransition(0, 0);
+        if (locationManager != null)
+            locationManager.removeUpdates(locationChangeListener);
+
     }
 
     /**
@@ -130,7 +150,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         mMap.setOnMapLongClickListener(this);   // LISTENER FOR THE LONG-CLICK SO MARKER DROPS ON HELD LOCATION
 
         //GPS
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         mapManager = new MapManager(locationManager, this);
         String locationProvider = LocationManager.GPS_PROVIDER;
 
@@ -154,7 +174,9 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             // Create a criteria object to retrieve provider
             mapManager.firstLocationSet(mMap);
         }
-        locationManager.requestLocationUpdates(locationProvider, 0, 0, new LocationChangeListener(this));
+
+        locationChangeListener = new LocationChangeListener(this);
+        locationManager.requestLocationUpdates(locationProvider, 0, 0, locationChangeListener);
     }
 
     /***** DROPPING OF MAP MARKER ON MAP LONG-CLICK
@@ -258,16 +280,35 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
     }
 
-    public void runVibe(View view) {
-//        FloatingActionButton vibe = (FloatingActionButton) findViewById(R.id.vibe);
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                startActivity(new Intent(MapsActivity.this, NotifSettings.class));
-
-    }
-
     public void runOurList(View view) {
         finish();
         startActivity(new Intent(MapsActivity.this, HomeScreen.class));
+    }
+
+    public void setAlarm() {
+        Calendar cur_cal = new GregorianCalendar();
+        cur_cal.setTimeInMillis(System.currentTimeMillis());//set the current time and date for this calendar
+
+        Calendar cal = new GregorianCalendar();
+//        cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
+        cal.set(Calendar.HOUR_OF_DAY, 19);
+        cal.set(Calendar.MINUTE, 10);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+//        cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
+//        cal.set(Calendar.MONTH, cur_cal.get(Calendar.MONTH));
+        Intent intent = new Intent(MapsActivity.this, AlarmReset.class);
+        PendingIntent pintent = PendingIntent.getService(MapsActivity.this, 0, intent, 0);
+        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarm.setRepeating(AlarmManager.RTC, cal.getTimeInMillis(), 24*60*60*1000, pintent);
+//        String str = cal.toString();
+
+
+        cal.add(Calendar.DATE, 0);
+        Date date = cal.getTime();
+        SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss  MM-dd-yyyy");
+        String str = format1.format(date);
+
+        Toast.makeText(getBaseContext(), str, Toast.LENGTH_LONG).show();
     }
 }

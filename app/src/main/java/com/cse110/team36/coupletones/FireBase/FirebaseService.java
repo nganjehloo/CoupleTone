@@ -67,14 +67,13 @@ public class FirebaseService extends Service {
                         //grab the children
                         LocationFB locFB = postSnapshot.getValue(LocationFB.class);
 
-                        if(locFB.getHere().equals("true"))
-                        {
+                        if(locFB.getHere().equals("true")) {
                             int sound = locFB.getArrivalSound();
                             int vibration = locFB.getArrivalVibration();
-                            s.sparkle(Constants.SparkleToneName.ARRIVAL, getApplicationContext());
-                            s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                             v.vibeTone(Constants.VibeToneName.DEFAULT_ARRIVAL);
+                            s.sparkle(Constants.SparkleToneName.ARRIVAL, getApplicationContext());
                             sendNotification(SOName + " has arrived at " + locFB.getName(), vibration);
+                            s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                             SOFaveLocManager.addLocation(locFB);
                         }
                         else if(locFB.getHere().equals("false"))
@@ -82,11 +81,11 @@ public class FirebaseService extends Service {
                             int sound = locFB.getDepartureSound();
                             int vibration = locFB.getDepartureVibration();
 
-                            s.sparkle(Constants.SparkleToneName.DEPART, getApplicationContext());
-                            s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                             v.vibeTone(Constants.VibeToneName.DEFAULT_DEPART);
+                            s.sparkle(Constants.SparkleToneName.DEPART, getApplicationContext());
 
                             sendNotification(SOName + " has left " + locFB.getName(), vibration);
+                            s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                         }
                         else
                         {
