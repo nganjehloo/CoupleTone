@@ -39,18 +39,19 @@ public class VibeToneFactory implements Constants{
         Log.i("MAP",str);
     }
 
-    public boolean getVibeEnable() {
+    public static boolean getVibeEnable() {
         return vibeEnable;
     }
 
     public void vibrate() {v.vibrate(100);}
 
     public void vibeTone(VibeToneName name) {
-        if (getVibeEnable())
-            v.vibrate(vibeTones[name.ordinal()],-1);
+        if (getVibeEnable()) {
+            v.vibrate(vibeTones[name.ordinal()], -1);
+        }
     }
 
-    public void vibeTone(int pos) {v.vibrate(vibeTones[pos],-1);}
+//    public void vibeTone(int pos) {v.vibrate(vibeTones[pos],-1);}
 
     public static long[] getVibeTone(int i) {
         switch(i) {

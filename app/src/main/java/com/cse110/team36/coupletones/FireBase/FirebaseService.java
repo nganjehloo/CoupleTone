@@ -80,6 +80,7 @@ public class FirebaseService extends Service {
                             }
                             sendNotification(SOName + " has arrived at " + locFB.getName(), vibration);
                             s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
+                            v.vibeTone(Constants.VibeToneName.values()[vibration]);
                             SOFaveLocManager.addLocation(locFB);
                         }
                         else if(locFB.getHere().equals("false"))
@@ -96,6 +97,7 @@ public class FirebaseService extends Service {
                             }
                             sendNotification(SOName + " has left " + locFB.getName(), vibration);
                             s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
+                            v.vibeTone(Constants.VibeToneName.values()[vibration]);
                         }
                         else
                         {
@@ -168,7 +170,7 @@ public class FirebaseService extends Service {
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
-                .setVibrate(VibeToneFactory.getVibeTone(vibration))
+                //.setVibrate(VibeToneFactory.getVibeTone(vibration))
                 .setDefaults(Notification.DEFAULT_LIGHTS);
 
         NotificationManager notificationManager =

@@ -146,34 +146,34 @@ public class SOConfig extends AppCompatActivity {
                 startActivity(new Intent(SOConfig.this, SOVisitedActivity.class));
             }
         });
-        SparkleToneFactory sparkleToneFactory = new SparkleToneFactory();
+//        SparkleToneFactory sparkleToneFactory = new SparkleToneFactory();
         Switch sparkleSW = (Switch)findViewById(R.id.switch1);
-        if (sparkleToneFactory.getSparkEnable())
+        if (SparkleToneFactory.getSparkEnable())
             sparkleSW.setChecked(true);
         else
             sparkleSW.setChecked(false);
 
         sparkleSW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SparkleToneFactory sparkleToneFactory = new SparkleToneFactory();
+//                SparkleToneFactory sparkleToneFactory = new SparkleToneFactory();
                 Log.i("MAP","Calling setSparkleEnable()");
-                sparkleToneFactory.setSparkEnable();
+                SparkleToneFactory.setSparkEnable();
 
             }
         });
 
         Switch vibeSW = (Switch)findViewById(R.id.switch2);
-        VibeToneFactory vibeToneFactory = new VibeToneFactory(SOConfig.this);
-        if (vibeToneFactory.getVibeEnable())
+//        VibeToneFactory vibeToneFactory = new VibeToneFactory(SOConfig.this);
+        if (VibeToneFactory.getVibeEnable())
             vibeSW.setChecked(true);
         else
             vibeSW.setChecked(false);
 
         vibeSW.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                VibeToneFactory vibeToneFactory = new VibeToneFactory(SOConfig.this);
+//                VibeToneFactory vibeToneFactory = new VibeToneFactory(SOConfig.this);
                 Log.i("MAP","Calling setVibeEnable()");
-                vibeToneFactory.setVibeEnable();
+                VibeToneFactory.setVibeEnable();
 
             }
         });

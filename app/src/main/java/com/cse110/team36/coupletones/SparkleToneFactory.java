@@ -31,7 +31,7 @@ public class SparkleToneFactory implements Constants{
         Log.i("MAP",str);
     }
 
-    public boolean getSparkEnable() {
+    public static boolean getSparkEnable() {
         return sparkEnable;
     }
 
