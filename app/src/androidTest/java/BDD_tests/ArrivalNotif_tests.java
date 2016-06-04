@@ -24,22 +24,19 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
     MapsActivity mapsActivity;
 
     public ArrivalNotif_tests(){ super(MapsActivity.class);}
-    /*
+
+
     public void test_sendArrival(){
         mapsActivity = getActivity();
         SharedPreferences sharedPreferences = mapsActivity.sharedPreferences;
         Firebase firebase = new Firebase("https://coupletones36.firebaseio.com/" + "MYTESTUSER" + "/Locations");
-        LocationFB locationFB = new LocationFB();
-        locationFB.setName("TESTLOC");
-        locationFB.setHere("true");
-        firebase.child("TESTLOC").setValue(locationFB);
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    LocationFB locFB = dataSnapshot.getValue(LocationFB.class);
-                    assertEquals("true", "true");
-               // }
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    LocationFB locFB = postSnapshot.getValue(LocationFB.class);
+                    assertEquals("false", locFB.getHere());
+                }
             }
 
             @Override
@@ -47,6 +44,11 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
 
             }
         });
+        LocationFB locationFB = new LocationFB();
+        locationFB.setName("TESTLOC");
+        locationFB.setHere("false");
+        firebase.child("TESTLOC").setValue(locationFB);
+
     }
 
     public void test_recieveArrival(){
@@ -54,17 +56,14 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
         SharedPreferences sharedPreferences = mapsActivity.sharedPreferences;
         Firebase firebase = new Firebase("https://coupletones36.firebaseio.com/" + "MYTESTUSER" + "/Locations");
         Firebase secondfirebase = new Firebase("https://coupletones36.firebaseio.com/" + "SOTESTUSER" + "/Locations");
-        LocationFB locationFB = new LocationFB();
-        locationFB.setName("TESTLOC");
-        locationFB.setHere("false");
-        secondfirebase.child("TESTLOC").setValue(new LocationFB());
         firebase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    LocationFB locFB = dataSnapshot.getValue(LocationFB.class);
-                    assertEquals("false", "false");
-              // }
+
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    LocationFB locFB = postSnapshot.getValue(LocationFB.class);
+                    assertEquals("false", locFB.getHere());
+                }
             }
 
             @Override
@@ -72,5 +71,10 @@ public class ArrivalNotif_tests extends ActivityInstrumentationTestCase2<MapsAct
 
             }
         });
-    }*/
+
+        LocationFB locationFB = new LocationFB();
+        locationFB.setName("TESTLOC");
+        locationFB.setHere("false");
+        secondfirebase.child("TESTLOC").setValue(locationFB);
+    }
 }

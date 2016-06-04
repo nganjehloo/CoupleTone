@@ -93,6 +93,57 @@ public class CustomSound_tests extends ActivityInstrumentationTestCase2<MapsActi
         setSound4PlayNew();
     }
 
+    public void test_playDefaultSound()
+    {
+        //
+        final MapsActivity map = getActivity();
+
+        //create a test firebase user
+        myTestFirebase = new Firebase("https://coupletones36.firebaseio.com/testSound3/Locations");
+
+        //Set a listener
+        myTestFirebase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    LocationFB locFB = postSnapshot.getValue(LocationFB.class);
+
+                    //Get new sound from the server
+                    int newArrivalVibe = locFB.getArrivalSound();
+                    int newDepartureVibe = locFB.getDepartureSound();
+
+                    SparkleToneFactory s = new SparkleToneFactory();
+                    s.sparkle(Constants.SparkleToneName.values()[newArrivalVibe], map.getApplicationContext());
+                    assertEquals(s.isPlaying(), true);
+
+                    s.sparkle(Constants.SparkleToneName.values()[newDepartureVibe], map.getApplicationContext());
+                    assertEquals(s.isPlaying(), true);
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+            }
+        });
+
+        //Call set sound
+        setSound4PlayDefault();
+    }
+    private void setSound4PlayDefault()
+    {
+        //create a test firebase user
+        myTestFirebase = new Firebase("https://coupletones36.firebaseio.com/testSound2/Locations/");
+
+        //create a test location object with default vibration
+        LocationFB testLoc = new LocationFB();
+        testLoc.setName("testLoc");
+        testLoc.setLat(1.0);
+        testLoc.setLong(1.0);
+
+        //Put test object to our firebase
+        myTestFirebase.child(testLoc.getName()).setValue(testLoc);
+    }
+
     private void setSound4PlayNew()
     {
         //create a test firebase user

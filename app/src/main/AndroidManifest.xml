@@ -54,11 +54,13 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".lists.HomeScreen"
@@ -85,7 +87,7 @@
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".lists.SOListActivity"
-            android:label="SO's Locations"
+            android:label="SO&apos;s Locations"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat" />
@@ -106,6 +108,38 @@
         </receiver>
 
         <!--
+<<<<<<< HEAD
+     Enables message handling (e.g.detecting different downstream message types,
+     determining upstream send status, and automatically displaying simple
+     notifications on the app’s behalf)
+        -->
+
+        <service
+            android:name=".GCM.MyGCMListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <!-- Handles the creation and updating of registration tokens -->
+
+        <service
+            android:name=".GCM.MyInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+
+        <!-- To get the registration token -->
+
+        <service
+            android:name=".GCM.RegistrationIntentService"
+            android:exported="false" />
+        <!--
+=======
+>>>>>>> 13c12a7172bc2324824571ba6b97b656ed5ce19d
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
              Note that the API key is linked to the encryption key used to sign the APK.
@@ -120,7 +154,6 @@
         <activity
             android:name=".NotifSettings"
             android:label="@string/title_activity_notif_settings"
-
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat" />
         <!--
@@ -133,6 +166,10 @@
 
         <service
             android:name=".FireBase.FirebaseService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".AlarmReset"
             android:enabled="true"
             android:exported="true"></service>
     </application>
