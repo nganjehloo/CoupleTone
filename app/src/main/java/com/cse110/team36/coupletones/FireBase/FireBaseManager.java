@@ -88,7 +88,6 @@ public class FireBaseManager{
                     LocationFB locFB = child.getValue(LocationFB.class);
                     OurFaveLoc ourFaveLoc = new OurFaveLoc(locFB);
                     FaveLocationManager.addLocation(ourFaveLoc);
-
                 }
             }
 
