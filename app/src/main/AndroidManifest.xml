@@ -52,11 +52,13 @@
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity
             android:name=".lists.HomeScreen"
@@ -83,7 +85,7 @@
             android:theme="@style/Theme.AppCompat" />
         <activity
             android:name=".lists.SOListActivity"
-            android:label="SO's Locations"
+            android:label="SO&apos;s Locations"
             android:launchMode="singleInstance"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat" />
@@ -131,7 +133,7 @@
 
         <service
             android:name=".GCM.RegistrationIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -147,7 +149,6 @@
         <activity
             android:name=".NotifSettings"
             android:label="@string/title_activity_notif_settings"
-
             android:launchMode="singleInstance"
             android:theme="@style/Theme.AppCompat" />
         <!--
@@ -160,6 +161,10 @@
 
         <service
             android:name=".FireBase.FirebaseService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".AlarmReset"
             android:enabled="true"
             android:exported="true"></service>
     </application>
