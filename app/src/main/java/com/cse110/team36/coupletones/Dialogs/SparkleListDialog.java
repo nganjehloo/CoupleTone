@@ -26,7 +26,7 @@ public class SparkleListDialog extends ListDialog {
             sparkles[i] = SparkleToneName.values()[i].toString();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
+        final SparkleToneFactory factory = new SparkleToneFactory();
         // Set the dialog title
         builder.setTitle("Pick your sparkleTone")
                 // Specify the list array, the items to be selected by default (null for none),
@@ -34,9 +34,10 @@ public class SparkleListDialog extends ListDialog {
 
                 .setSingleChoiceItems(sparkles,idx, new DialogInterface.OnClickListener() {
 
+
                     @Override
                     public void onClick(DialogInterface dialog, int pos) {
-                        if (factory.isPlaying()) {
+                        if (factory.isCreated() && factory.isPlaying()) {
                             factory.pause();
                         }
                         savePos = pos;
@@ -57,16 +58,20 @@ public class SparkleListDialog extends ListDialog {
                         } else if (getTag().equals("departSparkleList")) {
                             SOFirebaseSettings.child("departureSound").setValue(savePos);
                         }
-
-                        factory.destroy();
+                        if (factory.isCreated()) {
+                            factory.destroy();
+                        }
                     }
                 })
 
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int id) {}
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (factory.isCreated()) {
+                            factory.destroy();
+                        }
+                    }
                 });
-
         return builder.create();
     }
 }

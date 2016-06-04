@@ -70,6 +70,7 @@ public class FirebaseService extends Service {
                         if(locFB.getHere().equals("true")) {
                             int sound = locFB.getArrivalSound();
                             int vibration = locFB.getArrivalVibration();
+                            s.sparkle(Constants.SparkleToneName.ARRIVAL, getApplicationContext());
                             v.vibeTone(Constants.VibeToneName.DEFAULT_ARRIVAL);
                             s.sparkle(Constants.SparkleToneName.ARRIVAL, getApplicationContext());
                             try {
@@ -79,7 +80,6 @@ public class FirebaseService extends Service {
                             }
                             sendNotification(SOName + " has arrived at " + locFB.getName(), vibration);
                             s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
-
                             SOFaveLocManager.addLocation(locFB);
                         }
                         else if(locFB.getHere().equals("false"))
@@ -87,15 +87,13 @@ public class FirebaseService extends Service {
                             int sound = locFB.getDepartureSound();
                             int vibration = locFB.getDepartureVibration();
 
+                            s.sparkle(Constants.SparkleToneName.DEPART, getApplicationContext());
+                            v.vibeTone(Constants.VibeToneName.DEFAULT_DEPART);
                             try {
-                                Thread.sleep(300);
+                                Thread.sleep(500);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
-
-                            v.vibeTone(Constants.VibeToneName.DEFAULT_DEPART);
-                            s.sparkle(Constants.SparkleToneName.DEPART, getApplicationContext());
-
                             sendNotification(SOName + " has left " + locFB.getName(), vibration);
                             s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                         }
