@@ -65,7 +65,7 @@ public class MapManager implements Constants {
             gpsPos = new LatLng(location.getLatitude(), location.getLongitude());
     }
 
-    public boolean checkValidDrop(ArrayList<FaveLocation> locList, LatLng point) {
+    public boolean checkValidDrop(ArrayList<OurFaveLoc> locList, LatLng point) {
         double dist;
         for (int i = 0; i < locList.size(); i++) {  //Iterate through every element in the saved locList
             //Initialize our GpsUtility object (not important to know what is going on with it)

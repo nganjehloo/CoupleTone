@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.os.Vibrator;
+import android.util.Log;
 
 import com.cse110.team36.coupletones.Managers.FaveLocationManager;
 
@@ -33,10 +34,13 @@ public class VibeToneFactory implements Constants{
 
     public static void setVibeEnable() {
         vibeEnable = !vibeEnable;
+        String str = "  vibeEnable = ";
+        str += Boolean.toString(vibeEnable);
+        Log.i("MAP",str);
     }
 
-    private boolean getVibeEnable() {
-        return this.vibeEnable;
+    public boolean getVibeEnable() {
+        return vibeEnable;
     }
 
     public void vibrate() {v.vibrate(100);}

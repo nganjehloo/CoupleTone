@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Vibrator;
+import android.util.Log;
 
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -24,9 +25,12 @@ public class SparkleToneFactory implements Constants{
 
     public static void setSparkEnable() {
         sparkEnable = !sparkEnable;
+        String str = "  sparkleEnable = ";
+        str += Boolean.toString(sparkEnable);
+        Log.i("MAP",str);
     }
 
-    private static boolean getSparkEnable() {
+    public boolean getSparkEnable() {
         return sparkEnable;
     }
 

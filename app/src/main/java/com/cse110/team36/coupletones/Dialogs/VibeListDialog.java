@@ -53,6 +53,9 @@ public class VibeListDialog extends ListDialog {
                             SOFirebaseSettings.child("arrivalVibration").setValue(savePos);
                         } else if (getTag().equals("departVibeList")) {
                             Log.d("MAP", "VIBE DEPART");
+
+                            SOLocationName = SOFaveLocManager.locList.get(locListPos).getName();
+                            SOFirebaseSettings = new Firebase("https://coupletones36.firebaseio.com/" + SOEmail + "/Locations/" + SOLocationName);
                             SOFirebaseSettings.child("departureVibration").setValue(savePos);
                         }
                     }
