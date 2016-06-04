@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.cse110.team36.coupletones.FaveLocations.FaveLocation;
+import com.cse110.team36.coupletones.FaveLocations.OurFaveLoc;
 import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.LocationFB;
 import com.cse110.team36.coupletones.Dialogs.LocationDialog;
@@ -27,21 +28,21 @@ import java.util.ArrayList;
  */
 
 public class MyCustomAdapter extends BaseAdapter {
-    private ArrayList<FaveLocation> list = new ArrayList<>();
+    private ArrayList<OurFaveLoc> list = new ArrayList<>();
     private Context context;
     private FragmentManager fragmentManager;
     private Activity activity;
 
     public MyCustomAdapter() {}
 
-    public MyCustomAdapter(Activity activity, ArrayList<FaveLocation> list, Context context, FragmentManager fragmentManager) {
+    public MyCustomAdapter(Activity activity, ArrayList<OurFaveLoc> list, Context context, FragmentManager fragmentManager) {
         this.list = list;
         this.context = context;
         this.fragmentManager = fragmentManager;
         this.activity = activity;
     }
 
-    public void setList(ArrayList<FaveLocation> l) {
+    public void setList(ArrayList<OurFaveLoc> l) {
         list = l;
     }
 

@@ -19,6 +19,7 @@ import com.cse110.team36.coupletones.SparkleToneFactory;
 import com.cse110.team36.coupletones.VibeToneFactory;
 import com.cse110.team36.coupletones.maps.MapsActivity;
 import com.cse110.team36.coupletones.R;
+
 import com.cse110.team36.coupletones.lists.SOVisitedActivity;
 
 /**
