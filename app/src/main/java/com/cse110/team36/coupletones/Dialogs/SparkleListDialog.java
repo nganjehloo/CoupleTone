@@ -57,14 +57,18 @@ public class SparkleListDialog extends ListDialog {
                         } else if (getTag().equals("departSparkleList")) {
                             SOFirebaseSettings.child("departureSound").setValue(savePos);
                         }
-                        factory.destroy();
+                        if (factory.isCreated()) {
+                            factory.destroy();
+                        }
                     }
                 })
 
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        factory.destroy();
+                        if (factory.isCreated()) {
+                            factory.destroy();
+                        }
                     }
                 });
         return builder.create();
