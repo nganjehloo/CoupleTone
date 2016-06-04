@@ -8,16 +8,51 @@ import android.preference.PreferenceManager;
 
 import com.firebase.client.Firebase;
 
+import java.util.Date;
+
 public class AlarmReset extends Service {
     public AlarmReset() {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        Firebase firebase = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/Visited");
-        firebase.removeValue();
-        return super.onStartCommand(intent, flags, startId);
+    public void onCreate(){
+        Thread thread = new Thread( new Server());
+        thread.start();
+    }
+
+
+    public class Server implements Runnable{
+
+        Server(){ }
+
+        public void run(){
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            Date currentDate = new Date();
+            int currhours = currentDate.getHours();
+            int currmin = currentDate.getMinutes();
+            int currsecs = currentDate.getSeconds();
+
+            long epoch = System.currentTimeMillis()/1000;
+            long waitamthr = Math.abs(currhours - 3);
+            long waitamtmin = Math.abs(currmin - 00);
+            long waitamtsec = Math.abs(currsecs - 00);
+            long totalwait = waitamthr * 3600000 + waitamtmin * 60000;
+
+            while(true){
+                synchronized (this) {
+                    try {
+                        System.out.println("WAIT: " + waitamthr + ":" + waitamtmin);
+                        System.out.println("TOTALWAIT: " + totalwait);
+                        wait(totalwait);
+                        totalwait = 86400000;
+                        Firebase firebase = new Firebase("https://coupletones36.firebaseio.com/" + sharedPreferences.getString("MYEMAIL", null) + "/Visited");
+                        firebase.removeValue();
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        }
     }
 
     @Override

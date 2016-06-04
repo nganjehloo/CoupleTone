@@ -113,7 +113,7 @@ public class FirebaseService extends Service {
                     FBreg fBreg = dataSnapshot.getValue(FBreg.class);
                     String SOEmail = fBreg.getID();
                     if(fBreg.getRelationshipStatus()) {
-                        sharedPreferences.edit().putString("SOEMAIL", SOEmail).apply();
+                        sendNotification(SOEmail + "Added You",1 );
                     }
                     else
                     {
@@ -126,6 +126,7 @@ public class FirebaseService extends Service {
 
                 }
             });
+
         }
     }
 

@@ -87,6 +87,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         } else {
             Intent intent = new Intent(MapsActivity.this, FirebaseService.class);
             startService(intent);
+            Intent intent2 = new Intent(MapsActivity.this, AlarmReset.class);
+            startService(intent2);
             FireBaseManager fireBaseManager = new FireBaseManager(sharedPreferences);
             fireBaseManager.loadMyLocs();
             setContentView(R.layout.activity_maps);
@@ -106,7 +108,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     protected void onStart() {
         super.onStart();
         Log.i("onStart", "On Start .....");
-        setAlarm();
+        //setAlarm();
         overridePendingTransition(0, 0);
     }
 
@@ -280,15 +282,15 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         finish();
         startActivity(new Intent(MapsActivity.this, HomeScreen.class));
     }
-
+    /*
     public void setAlarm() {
         Calendar cur_cal = new GregorianCalendar();
         cur_cal.setTimeInMillis(System.currentTimeMillis());//set the current time and date for this calendar
 
         Calendar cal = new GregorianCalendar();
 //        cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
-        cal.set(Calendar.HOUR_OF_DAY, 11);
-        cal.set(Calendar.MINUTE, 59);
+        cal.set(Calendar.HOUR_OF_DAY, 3);
+        cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
 //        cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
@@ -306,5 +308,5 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         String str = format1.format(date);
 
         Toast.makeText(getBaseContext(), str, Toast.LENGTH_LONG).show();
-    }
+    }*/
 }
