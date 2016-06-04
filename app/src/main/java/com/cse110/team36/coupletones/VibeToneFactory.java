@@ -87,19 +87,19 @@ public class VibeToneFactory implements Constants{
                 return new long[] {200, 200, 150, 150, 100, 100, 50, 50, 25, 25, 25, 25, 50, 50, 100, 100, 150, 150, 200, 200};
             case(10):
                 // 10: TODO
-                return new long[] {100, 100};
+                return new long[] {100, 100, 200, 200, 150, 150, 100, 100, 50, 50, 25, 25};
             case(11):
                 // 11: TODO
-                return new long[] {100, 100};
+                return new long[] {300, 100, 100, 100, 200, 200, 100, 100};
             case(12):
                 // 12: TODO
-                return new long[] {100, 100};
+                return new long[] {100, 100, 100, 100, 100, 100, 100, 100};
             case(13):
                 // 13: TODO
-                return new long[] {100, 100};
+                return new long[] {300, 300, 300, 300};
             case(14):
                 // 14: TODO
-                return new long[] {100, 100};
+                return new long[] {50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50, 50};
             default:
                 // Just a bzzzt!!
                 return new long[] {100, 100};
