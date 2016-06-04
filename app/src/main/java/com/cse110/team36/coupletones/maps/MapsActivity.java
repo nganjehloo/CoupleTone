@@ -1,6 +1,8 @@
 package com.cse110.team36.coupletones.maps;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.cse110.team36.coupletones.AlarmReset;
 import com.cse110.team36.coupletones.Constants;
 import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.FirebaseService;
@@ -37,6 +40,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 
 public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLongClickListener,
         OnMapReadyCallback,
@@ -50,7 +58,11 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
 
     // SO vars
-    SharedPreferences sharedPreferences;
+
+    private static String SOKey;
+    private static String message;
+    public SharedPreferences sharedPreferences;
+
 
     VibeToneFactory v;
     MarkerManager markerManager;
@@ -86,10 +98,24 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             initializeButtons();
 
         }
+
+
     }
 
     @Override
+<<<<<<< HEAD
+    protected void onStart() {
+        super.onStart();
+        Log.i("onStart", "On Start .....");
+        setAlarm();
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onStop() {
+=======
     public void onStop() {
+>>>>>>> 13c12a7172bc2324824571ba6b97b656ed5ce19d
         super.onStop();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -257,5 +283,32 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     public void runOurList(View view) {
         finish();
         startActivity(new Intent(MapsActivity.this, HomeScreen.class));
+    }
+
+    public void setAlarm() {
+        Calendar cur_cal = new GregorianCalendar();
+        cur_cal.setTimeInMillis(System.currentTimeMillis());//set the current time and date for this calendar
+
+        Calendar cal = new GregorianCalendar();
+//        cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
+        cal.set(Calendar.HOUR_OF_DAY, 19);
+        cal.set(Calendar.MINUTE, 10);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+//        cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
+//        cal.set(Calendar.MONTH, cur_cal.get(Calendar.MONTH));
+        Intent intent = new Intent(MapsActivity.this, AlarmReset.class);
+        PendingIntent pintent = PendingIntent.getService(MapsActivity.this, 0, intent, 0);
+        AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        alarm.setRepeating(AlarmManager.RTC, cal.getTimeInMillis(), 24*60*60*1000, pintent);
+//        String str = cal.toString();
+
+
+        cal.add(Calendar.DATE, 0);
+        Date date = cal.getTime();
+        SimpleDateFormat format1 = new SimpleDateFormat("HH:mm:ss  MM-dd-yyyy");
+        String str = format1.format(date);
+
+        Toast.makeText(getBaseContext(), str, Toast.LENGTH_LONG).show();
     }
 }

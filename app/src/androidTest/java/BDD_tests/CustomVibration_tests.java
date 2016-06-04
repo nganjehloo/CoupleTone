@@ -24,7 +24,7 @@ public class CustomVibration_tests extends ActivityInstrumentationTestCase2<Maps
     public void test_setVibration()
     {
         //create a test firebase user
-        myTestFirebase = new Firebase("https://coupletones36.firebaseio.com/test/");
+        myTestFirebase = new Firebase("https://coupletones36.firebaseio.com/testVibration/Locations");
 
         //Set a listener
         myTestFirebase.addValueEventListener(new ValueEventListener() {
@@ -55,21 +55,20 @@ public class CustomVibration_tests extends ActivityInstrumentationTestCase2<Maps
     private void setVibration()
     {
         //create a test firebase user
-        myTestFirebase = new Firebase("https://coupletones36.firebaseio.com/test/Locations/");
+        myTestFirebase = new Firebase("https://coupletones36.firebaseio.com/testVibration/Locations/");
 
         //create a test location object with default vibration
         LocationFB testLoc = new LocationFB();
-        testLoc.setName("testLoc");
+        testLoc.setName("testLoc2");
         testLoc.setLat(1.0);
         testLoc.setLong(1.0);
 
         //Put test object to our firebase
-        myTestFirebase.setValue(testLoc);
+        myTestFirebase.child(testLoc.getName()).setValue(testLoc);
 
         //Set new vibration to the server
-        myTestFirebase.child("arrivalVibration").setValue(5);
-        myTestFirebase.child("departureVibration").setValue(6);
-
+        myTestFirebase.child(testLoc.getName()).child("arrivalVibration").setValue(5);
+        myTestFirebase.child(testLoc.getName()).child("departureVibration").setValue(6);
     }
 
 }

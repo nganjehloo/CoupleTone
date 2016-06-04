@@ -3,7 +3,9 @@ package BDD_tests;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.cse110.team36.coupletones.FireBase.FireBaseManager;
 import com.cse110.team36.coupletones.FireBase.SOConfig;
+import com.firebase.client.Firebase;
 
 /**
  * Created by stazia on 5/5/16.
@@ -20,8 +22,9 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
     public void test_AddSO(){
         //First TIme adding SO and addSO are now the same
         SOConfig soConfig = getActivity();
-        soConfig.addSO();
-        assertEquals(true, soConfig.sharedPreferences.getBoolean("HAS_SO", false));
+        FireBaseManager fireBaseManager = new FireBaseManager(soConfig.sharedPreferences);
+        fireBaseManager.addSO("testso.com");
+        assertEquals("testso", soConfig.sharedPreferences.getString("SOEMAIL", null));
     }
 
     public void test_AddSOAfterRemoveSO(){
@@ -32,8 +35,9 @@ public class AddActivity_tests extends ActivityInstrumentationTestCase2<SOConfig
 
     public void test_RemoveSO(){
         SOConfig soConfig = getActivity();
-        soConfig.removeSO();
-        assertEquals(false, soConfig.sharedPreferences.getBoolean("HAS_SO", true));
+        FireBaseManager fireBaseManager = new FireBaseManager(soConfig.sharedPreferences);
+        fireBaseManager.removeSO();
+        assertEquals(null, soConfig.sharedPreferences.getString("SOEMAIL", null));
     }
 
     /*
