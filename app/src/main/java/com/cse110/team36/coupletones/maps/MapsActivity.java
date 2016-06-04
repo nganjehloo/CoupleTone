@@ -103,7 +103,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
     }
 
     @Override
-<<<<<<< HEAD
     protected void onStart() {
         super.onStart();
         Log.i("onStart", "On Start .....");
@@ -111,11 +110,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         overridePendingTransition(0, 0);
     }
 
-    @Override
-    protected void onStop() {
-=======
     public void onStop() {
->>>>>>> 13c12a7172bc2324824571ba6b97b656ed5ce19d
         super.onStop();
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
