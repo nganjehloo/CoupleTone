@@ -31,8 +31,8 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
     public void test_firstLocationSave() {
         mapsActivity = getActivity();
         FaveLocationManager.emptyLocs();
-        mapsActivity.onMapLongClick(testPoints[0]);
-        assertNotNull(mapsActivity.mapManager.getLocationDialog());
+        //mapsActivity.onMapLongClick(testPoints[0]);
+        //assertNotNull(mapsActivity.mapManager.getLocationDialog());
         FaveLocationManager.addLocation("loc0", testPoints[0]);
 
         assertEquals(FaveLocationManager.locList.get(0).getCoords(), testPoints[0]);
@@ -43,8 +43,8 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
     public void test_tooCloseNoAdd() {
         mapsActivity = getActivity();
         FaveLocationManager.emptyLocs();
-        mapsActivity.onMapLongClick(testPoints[0]);
-        mapsActivity.onMapLongClick(testPoints[1]);
+        /*mapsActivity.onMapLongClick(testPoints[0]);
+        mapsActivity.onMapLongClick(testPoints[1]);*/
 
         FaveLocationManager.addLocation(Integer.toString(R.string.loc0), testPoints[0]);
         FaveLocationManager.addLocation(Integer.toString(R.string.loc1), testPoints[1]);
@@ -59,8 +59,8 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
     public void test_commonSaveLoc() {
         mapsActivity = getActivity();
         FaveLocationManager.emptyLocs();
-        mapsActivity.onMapLongClick(testPoints[0]);
-        mapsActivity.onMapLongClick(testPoints[2]);
+        /*mapsActivity.onMapLongClick(testPoints[0]);
+        mapsActivity.onMapLongClick(testPoints[2]);*/
 
         FaveLocationManager.addLocation("loc0", testPoints[0]);
         FaveLocationManager.addLocation("loc1", testPoints[2]);
@@ -75,8 +75,8 @@ public class MapsActivity_tests extends ActivityInstrumentationTestCase2<MapsAct
     public void test_reAddDeleted() {
         mapsActivity = getActivity();
         FaveLocationManager.emptyLocs();
-        mapsActivity.onMapLongClick(testPoints[0]);
-        mapsActivity.onMapLongClick(testPoints[3]);
+        /*mapsActivity.onMapLongClick(testPoints[0]);
+        mapsActivity.onMapLongClick(testPoints[3]);*/
 
         FaveLocationManager.addLocation("loc0", testPoints[0]);
         FaveLocationManager.addLocation("loc3", testPoints[3]);
