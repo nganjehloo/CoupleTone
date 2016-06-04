@@ -58,9 +58,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
 
     // SO vars
-
-    private static String SOKey;
-    private static String message;
     public SharedPreferences sharedPreferences;
 
 
@@ -69,7 +66,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
     LocationManager locationManager;
     LocationChangeListener locationChangeListener;
-//    LocationChangeListener locationListener = new LocationChangeListener(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +92,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
             mapFragment.getMapAsync(this);
 
             initializeButtons();
-
         }
-
-
     }
 
     @Override
@@ -129,18 +122,6 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         //fileManager.exportSavedFavLocs();
         overridePendingTransition(0, 0);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        locationManager.removeUpdates(locationChangeListener);
     }
 
     /**
