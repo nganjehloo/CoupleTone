@@ -69,7 +69,6 @@ public class CustomVibration_tests extends ActivityInstrumentationTestCase2<Maps
         //Set new vibration to the server
         myTestFirebase.child(testLoc.getName()).child("arrivalVibration").setValue(5);
         myTestFirebase.child(testLoc.getName()).child("departureVibration").setValue(6);
-
     }
 
 }

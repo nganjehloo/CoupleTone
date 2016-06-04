@@ -72,7 +72,6 @@ public class FirebaseService extends Service {
                             int vibration = locFB.getArrivalVibration();
                             v.vibeTone(Constants.VibeToneName.DEFAULT_ARRIVAL);
                             s.sparkle(Constants.SparkleToneName.ARRIVAL, getApplicationContext());
-
                             sendNotification(SOName + " has arrived at " + locFB.getName(), vibration);
                             s.sparkle(Constants.SparkleToneName.values()[sound], getApplicationContext());
                             SOFaveLocManager.addLocation(locFB);
