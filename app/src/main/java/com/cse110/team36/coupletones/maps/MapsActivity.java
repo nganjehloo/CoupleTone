@@ -287,8 +287,8 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
 
         Calendar cal = new GregorianCalendar();
 //        cal.add(Calendar.DAY_OF_YEAR, cur_cal.get(Calendar.DAY_OF_YEAR));
-        cal.set(Calendar.HOUR_OF_DAY, 19);
-        cal.set(Calendar.MINUTE, 10);
+        cal.set(Calendar.HOUR_OF_DAY, 11);
+        cal.set(Calendar.MINUTE, 59);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
 //        cal.set(Calendar.DATE, cur_cal.get(Calendar.DATE));
@@ -296,7 +296,7 @@ public class MapsActivity extends FragmentActivity implements GoogleMap.OnMapLon
         Intent intent = new Intent(MapsActivity.this, AlarmReset.class);
         PendingIntent pintent = PendingIntent.getService(MapsActivity.this, 0, intent, 0);
         AlarmManager alarm = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarm.setRepeating(AlarmManager.RTC, cal.getTimeInMillis(), 24*60*60*1000, pintent);
+        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), 24*60*60*1000, pintent);
 //        String str = cal.toString();
 
 
