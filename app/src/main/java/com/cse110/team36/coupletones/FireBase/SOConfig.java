@@ -43,8 +43,8 @@ public class SOConfig extends AppCompatActivity {
         //Check if SO is already added
         if(sharedPreferences.getString("SOEMAIL", "null").equals("null"))
         {
-            sharedPreferences.edit().putBoolean("isAdded", true).apply();
-            mBaeCode.setText(sharedPreferences.getString("SOEMAIL", "bae") + ".com");
+            sharedPreferences.edit().putBoolean("isAdded", false).apply();
+            //mBaeCode.setText(sharedPreferences.getString("SOEMAIL", "bae") + ".com");
         }
         else
         {
@@ -52,16 +52,17 @@ public class SOConfig extends AppCompatActivity {
         }
 
         //set button and edit text fields
-        if(!sharedPreferences.getBoolean("isAdded", false))
+        if(sharedPreferences.getBoolean("isAdded", true))
         {
-            enableAddFields();
+            Log.d("isAdded", "added");
+            disableAddFields();
         }
         else
         {
-            disableAddFields();
+            Log.d("notAdded", "not added");
+            enableAddFields();
         }
 
-        enableAddFields();
     }
 
 
@@ -96,9 +97,9 @@ public class SOConfig extends AppCompatActivity {
         FireBaseManager fb = new FireBaseManager(sharedPreferences);
         fb.removeSO();
         enableAddFields();
+        sharedPreferences.edit().putString("SOEMAIL", null).apply();
         sharedPreferences.edit().putBoolean("isAdded", false).apply();
         Toast.makeText(getBaseContext(), "Removed SO", Toast.LENGTH_SHORT).show();
-
     }
 
 
