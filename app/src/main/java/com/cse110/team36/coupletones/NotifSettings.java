@@ -1,18 +1,13 @@
 package com.cse110.team36.coupletones;
 
-import android.content.SharedPreferences;
-import android.os.Bundle;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import com.cse110.team36.coupletones.Dialogs.SparkleListDialog;
 import com.cse110.team36.coupletones.Dialogs.VibeListDialog;
@@ -48,7 +43,6 @@ public class NotifSettings extends AppCompatActivity {
         setContentView(R.layout.activity_notif_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        vibeToneFactory = new VibeToneFactory(this);
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -62,7 +56,6 @@ public class NotifSettings extends AppCompatActivity {
     }
 
     public void selectArrivalSound(View view) {
-        //vibeToneFactory.vibeTone(Constants.VibeToneName.FUNKYTOWN);
         final SparkleListDialog listDialog = new SparkleListDialog();
         listDialog.setContext(getBaseContext());
 
@@ -102,7 +95,6 @@ public class NotifSettings extends AppCompatActivity {
     }
 
     public void selectDepartSound(View view) {
-        //vibeToneFactory.vibeTone(Constants.VibeToneName.FUNKYTOWN);
         final SparkleListDialog listDialog = new SparkleListDialog();
         listDialog.setContext(getBaseContext());
 
