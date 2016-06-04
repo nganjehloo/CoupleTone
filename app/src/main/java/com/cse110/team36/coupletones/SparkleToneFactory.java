@@ -19,6 +19,7 @@ public class SparkleToneFactory implements Constants{
                     R.raw.racecar, R.raw.jingle, R.raw.kimmunicator};
     MediaPlayer p;
     private static boolean sparkEnable = true;
+    private boolean created = false;
 
     public SparkleToneFactory(){}
 
@@ -32,12 +33,25 @@ public class SparkleToneFactory implements Constants{
 
     public void sparkle(SparkleToneName name, Context myContext) {
         if (getSparkEnable()) {
+            created = true;
             p = MediaPlayer.create(myContext, sounds[name.ordinal()]);
             p.start();
         }
     }
 
+    public boolean isCreated() {
+        return created;
+    }
+
     public boolean isPlaying() {
         return p.isPlaying();
+    }
+
+    public void pause() {
+        p.pause();
+    }
+
+    public void destroy() {
+        p.release();
     }
 }
