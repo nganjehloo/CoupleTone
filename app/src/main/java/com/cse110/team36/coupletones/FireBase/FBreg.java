@@ -7,7 +7,7 @@ public class FBreg {
     private String SO_ID;
     private Boolean relationshipStatus;
 
-    FBreg(){
+    public FBreg(){
         relationshipStatus = false;
         SO_ID = "NOID";
     }

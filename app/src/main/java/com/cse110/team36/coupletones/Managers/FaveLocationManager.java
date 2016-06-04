@@ -34,7 +34,7 @@ public class FaveLocationManager {
 
     public static boolean removeLocation(String name) {
         for (int i = 0; i < locList.size(); i++) {
-            FaveLocation faveLocation = locList.get(i);
+            OurFaveLoc faveLocation = locList.get(i);
             if (faveLocation.getName().equals(name)) {
                 locList.remove(i);
                 return true;
